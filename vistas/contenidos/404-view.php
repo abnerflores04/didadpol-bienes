@@ -1,4 +1,4 @@
-<div class="full-box container-404">
+<div class="hold-transition login-page">
     <div>
         <p class="text-center"><i class="fas fa-rocket fa-10x"></i></p>
         <h1 class="text-center">ERROR 404</h1>

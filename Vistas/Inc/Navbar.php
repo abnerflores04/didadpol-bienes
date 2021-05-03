@@ -20,13 +20,13 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" role="button">
+                    <a class="nav-link" href="#" >
                         <i class="fas fa-id-badge"></i>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#" role="button">
+                    <a class="nav-link btn-exit-system" href="#" >
                         <i class="fas fa-sign-out-alt"></i>
                     </a>
                 </li>
