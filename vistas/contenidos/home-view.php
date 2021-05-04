@@ -25,11 +25,11 @@
                  <div class="row">
                      <div class="col-lg-3 col-6">
                          <!-- small box -->
-                         <div class="small-box bg-warning">
+                         <div class="small-box bg-success">
                              <div class="inner">
                                  <h3>44</h3>
 
-                                 <p>User Registrations</p>
+                                 <p >Usuarios Registrados</p>
                              </div>
                              <div class="icon">
                                  <i class="ion ion-person-add"></i>
@@ -44,10 +44,11 @@
                              <div class="inner">
                                  <h3>150</h3>
 
-                                 <p>New Orders</p>
+                                 <p>Giras</p>
                              </div>
                              <div class="icon">
-                                 <i class="ion ion-bag"></i>
+                             
+                             <i class="fas fa-car-side"></i>
                              </div>
                              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                          </div>
@@ -55,7 +56,7 @@
                      <!-- ./col -->
                      <div class="col-lg-3 col-6">
                          <!-- small box -->
-                         <div class="small-box bg-success">
+                         <div class="small-box bg-warning">
                              <div class="inner">
                                  <h3>53<sup style="font-size: 20px">%</sup></h3>
 
@@ -86,21 +87,12 @@
                      <!-- ./col -->
                  </div>
                  <!-- /.row -->
-                 <!-- Main row -->
-                 <div class="row">
-                     <!-- Left col -->
-
-                     <!-- /.Left col -->
-                     <!-- right col (We are only adding the ID to make the widgets sortable)-->
-
-                     <!-- right col -->
-                 </div>
+                
                  <!-- /.row (main row) -->
              </div><!-- /.container-fluid -->
          </section>
          <!-- /.content -->
-     </div>
-     <!-- /.content-wrapper -->
+      </div>
      <footer class="main-footer">
          <strong>Copyright &copy; 2021 <a href="https://didadpol.gob.hn">DIDADPOL</a>.</strong>
          All rights reserved.

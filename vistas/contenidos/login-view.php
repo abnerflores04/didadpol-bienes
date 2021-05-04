@@ -1,64 +1,54 @@
 <div class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="../../index2.html"><b>Admin</b>LTE</a>
+            <a href="../../index2.html"><b>DIDADPOL </b>BIENES</a>
         </div>
         <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
-                <p class="login-box-msg">Sign in to start your session</p>
+                
 
-                <form action="../../index3.html" method="post">
+                <form action="" method="post">
+                <div class="col-12 ">
+                <div class="col text-center">
+                    <img src="<?php echo SERVERURL;?>vistas/dist/img/User_icono2.png" width="100" height="100" >
+                </div>
+                </div>
+                <p class="login-box-msg">Iniciar sesión</p>
                     <div class="input-group mb-3">
-                        <input type="email" class="form-control" placeholder="Email">
+                        <input type="email" class="form-control" placeholder="Nombre de usuario / Correo" name="usuario">
                         <div class="input-group-append">
                             <div class="input-group-text">
-                                <span class="fas fa-envelope"></span>
+                                <span class="fas fa-user"></span>
                             </div>
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Password">
+                        <input type="password" class="form-control" placeholder="Contraseña" id="contra" name="contra">
                         <div class="input-group-append">
                             <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
+                            <button id="show_password" class="btn btn-xs btn-primary" type="button" onclick="mostrarPassword_login()"><span class="fas fa-eye-slash icon2"></span></button> 
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-8">
-                            <div class="icheck-primary">
-                                <input type="checkbox" id="remember">
-                                <label for="remember">
-                Remember Me
-              </label>
+                    
+                        
+                        <!-- /.col -->
+                        <div class="col-12 forgot">
+                        <div style="float:center;margin:auto;width:195px;">
+                            <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
                             </div>
                         </div>
                         <!-- /.col -->
-                        <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-                        </div>
-                        <!-- /.col -->
-                    </div>
+                    
                 </form>
 
-                <div class="social-auth-links text-center mb-3">
-                    <p>- OR -</p>
-                    <a href="#" class="btn btn-block btn-primary">
-                        <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
-                    </a>
-                    <a href="#" class="btn btn-block btn-danger">
-                        <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-                    </a>
-                </div>
-                <!-- /.social-auth-links -->
-
+                
+<br>
                 <p class="mb-1">
-                    <a href="forgot-password.html">I forgot my password</a>
+                    <a href="forgot-password.html">Olvidé mi contraseña</a>
                 </p>
-                <p class="mb-0">
-                    <a href="register.html" class="text-center">Register a new membership</a>
-                </p>
+                
             </div>
             <!-- /.login-card-body -->
         </div>

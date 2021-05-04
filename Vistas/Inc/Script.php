@@ -16,8 +16,6 @@
 <script src="<?php echo SERVERURL;?>vistas/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo SERVERURL;?>vistas/dist/js/adminlte.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="<?php echo SERVERURL;?>vistas/dist/js/demo.js"></script>
 <!-- DataTables  & Plugins -->
 <script src="<?php echo SERVERURL;?>vistas/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="<?php echo SERVERURL;?>vistas/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -31,3 +29,11 @@
 <script src="<?php echo SERVERURL;?>vistas/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="<?php echo SERVERURL;?>vistas/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="<?php echo SERVERURL;?>vistas/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<script src="<?php echo SERVERURL;?>vistas/dist/js/funciones.js"></script>
+<script src="<?php echo SERVERURL;?>vistas/plugins/jquery/jquery.mask.min.js"></script>
+<script>
+    $(document).ready(function(){
+    $("#celular").mask("0000-0000");
+    
+});
+</script>

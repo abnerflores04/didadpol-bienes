@@ -13,40 +13,36 @@
 
 <body class="hold-transition sidebar-mini">
 	<!-- Site wrapper -->
-<div class="wrapper">
-	<?php
-	$peticionAjax = false;
-	require_once "./controladores/vistasControlador.php";
-	$IV = new vistasControlador();
-	$vistas = $IV->obtener_vistas_controlador();
-	if ($vistas == "login" || $vistas == "404") {
-		require_once "./vistas/contenidos/".$vistas."-view.php";
-	} else {
-		
+	<div class="wrapper">
+		<?php
+		$peticionAjax = false;
+		require_once "./controladores/vistasControlador.php";
+		$IV = new vistasControlador();
+		$vistas = $IV->obtener_vistas_controlador();
+		if ($vistas == "login" || $vistas == "404") {
+			require_once "./vistas/contenidos/" . $vistas . "-view.php";
+		} else {
 
 
-	?>
-		<!-- Main container -->
-		<main class="full-box main-container">
-			<!-- Nav lateral -->
-			<?php include "./vistas/Inc/NavLateral.php" ?>
 
-			<!-- Page content -->
-			<section class="full-box page-content">
-				<?php 
-				include "./vistas/Inc/NavBar.php";
-				include $vistas;
+		?>
 
-				 ?>
-				
-			</section>
-		</main>
-	<?php
-	}
+			<?php include "./vistas/Inc/NavLateral.php";
 
-	include "./vistas/Inc/Script.php"
-	?>
- </div>
+
+
+			include "./vistas/Inc/NavBar.php";
+			include $vistas;
+
+			?>
+
+
+		<?php
+		}
+
+		include "./vistas/Inc/Script.php"
+		?>
+	</div>
 </body>
 
 </html>
