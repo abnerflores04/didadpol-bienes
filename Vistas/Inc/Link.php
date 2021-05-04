@@ -21,4 +21,6 @@
  <link rel="stylesheet" href="<?php echo SERVERURL;?>vistas/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
  <link rel="stylesheet" href="<?php echo SERVERURL;?>vistas/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
  <link rel="stylesheet" href="<?php echo SERVERURL;?>vistas/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+ <link rel="stylesheet" href="<?php echo SERVERURL;?>vistas/plugins/sweetalert2/sweetalert2.min.css">
+ <script src="<?php echo SERVERURL;?>vistas/plugins/sweetalert2/sweetalert2.min.js" ></script>
  

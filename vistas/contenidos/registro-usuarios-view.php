@@ -25,46 +25,53 @@
 
                 <!-- /.card-body -->
                 <div class="card-body">
-                    <form action="" method="post">
+                    <form class="form-neon FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/usuarioAjax.php" method="POST" data-form="save" autocomplete="off">
                         <div class="row">
                             <div class="col-sm-6">
                                 <!-- text input -->
                                 <div class="form-group">
                                     <label>Nombres</label>
-                                    <input type="text" autocomplete="off" style="text-transform:uppercase" class="form-control apellidos" placeholder="" name="nombres" id="nombre">
+                                    <input type="text" autocomplete="off" style="text-transform:uppercase" class="form-control apellidos" placeholder="" name="usu_nombres_reg" id="usu_nombres_reg">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Apellidos</label>
-                                    <input type="text" autocomplete="off" style="text-transform:uppercase" class="form-control nombres" placeholder=" " name="apellidos" id="apellido">
+                                    <input type="text" autocomplete="off" style="text-transform:uppercase" class="form-control nombres" placeholder=" " name="usu_apellidos_reg" id="usu_apellidos_reg">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <!-- text input -->
                                 <div class="form-group">
                                     <label>Nombre de Usuario</label>
-                                    <input type="text" autocomplete="off" style="text-transform:uppercase" class="form-control nombres" placeholder=" " name="usuario" id="usum">
+                                    <input type="text" autocomplete="off" style="text-transform:lowercase" class="form-control nombres" placeholder=" " name="usu_usuario_reg" id="usu_usuario_reg">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Celular</label>
-                                    <input type="text" autocomplete="off" class="form-control" placeholder=" " name="celular" id="celular">
+                                    <input type="text" autocomplete="off" class="form-control" placeholder=" " name="usu_celular_reg" id="usu_celular_reg">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Rol</label>
-                                    <select class="form-control" name="rol" id="rol">
-                                        <option value="0">Seleccione rol:</option>
+                                    <select class="form-control" name="usu_rol_reg" id="usu_rol_reg">
+                                        <option value="" selected="" >Seleccione rol:</option>
+                                        <?php
+                                        require_once './modelos/conectar.php';
+                                        $resultado = $conexion->query("SELECT * FROM tbl_rol");
+                                        while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
+                                            echo '<option value="' . $registro["rol_id"] . '">' . $registro["rol_nombre"] . '</option>';
+                                        }
+                                        ?>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Correo</label>
-                                    <input type="email" style="text-transform:lowercase" autocomplete="off" class="form-control correo" placeholder="" name="correo" id="correo">
+                                    <input type="email" style="text-transform:lowercase" autocomplete="off" class="form-control correo" placeholder="" name="usu_correo_reg" id="usu_correo_reg">
                                 </div>
                             </div>
 
