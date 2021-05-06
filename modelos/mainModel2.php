@@ -1,17 +1,10 @@
 <?php
-require '../PHPMailer/Exception.php';
-require '../PHPMailer/PHPMailer.php';
-require '../PHPMailer/SMTP.php';
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
 if ($peticionAjax) {
     require_once "../config/SERVER.php";
 } else {
     require_once "./config/SERVER.php";
 }
-class mainModel
+class mainModel2
 {
     /* Funcion para conectar a BD*/
     protected static function conectar()
@@ -107,29 +100,6 @@ class mainModel
             return true;
         }
     }
-    /*Funcion para enviar correo*/
-    protected static function enviar_correo($msj, $nombres, $apellidos, $correo)
-    {
-        $nombreCompleto = $nombres . " " . $apellidos;
-        // La creación de instancias y pasar `true` permite excepciones
-        $mail = new PHPMailer(true);
-        $mail->SMTPDebug = 0;                       // Habilitar salida de depuración detallada
-        $mail->CharSet = 'UTF-8';
-        $mail->isSMTP();                                            // Enviar usando SMTP
-        $mail->Host       = 'smtp.gmail.com';                    // Configure el servidor SMTP para enviar a través de
-        $mail->SMTPAuth   = true;                                   // Habilitar autenticación SMTP
-        $mail->Username   = 'didadpol@gmail.com';                     // SMTP usuario
-        $mail->Password   = 'Power%2021';                               // SMTP contraseña
-        $mail->SMTPSecure = 'tsl';         // Habilitar el cifrado TLS; `PHPMailer :: ENCRYPTION_SMTPS` también aceptado
-        $mail->Port       = 587;                                    // Puerto TCP para conectarse
-
-        //Destinatarios
-        $mail->setFrom('didadpol@gmail.com', 'DIDADPOL');    //desde donde se va enviar
-        $mail->addAddress($correo, $nombreCompleto);     // Agregar un destinatario
-
-        $mail->isHTML(true);                                  // Establecer formato de correo electrónico a HTML
-        $mail->Subject = 'DIDADPOL';
-        $mail->Body    = $msj;
-        return $mail->send();
-    }
+     
+    
 }

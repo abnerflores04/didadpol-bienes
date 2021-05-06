@@ -19,7 +19,7 @@
 		require_once "./controladores/vistasControlador.php";
 		$IV = new vistasControlador();
 		$vistas = $IV->obtener_vistas_controlador();
-		if ($vistas == "login" || $vistas == "404") {
+		if ($vistas == "login" || $vistas == "404" || $vistas == "cambio-contrasena") {
 			require_once "./vistas/contenidos/" . $vistas . "-view.php";
 		} else {
 

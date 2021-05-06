@@ -11,6 +11,8 @@
                 }
             }elseif ($vistas=="login" || $vistas=="index") {
                 $contenido="login";
+            }elseif ($vistas=="cambio-contrasena") {
+                $contenido="cambio-contrasena";
             }else{
                 $contenido="404";
             }

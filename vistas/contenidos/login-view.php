@@ -16,7 +16,7 @@
                 </div>
                 <p class="login-box-msg">Iniciar sesión</p>
                     <div class="input-group mb-3">
-                        <input type="email" class="form-control" placeholder="Nombre de usuario / Correo" name="usuario">
+                        <input type="email" class="form-control" placeholder="Nombre de usuario" name="usuario_log">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
@@ -24,7 +24,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Contraseña" id="contra" name="contra">
+                        <input type="password" class="form-control" placeholder="Contraseña" id="contra" name="clave_log">
                         <div class="input-group-append">
                             <div class="input-group-text">
                             <button id="show_password" class="btn btn-xs btn-primary" type="button" onclick="mostrarPassword_login()"><span class="fas fa-eye-slash icon2"></span></button> 

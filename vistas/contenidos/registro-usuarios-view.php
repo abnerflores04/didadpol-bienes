@@ -22,28 +22,29 @@
     <section class="content">
         <div class="container-fluid">
             <div class="card card-primary card-outline">
-
+           
                 <!-- /.card-body -->
                 <div class="card-body">
-                    <form class="form-neon FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/usuarioAjax.php" method="POST" data-form="save" autocomplete="off">
+                <p class="text-danger ">Campos obligatorios *</p>
+                    <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/usuarioAjax.php" method="POST" data-form="save" autocomplete="off">
                         <div class="row">
                             <div class="col-sm-6">
                                 <!-- text input -->
                                 <div class="form-group">
-                                    <label>Nombres</label>
+                                    <label>Nombres <span class="text-danger">*</span></label>
                                     <input type="text" autocomplete="off" style="text-transform:uppercase" class="form-control apellidos" placeholder="" name="usu_nombres_reg" id="usu_nombres_reg">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Apellidos</label>
+                                    <label>Apellidos<span class="text-danger">*</span></label>
                                     <input type="text" autocomplete="off" style="text-transform:uppercase" class="form-control nombres" placeholder=" " name="usu_apellidos_reg" id="usu_apellidos_reg">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <!-- text input -->
                                 <div class="form-group">
-                                    <label>Nombre de Usuario</label>
+                                    <label>Nombre de usuario <span class="text-danger">*</span></label>
                                     <input type="text" autocomplete="off" style="text-transform:lowercase" class="form-control nombres" placeholder=" " name="usu_usuario_reg" id="usu_usuario_reg">
                                 </div>
                             </div>
@@ -55,7 +56,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Rol</label>
+                                    <label>Rol <span class="text-danger">*</span></label>
                                     <select class="form-control" name="usu_rol_reg" id="usu_rol_reg">
                                         <option value="" selected="" >Seleccione rol:</option>
                                         <?php
@@ -70,7 +71,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Correo</label>
+                                    <label>Correo pesonal <span class="text-danger">*</span></label>
                                     <input type="email" style="text-transform:lowercase" autocomplete="off" class="form-control correo" placeholder="" name="usu_correo_reg" id="usu_correo_reg">
                                 </div>
                             </div>
