@@ -19,7 +19,7 @@ if (isset($_POST['usu_usuario_reg'])){
     }*/
     
 } else {
-    session_start(['name'=>"DB"]);
+@session_start();
     session_unset();
     session_destroy();
     header("location:".SERVERURL."login/");

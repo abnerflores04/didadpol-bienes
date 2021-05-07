@@ -1,9 +1,9 @@
 <?php
-require_once "mainModel.php";
-class loginModelo extends mainModel{
+require_once "mainModel2.php";
+class loginModelo extends mainModel2{
     /*Modelo para iniciar sesion */
     public static function iniciar_sesion_modelo($datos){
-        $sql=mainModel::conectar()->prepare("SELECT * FROM usuario WHERE usuario_usuario=:usuario AND usuario_clave=:clave AND usuario_estado='Activa'");
+        $sql=mainModel2::conectar()->prepare("SELECT * FROM tbl_usuario WHERE usu_usuario=:usuario AND usu_password=:clave");
         $sql->bindParam(":usuario",$datos['usuario']);
         $sql->bindParam(":clave",$datos['clave']);
         $sql->execute();

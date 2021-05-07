@@ -1,3 +1,10 @@
+<?php
+if (isset($_POST['usuario_log']) || isset($_POST['usuario_log'])) {
+    require_once "./controladores/loginControlador.php";
+    $ins_login = new loginControlador();
+    echo $ins_login->iniciar_sesion_controlador();
+}
+?>
 <div class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
@@ -6,17 +13,10 @@
         <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
-                
-
-                <form action="" method="post">
-                <div class="col-12 ">
-                <div class="col text-center">
-                    <img src="<?php echo SERVERURL;?>vistas/dist/img/User_icono2.png" width="100" height="100" >
-                </div>
-                </div>
+                <form action="" method="POST">
                 <p class="login-box-msg">Iniciar sesión</p>
                     <div class="input-group mb-3">
-                        <input type="email" class="form-control" placeholder="Nombre de usuario" name="usuario_log">
+                        <input type="text" class="form-control" placeholder="Nombre de usuario" name="usuario_log">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
@@ -25,14 +25,7 @@
                     </div>
                     <div class="input-group mb-3">
                         <input type="password" class="form-control" placeholder="Contraseña" id="contra" name="clave_log">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                            <button id="show_password" class="btn btn-xs btn-primary" type="button" onclick="mostrarPassword_login()"><span class="fas fa-eye-slash icon2"></span></button> 
-                            </div>
-                        </div>
                     </div>
-                    
-                        
                         <!-- /.col -->
                         <div class="col-12 forgot">
                         <div style="float:center;margin:auto;width:195px;">
@@ -41,20 +34,14 @@
                         </div>
                         <!-- /.col -->
                     
-                </form>
-
-                
+                </form>           
 <br>
                 <p class="mb-1">
                     <a href="forgot-password.html">Olvidé mi contraseña</a>
                 </p>
-                
             </div>
             <!-- /.login-card-body -->
         </div>
     </div>
     <!-- /.login-box -->
-
-
 </div>
-<!-- login class -->
