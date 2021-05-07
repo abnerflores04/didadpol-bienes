@@ -15,8 +15,8 @@ class loginControlador extends loginModelo
         if ($usuario == "" || $clave == "") {
             echo '<script>
             Swal.fire({
-                title: "Ocurrio un error inesperado",
-                text: "No se han llenado todos los datos requeridos",
+                title: "OCURRIÓ UN ERROR INESPERADO",
+                text: "CAMPOS VACÍOS, USUARIO Y/O CONTRASEÑA ",
                 type: "error",
                 confirmButtonText:"Aceptar"
               });
@@ -24,22 +24,22 @@ class loginControlador extends loginModelo
             exit();
         }
         /* verificando integridad de los datos */
-        if (mainModel2::verificar_datos("[a-zA-Z0-9]{5,15}", $usuario)) {
+        if (mainModel2::verificar_datos("[a-zA-Z]{5,20}", $usuario)) {
             echo '<script>
             Swal.fire({
-                title: "Ocurrio un error inesperado",
-                text: "El nombre de usuario no coincide con el formato solicitado",
+                title: "OCURRIÓ UN ERROR INESPERADO",
+                text: "EL CAMPO USUARIO SOLO DEBE INCLUIR LETRAS Y DEBE TENER UN MÍNIMO DE 5 LETRAS",
                 type: "error",
                 confirmButtonText:"Aceptar"
               });
             </script>';
             exit();
         }
-        if (mainModel2::verificar_datos("[a-zA-Z0-9]{7,20}", $clave)) {
+        if (mainModel2::verificar_datos("[a-zA-Z0-9@%$._*-·!#^]{7,20}", $clave)) {
             echo '<script>
             Swal.fire({
-                title: "Ocurrio un error inesperado",
-                text: "La clave no coincide con el formato solicitado",
+                title: "OCURRIÓ UN ERROR INESPERADO",
+                text: "EL CAMPO CONTRASEÑA SOLO PERMITE ESTOS CARACTERES ESPECIALES @ % $ - . _* · ! # ^ ",
                 type: "error",
                 confirmButtonText:"Aceptar"
               });
@@ -55,19 +55,26 @@ class loginControlador extends loginModelo
         $datos_cuenta = loginModelo::iniciar_sesion_modelo($datos_login);
         if ($datos_cuenta->rowCount() == 1) {
             $row = $datos_cuenta->fetch();
-session_start();
+            session_start();
             $_SESSION['id_spm'] = $row['usu_id'];
             $_SESSION['nombre_spm'] = $row['usu_nombre'];
             $_SESSION['apellido_spm'] = $row['usu_apellido'];
             $_SESSION['usuario_spm'] = $row['usu_usuario'];
             $_SESSION['estado_spm'] = $row['usu_estado'];
             $_SESSION['token_spm'] = md5(uniqid(mt_rand(), true));
-return header("Location:".SERVERURL."home/");
+            if ( $_SESSION['estado_spm']=='ACTIVO') {
+                return header("Location:" . SERVERURL . "home/");
+            }elseif ($_SESSION['estado_spm']=='NUEVO') {
+                return header("Location:" . SERVERURL . "cambio-contrasena/");
+            }else {
+                return header("Location:" . SERVERURL . "login/");
+            }
+            
         } else {
             echo '<script>
             Swal.fire({
-                title: "Ocurrio un error inesperado",
-                text: "El usuario o contraseña son incorrectas",
+                title: "OCURRIÓ UN ERROR INESPERADO",
+                text: "USUARIO Y/O CONTRASEÑA INCORRECTAS",
                 type: "error",
                 confirmButtonText:"Aceptar"
               });  
@@ -102,11 +109,10 @@ return header("Location:".SERVERURL."home/");
         } else {
             $alerta = [
                 "Alerta" => "simple",
-                "Titulo" => "Ocurrio un error inesperado",
-                "Texto" => "No se pudo cerrar la sesion en el sistema",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE PUDO CERRAR LA SESIÓN EN EL SISTEMA",
                 "Tipo" => "error"
             ];
-            
         }
         echo json_encode($alerta);
     } /* Contolador cierre sesion*/

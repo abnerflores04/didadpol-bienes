@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <div class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
@@ -6,53 +9,45 @@
         <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
+                <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/usuarioAjax.php" method="POST" data-form="update" autocomplete="off">
                 
-
-                <form action="" method="post">
-             
-                <p class="login-box-msg">Cambio de Contraseña</p>
-                <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Nombre de usuario" name="usuario_log">
+                    <p class="login-box-msg">Cambio de Contraseña</p>
+                    <div class="alert alert-warning alert-dismissible fade show text-justify" role="alert">
+                        La contraseña debe contener al menos una letra mayúscula, una minúscula, un número y un carácter especial de estos @%$-._*·!#^. con mínimo de 8 y un máximo de 20 caracteres.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <input type="text" class="form-control" name="id_c" value="<?php echo $_SESSION['id_spm']; ?>">
+                    <div class="input-group mb-3">
+                        <input type="password" class="form-control" placeholder="Contraseña" id="contra" name="clave_c">
                         <div class="input-group-append">
                             <div class="input-group-text">
-                                <span class="fas fa-user"></span>
+                                <button  class="btn btn-xs btn-primary" type="button" onclick="mostrarPassword_login()"><span class="fas fa-eye-slash mostrar"></span></button>
                             </div>
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Contraseña" id="cambio_contra" name="clave_log">
+                        <input type="password" class="form-control" placeholder="Confirmar Contraseña" id="conf_contra" name="conf_clave_c">
                         <div class="input-group-append">
                             <div class="input-group-text">
-                            <button id="show_password" class="btn btn-xs btn-primary" type="button" onclick="mostrarPassword_login()"><span class="fas fa-eye-slash icon"></span></button> 
+                                <button  class="btn btn-xs btn-primary" type="button" onclick="mostrarConfPassword_login()"><span class="fas fa-eye-slash confmostrar"></span></button>
                             </div>
                         </div>
                     </div>
-                    <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Confirmar Contraseña" id="conf_contra" name="clave_log">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                            <button id="show_password" class="btn btn-xs btn-primary" type="button" onclick="mostrarPassword_login()"><span class="fas fa-eye-slash icon3"></span></button> 
-                            </div>
-                        </div>
-                    </div>
-                    
-                        
-                        <!-- /.col -->
-                        <div class="col-12 forgot">
+                    <!-- /.col -->
+                    <div class="col-12 forgot">
                         <div style="float:center;margin:auto;width:195px;">
-                            <button type="submit" class="btn btn-primary btn-block">Reestablecer Contraseña</button>
-                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Cambiar Contraseña</button>
                         </div>
-                        <!-- /.col -->
-                    
+                    </div>
+                    <!-- /.col -->
                 </form>
-
-                
-<br>
+                <br>
                 <p class="mb-1">
-                    <a href="<?php echo SERVERURL;?>login/">Login</a>
+                    <a href="<?php echo SERVERURL; ?>login/">Login</a>
                 </p>
-                
+
             </div>
             <!-- /.login-card-body -->
         </div>

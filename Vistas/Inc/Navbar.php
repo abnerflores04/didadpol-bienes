@@ -21,8 +21,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" >
-                        <i class="fas fa-id-badge"></i>
+                    <a class="nav-link" href="<?php echo SERVERURL.'actualizar-usuario/'.$lc->encryption($_SESSION['id_spm']);?>" >
+                    <i class="fas fa-user-cog"></i>
                     </a>
                 </li>
 

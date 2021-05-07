@@ -14,7 +14,12 @@ if (isset($_POST['usuario_log']) || isset($_POST['usuario_log'])) {
         <div class="card">
             <div class="card-body login-card-body">
                 <form action="" method="POST">
-                <p class="login-box-msg">Iniciar sesión</p>
+                    <div class="col-sm-12">
+                        <div class="col text-center">
+                            <img src=" <?php echo SERVERURL . '/vistas/dist/img/User_icono2.png'; ?>" width="100" height="100" />
+                        </div>
+                    </div>
+                    <p class="login-box-msg">Inicia sesión</p>
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="Nombre de usuario" name="usuario_log">
                         <div class="input-group-append">
@@ -25,17 +30,22 @@ if (isset($_POST['usuario_log']) || isset($_POST['usuario_log'])) {
                     </div>
                     <div class="input-group mb-3">
                         <input type="password" class="form-control" placeholder="Contraseña" id="contra" name="clave_log">
-                    </div>
-                        <!-- /.col -->
-                        <div class="col-12 forgot">
-                        <div style="float:center;margin:auto;width:195px;">
-                            <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                            <button id="show_password" class="btn btn-xs btn-primary" type="button" onclick="mostrarPassword_login()"><span class="fas fa-eye-slash mostrar"></span></button> 
                             </div>
                         </div>
-                        <!-- /.col -->
-                    
-                </form>           
-<br>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-12 forgot">
+                        <div style="float:center;margin:auto;width:195px;">
+                            <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+
+                </form>
+                <br>
                 <p class="mb-1">
                     <a href="forgot-password.html">Olvidé mi contraseña</a>
                 </p>
