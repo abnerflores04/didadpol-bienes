@@ -1,7 +1,7 @@
 <?php
 $peticionAjax=true;
 require_once "../config/APP.php";
-if (isset($_POST['usu_usuario_reg']) || isset($_POST['clave_c']) || isset($_POST['conf_clave_c'])){
+if (isset($_POST['usu_usuario_reg']) || isset($_POST['clave_c']) || isset($_POST['conf_clave_c']) || isset($_POST['correo_res'])){
     #Instancia al controlador
     require_once "../controladores/usuarioControlador.php";
     $ins_usuario= new usuarioControlador(); 
@@ -12,6 +12,10 @@ if (isset($_POST['usu_usuario_reg']) || isset($_POST['clave_c']) || isset($_POST
     #Para cambiar la contraseña del usuario
     if (isset($_POST['clave_c']) && isset($_POST['conf_clave_c'])){
         echo $ins_usuario->cambiar_contra_usuario_controlador();
+    }
+    #Para restablecer la contraseña del usuario
+    if (isset($_POST['correo_res'])){
+        echo $ins_usuario->restablecer_contra_usuario_controlador();
     }
     /*Para eliminar un usuario
     if (isset($_POST['usuario_id_del'])){

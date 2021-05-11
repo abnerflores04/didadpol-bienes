@@ -1,5 +1,11 @@
 <?php
 session_start();
+require_once "./controladores/loginControlador.php";
+    $lc = new loginControlador();
+if (!isset( $_SESSION['id_spm']) ) {
+    echo $lc->forzar_cierre_sesion_controlador();
+    exit();
+}
 ?>
 <div class="hold-transition login-page">
     <div class="login-box">
@@ -9,16 +15,16 @@ session_start();
         <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
-                <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/usuarioAjax.php" method="POST" data-form="update" autocomplete="off">
+                <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/usuarioAjax.php" method="POST" data-form="update_c" autocomplete="off">
                 
-                    <p class="login-box-msg">Cambio de Contraseña</p>
+                    <p class="login-box-msg">Restablecer Contraseña</p>
                     <div class="alert alert-warning alert-dismissible fade show text-justify" role="alert">
-                        La contraseña debe contener al menos una letra mayúscula, una minúscula, un número y un carácter especial de estos @%$-._*·!#^. con mínimo de 8 y un máximo de 20 caracteres.
+                        La contraseña debe contener al menos una letra mayúscula, una minúscula, un número y un carácter especial de estos $@$!%*?.#-_+ con mínimo de 8 y un máximo de 20 caracteres.
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <input type="text" class="form-control" name="id_c" value="<?php echo $_SESSION['id_spm']; ?>">
+                    <input type="hidden" class="form-control" name="id_c" value="<?php echo $lc->encryption($_SESSION['id_spm']);?>">
                     <div class="input-group mb-3">
                         <input type="password" class="form-control" placeholder="Contraseña" id="contra" name="clave_c">
                         <div class="input-group-append">

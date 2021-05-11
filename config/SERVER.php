@@ -1,6 +1,6 @@
 <?php
     const SERVER="localhost";
-    const DB="didadpol_bienes";
+    const DB="didadpol";
     const USER="root";
     const PASS="";
 

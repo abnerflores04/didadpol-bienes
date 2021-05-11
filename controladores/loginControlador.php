@@ -35,11 +35,11 @@ class loginControlador extends loginModelo
             </script>';
             exit();
         }
-        if (mainModel2::verificar_datos("[a-zA-Z0-9@%$._*-·!#^]{7,20}", $clave)) {
+        if (mainModel2::verificar_datos("[a-zA-Z0-9$@$!%*?.#-_+]{8,20}", $clave)) {
             echo '<script>
             Swal.fire({
                 title: "OCURRIÓ UN ERROR INESPERADO",
-                text: "EL CAMPO CONTRASEÑA SOLO PERMITE ESTOS CARACTERES ESPECIALES @ % $ - . _* · ! # ^ ",
+                text: "EL CAMPO CONTRASEÑA SOLO PERMITE ESTOS CARACTERES ESPECIALES $@$!%*?.#-_+",
                 type: "error",
                 confirmButtonText:"Aceptar"
               });
@@ -65,12 +65,23 @@ class loginControlador extends loginModelo
             if ( $_SESSION['estado_spm']=='ACTIVO') {
                 return header("Location:" . SERVERURL . "home/");
             }elseif ($_SESSION['estado_spm']=='NUEVO') {
-                return header("Location:" . SERVERURL . "cambio-contrasena/");
+                return header("Location:" . SERVERURL . "cambio-contraseña/");
             }else {
-                return header("Location:" . SERVERURL . "login/");
-            }
-            
+                echo '<script>
+            Swal.fire({
+                title: "OCURRIÓ UN ERROR INESPERADO",
+                text: "TU USUARIO HA SIDO BLOQUEADO CONTACTA CON EL ADMINISTRADOR DEL SISTEMA",
+                type: "error",
+                confirmButtonText:"Aceptar"
+              }).then((result) => {
+                if (result.value) {
+                    window.location.href ="'.SERVERURL.'login/";
+                }
+            });
+            </script>';
+            }   
         } else {
+            
             echo '<script>
             Swal.fire({
                 title: "OCURRIÓ UN ERROR INESPERADO",

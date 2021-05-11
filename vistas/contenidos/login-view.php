@@ -21,7 +21,7 @@ if (isset($_POST['usuario_log']) || isset($_POST['usuario_log'])) {
                     </div>
                     <p class="login-box-msg">Inicia sesión</p>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Nombre de usuario" name="usuario_log">
+                        <input type="text" class="form-control" style="text-transform:lowercase" placeholder="Nombre de usuario" name="usuario_log">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
@@ -47,7 +47,7 @@ if (isset($_POST['usuario_log']) || isset($_POST['usuario_log'])) {
                 </form>
                 <br>
                 <p class="mb-1">
-                    <a href="forgot-password.html">Olvidé mi contraseña</a>
+                    <a href="<?php echo SERVERURL;?>restablecer-contraseña-correo/">Olvidé mi contraseña</a>
                 </p>
             </div>
             <!-- /.login-card-body -->

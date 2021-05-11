@@ -16,7 +16,7 @@
 	require_once "./controladores/vistasControlador.php";
 	$IV = new vistasControlador();
 	$vistas = $IV->obtener_vistas_controlador();
-	if ($vistas == "login" || $vistas == "404" || $vistas == "cambio-contrasena") {
+	if ($vistas == "login" || $vistas == "404" || $vistas == "cambio-contraseña"|| $vistas == "restablecer-contraseña-correo"|| $vistas == "restablecer-contraseña" ) {
 		require_once "./vistas/contenidos/" . $vistas . "-view.php";
 	} else {
 		session_start();

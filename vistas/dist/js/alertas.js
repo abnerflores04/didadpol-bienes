@@ -26,6 +26,10 @@ function enviar_formulario_ajax(e) {
         texto_alerta = "SE ELIMINARÁ EL TERMINO DE BÚSQUEDA Y TENDRÁS QUE ESCRIBIR UNO NUEVO";
     } else if (tipo === "loans") {
         texto_alerta = "DESEA REMOVER LOS DATOS SELECCIONADOS PARA PRÉSTAMOS O RESERVACIONES";
+    } else if (tipo === "update_c") {
+        texto_alerta = "LA CONTRASEÑA SERÁN ACTUALIZADA";
+    } else if (tipo === "res_contra") {
+        texto_alerta = "ESTE ES TU CORREO ELECTRÓNICO PARA RESTABLECER CONTRASEÑA";
     } else {
         texto_alerta = "QUIERES REALIZAR LA OPERACIÓN SOLICITADA";
     }
@@ -36,8 +40,8 @@ function enviar_formulario_ajax(e) {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Aceptar',
-        cancelButtonText: 'Cancelar'
+        confirmButtonText: 'ACEPTAR',
+        cancelButtonText: 'CANCELAR'
     }).then((result) => {
         if (result.value) {
             fetch(action, config)
@@ -85,6 +89,18 @@ function alertas_ajax(alerta) {
         });
     } else if (alerta.Alerta === "redireccionar") {
         window.location.href = alerta.URL;
+    } else if (alerta.Alerta === "cambio") {
+        Swal.fire({
+            title: alerta.Titulo,
+            text: alerta.Texto,
+            type: alerta.Tipo,
+            confirmButtonText: 'ACEPTAR'
+        }).then((result) => {
+            if (result.value) {
+                window.location.href = alerta.URL;
+            }
+        });
+
     }
 
 }

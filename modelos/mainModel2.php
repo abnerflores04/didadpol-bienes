@@ -74,6 +74,7 @@ class mainModel2
         $cadena = str_ireplace("::>", "", $cadena);
         $cadena = str_ireplace("||", "", $cadena);
         $cadena = str_ireplace("&", "", $cadena);
+        $cadena = str_ireplace("|", "", $cadena);
         /*elimina barras invertidas*/
         $cadena = stripslashes($cadena);
         $cadena = trim($cadena);

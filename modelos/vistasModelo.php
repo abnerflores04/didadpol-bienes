@@ -11,8 +11,12 @@
                 }
             }elseif ($vistas=="login" || $vistas=="index") {
                 $contenido="login";
-            }elseif ($vistas=="cambio-contrasena") {
-                $contenido="cambio-contrasena";
+            }elseif ($vistas=="cambio-contraseña") {
+                $contenido="cambio-contraseña";
+            }elseif ($vistas=="restablecer-contraseña-correo") {
+                $contenido="restablecer-contraseña-correo";
+            }elseif ($vistas=="restablecer-contraseña") {
+                $contenido="restablecer-contraseña";
             }else{
                 $contenido="404";
             }
