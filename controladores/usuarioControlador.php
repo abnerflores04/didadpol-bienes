@@ -115,12 +115,12 @@ class usuarioControlador extends usuarioModelo
         for ($i = 0; $i < 8; $i++) {
             $pass .= substr($caracteres, rand(0, 64), 1);
         }
-        $message  = "<html><body><p>HOLA, " . $nombres . " " . $apellidos;
-        $message .= " ESTAS SON TUS CREDENCIALES PARA INGRESAR AL SISTEMA DE BIENES DIDADPOL";
-        $message .= "</p><p>USUARIO: " . $usuario;
-        $message .= "</p><p>CORREO: " . $correo_i;
-        $message .= "</p><p>CONTRASEÑA: " . $pass;
-        $message .= "</p><p>INICIE SESIÓN AQUÍ PARA CAMBIAR LA CONTRASEÑA POR DEFECTO " . SERVERURL . "login";
+        $message  = "<html><body><p>Hola, " . $nombres . " " . $apellidos;
+        $message .= " Estas son tus credenciales para ingresar al sistema de BIENES DIDADPOL";
+        $message .= "</p><p>Usuario: " . $usuario;
+        $message .= "</p><p>Correo: " . $correo_i;
+        $message .= "</p><p>Contraseña: " . $pass;
+        $message .= "</p><p>Inicie sesión aquí para cambiar la contraseña por defecto " . SERVERURL . "login";
         $message .= "<p></body></html>";
 
         $res = mainModel::enviar_correo($message, $nombres, $apellidos, $correo_i);
