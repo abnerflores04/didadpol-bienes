@@ -34,7 +34,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="pages/layout/top-nav.html" class="nav-link">
+                                    <a href="<?php echo SERVERURL;?>lista-usuarios/" class="nav-link">
                                         <i class="nav-icon fas fa-list"></i>
                                         <p> Listas de Usuarios</p>
                                     </a>

@@ -236,7 +236,7 @@ class usuarioControlador extends usuarioModelo
     /*controlador para cambiar contraseña usuario */
     public  function restablecer_contra_usuario_controlador()
     {
-        $correo_res =strtolower( mainModel::limpiar_cadena($_POST['correo_res']));
+        $correo_res = strtolower(mainModel::limpiar_cadena($_POST['correo_res']));
         /*comprobar campos vacios*/
         if ($correo_res == "") {
             $alerta = [
@@ -274,9 +274,9 @@ class usuarioControlador extends usuarioModelo
             exit();
         }
         session_start();
-        $_SESSION['id_spm']=$campos['usu_id'];
+        $_SESSION['id_spm'] = $campos['usu_id'];
 
-        $message  = "<html><body><p aling='center'>Restablecimiento contraseña de DIDADPOL | BIENES</p><p>HOLA, " .$campos['usu_nombre']. " " .$campos['usu_apellido']." escuchamos que perdió su contraseña ¡Lo siento por eso!</p><p>¡Pero no te preocupes! Puede utilizar el siguiente enlace para restablecer contraseña:</p><p><a href='" .SERVERURL."restablecer-contraseña/'>Restablecer contraseña</a></p></body></html>";
+        $message  = "<html><body><p aling='center'>Restablecimiento contraseña de DIDADPOL | BIENES</p><p>HOLA, " . $campos['usu_nombre'] . " " . $campos['usu_apellido'] . " escuchamos que perdió su contraseña ¡Lo siento por eso!</p><p>¡Pero no te preocupes! Puede utilizar el siguiente enlace para restablecer contraseña:</p><p><a href='" . SERVERURL . "restablecer-contraseña/'>Restablecer contraseña</a></p></body></html>";
 
         $res = mainModel::enviar_correo($message, $campos['usu_nombre'], $campos['usu_apellido'], $correo_res);
         if (!$res) {
@@ -286,8 +286,7 @@ class usuarioControlador extends usuarioModelo
                 "Texto" => "NO SE ENVIÓ CORREO ELECTRÓNICO",
                 "Tipo" => "error"
             ];
-           
-        }else {
+        } else {
             $alerta = [
                 "Alerta" => "cambio",
                 "Titulo" => "BIEN",

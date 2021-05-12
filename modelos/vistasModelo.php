@@ -2,7 +2,7 @@
     /* Obtener las vistas que se iran mostrando en el index.php*/
     class vistasModelo{
         protected static function obtener_vistas_modelo($vistas){
-            $listaBlanca=["home","registro-usuarios"];
+            $listaBlanca=["home","registro-usuarios","lista-usuarios","ver-informacion-usuario","actualizar-usuario"];
             if (in_array($vistas,$listaBlanca)) {
                 if (is_file("./vistas/contenidos/".$vistas."-view.php")) {
                     $contenido="./vistas/contenidos/".$vistas."-view.php";
