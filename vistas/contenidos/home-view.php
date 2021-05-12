@@ -21,20 +21,27 @@
          <!-- Main content -->
          <section class="content">
              <div class="container-fluid">
+             <?php
+    
+        require_once "./controladores/usuarioControlador2.php";
+        $ins_usuario = new usuarioControlador2();
+        $total_usuarios = $ins_usuario->datos_usuario_controlador("Conteo", 0);
+
+    ?>
                  <!-- Small boxes (Stat box) -->
                  <div class="row">
                      <div class="col-lg-3 col-6">
                          <!-- small box -->
                          <div class="small-box bg-success">
                              <div class="inner">
-                                 <h3>44</h3>
+                                 <h3><?php echo $total_usuarios->rowCount(); ?></h3>
 
                                  <p >Usuarios Registrados</p>
                              </div>
                              <div class="icon">
                                  <i class="ion ion-person-add"></i>
                              </div>
-                             <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                             <a href="<?php echo SERVERURL;?>lista-usuarios/" class="small-box-footer">Mas información <i class="fas fa-arrow-circle-right"></i></a>
                          </div>
                      </div>
                      <!-- ./col -->

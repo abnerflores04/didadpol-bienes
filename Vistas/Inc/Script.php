@@ -35,6 +35,7 @@
 <script>
     $(document).ready(function(){
     $("#usu_celular_reg").mask("0000-0000");
+    $("#usu_celular_up").mask("0000-0000");
     $('#example1').DataTable({
                language: {
                     "processing": "Procesando...",

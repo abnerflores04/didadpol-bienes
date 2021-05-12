@@ -38,34 +38,34 @@ if (!isset($_SESSION['id_spm'])) {
 	?>
                 <!-- /.card-body -->
                 <div class="card-body">
-                <p class="text-danger ">Campos obligatorios *</p>
+               
                     <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/usuarioAjax.php" method="POST" data-form="update" autocomplete="off">
                         <div class="row">
                         <input type="hidden" name="usu_id_up" value="<?php echo $pagina[1]; ?>">
                             <div class="col-sm-6">
                                 <!-- text input -->
                                 <div class="form-group">
-                                    <label>Nombres <span class="text-danger">*</span></label>
-                                    <input type="text" autocomplete="off" style="text-transform:uppercase" class="form-control apellidos" placeholder="" name="usu_nombres_up" id="usu_nombres_up" value="<?php echo $campos['usu_nombre']; ?>">
+                                    <label>Nombres </label>
+                                    <input type="text" autocomplete="off" style="text-transform:uppercase" class="form-control apellidos" placeholder="" name="usu_nombres_up" id="usu_nombres_up" value="<?php echo $campos['usu_nombre']; ?>" readonly>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Apellidos<span class="text-danger">*</span></label>
-                                    <input type="text" autocomplete="off" style="text-transform:uppercase" class="form-control nombres" placeholder=" " name="usu_apellidos_up" id="usu_apellidos_up" value="<?php echo $campos['usu_apellido']; ?>" >
+                                    <label>Apellidos</label>
+                                    <input type="text" autocomplete="off" style="text-transform:uppercase" class="form-control nombres" placeholder=" " name="usu_apellidos_up" id="usu_apellidos_up" value="<?php echo $campos['usu_apellido']; ?>" readonly>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <!-- text input -->
                                 <div class="form-group">
-                                    <label>Nombre de usuario <span class="text-danger">*</span></label>
-                                    <input type="text" autocomplete="off" style="text-transform:lowercase" class="form-control nombres" placeholder=" " name="usu_usuario_up" id="usu_usuario_up" value="<?php echo $campos['usu_usuario']; ?>">
+                                    <label>Nombre de usuario </label>
+                                    <input type="text" autocomplete="off" style="text-transform:lowercase" class="form-control nombres" placeholder=" " name="usu_usuario_up" id="usu_usuario_up" value="<?php echo $campos['usu_usuario']; ?>"readonly>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Rol <span class="text-danger">*</span></label>
-                                    <select class="form-control" name="usu_rol_up" id="usu_rol_up">
+                                    <label>Rol </label>
+                                    <select class="form-control" name="usu_rol_up" id="usu_rol_up" disabled>
                                         <option value="" selected="" >Seleccione rol:</option>
                                         <?php
                                         require_once './modelos/conectar.php';
@@ -84,8 +84,8 @@ if (!isset($_SESSION['id_spm'])) {
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Estado <span class="text-danger">*</span></label>
-                                    <select class="form-control" name="usu_estado_up" id="usu_estado_up">
+                                    <label>Estado </label>
+                                    <select class="form-control" name="usu_estado_up" id="usu_estado_up" disabled>
                                         <option value="" selected="" >Seleccione estado:</option>
                                         <option value="1" 
 										
@@ -127,21 +127,20 @@ if (!isset($_SESSION['id_spm'])) {
                            
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Correo pesonal <span class="text-danger">*</span></label>
-                                    <input type="email" style="text-transform:lowercase" autocomplete="off" class="form-control correo" placeholder="" name="usu_correo_up" id="usu_correo_up" value="<?php echo $campos['usu_correo_p']; ?>">
+                                    <label>Correo pesonal </label>
+                                    <input type="email" style="text-transform:lowercase" autocomplete="off" class="form-control correo" placeholder="" name="usu_correo_up" id="usu_correo_up" value="<?php echo $campos['usu_correo_p']; ?>" readonly>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Celular</label>
-                                    <input type="text" autocomplete="off" class="form-control" placeholder=" " name="usu_celular_up" id="usu_celular_up" value="<?php echo $campos['usu_celular']; ?>">
+                                    <input type="text" autocomplete="off" class="form-control" placeholder=" " name="usu_celular_up" id="usu_celular_up" value="<?php echo $campos['usu_celular']; ?>" readonly>
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="col text-center">
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-warning"><i class="fas fa-sync-alt"></i> ACTUALIZAR</button>
-                                        <a href="<?php echo SERVERURL.'lista-usuarios/'?>" class="btn   btn bg-red" ><i class="fa fa-times-circle-o" aria-hidden="true"></i> CANCELAR</a>
+                                        <a href="<?php echo SERVERURL.'lista-usuarios/'?>" class="btn btn bg-red" ><i class="fa fa-times-circle-o" aria-hidden="true"></i> ATRÁS</a>
                                     </div>
                                 </div>
                             </div>

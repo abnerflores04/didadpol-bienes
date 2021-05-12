@@ -6,8 +6,6 @@ if ($peticionAjax) {
 }
 class usuarioControlador2 extends usuarioModelo2
 {
-    
-    
     public function listar_usuarios_controlador()
     {
         $contador = 1;
@@ -17,11 +15,11 @@ class usuarioControlador2 extends usuarioModelo2
         $datos = $conexion->query($consulta);
         $datos = $datos->fetchAll();
 
-       
+
 
         $tabla .= '<div class="table-responsive">
 
-        <a href="'. SERVERURL . 'registro-usuarios/" class="btn btn-primary">
+        <a href="' . SERVERURL . 'registro-usuarios/" class="btn btn-primary">
             <i class="fas fa-user-plus"></i> Nuevo usuario
         </a>
 
@@ -72,9 +70,175 @@ class usuarioControlador2 extends usuarioModelo2
             </tr>';
             $contador++;
         }
-        $tabla.=' </tbody>
+        $tabla .= ' </tbody>
         </table>
         </div>';
         return $tabla;
     }
+    /* Controlador datos del usuario*/
+    public  function datos_usuario_controlador($tipo, $id)
+    {
+        $tipo = mainModel2::limpiar_cadena($tipo);
+        $id = mainModel2::decryption($id);
+        $id = mainModel2::limpiar_cadena($id);
+
+        return usuarioModelo2::datos_usuario_modelo($tipo, $id);
+    }/* fin controlador datos del usuario */
+    /* Controlador para actualizar usuario*/
+    public  function actualizar_usuario_controlador()
+    {
+        //Recibiendo el id 
+        $id = mainModel2::decryption($_POST['usu_id_up']);
+        $id = mainModel2::limpiar_cadena($id);
+
+        //comprobar el usuarioen la bd
+        $check_user = mainModel2::ejecutar_consulta_simple("SELECT * FROM tbl_usuario WHERE usu_id=$id");
+        if ($check_user->rowCount() <= 0) {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "Ocurrio un error inesperado",
+                "Texto" => "No hemos encontrado el usuario en el sistema",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        } else {
+            $campos = $check_user->fetch();
+        }
+
+        $rol = mainModel2::limpiar_cadena($_POST['usu_rol_up']);
+        $nombres = strtoupper(mainModel2::limpiar_cadena($_POST['usu_nombres_up']));
+        $apellidos = strtoupper(mainModel2::limpiar_cadena($_POST['usu_apellidos_up']));
+        $celular = mainModel2::limpiar_cadena($_POST['usu_celular_up']);
+        $usuario = strtolower(mainModel2::limpiar_cadena($_POST['usu_usuario_up']));
+        $correo_p = strtolower(mainModel2::limpiar_cadena($_POST['usu_correo_up']));
+        $correo_i = $usuario . '@didadpol.gob.hn';
+        $estado = mainModel2::limpiar_cadena($_POST['usu_estado_up']);
+        /*verificando datos vacios*/
+        if ($nombres == "" || $apellidos == "" || $usuario == "" || $correo_p == "" || $rol == "" || $estado == "") {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO HAS COMPLETADO TODOS LOS CAMPOS QUE SON OBLIGATORIOS",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        }
+        if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚÑ ]{3,35}", $nombres)) {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "EL CAMPO NOMBRES SOLO DEBE INCLUIR LETRAS Y DEBE TENER UN MÍNIMO DE 3 LETRAS",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        }
+        if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚÑ ]{3,35}", $apellidos)) {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "EL CAMPO APELLIDOs SOLO DEBE INCLUIR LETRAS Y DEBE TENER UN MÍNIMO DE 3 LETRAS",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        }
+        if ($celular != "") {
+            if (mainModel2::verificar_datos("[0-9-]{9}", $celular)) {
+                $alerta = [
+                    "Alerta" => "simple",
+                    "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                    "Texto" => "EL TELÉFONO NO COINCIDE CON EL FORMATO SOLICITADO",
+                    "Tipo" => "error"
+                ];
+                echo json_encode($alerta);
+                exit();
+            }
+        }
+
+        if (mainModel2::verificar_datos("[a-z]{5,15}", $usuario)) {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "EL CAMPO NOMBRE DE USUARIO SOLO DEBE INCLUIR LETRAS Y DEBE TENER UN MÍNIMO DE 5 Y UN MAXIMO DE 15 LETRAS",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        }
+
+        /*validar usuario*/
+        if ($usuario != $campos['usu_usuario']) {
+            $check_user = mainModel2::ejecutar_consulta_simple("SELECT usu_usuario FROM tbl_usuario WHERE usu_usuario='$usuario'");
+            if ($check_user->rowCount() > 0) {
+                $alerta = [
+                    "Alerta" => "simple",
+                    "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                    "Texto" => "EL USUARIO YA ESTÁ REGISTRADO",
+                    "Tipo" => "error"
+                ];
+                echo json_encode($alerta);
+                exit();
+            }
+        }
+        /*validar email*/
+        if ($correo_p != $campos['usu_correo_p']) {
+            if (filter_var($correo_p, FILTER_VALIDATE_EMAIL)) {
+                /*vaidar email repetido*/
+                $check_email = mainModel2::ejecutar_consulta_simple("SELECT usu_correo_p FROM tbl_usuario WHERE usu_correo_p='$correo_p'");
+                if ($check_email->rowCount() > 0) {
+                    $alerta = [
+                        "Alerta" => "simple",
+                        "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                        "Texto" => "EL CORREO YA ESTÁ REGISTRADO",
+                        "Tipo" => "error"
+                    ];
+                    echo json_encode($alerta);
+                    exit();
+                }
+            } else {
+                $alerta = [
+                    "Alerta" => "simple",
+                    "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                    "Texto" => "EL CORREO NO COINCIDE CON EL FORMATO SOLICITADO",
+                    "Tipo" => "error"
+                ];
+                echo json_encode($alerta);
+                exit();
+            }
+        }
+
+
+        $datos_usuario_up = [
+            "rol" => $rol,
+            "usuario" => $usuario,
+            "nombres" => $nombres,
+            "apellidos" => $apellidos,
+            "estado" => $estado,
+            "correo_i" => $correo_i,
+            "correo_p" => $correo_p,
+            "celular" => $celular,
+            "id" => $id
+        ];
+
+
+        if (usuarioModelo2::actualizar_usuario_modelo($datos_usuario_up)) {
+            $alerta = [
+                "Alerta" => "recargar",
+                "Titulo" => "ACTUALIZADO CON ÉXITO",
+                "Texto" => "LOS DATOS SE ACTUALIZARON CON ÉXITO",
+                "Tipo" => "success"
+            ];
+        } else {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE HA PODIDO ACTUALIZAR LOS DATOS",
+                "Tipo" => "error"
+            ];
+        }
+        echo json_encode($alerta);
+    }/* fin controlador actualizar usuario */
 }/* fin clase */
