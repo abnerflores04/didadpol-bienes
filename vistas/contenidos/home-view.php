@@ -22,12 +22,10 @@
          <section class="content">
              <div class="container-fluid">
              <?php
-    
-        require_once "./controladores/usuarioControlador2.php";
-        $ins_usuario = new usuarioControlador2();
-        $total_usuarios = $ins_usuario->datos_usuario_controlador("Conteo", 0);
-
-    ?>
+                require_once "./controladores/usuarioControlador2.php";
+                $ins_usuario = new usuarioControlador2();
+                $total_usuarios = $ins_usuario->datos_usuario_controlador("Conteo", 0);
+            ?>
                  <!-- Small boxes (Stat box) -->
                  <div class="row">
                      <div class="col-lg-3 col-6">
@@ -44,6 +42,26 @@
                              <a href="<?php echo SERVERURL;?>lista-usuarios/" class="small-box-footer">Mas información <i class="fas fa-arrow-circle-right"></i></a>
                          </div>
                      </div>
+                     <div class="col-lg-3 col-6">
+                         <!-- small box -->
+                         <?php
+                            require_once "./controladores/rolControlador.php";
+                             $ins_rol = new rolControlador();
+                             $total_roles = $ins_rol->datos_rol_controlador("Conteo", 0);
+                        ?>
+                         <div class="small-box bg-warning">
+                             <div class="inner">
+                                 <h3><?php echo $total_roles->rowCount(); ?><sup style="font-size: 20px"></sup></h3>
+
+                                 <p>Roles</p>
+                             </div>
+                             <div class="icon">
+                             <i class="fas fa-user-tag"></i>
+                             </div>
+                             <a href="<?php echo SERVERURL;?>lista-roles/" class="small-box-footer">Mas información <i class="fas fa-arrow-circle-right"></i></a>
+                         </div>
+                     </div>
+                     <!-- ./col -->
                      <!-- ./col -->
                      <div class="col-lg-3 col-6">
                          <!-- small box -->
@@ -61,21 +79,7 @@
                          </div>
                      </div>
                      <!-- ./col -->
-                     <div class="col-lg-3 col-6">
-                         <!-- small box -->
-                         <div class="small-box bg-warning">
-                             <div class="inner">
-                                 <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-                                 <p>Bounce Rate</p>
-                             </div>
-                             <div class="icon">
-                                 <i class="ion ion-stats-bars"></i>
-                             </div>
-                             <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                         </div>
-                     </div>
-                     <!-- ./col -->
+                   
 
                      <div class="col-lg-3 col-6">
                          <!-- small box -->

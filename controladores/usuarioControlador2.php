@@ -96,8 +96,8 @@ class usuarioControlador2 extends usuarioModelo2
         if ($check_user->rowCount() <= 0) {
             $alerta = [
                 "Alerta" => "simple",
-                "Titulo" => "Ocurrio un error inesperado",
-                "Texto" => "No hemos encontrado el usuario en el sistema",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO HEMOS ENCONTRADO EL USUARIO EN EL SISTEMA",
                 "Tipo" => "error"
             ];
             echo json_encode($alerta);

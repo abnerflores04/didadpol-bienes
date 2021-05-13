@@ -40,7 +40,25 @@
                                     </a>
                                 </li>
                         </li>
+                        
+                        
                     </ul>
+                    <li class="nav-item">
+                            <a href="#" class="nav-link">
+                            <i class="fas fa-user-tag"></i>
+                                <p>
+                                    Roles
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="<?php echo SERVERURL;?>lista-roles/" class="nav-link">
+                                        <i class="nav-icon fas fa-list"></i>
+                                        <p> Listas de Roles</p>
+                                    </a>
+                                </li>
+                        </li>
                 </nav>
                 <!-- /.sidebar-menu -->
             </div>

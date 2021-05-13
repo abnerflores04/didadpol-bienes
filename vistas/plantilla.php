@@ -16,7 +16,7 @@
 	require_once "./controladores/vistasControlador.php";
 	$IV = new vistasControlador();
 	$vistas = $IV->obtener_vistas_controlador();
-	if ($vistas == "login" || $vistas == "404" || $vistas == "cambio-contraseña"|| $vistas == "restablecer-contraseña-correo"|| $vistas == "restablecer-contraseña" || $vistas == "ver-informacion-usuario" || $vistas =="actualizar-usuario") {
+	if ($vistas == "login" || $vistas == "404" || $vistas == "cambio-contraseña"|| $vistas == "restablecer-contraseña-correo"|| $vistas == "restablecer-contraseña" || $vistas == "ver-informacion-usuario" || $vistas =="actualizar-usuario" || $vistas == "actualizar-usuario" || $vistas =="registro-rol"|| $vistas =="actualizar-rol"|| $vistas =="lista-roles") {
 		require_once "./vistas/contenidos/" . $vistas . "-view.php";
 	} else {
 		session_start();
