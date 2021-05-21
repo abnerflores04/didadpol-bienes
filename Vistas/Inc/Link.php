@@ -23,4 +23,7 @@
  <link rel="stylesheet" href="<?php echo SERVERURL;?>vistas/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
  <link rel="stylesheet" href="<?php echo SERVERURL;?>vistas/plugins/sweetalert2/sweetalert2.min.css">
  <script src="<?php echo SERVERURL;?>vistas/plugins/sweetalert2/sweetalert2.min.js" ></script>
+ <link rel="stylesheet" href="<?php echo SERVERURL;?>vistas/plugins/select2/css/select2.min.css">
+ <link rel="stylesheet" href="<?php echo SERVERURL;?>vistas/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+ 
  

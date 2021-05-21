@@ -126,7 +126,7 @@ class rolControlador extends rolModelo
                     </a>
 
                     <form class="FormulariosAjax" action="' . SERVERURL . 'ajax/rolAjax.php" method="POST" data-form="delete" autocomplete="off" style="margin: 0 auto;">
-                        <input type="hidden" name="usuario_id_del" value="' . mainModel2::encryption($rows['rol_id']) . '">
+                        <input type="hidden" name="rol_id_del" value="' . mainModel2::encryption($rows['rol_id']) . '">
 
                         <button type="submit" title="Eliminar"class="btn btn-danger btn-sm">
                             <i class="far fa-trash-alt"></i>
@@ -172,7 +172,7 @@ class rolControlador extends rolModelo
             $campos = $check_rol->fetch();
         }
 
-        $rol_nombre = mainModel2::limpiar_cadena($_POST['rol_nombre_up']);
+        $rol_nombre = strtoupper(mainModel2::limpiar_cadena($_POST['rol_nombre_up']));
         $descrip = strtoupper(mainModel2::limpiar_cadena($_POST['rol_descrip_up']));
         if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚÑ ]{3,100}", $rol_nombre)) {
             $alerta = [
@@ -233,6 +233,54 @@ class rolControlador extends rolModelo
         }
         echo json_encode($alerta);
     }/* fin controlador actualizar usuario */
-  
+  /*controlador para eliminar rol*/
+  public  function eliminar_rol_controlador()
+  {
+      /* recibiendo id */
+      $id = mainModel2::decryption($_POST['rol_id_del']);
+      $id = mainModel2::limpiar_cadena($id);
+      /* comprobando el cliente en bd */
+      $check_rol = mainModel2::ejecutar_consulta_simple("SELECT rol_id FROM tbl_rol WHERE rol_id='$id'");
+      if ($check_rol->rowCount() <= 0) {
+          $alerta = [
+              "Alerta" => "simple",
+              "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+              "Texto" => "EL ROL QUE INTENTA ELIMINAR NO EXISTE EN EL SISTEMA",
+              "Tipo" => "error"
+          ];
+          echo json_encode($alerta);
+          exit();
+      }
+      /* comprobando los prestamos*/
+      $check_usuario = mainModel2::ejecutar_consulta_simple("SELECT rol_id FROM tbl_usuario WHERE rol_id='$id' LIMIT 1");
+      if ($check_usuario->rowCount() > 0) {
+          $alerta = [
+              "Alerta" => "simple",
+              "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+              "Texto" => "NO PODEMOS ELIMINAR ESTE ROL DEBIDO A QUE TIENE USUARIOS ASOCIADOS",
+              "Tipo" => "error"
+          ];
+          echo json_encode($alerta);
+          exit();
+      }
+
+      $eliminar_rol = rolModelo::eliminar_rol_modelo($id);
+      if ($eliminar_rol->rowCount() == 1) {
+          $alerta = [
+              "Alerta" => "recargar",
+              "Titulo" => "ROL ELIMINADO",
+              "Texto" => "EL ROL HA SIDO ELIMINADO CON ÉXITO",
+              "Tipo" => "success"
+          ];
+      } else {
+          $alerta = [
+              "Alerta" => "simple",
+              "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+              "Texto" => "NO HEMOS PODIDO ELIMINAR EL ROL, POR FAVOR INTENTE NUEVAMENTE",
+              "Tipo" => "error"
+          ];
+      }
+      echo json_encode($alerta);
+  }/* fin controlador para eliminar rol */
 
 }/* fin clase */

@@ -58,7 +58,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col text-center">
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-warning"><i class="fas fa-sync-alt"></i> ACTUALIZAR</button>
-                                        <a href="<?php echo SERVERURL.'lista-roles/'?>" class="btn   btn bg-red" ><i class="fa fa-times-circle-o" aria-hidden="true"></i> CANCELAR</a>
+                                        <a href="<?php echo SERVERURL.'lista-roles/'?>" class="btn btn bg-red" ><i class="fa fa-times-circle-o" aria-hidden="true"></i> CANCELAR</a>
                                     </div>
                                 </div>
                             </div>

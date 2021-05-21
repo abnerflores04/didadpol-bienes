@@ -86,6 +86,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col text-center">
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-primary"><i class="fas fa-check-circle"></i> CREAR</button>
+                                        <a href="<?php echo SERVERURL.'lista-usuarios/'?>" class="btn btn bg-red" ><i class="fas fa-arrow-circle-left"></i> VOLVER ATRÁS</a>
                                     </div>
                                 </div>
                             </div>

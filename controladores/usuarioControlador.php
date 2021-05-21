@@ -18,7 +18,7 @@ class usuarioControlador extends usuarioModelo
         $correo_i = $usuario . '@didadpol.gob.hn';
 
         /*comprobar campos vacios*/
-        if ($nombres == "" || $apellidos == "" || $usuario == ""  || $correo_p == "") {
+        if ($nombres == "" || $apellidos == "" || $usuario == ""  || $correo_p == "" || $rol == "") {
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",

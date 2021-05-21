@@ -33,5 +33,12 @@ class rolModelo extends mainModel2
         $sql->execute();
         return $sql;
     }
+    protected static function eliminar_rol_modelo($id)
+    {
+        $sql = mainModel2::conectar()->prepare("DELETE FROM tbl_rol WHERE rol_id=:id");
+        $sql->bindParam(":id", $id);
+        $sql->execute();
+        return $sql;
+    }
    
 }

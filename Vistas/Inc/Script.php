@@ -32,10 +32,16 @@
 <script src="<?php echo SERVERURL;?>vistas/dist/js/funciones.js"></script>
 <script src="<?php echo SERVERURL;?>vistas/plugins/jquery/jquery.mask.min.js"></script>
 <script src="<?php echo SERVERURL;?>vistas/dist/js/alertas.js" ></script>
+<script src="<?php echo SERVERURL;?>vistas/plugins/select2/js/select2.full.js" ></script>
 <script>
-    $(document).ready(function(){
+    $(function () {
+     $('.colaboradores_sal_reg').select2();
+  $('.colaboradores_sal_reg').select2({
+                    theme: 'bootstrap4'
+                })
     $("#usu_celular_reg").mask("0000-0000");
     $("#usu_celular_up").mask("0000-0000");
+    
     $('#example1').DataTable({
                language: {
                     "processing": "Procesando...",
