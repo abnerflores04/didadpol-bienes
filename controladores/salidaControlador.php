@@ -11,7 +11,7 @@ class salidaControlador extends salidaModelo
     {
         $motorista = mainModel2::limpiar_cadena($_POST['motorista_sal_reg']);
         $colaboradores = $_POST['colaboradores_sal_reg'];
-        $tipo_salida =mainModel2::limpiar_cadena($_POST['tipo_sal_reg']);
+        $tipo_salida = mainModel2::limpiar_cadena($_POST['tipo_sal_reg']);
         $fecha_salida = $_POST['fecha_sal_reg'];
         $observacion = strtoupper(mainModel2::limpiar_cadena($_POST['observacion_sal_reg']));
 
@@ -35,10 +35,10 @@ class salidaControlador extends salidaModelo
             ];
             echo json_encode($alerta);
             exit();
-        } 
-        
+        }
+
         $datos_salida_reg = [
-            "motorista"=>$motorista,
+            "motorista" => $motorista,
             "tipo_salida" => $tipo_salida,
             "fecha_salida" => $fecha_salida,
             "observacion" => $observacion
@@ -58,11 +58,11 @@ class salidaControlador extends salidaModelo
         } else {
             $campos = $consultar_id->fetch();
         }
-       
+
         $datos_usu_sal = [
             "id_salida" => $campos['salida_id']
         ];
-        $agregar_usu_sal = salidaModelo::agregar_usu_sal_modelo($datos_usu_sal,$colaboradores);
+        $agregar_usu_sal = salidaModelo::agregar_usu_sal_modelo($datos_usu_sal, $colaboradores);
         if ($agregar_salida->rowCount() == 1 && $agregar_usu_sal) {
             $alerta = [
                 "Alerta" => "recargar",
@@ -80,10 +80,10 @@ class salidaControlador extends salidaModelo
         }
         echo json_encode($alerta);
     }/*fin controlador */
-    
+
     public function listar_salidas_controlador()
     {
-       
+
         $tabla = '';
         $consulta = "SELECT * from tbl_salida as ts
         INNER JOIN tbl_usuario as tu on tu.usu_id= ts.motorista_id
@@ -118,17 +118,17 @@ class salidaControlador extends salidaModelo
         foreach ($datos as $rows) {
             $tabla .= '<tr>
                 <td>' . $rows['salida_fecha'] . '</td>
-                <td>' . $rows['usu_nombre'] ." ". $rows['usu_apellido'] . '</td>
+                <td>' . $rows['usu_nombre'] . " " . $rows['usu_apellido'] . '</td>
                 <td>';
-                $agregar_colaborador=mainModel2::ejecutar_consulta_simple("SELECT * FROM tbl_usuario_salida as tus
+            $agregar_colaborador = mainModel2::ejecutar_consulta_simple("SELECT * FROM tbl_usuario_salida as tus
                 INNER join tbl_usuario as tu on tu.usu_id=tus.colaborador_id WHERE salida_id=$rows[salida_id]");
-                if ($agregar_colaborador->rowCount()> 0) {
-                    $campos = $agregar_colaborador->fetchAll();
+            if ($agregar_colaborador->rowCount() > 0) {
+                $campos = $agregar_colaborador->fetchAll();
                 foreach ($campos as $agregar_colaboradores) {
-                    $tabla.='<span class="badge badge badge-dark">'.$agregar_colaboradores['usu_nombre']." ".$agregar_colaboradores['usu_apellido'].'</span><br>';
+                    $tabla .= '<span class="badge badge badge-dark">' . $agregar_colaboradores['usu_nombre'] . " " . $agregar_colaboradores['usu_apellido'] . '</span><br>';
                 }
-            } 
-            $tabla.=' </td> 
+            }
+            $tabla .= ' </td> 
                  
                 <td>' . $rows['salida_observacion'] . '</td>
                 <td>
@@ -153,13 +153,108 @@ class salidaControlador extends salidaModelo
         </div>';
         return $tabla;
     }
-     /* Controlador datos de giras*/
-     public  function datos_gira_controlador($tipo, $id)
-     {
-         $tipo = mainModel2::limpiar_cadena($tipo);
-         $id = mainModel2::decryption($id);
-         $id = mainModel2::limpiar_cadena($id);
-         return salidaModelo::datos_gira_modelo($tipo, $id);
-     }/* fin controlador datos del usuario */
-    
+    /* Controlador datos de giras*/
+    public  function datos_gira_controlador($tipo, $id)
+    {
+        $tipo = mainModel2::limpiar_cadena($tipo);
+        $id = mainModel2::decryption($id);
+        $id = mainModel2::limpiar_cadena($id);
+        return salidaModelo::datos_gira_modelo($tipo, $id);
+    }/* fin controlador datos del usuario */
+    /* Controlador actualizar giras*/
+    public function actualizar_gira_controlador()
+    {
+        //Recibiendo el id 
+        $id_salida = mainModel2::decryption($_POST['gira_id_up']);
+        $id_salida = mainModel2::limpiar_cadena($id_salida);
+
+        //comprobar si existe salida en el sistema
+        $check_salida = mainModel2::ejecutar_consulta_simple("SELECT * FROM tbl_salida WHERE salida_id=$id_salida");
+        if ($check_salida->rowCount() <= 0) {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO HEMOS ENCONTRADO LA SALIDA EN EL SISTEMA",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        }
+        $motorista = mainModel2::limpiar_cadena($_POST['motorista_gira_up']);
+        $tipo_salida = mainModel2::limpiar_cadena($_POST['tipo_sal_up']);
+        $colab_input = $_POST['colaboradores_gira_up'];
+        $obs_gira = strtoupper(mainModel2::limpiar_cadena($_POST['observacion_gira_up']));
+        $fecha_gira = $_POST['fecha_gira_up'];
+        /*comprobar campos vacios*/
+        if ($motorista == "" || $colab_input == ""   || $fecha_gira == "" || $obs_gira == "" || $tipo_salida == "") {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO HAS COMPLETADO TODOS LOS CAMPOS QUE SON OBLIGATORIOS",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        }
+        //verificar fecha
+        if (mainModel2::verificar_fecha($fecha_gira)) {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "FECHA DE SALIDA NO VALIDA",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        }
+        $check_usu_sal = mainModel2::ejecutar_consulta_simple("SELECT * FROM tbl_usuario_salida WHERE salida_id=$id_salida");
+        if ($check_usu_sal->rowCount() <= 0) {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO HEMOS ENCONTRADO EL DATOS EN EL SISTEMA",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        } else {
+            //para almacenar los datos de la tabla intermedia usuarios salida
+            $campos = $check_usu_sal->fetchAll();
+        }
+        $colab_values = [];
+        foreach ($campos as $colab_data) {
+            $colab_values[] = $colab_data['colaborador_id'];
+        }
+
+        $datos_gira_up = [
+            "motorista" => $motorista,
+            "tipo_salida" => $tipo_salida,
+            "fecha_salida" => $fecha_gira,
+            "observacion" => $obs_gira,
+            "id_salida" => $id_salida
+        ];
+
+        $actualizar_gira =  salidaModelo::actualizar_gira_modelo($datos_gira_up);
+        //Para insertar datos recien agregados
+        $insert_nuevos_colab =  salidaModelo::agregar_nuevos_colab_modelo($colab_input, $colab_values, $id_salida);
+        //Para eliminar colaboradores
+        $eliminar_colab = salidaModelo::eliminar_colab_modelo($colab_input, $colab_values, $id_salida);  
+
+        if ($actualizar_gira) {
+            $alerta = [
+                "Alerta" => "recargar",
+                "Titulo" => "SALIDA ACTUALIZADA",
+                "Texto" => "LOS DATOS DE LA SALIDA SE HAN ACTUALIZADO CON ÉXITO",
+                "Tipo" => "success"
+            ];
+        } else {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE HA PODIDO ACTUALIZAR LA SALIDA",
+                "Tipo" => "error"
+            ];
+        }
+        echo json_encode($alerta);
+    }
 }/* fin clase */

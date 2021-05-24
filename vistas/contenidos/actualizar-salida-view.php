@@ -95,6 +95,25 @@ if (!isset($_SESSION['id_spm'])) {
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Tipo de salida <span class="text-danger">*</span></label>
+                                    <select class="form-control" name="tipo_sal_up" id="tipo_sal_up">
+                                        <option value="" selected="">Seleccione tipo de salida</option>
+                                        <?php
+                                        $resultado_salida = $conexion->query("select * from tbl_salida ts inner join tbl_tipo_salida tts on ts.tipo_salida_id = tts.tipo_salida_id where ts.salida_id = $campos[salida_id]");
+                                        $datos_salida = $resultado_salida->fetch(PDO::FETCH_ASSOC);
+                                        $tipo_salida_id = $datos_salida['tipo_salida_id'];
+                                        $res = $conexion->query("SELECT * FROM tbl_tipo_salida");
+                                        while ($reg = $res->fetch(PDO::FETCH_ASSOC)) {
+                                            $r = ($tipo_salida_id == $reg["tipo_salida_id"]) ? 'selected' : '';
+                                            echo '<option value="' . $reg["tipo_salida_id"] . '"' . $r . '>' . $reg["tipo_salida_descripcion"].'</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+
+                            </div>
                               
                                 <div class="col-md-6">
                                     <!-- text input -->
@@ -106,7 +125,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <p class="font-weight-bold"> Observación <span class="text-danger">*</span></p>
-                                        <textarea name="observacion_gira_up" id="observacion_gira_up" cols="57" rows="10" required><?php echo $campos['salida_observacion']; ?></textarea>
+                                        <textarea name="observacion_gira_up" id="observacion_gira_up" cols="57" rows="10" style="text-transform:uppercase" required><?php echo $campos['salida_observacion']; ?></textarea>
                                     </div>
                                 </div>
                                 <div class="col-sm-12">

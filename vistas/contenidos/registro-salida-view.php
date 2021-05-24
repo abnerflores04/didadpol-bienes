@@ -90,7 +90,7 @@ if (!isset($_SESSION['id_spm'])) {
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <p class="font-weight-bold"> Observación <span class="text-danger">*</span></p>
-                                    <textarea name="observacion_sal_reg" id="observacion_sal_reg" cols="57" rows="10"></textarea>
+                                    <textarea name="observacion_sal_reg" id="observacion_sal_reg" cols="57" style="text-transform:uppercase" rows="10"></textarea>
                                 </div>
                             </div>
                             <div class="col-sm-12">

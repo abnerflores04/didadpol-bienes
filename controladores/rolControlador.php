@@ -157,7 +157,7 @@ class rolControlador extends rolModelo
         //Recibiendo el id 
         $id = mainModel2::decryption($_POST['rol_id_up']);
         $id = mainModel2::limpiar_cadena($id);
-        //comprobar el usuari
+        //comprobar el rol
         $check_rol = mainModel2::ejecutar_consulta_simple("SELECT * FROM tbl_rol WHERE rol_id=$id");
         if ($check_rol->rowCount() <= 0) {
             $alerta = [
