@@ -62,22 +62,37 @@
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                            <i class="fas fa-car"></i>
+                            <i class="fas fa-folder-open"></i>
                                 <p>
-                                    Salidas
+                                      Expedientes
                                     <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="<?php echo SERVERURL;?>lista-giras/" class="nav-link">
+                                    <a href="<?php echo SERVERURL;?>lista-exp-investigacion/" class="nav-link">
                                         <i class="nav-icon fas fa-list"></i>
-                                        <p> Listas de giras</p>
+                                        <p> Exp. investigación</p>
                                     </a>
-                                    <a href="<?php echo SERVERURL;?>lista-diligencias/" class="nav-link">
+                                </li>
+                                 </ul>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                            <i class="fas fa-calendar-alt"></i>
+                                <p>
+                                    Feriados
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="<?php echo SERVERURL;?>lista-feriados/" class="nav-link">
                                         <i class="nav-icon fas fa-list"></i>
-                                        <p> Listas de diligencias</p>
+                                        <p> Listas de feriados</p>
                                     </a>
+                                   
                                 </li>
                                 </ul>
                         </li>

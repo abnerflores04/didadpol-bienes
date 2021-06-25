@@ -2,7 +2,7 @@
 if (!isset($_SESSION['id_spm'])) {
 		echo $lc->forzar_cierre_sesion_controlador();
 		exit();
-}	
+}
 ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -11,12 +11,12 @@ if (!isset($_SESSION['id_spm'])) {
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Actualizar usuario</h1>
+                    <h1>Ver información del usuario</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Actualizar usuario</li>
+                        <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                        <li class="breadcrumb-item active">Ver información del usuario</li>
                     </ol>
                 </div>
             </div>
@@ -30,6 +30,7 @@ if (!isset($_SESSION['id_spm'])) {
             <div class="card card-warning card-outline">
             <?php
 	require_once "./controladores/usuarioControlador2.php";
+    
 	$ins_usuario = new usuarioControlador2();
 	$datos_usuario = $ins_usuario->datos_usuario_controlador("Unico", $pagina[1]);
 	if ($datos_usuario->rowCount() == 1) {
@@ -38,7 +39,6 @@ if (!isset($_SESSION['id_spm'])) {
 	?>
                 <!-- /.card-body -->
                 <div class="card-body">
-               
                     <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/usuarioAjax.php" method="POST" data-form="update" autocomplete="off">
                         <div class="row">
                         <input type="hidden" name="usu_id_up" value="<?php echo $pagina[1]; ?>">
@@ -56,6 +56,12 @@ if (!isset($_SESSION['id_spm'])) {
                                 </div>
                             </div>
                             <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>DNI</label>
+                                    <input type="text" autocomplete="off" class="form-control" placeholder="INGRESE DNI SIN GUIONES O ESPACIONES" name="usu_identidad_up" id="usu_identidad_up" value="<?php echo $campos['usu_identidad']; ?>" readonly>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
                                 <!-- text input -->
                                 <div class="form-group">
                                     <label>Nombre de usuario </label>
@@ -68,18 +74,83 @@ if (!isset($_SESSION['id_spm'])) {
                                     <select class="form-control" name="usu_rol_up" id="usu_rol_up" disabled>
                                         <option value="" selected="" >Seleccione rol:</option>
                                         <?php
-                                        require_once './modelos/conectar.php';
-                                        $resultado_rol = $conexion -> query ("select * from tbl_usuario tu inner join tbl_rol tr on tu.rol_id = tr.rol_id where tu.usu_id = $campos[usu_id]");
-                                        $rol = $resultado_rol->fetch(PDO::FETCH_ASSOC);
-                                         $nacionalidad = $rol['rol_nombre'];
-                                          $resultado = $conexion -> query ("SELECT * FROM tbl_rol");
-                                          while ($registro=$resultado->fetch(PDO::FETCH_ASSOC)) {
-                                            $r = ($nacionalidad == $registro["rol_nombre"]) ? 'selected' : '';
-                                            echo '<option value="'.$registro["rol_id"].'"'.$r.'>'.$registro["rol_nombre"].'</option>';
-                                          }
-                                 
-                                        ?>
+                                         require_once './modelos/conectar.php';
+                                         $resultado = $conexion->query("SELECT * FROM tbl_rol");
+                                         while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
+                                         ?>
+                                         <option value="<?php echo $registro['rol_id']; ?>" 
+                                         <?php if($registro['rol_id']==$campos['rol_id']) {
+                                         echo 'selected'; } 
+                                         ?>
+                                         ><?php echo $registro['rol_nombre']; ?></option>
+                                         <?php } ?>
+                                       
                                     </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Puesto</label>
+                                    <select class="form-control" name="usu_puesto_up" id="usu_puesto_up" disabled>
+                                        <option value="" selected="" >Seleccione puesto:</option>
+                                        <?php
+                                         $resultado= $conexion->query("SELECT * FROM tbl_puesto");
+                                         while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
+                                         ?>
+                                         <option value="<?php echo $registro['puesto_id']; ?>" 
+                                         <?php if($registro['puesto_id']==$campos['puesto_id']) {
+                                         echo 'selected'; } 
+                                         ?>
+                                         ><?php echo $registro['puesto_nombre']; ?></option>
+                                         <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>SECCIÓN</label>
+                                    <select class="form-control" name="usu_seccion_up" id="lista1" disabled>
+                                        <option value="0" selected="" >Seleccione sección:</option>
+                                        <?php
+                                        $resultado = $conexion->query("SELECT * FROM tbl_seccion");
+                                        while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
+                                        ?>
+                                        <option value="<?php echo $registro['seccion_id']; ?>" 
+                                        <?php if($registro['seccion_id']==$campos['seccion_id']) {
+                                        echo 'selected'; } 
+                                        ?>
+                                        ><?php echo $registro['seccion_nombre']; ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                <label>UNIDAD</label>
+                                    <select class="form-control" name="usu_unidad_up" id="lista2" disabled>
+                                    <?php
+                                        $resultado = $conexion->query("SELECT * FROM tbl_unidad");
+                                        while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
+                                        ?>
+                                           <option value="<?php echo $registro['unidad_id']; ?>" 
+                                           <?php if($registro['unidad_id']==$campos['unidad_id']) {
+                                                echo 'selected'; } 
+                                            ?>
+                                            ><?php echo $registro['unidad_nombre']; ?></option>
+                                           <?php } ?> 
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Correo pesonal </label>
+                                    <input type="email" style="text-transform:lowercase" autocomplete="off" class="form-control correo" placeholder="" name="usu_correo_up" id="usu_correo_up" value="<?php echo $campos['usu_correo_p']; ?>" readonly>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Celular</label>
+                                    <input type="text" autocomplete="off" class="form-control" placeholder=" " name="usu_celular_up" id="usu_celular_up" value="<?php echo $campos['usu_celular']; ?>" readonly>
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -124,23 +195,10 @@ if (!isset($_SESSION['id_spm'])) {
                                     </select>
                                 </div>
                             </div>
-                           
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Correo pesonal </label>
-                                    <input type="email" style="text-transform:lowercase" autocomplete="off" class="form-control correo" placeholder="" name="usu_correo_up" id="usu_correo_up" value="<?php echo $campos['usu_correo_p']; ?>" readonly>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Celular</label>
-                                    <input type="text" autocomplete="off" class="form-control" placeholder=" " name="usu_celular_up" id="usu_celular_up" value="<?php echo $campos['usu_celular']; ?>" readonly>
-                                </div>
-                            </div>
                             <div class="col-sm-12">
                                 <div class="col text-center">
                                     <div class="form-group">
-                                        <a href="<?php echo SERVERURL.'lista-usuarios/'?>" class="btn btn bg-red" ><i class="fa fa-times-circle-o" aria-hidden="true"></i> ATRÁS</a>
+                                        <a href="<?php echo SERVERURL.'lista-usuarios/'?>" class="btn btn bg-red" ><i class="fas fa-arrow-left"></i> ATRÁS</a>
                                     </div>
                                 </div>
                             </div>

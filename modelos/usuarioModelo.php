@@ -5,16 +5,20 @@ class usuarioModelo extends mainModel
     /* Modelo agregar usuario*/
     protected static function agregar_usuario_modelo($datos)
     {
-        $sql = mainModel::conectar()->prepare("INSERT INTO tbl_usuario (rol_id, usu_usuario, usu_nombre, usu_apellido, usu_password, usu_estado, usu_correo_i, usu_correo_p, usu_celular) VALUES (:rol,:usuario,:nombres,:apellidos,:clave,:estado,:correo_i,:correo_p,:celular)");
+        $sql = mainModel::conectar()->prepare("INSERT INTO tbl_usuario (rol_id, puesto_id, seccion_id, unidad_id, usu_usuario, usu_password, usu_nombre, usu_apellido, usu_identidad, usu_correo_i, usu_correo_p, usu_celular, usu_estado) VALUES (:rol,:puesto,:seccion,:unidad,:usuario,:clave,:nombres,:apellidos,:dni,:correo_i,:correo_p,:celular,:estado)");
         $sql->bindParam(":rol", $datos['rol']);
+        $sql->bindParam(":puesto", $datos['puesto']);
+        $sql->bindParam(":seccion", $datos['seccion']);
+        $sql->bindParam(":unidad", $datos['unidad']);
         $sql->bindParam(":usuario", $datos['usuario']);
+        $sql->bindParam(":clave", $datos['clave']);
         $sql->bindParam(":nombres", $datos['nombres']);
         $sql->bindParam(":apellidos", $datos['apellidos']);
-        $sql->bindParam(":clave", $datos['clave']);
-        $sql->bindParam(":estado", $datos['estado']);
+        $sql->bindParam(":dni", $datos['dni']);
         $sql->bindParam(":correo_i", $datos['correo_i']);
         $sql->bindParam(":correo_p", $datos['correo_p']);
         $sql->bindParam(":celular", $datos['celular']);
+        $sql->bindParam(":estado", $datos['estado']);
         $sql->execute();
         return $sql;
     }

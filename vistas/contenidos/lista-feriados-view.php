@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Lista de usuarios</h1>
+                    <h1>Lista de giras</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Lista de usuarios</li>
+                        <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                        <li class="breadcrumb-item active">Lista de giras</li>
                     </ol>
                 </div>
             </div>
@@ -23,12 +23,13 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
+
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <?php
-                            require_once "./controladores/usuarioControlador2.php";
-                            $ins_usuario = new usuarioControlador2();
-                            echo $ins_usuario->listar_usuarios_controlador();
+                        <?php
+                            require_once "./controladores/feriadosControlador.php";
+                            $ins_feriados = new feriadosControlador();
+                            echo $ins_feriados->listar_feriados_controlador();
                             ?>
                         </div>
                         <!-- /.card-body -->

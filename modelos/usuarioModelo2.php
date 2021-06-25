@@ -11,17 +11,20 @@ class usuarioModelo2 extends mainModel2
         } elseif ($tipo == "Conteo") {
             $sql = mainModel2::conectar()->prepare("SELECT usu_id FROM tbl_usuario WHERE usu_id!='1'");
         }
-
         $sql->execute();
         return $sql;
     }
      /* Modelo actualizarusuario*/
      protected static function actualizar_usuario_modelo($datos){
-        $sql = mainModel2::conectar()->prepare("UPDATE tbl_usuario SET rol_id=:rol,usu_usuario=:usuario,usu_nombre=:nombres,usu_apellido=:apellidos,usu_estado=:estado,usu_correo_i=:correo_i,usu_correo_p=:correo_p,usu_celular=:celular WHERE usu_id=:id");
+        $sql = mainModel2::conectar()->prepare("UPDATE tbl_usuario SET rol_id=:rol, puesto_id=:puesto,seccion_id=:seccion, unidad_id=:unidad, usu_usuario=:usuario, usu_nombre=:nombres, usu_apellido=:apellidos,usu_identidad=:dni, usu_correo_i=:correo_i, usu_correo_p=:correo_p ,usu_celular=:celular, usu_estado=:estado WHERE usu_id=:id");
         $sql->bindParam(":rol", $datos['rol']);
+        $sql->bindParam(":puesto", $datos['puesto']);
+        $sql->bindParam(":seccion", $datos['seccion']);
+        $sql->bindParam(":unidad", $datos['unidad']);
         $sql->bindParam(":usuario", $datos['usuario']);
         $sql->bindParam(":nombres", $datos['nombres']);
         $sql->bindParam(":apellidos", $datos['apellidos']);
+        $sql->bindParam(":dni", $datos['dni']);
         $sql->bindParam(":estado", $datos['estado']);
         $sql->bindParam(":correo_i", $datos['correo_i']);
         $sql->bindParam(":correo_p", $datos['correo_p']);

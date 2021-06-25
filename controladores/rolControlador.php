@@ -101,7 +101,7 @@ class rolControlador extends rolModelo
 
 
         <br><br>
-        <table id="example1" class=" table table-striped table-bordered table-hover">
+        <table id="example1" class=" table table-striped table-bordered table-hover dt-responsive">
 
             <thead class="text-center">
                 <tr>
@@ -122,7 +122,7 @@ class rolControlador extends rolModelo
                 <div class="row">
                     <a href="' . SERVERURL . 'actualizar-rol/' . mainModel2::encryption($rows['rol_id']) . '" class="btn btn-warning btn-sm" title="Editar" style="margin: 0 auto;">
                         <i class="fas fa-edit"></i>
-                        Editar
+                        
                     </a>
 
                     <form class="FormulariosAjax" action="' . SERVERURL . 'ajax/rolAjax.php" method="POST" data-form="delete" autocomplete="off" style="margin: 0 auto;">
@@ -130,7 +130,7 @@ class rolControlador extends rolModelo
 
                         <button type="submit" title="Eliminar"class="btn btn-danger btn-sm">
                             <i class="far fa-trash-alt"></i>
-                            Eliminar
+                            
                         </button>
 
                     </form>

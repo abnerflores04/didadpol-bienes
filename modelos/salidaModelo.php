@@ -73,4 +73,14 @@ class salidaModelo extends mainModel2
         }
         
     }
+    protected static function eliminar_gira_modelo($id)
+    {
+        $sql = mainModel2::conectar()->prepare("DELETE FROM tbl_usuario_salida WHERE salida_id=:id");
+        $sql->bindParam(":id", $id);
+        $sql->execute();
+        $sql6 = mainModel2::conectar()->prepare("DELETE FROM tbl_salida WHERE salida_id=:ids");
+        $sql6->bindParam(":ids", $id);
+        $sql6->execute();
+        return $sql;
+    }
 }

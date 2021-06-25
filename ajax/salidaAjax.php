@@ -14,10 +14,10 @@ if (isset($_POST['motorista_sal_reg']) || isset( $_POST['colaboradores_sal_reg']
     if (isset($_POST['gira_id_up']) && isset($_POST['motorista_gira_up']) && isset($_POST['colaboradores_gira_up']) && isset($_POST['fecha_gira_up']) && isset($_POST['observacion_gira_up'])){
         echo $ins_salida->actualizar_gira_controlador();
     }
-    /*#Para eliminar un usuario
-    if (isset($_POST['rol_id_del'])){
-        echo $ins_rol->eliminar_rol_controlador();
-    }*/
+    #Para eliminar un usuario
+    if (isset($_POST['gira_id_del'])){
+        echo $ins_salida->eliminar_gira_controlador();
+    }
 } else {
     session_start();
     session_unset();

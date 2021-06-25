@@ -131,7 +131,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col-sm-12">
                                     <div class="col text-center">
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-primary"><i class="fas fa-check-circle"></i> CREAR</button>
+                                        <button type="submit" class="btn btn-warning"><i class="fas fa-sync-alt"></i> ACTUALIZAR</button>
                                             <a href="<?php echo SERVERURL . 'lista-giras/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> VOLVER ATRÁS</a>
                                         </div>
                                     </div>

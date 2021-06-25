@@ -35,7 +35,7 @@ class loginControlador extends loginModelo
             </script>';
             exit();
         }
-        if (mainModel2::verificar_datos("[a-zA-Z0-9$@$!%*?.#-_+]{8,20}", $clave)) {
+        if (mainModel2::verificar_datos("[a-zA-Z0-9$@$!%*?.#-_+]{7,20}", $clave)) {
             echo '<script>
             Swal.fire({
                 title: "OCURRIÓ UN ERROR INESPERADO",

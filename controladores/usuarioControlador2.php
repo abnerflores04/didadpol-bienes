@@ -10,7 +10,7 @@ class usuarioControlador2 extends usuarioModelo2
     {
         $contador = 1;
         $tabla = '';
-        $consulta = "SELECT * FROM tbl_usuario u INNER JOIN tbl_rol r on u.rol_id=r.rol_id WHERE usu_id!=1 order by usu_id desc";
+        $consulta = "SELECT * FROM tbl_usuario u INNER JOIN tbl_rol r on u.rol_id=r.rol_id where usu_id!=1 order by usu_id desc";
         $conexion = mainModel2::conectar();
         $datos = $conexion->query($consulta);
         $datos = $datos->fetchAll();
@@ -22,10 +22,8 @@ class usuarioControlador2 extends usuarioModelo2
         <a href="' . SERVERURL . 'registro-usuarios/" class="btn btn-primary">
             <i class="fas fa-user-plus"></i> Nuevo usuario
         </a>
-
-
         <br><br>
-        <table id="example1" class=" table table-striped table-bordered table-hover">
+        <table id="example1" class=" table table-striped table-bordered table-hover dt-responsive">
 
             <thead class="text-center">
                 <tr>
@@ -34,7 +32,6 @@ class usuarioControlador2 extends usuarioModelo2
                     <th>NOMBRE</th>
                     <th>APELLIDO</th>
                     <th>USUARIO</th>
-                    <th>CORREO </th>
                     <th>ESTADO</th>
                     <th>ACCIONES</th>
                 </tr>
@@ -47,8 +44,19 @@ class usuarioControlador2 extends usuarioModelo2
                 <td>' . $rows['usu_nombre'] . '</td>
                 <td>' . $rows['usu_apellido'] . '</td>
                 <td>' . $rows['usu_usuario'] . '</td>
-                <td>' . $rows['usu_correo_i'] . '</td>
-                <td>' . $rows['usu_estado'] . '</td>
+                
+                <td>';
+            if ($rows['usu_estado'] == "NUEVO") {
+                $tabla .= '  <span class="badge badge badge-info">';
+            } elseif ($rows['usu_estado'] == "ACTIVO") {
+                $tabla .= '<span class="badge badge badge-success">';
+            } elseif ($rows['usu_estado'] == "VACACIONES") {
+                $tabla .= '  <span class="badge badge badge-warning">';
+            } else {
+                $tabla .= '  <span class="badge badge badge-danger">';
+            }
+
+            $tabla .= '' . $rows["usu_estado"] . '</span></td>
                 <td>
                 <div class="row">
                 <a href="' . SERVERURL . 'ver-informacion-usuario/' . mainModel2::encryption($rows['usu_id']) . '" class="btn btn-dark btn-sm" title="Ver información completa" style="margin: 0 auto;"><i class="fas fa-eye"></i></a>
@@ -109,13 +117,17 @@ class usuarioControlador2 extends usuarioModelo2
         $rol = mainModel2::limpiar_cadena($_POST['usu_rol_up']);
         $nombres = strtoupper(mainModel2::limpiar_cadena($_POST['usu_nombres_up']));
         $apellidos = strtoupper(mainModel2::limpiar_cadena($_POST['usu_apellidos_up']));
+        $dni = mainModel2::limpiar_cadena($_POST['usu_identidad_up']);
+        $puesto = mainModel2::limpiar_cadena($_POST['usu_puesto_up']);
+        $seccion = mainModel2::limpiar_cadena($_POST['usu_seccion_up']);
+        $unidad = mainModel2::limpiar_cadena($_POST['usu_unidad_up']);
         $celular = mainModel2::limpiar_cadena($_POST['usu_celular_up']);
         $usuario = strtolower(mainModel2::limpiar_cadena($_POST['usu_usuario_up']));
         $correo_p = strtolower(mainModel2::limpiar_cadena($_POST['usu_correo_up']));
         $correo_i = $usuario . '@didadpol.gob.hn';
         $estado = mainModel2::limpiar_cadena($_POST['usu_estado_up']);
         /*verificando datos vacios*/
-        if ($nombres == "" || $apellidos == "" || $usuario == "" || $correo_p == "" || $rol == "" || $estado == "") {
+        if ($nombres == "" || $apellidos == "" || $usuario == "" || $correo_p == "" || $rol == "" || $estado == "" || $dni == "" || $puesto == "" || $seccion == "" || $unidad == "") {
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
@@ -125,7 +137,7 @@ class usuarioControlador2 extends usuarioModelo2
             echo json_encode($alerta);
             exit();
         }
-        if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚÑ ]{3,35}", $nombres)) {
+        if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚÑÜ ]{3,35}", $nombres)) {
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
@@ -135,22 +147,22 @@ class usuarioControlador2 extends usuarioModelo2
             echo json_encode($alerta);
             exit();
         }
-        if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚÑ ]{3,35}", $apellidos)) {
+        if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚÑÜ ]{3,35}", $apellidos)) {
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                "Texto" => "EL CAMPO APELLIDOs SOLO DEBE INCLUIR LETRAS Y DEBE TENER UN MÍNIMO DE 3 LETRAS",
+                "Texto" => "EL CAMPO APELLIDOS SOLO DEBE INCLUIR LETRAS Y DEBE TENER UN MÍNIMO DE 3 LETRAS",
                 "Tipo" => "error"
             ];
             echo json_encode($alerta);
             exit();
         }
         if ($celular != "") {
-            if (mainModel2::verificar_datos("[0-9-]{9}", $celular)) {
+            if (mainModel2::verificar_datos("[0-9]{8}", $celular)) {
                 $alerta = [
                     "Alerta" => "simple",
                     "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                    "Texto" => "EL TELÉFONO NO COINCIDE CON EL FORMATO SOLICITADO",
+                    "Texto" => "EL CELULAR NO COINCIDE CON EL FORMATO SOLICITADO",
                     "Tipo" => "error"
                 ];
                 echo json_encode($alerta);
@@ -168,7 +180,30 @@ class usuarioControlador2 extends usuarioModelo2
             echo json_encode($alerta);
             exit();
         }
-
+        if (mainModel2::verificar_datos("[0-9]{13}", $dni)) {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "EL DNI NO COINCIDE CON EL FORMATO SOLICITADO",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        }
+        /*validar DNI*/
+        if ($dni != $campos['usu_identidad']) {
+            $check_dni = mainModel2::ejecutar_consulta_simple("SELECT usu_identidad FROM tbl_usuario WHERE usu_identidad='$dni'");
+            if ($check_dni->rowCount() > 0) {
+                $alerta = [
+                    "Alerta" => "simple",
+                    "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                    "Texto" => "EL DNI YA ESTÁ REGISTRADO",
+                    "Tipo" => "error"
+                ];
+                echo json_encode($alerta);
+                exit();
+            }
+        }
         /*validar usuario*/
         if ($usuario != $campos['usu_usuario']) {
             $check_user = mainModel2::ejecutar_consulta_simple("SELECT usu_usuario FROM tbl_usuario WHERE usu_usuario='$usuario'");
@@ -210,19 +245,21 @@ class usuarioControlador2 extends usuarioModelo2
             }
         }
 
-
         $datos_usuario_up = [
             "rol" => $rol,
+            "puesto"=>$puesto,
+            "seccion"=>$seccion,
+            "unidad"=>$unidad,
             "usuario" => $usuario,
             "nombres" => $nombres,
             "apellidos" => $apellidos,
+            "dni"=>$dni,
             "estado" => $estado,
             "correo_i" => $correo_i,
             "correo_p" => $correo_p,
             "celular" => $celular,
-            "id" => $id
+            "id"=>$id
         ];
-
 
         if (usuarioModelo2::actualizar_usuario_modelo($datos_usuario_up)) {
             $alerta = [

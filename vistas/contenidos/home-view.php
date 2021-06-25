@@ -64,10 +64,10 @@
                      <!-- ./col -->
                      <!-- ./col -->
                      <div class="col-lg-3 col-6">
-                         <!-- small box -->
+                        
                          <div class="small-box bg-info">
                              <div class="inner">
-                                 <h3>150</h3>
+                                 <h3>*<sup style="font-size: 20px"></h3>
 
                                  <p>Giras</p>
                              </div>
@@ -75,7 +75,7 @@
                              
                              <i class="fas fa-car-side"></i>
                              </div>
-                             <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                             <a href="<?php echo SERVERURL;?>lista-giras/" class="small-box-footer">Mas información <i class="fas fa-arrow-circle-right"></i></a>
                          </div>
                      </div>
                      <!-- ./col -->

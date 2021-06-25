@@ -48,18 +48,20 @@ if (!isset($_SESSION['id_spm'])) {
                                 </div>
                             </div>
                             <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>DNI<span class="text-danger">*</label>
+                                    <input type="text" autocomplete="off" class="form-control" placeholder="INGRESE DNI SIN GUIONES O ESPACIOS" name="usu_identidad_reg" id="usu_identidad_reg">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
                                 <!-- text input -->
                                 <div class="form-group">
                                     <label>Nombre de usuario <span class="text-danger">*</span></label>
                                     <input type="text" autocomplete="off" style="text-transform:lowercase" class="form-control nombres" placeholder=" " name="usu_usuario_reg" id="usu_usuario_reg">
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Celular</label>
-                                    <input type="text" autocomplete="off" class="form-control" placeholder=" " name="usu_celular_reg" id="usu_celular_reg">
-                                </div>
-                            </div>
+                          
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Rol <span class="text-danger">*</span></label>
@@ -77,8 +79,52 @@ if (!isset($_SESSION['id_spm'])) {
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
+                                    <label>Puesto <span class="text-danger">*</span></label>
+                                    <select class="form-control" name="usu_puesto_reg" id="usu_puesto_reg">
+                                        <option value="" selected="" >Seleccione puesto:</option>
+                                        <?php
+                                        
+                                        $resultado = $conexion->query("SELECT * FROM tbl_puesto");
+                                        while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
+                                            echo '<option value="' . $registro["puesto_id"] . '">' . $registro["puesto_nombre"] . '</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>SECCIÓN <span class="text-danger">*</span></label>
+                                    <select class="form-control" name="usu_seccion_reg" id="lista1">
+                                        <option value="0" selected="" >Seleccione sección:</option>
+                                        <?php
+                                       
+                                        $resultado = $conexion->query("SELECT * FROM tbl_seccion");
+                                        while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
+                                            echo '<option value="' . $registro["seccion_id"] . '">' . $registro["seccion_nombre"] . '</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                          
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                <label>UNIDAD <span class="text-danger">*</span></label>
+                                <select class="form-control" name="usu_unidad_reg" id="lista2">
+                                </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
                                     <label>Correo pesonal <span class="text-danger">*</span></label>
                                     <input type="email" style="text-transform:lowercase" autocomplete="off" class="form-control correo" placeholder="" name="usu_correo_reg" id="usu_correo_reg">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Celular</label>
+                                    <input type="text" autocomplete="off" class="form-control" placeholder="INGRESE CELULAR SIN GUIONES O ESPACIOS" name="usu_celular_reg" id="usu_celular_reg">
                                 </div>
                             </div>
 

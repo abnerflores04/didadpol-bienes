@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Lista de usuarios</h1>
+                    <h1>Lista expedientes de investigación</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Lista de usuarios</li>
+                        <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                        <li class="breadcrumb-item active">Lista de expedientes de investigación</li>
                     </ol>
                 </div>
             </div>
@@ -26,9 +26,9 @@
                         <!-- /.card-header -->
                         <div class="card-body">
                             <?php
-                            require_once "./controladores/usuarioControlador2.php";
-                            $ins_usuario = new usuarioControlador2();
-                            echo $ins_usuario->listar_usuarios_controlador();
+                            require_once "./controladores/expedienteControlador.php";
+                            $ins_exp = new expedienteControlador();
+                            echo $ins_exp->listar_exp_controlador();
                             ?>
                         </div>
                         <!-- /.card-body -->

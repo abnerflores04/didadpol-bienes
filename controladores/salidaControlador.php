@@ -83,6 +83,10 @@ class salidaControlador extends salidaModelo
 
     public function listar_salidas_controlador()
     {
+        $dias = array("Domingo", "Lunes", "Martes", "Miércoles ", "Jueves", "Viernes", "Sábado");
+        $meses = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+
+
 
         $tabla = '';
         $consulta = "SELECT * from tbl_salida as ts
@@ -116,8 +120,10 @@ class salidaControlador extends salidaModelo
             </thead>
             <tbody>';
         foreach ($datos as $rows) {
+            $fecha_salida = date_create($rows['salida_fecha']);
+            $mes_salida = date_create($rows['salida_fecha']);
             $tabla .= '<tr>
-                <td>' . $rows['salida_fecha'] . '</td>
+                <td>' . $dias[date_format($fecha_salida, 'w')] . " " . date_format($fecha_salida, 'd') . " de " . $meses[date_format($mes_salida, 'n') - 1] . " del " . date('Y') . '</td>
                 <td>' . $rows['usu_nombre'] . " " . $rows['usu_apellido'] . '</td>
                 <td>';
             $agregar_colaborador = mainModel2::ejecutar_consulta_simple("SELECT * FROM tbl_usuario_salida as tus
@@ -238,7 +244,7 @@ class salidaControlador extends salidaModelo
         //Para insertar datos recien agregados
         $insert_nuevos_colab =  salidaModelo::agregar_nuevos_colab_modelo($colab_input, $colab_values, $id_salida);
         //Para eliminar colaboradores
-        $eliminar_colab = salidaModelo::eliminar_colab_modelo($colab_input, $colab_values, $id_salida);  
+        $eliminar_colab = salidaModelo::eliminar_colab_modelo($colab_input, $colab_values, $id_salida);
 
         if ($actualizar_gira) {
             $alerta = [
@@ -257,4 +263,42 @@ class salidaControlador extends salidaModelo
         }
         echo json_encode($alerta);
     }
+     /*controlador para eliminar rol*/
+  public  function eliminar_gira_controlador()
+  {
+      /* recibiendo id */
+      $id = mainModel2::decryption($_POST['gira_id_del']);
+      $id = mainModel2::limpiar_cadena($id);
+      /* comprobando el cliente en bd */
+      $check_salida = mainModel2::ejecutar_consulta_simple("SELECT salida_id FROM tbl_salida WHERE salida_id=$id");
+      if ($check_salida->rowCount() <= 0) {
+          $alerta = [
+              "Alerta" => "simple",
+              "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+              "Texto" => "LA GIRA QUE INTENTA ELIMINAR NO EXISTE EN EL SISTEMA",
+              "Tipo" => "error"
+          ];
+          echo json_encode($alerta);
+          exit();
+      }
+     
+
+      $eliminar_gira = salidaModelo::eliminar_gira_modelo($id);
+      if ($eliminar_gira->rowCount() >0) {
+          $alerta = [
+              "Alerta" => "recargar",
+              "Titulo" => "SALIDA ELIMINADA",
+              "Texto" => "LA SALIDA HA SIDO ELIMINADO CON ÉXITO",
+              "Tipo" => "success"
+          ];
+      } else {
+          $alerta = [
+              "Alerta" => "simple",
+              "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+              "Texto" => "NO HEMOS PODIDO LA SALIDA, POR FAVOR INTENTE NUEVAMENTE",
+              "Tipo" => "error"
+          ];
+      }
+      echo json_encode($alerta);
+  }/* fin controlador para eliminar rol */
 }/* fin clase */
