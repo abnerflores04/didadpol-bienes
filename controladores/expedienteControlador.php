@@ -27,7 +27,7 @@ class expedienteControlador extends expedienteModelo
         $observacion = strtoupper(mainModel2::limpiar_cadena($_POST['observacion']));
         $articulo=$_POST['articulos_reg'];
         /*comprobar campos vacios*/
-        if ($n_exp == "" ||  $municipio == "" ||  $depto == ""||  $sexo == ""||  $investigado == "" || $rango == ""  || $tipo_falta == "" || $investigador == "" || $fecha_inicio_exp == "" || $diligencia == "" || $estado == "" || $observacion == "") {
+        if ($n_exp == "" ||  $municipio == "" ||  $depto == ""||  $sexo == ""||  $investigado == "" || $rango == ""  ||   $fecha_inicio_exp == "") {
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
@@ -120,8 +120,8 @@ class expedienteControlador extends expedienteModelo
         //se hace el calculo respecto al fecha de reconocimiento didapol
         //$fecha_final_i_pre = mainModel2::addWorkingDays($fecha_inicio_exp,9,$feriados);
         //$fecha_final_i = mainModel2::addWorkingDays($fecha_inicio_exp,39,$feriados);
-        $fecha_final_i_pre = '';
-        $fecha_final_i = mainModel2::addWorkingDays($fecha_inicio_exp, 39, $feriados);;
+        $fecha_final_i_pre = mainModel2::addWorkingDays($fecha_inicio_exp, 9, $feriados);
+        $fecha_final_i = mainModel2::addWorkingDays($fecha_inicio_exp, 39, $feriados);
         $fecha_final_exp = mainModel2::addWorkingDays($fecha_inicio_exp, 74, $feriados);
 
 
@@ -218,9 +218,9 @@ class expedienteControlador extends expedienteModelo
             <thead style="vertical-align:middle;">
                 <tr>
                 <th style="vertical-align:middle;">N° EXPEDIENTE</th>
-                <th style="vertical-align:middle;">INVESTIGADO </th>
-                <th style="vertical-align:middle;">INVESTIGADOR</th>
-                <th style="vertical-align:middle;">FECHA INICIO EXPEDIENTE</th>
+    
+                <th style="vertical-align:middle;">EXPEDIENTE ASIGNADO A</th>
+                <th style="vertical-align:middle;">FECHA CONOCIMIENTO DIDADPOL</th>
                 <th style="vertical-align:middle;">FECHA FINAL EXPEDIENTE </th>
                 <th style="vertical-align:middle;">VIGENCIA DEL EXPEDIENTE </th>
                 <th style="vertical-align:middle;">VIGENCIA PROCESO INVESTIGACION </th>
@@ -232,20 +232,51 @@ class expedienteControlador extends expedienteModelo
         foreach ($datos as $rows) {
             $dias = mainModel2::getWorkingDays(date('Y-m-d'), $rows['fecha_final_exp'], $feriados);
             $dias2 = mainModel2::getWorkingDays(date('Y-m-d'), $rows['fecha_final_i'], $feriados);
+            
             $tabla .= '<tr>
                 <td style="font-size: 18px;"><span class="badge badge badge-dark">' . $rows['num_exp'] . '</span></td>';
             
-                    $tabla .= '<td>' . $rows['nombre_investigado'] . '</td>';
+        
              
             $tabla .= ' 
                 <td>' . $rows['usu_nombre'] . " " . $rows['usu_apellido'] . '</td>
                 <td class="text-center">' . date('d/m/Y', strtotime($rows['fecha_inicio_exp'])) . '</td>
-                <td class="text-center">' . date('d/m/Y', strtotime($rows['fecha_final_exp'] )). '</td>
-                <td  style="font-size: 20px;"class=" text-center bg-warning"><span class="badge badge badge-dark">' . $dias . ' días</span></td>
-                <td  style="font-size: 20px;"class=" text-center bg-warning"><span class="badge badge badge-dark">' . $dias2 . ' días</span></td>
+                <td class="text-center">' . date('d/m/Y', strtotime($rows['fecha_final_exp'] )). '</td>';
+
+                if ($dias >= 60) {
+                    $tabla .= '<td  style="font-size: 20px;"class=" text-center bg-success">';
+                    $dias= $dias.' DÍAS';
+                } elseif ($dias >= 40 && $dias <=59) {
+                    $tabla .= '<td  style="font-size: 20px;"class=" text-center bg-warning">';
+                    $dias= $dias.' DÍAS';
+                } elseif ($dias >= 1 && $dias <=39) {
+                    $tabla .= '<td  style="font-size: 20px;"class=" text-center bg-danger">';
+                    $dias= $dias.' DÍAS';
+                } elseif ($dias2 <=0) {
+                    $tabla .= '<td  style="font-size: 20px;"class=" text-center bg-danger">';
+                    $dias= 'PLAZO TERMINADO';
+                }
+
+              $tabla.='<span class="badge badge badge-dark">' . $dias . '</span></td>';
+
+              if ($dias2 >= 60) {
+                $tabla .= '<td  style="font-size: 20px;"class=" text-center bg-success">';
+                $dias2= $dias2.' DÍAS';
+            } elseif ($dias2 >= 40 && $dias2 <=59) {
+                $tabla .= '<td  style="font-size: 20px;"class=" text-center bg-warning">';
+                $dias2= $dias2.' DÍAS';
+            } elseif ($dias2 >= 1 && $dias2 <=39) {
+                $tabla .= '<td  style="font-size: 20px;"class=" text-center bg-danger">';
+                $dias2= $dias2.' DÍAS';
+            } elseif ($dias2 <=0) {
+                
+                $tabla .= '<td  style="font-size: 20px;"class=" text-center bg-secondary">';
+                $dias2= 'PLAZO TERMINADO';
+            }
+                $tabla.='<span class="badge badge badge-dark">' . $dias2 . '</span></td>
                 ';
 
-
+               
 
             $tabla .= '  <td>
                 <div class="row">
