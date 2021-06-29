@@ -60,6 +60,7 @@ if (!isset($_SESSION['id_spm'])) {
                                     </div>
 
                                 </div>
+                               
                                 <div class="col-sm-6" id="contenedor2">
                                     <div class="form-group">
                                         <label>Identidad</label>
@@ -199,45 +200,92 @@ if (!isset($_SESSION['id_spm'])) {
                                     </div>
                                 </div>
 
-                                <div class="col-6">
+                                <div class="col-sm-6"></div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Fecha audiencia de descargo<span class="text-danger">*</label>
+                                        <input type="date" autocomplete="off" class="form-control" name="fecha_audiencia_up" id="fecha_audiencia_up" value="<?php echo $campos['fecha_audiencia']; ?>">
+                                    </div>
+                                </div>
+
+                                <div class="col-6 text-center">
                                     <div class="col">
                                         <label for="text" >Comparecio</label>
                                     </div>
                                     <div class="col">
                                         <div class="checkbox checkbox-primary pull-left p-t-0">
-                                            <input id="checkbox-anonimo" type="checkbox" class="filled-in chk-col-light-blue" formControlName="anonimo">
-                                            <label for="checkbox-anonimo"></label>
+                                            <input id="checkbox-comparecio" type="checkbox" class="filled-in chk-col-light-blue">
+                                            <label for="checkbox-comparecio"></label>
                                         </div>
                                     </div>
                                 <div class="col"></div>
                                 </div>
 
-                                <!-- <div class="col-sm-6">
-                                    <div class="form-group">
-                                    <div class="checkbox checkbox-primary pull-left p-t-0">
-                                        <input id="checkbox-anonimo" type="checkbox" class="filled-in chk-col-light-blue" formControlName="anonimo">
-                                        <label for="checkbox-anonimo"></label>
-                                    </div>
-                                        <label for="chk_comparecio">Comparecio</label>
-                                        <input type="checkbox" id="chk_comparecio">
-                                    </div>
-                                </div> -->
-
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="">Tipo de falta</label>
-                                        <select class="form-control" name="tipo_falta_up" id="lista_f">
-                                            <option value="">Seleccione tipo de falta</option>
+                                        <label>Finalización 3 días técnico legal<span class="text-danger">*</label>
+                                        <input type="date" autocomplete="off" class="form-control" name="fecha_tecnico_up" id="fecha_tecnico_up" value="<?php echo $campos['fecha_tecnico']; ?>">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="">Seleccione</label>
+                                        <select class="form-control" name="recomendacion_up" id="recomendacion_up">
+                                            <option value="">Seleccione opcion</option>
                                             <?php
-                                            $resultado = $conexion->query("SELECT * FROM tbl_tipo_falta");
+                                            $resultado = $conexion->query("SELECT * FROM tbl_recomen");
                                             while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
                                             ?>
-                                                <option value="<?php echo $registro['tipo_falta_id']; ?>" <?php if ($registro['tipo_falta_id'] == $campos['tipo_falta_id']) {
-                                                                                                                echo 'selected';
-                                                                                                            }
-                                                                                                            ?>><?php echo $registro['tipo_falta_descrip']; ?></option>
+                                                <option value="<?php echo $registro['recomendacion_id']; ?>" ><?php echo $registro['recomen']; ?></option>
                                             <?php } ?>
                                         </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="">Recomendación</label>
+                                        <select class="form-control" name="recomendacion_up" id="recomendacion_up">
+                                            <option value="">Seleccione recomendacion</option>
+                                            <?php
+                                            $resultado = $conexion->query("SELECT * FROM tbl_recomen");
+                                            while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
+                                            ?>
+                                                <option value="<?php echo $registro['recomendacion_id']; ?>" <?php if ($registro['recomendacion_id'] == $campos['recomendacion_id']) {
+                                                                                                        echo 'selected';
+                                                                                                    }
+                                                                                                    ?>><?php echo $registro['recomen']; ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Folios</label>
+                                        <input type="number" class="form-control" name="folios_up" id="folios_up" value="<?php echo $campos['folios']; ?>">
+                                    </div>
+                                </div>
+
+                                <div class="col-6 text-center">
+                                    <div class="col">
+                                        <label for="text" >MP y/o TSC</label>
+                                    </div>
+                                    <div class="col">
+                                        <div class="checkbox checkbox-primary pull-left p-t-0">
+                                            <input id="checkbox-mp_tsc_up" type="checkbox" class="filled-in chk-col-light-blue" value="true">
+                                            <label for="checkbox-mp_tsc_up"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col"></div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label>Observación<span class="text-danger">*</span></label>
+                                        <textarea class="form-control" name="observacion_up" id="observacion_up" style="text-transform:uppercase" cols="30" rows="10"><?php echo $campos['observacion']; ?></textarea>
                                     </div>
                                 </div>
 
@@ -268,6 +316,24 @@ if (!isset($_SESSION['id_spm'])) {
                                                                                                             echo 'selected';
                                                                                                         }
                                                                                                         ?>><?php echo $registro['rango_descripcion']; ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="">Tipo de falta</label>
+                                        <select class="form-control" name="tipo_falta_up" id="lista_f">
+                                            <option value="">Seleccione tipo de falta</option>
+                                            <?php
+                                            $resultado = $conexion->query("SELECT * FROM tbl_tipo_falta");
+                                            while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
+                                            ?>
+                                                <option value="<?php echo $registro['tipo_falta_id']; ?>" <?php if ($registro['tipo_falta_id'] == $campos['tipo_falta_id']) {
+                                                                                                                echo 'selected';
+                                                                                                            }
+                                                                                                            ?>><?php echo $registro['tipo_falta_descrip']; ?></option>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -325,13 +391,7 @@ if (!isset($_SESSION['id_spm'])) {
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label>Observación<span class="text-danger">*</span></label>
-                                        <textarea class="form-control" name="observacion_up" id="observacion_up" style="text-transform:uppercase" cols="30" rows="10"><?php echo $campos['observacion']; ?></textarea>
-                                    </div>
-                                </div>
-
+                                
                                 <div class="col-sm-12">
                                     <div class="col text-center">
                                         <div class="form-group">

@@ -86,6 +86,10 @@ class expedienteModelo extends mainModel2
         $sql1->bindParam(":fecha_remision", $datos['fecha_remision']);
         $sql1->bindParam(":observacion", $datos['observacion']);
         $sql1->bindParam(":exp_id", $datos['exp_id']);
+        $sql1->bindParam(":folios", $datos['folios']);
+        $sql1->bindParam(":recomen", $datos['recomen']);
+        $sql1->bindParam(":num_dictan", $datos['num_dictan']);
+        $sql1->bindParam(":num_arch", $datos['num_arch']);
         $sql1->execute();
         return $sql1;
     }
