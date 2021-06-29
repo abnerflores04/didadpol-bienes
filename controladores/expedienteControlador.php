@@ -259,13 +259,13 @@ class expedienteControlador extends expedienteModelo
 
               $tabla.='<span class="badge badge badge-dark">' . $dias . '</span></td>';
 
-              if ($dias2 >= 60) {
+              if ($dias2 >= 21 ) {
                 $tabla .= '<td  style="font-size: 20px;"class=" text-center bg-success">';
                 $dias2= $dias2.' DÍAS';
-            } elseif ($dias2 >= 40 && $dias2 <=59) {
+            } elseif ($dias2 >= 6 && $dias2 <=20) {
                 $tabla .= '<td  style="font-size: 20px;"class=" text-center bg-warning">';
                 $dias2= $dias2.' DÍAS';
-            } elseif ($dias2 >= 1 && $dias2 <=39) {
+            } elseif ($dias2 >= 1 && $dias2 <=5) {
                 $tabla .= '<td  style="font-size: 20px;"class=" text-center bg-danger">';
                 $dias2= $dias2.' DÍAS';
             } elseif ($dias2 <=0) {

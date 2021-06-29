@@ -6,71 +6,71 @@ if ($peticionAjax) {
 }
 class feriadosControlador extends feriadosModelo
 {
-      /* controlador agregar usuario*/
-      public function agregar_feriados_controlador()
-      {
-          $fecha_feriado = $_POST['fecha_feriado_reg'];
-          $descrip_feriado = strtoupper(mainModel2::limpiar_cadena($_POST['descrip_feriado_reg']));
-          
-  
-          /*comprobar campos vacios*/
-          if ($fecha_feriado == "" || $descrip_feriado == "") {
-              $alerta = [
-                  "Alerta" => "simple",
-                  "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                  "Texto" => "NO HAS COMPLETADO TODOS LOS CAMPOS QUE SON OBLIGATORIOS",
-                  "Tipo" => "error"
-              ];
-              echo json_encode($alerta);
-              exit();
-          }
-          /*validar fecha*/
-          $check_fecha = mainModel2::ejecutar_consulta_simple("SELECT feriado_fecha FROM tbl_feriado WHERE feriado_fecha='$fecha_feriado'");
-          if ($check_fecha->rowCount() > 0) {
-              $alerta = [
-                  "Alerta" => "simple",
-                  "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                  "Texto" => "LA FECHA DEL FERIADO QUE INGRESO YA ENCUENTRA REGISTRADO",
-                  "Tipo" => "error"
-              ];
-              echo json_encode($alerta);
-              exit();
-          }
-  
-          if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚÑÜ0-9 ]{3,200}", $descrip_feriado)) {
-              $alerta = [
-                  "Alerta" => "simple",
-                  "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                  "Texto" => "EL CAMPO DESCRIPCION DE FERIADO SOLO DEBE INCLUIR LETRAS DEBE TENER UN MÍNIMO DE 3 LETRAS",
-                  "Tipo" => "error"
-              ];
-              echo json_encode($alerta);
-              exit();
-          }
-  
-          $datos_feriado_reg = [
-              "fecha_feriado" => $fecha_feriado,
-              "descrip_feriado"=>$descrip_feriado
-          ];
-          $agregar_feriado = feriadosModelo::agregar_feriado_modelo($datos_feriado_reg);
-          if ($agregar_feriado->rowCount() == 1) {
-              $alerta = [
-                  "Alerta" => "limpiar",
-                  "Titulo" => "feriado REGISTRADO",
-                  "Texto" => "LOS DATOS DEL FERIADO SE HAN REGISTRADO CON ÉXITO",
-                  "Tipo" => "success"
-              ];
-          } else {
-              $alerta = [
-                  "Alerta" => "simple",
-                  "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                  "Texto" => "NO SE HA PODIDO REGISTRAR EL FERIADO",
-                  "Tipo" => "error"
-              ];
-          }
-          echo json_encode($alerta);
-      }/*fin controlador */
-    
+    /* controlador agregar usuario*/
+    public function agregar_feriados_controlador()
+    {
+        $fecha_feriado = $_POST['fecha_feriado_reg'];
+        $descrip_feriado = strtoupper(mainModel2::limpiar_cadena($_POST['descrip_feriado_reg']));
+
+
+        /*comprobar campos vacios*/
+        if ($fecha_feriado == "" || $descrip_feriado == "") {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO HAS COMPLETADO TODOS LOS CAMPOS QUE SON OBLIGATORIOS",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        }
+        /*validar fecha*/
+        $check_fecha = mainModel2::ejecutar_consulta_simple("SELECT feriado_fecha FROM tbl_feriado WHERE feriado_fecha='$fecha_feriado'");
+        if ($check_fecha->rowCount() > 0) {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "LA FECHA DEL FERIADO QUE INGRESO YA ENCUENTRA REGISTRADO",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        }
+
+        if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚáéíóúñÑ0-9- ]{3,200}", $descrip_feriado)) {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "EL CAMPO DESCRIPCIÓN SOLO PUEDE INCLUIR LETRAS Y NUMEROS",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        }
+
+        $datos_feriado_reg = [
+            "fecha_feriado" => $fecha_feriado,
+            "descrip_feriado" => $descrip_feriado
+        ];
+        $agregar_feriado = feriadosModelo::agregar_feriado_modelo($datos_feriado_reg);
+        if ($agregar_feriado->rowCount() == 1) {
+            $alerta = [
+                "Alerta" => "limpiar",
+                "Titulo" => "FERIADO REGISTRADO",
+                "Texto" => "LOS DATOS DEL FERIADO SE HAN REGISTRADO CON ÉXITO",
+                "Tipo" => "success"
+            ];
+        } else {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE HA PODIDO REGISTRAR EL FERIADO",
+                "Tipo" => "error"
+            ];
+        }
+        echo json_encode($alerta);
+    }/*fin controlador */
+    /* controlador para listar usuarios*/
     public function listar_feriados_controlador()
     {
         $tabla = '';
@@ -99,13 +99,13 @@ class feriadosControlador extends feriadosModelo
                 </tr>
             </thead>
             <tbody>';
-        $c=1;
+        $c = 1;
         foreach ($datos as $rows) {
-            
+
             $tabla .= '<tr>
                 <td class="text-center">' . $c . '</td>
                 <td>' . $rows['feriado_descrip'] . '</td>
-                <td class="text-center">' . date('d/m/Y', strtotime($rows['feriado_fecha'] )). '</td>
+                <td class="text-center">' . date('d/m/Y', strtotime($rows['feriado_fecha'])) . '</td>
     
               <td>
                 <div class="row">
@@ -129,6 +129,133 @@ class feriadosControlador extends feriadosModelo
         </table>
         </div>';
         return $tabla;
-    }
+    }/*fin controlador */
+    public  function datos_feriado_controlador($tipo, $id)
+    {
+        $tipo = mainModel2::limpiar_cadena($tipo);
+        $id = mainModel2::decryption($id);
+        $id = mainModel2::limpiar_cadena($id);
+        return feriadosModelo::datos_feriado_modelo($tipo, $id);
+    }/* fin controlador datos del usuario */
+    public  function actualizar_feriados_controlador()
+    {
+        //Recibiendo el id 
+        $id = mainModel2::decryption($_POST['id_feriado_up']);
+        $id = mainModel2::limpiar_cadena($id);
+        //comprobar el rol
+        $check_feriado = mainModel2::ejecutar_consulta_simple("SELECT * FROM tbl_feriado WHERE id_feriado=$id");
+        if ($check_feriado->rowCount() <= 0) {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE ENCONTRO FERIADO",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        } else {
+            $campos = $check_feriado->fetch();
+        }
 
+        $fecha_feriado = $_POST['fecha_feriado_up'];
+        $descrip_feriado = strtoupper(mainModel2::limpiar_cadena($_POST['descrip_feriado_up']));
+
+        /*verificando datos vacios*/
+        if ($fecha_feriado == "" || $descrip_feriado == "") {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO HAS COMPLETADO TODOS LOS CAMPOS QUE SON OBLIGATORIOS",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        }
+
+
+        if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚáéíóúñÑ0-9- ]{3,200}", $descrip_feriado)) {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "EL CAMPO DESCRIPCIÓN SOLO PUEDE INCLUIR LETRAS Y NUMEROS",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        }
+
+        /*validar usuario*/
+        if ($fecha_feriado != $campos['feriado_fecha']) {
+            $check_fecha_f = mainModel2::ejecutar_consulta_simple("SELECT feriado_fecha FROM tbl_feriado WHERE feriado_fecha='$fecha_feriado'");
+            if ($check_fecha_f->rowCount() > 0) {
+                $alerta = [
+                    "Alerta" => "simple",
+                    "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                    "Texto" => "EL FERIADO YA ESTÁ REGISTRADO",
+                    "Tipo" => "error"
+                ];
+                echo json_encode($alerta);
+                exit();
+            }
+        }
+        $datos_feriado_up = [
+            "id_feriado" => $id,
+            "fecha_feriado" => $fecha_feriado,
+            "descrip_feriado" => $descrip_feriado
+        ];
+
+        if (feriadosModelo::actualizar_feriado_modelo($datos_feriado_up)) {
+            $alerta = [
+                "Alerta" => "recargar",
+                "Titulo" => "ACTUALIZADO CON ÉXITO",
+                "Texto" => "LOS DATOS SE ACTUALIZARON CON ÉXITO",
+                "Tipo" => "success"
+            ];
+        } else {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE HA PODIDO ACTUALIZAR LOS DATOS",
+                "Tipo" => "error"
+            ];
+        }
+        echo json_encode($alerta);
+    }/* fin controlador actualizar usuario */
+    /*controlador para eliminar feriado*/
+  public  function eliminar_feriado_controlador()
+  {
+      /* recibiendo id */
+      $id = mainModel2::decryption($_POST['id_feriado_del']);
+      $id = mainModel2::limpiar_cadena($id);
+      /* comprobando el feriado en bd */
+      $check_feriado = mainModel2::ejecutar_consulta_simple("SELECT id_feriado FROM tbl_feriado WHERE id_feriado='$id'");
+      if ($check_feriado->rowCount() <= 0) {
+          $alerta = [
+              "Alerta" => "simple",
+              "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+              "Texto" => "EL FERIADO QUE INTENTA ELIMINAR NO EXISTE EN EL SISTEMA",
+              "Tipo" => "error"
+          ];
+          echo json_encode($alerta);
+          exit();
+      }
+     
+      $eliminar_feriado = feriadosModelo::eliminar_feriado_modelo($id);
+      if ($eliminar_feriado->rowCount() == 1) {
+          $alerta = [
+              "Alerta" => "recargar",
+              "Titulo" => "FERIADO ELIMINADO",
+              "Texto" => "EL FERIADO HA SIDO ELIMINADO CON ÉXITO",
+              "Tipo" => "success"
+          ];
+      } else {
+          $alerta = [
+              "Alerta" => "simple",
+              "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+              "Texto" => "NO HEMOS PODIDO ELIMINAR EL FERIADO, POR FAVOR INTENTE NUEVAMENTE",
+              "Tipo" => "error"
+          ];
+      }
+      echo json_encode($alerta);
+  }/* fin controlador para eliminar rol */
 }/* fin clase */
