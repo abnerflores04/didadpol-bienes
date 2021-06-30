@@ -320,6 +320,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 </div>
 
                                 <div class="col-sm-12">
+
                                     <div class="form-group">
                                         <label>Observación<span class="text-danger">*</span></label>
                                         <textarea class="form-control" name="observacion_up" id="observacion_up" style="text-transform:uppercase" cols="30" rows="10" readonly><?php echo $campos['observacion']; ?></textarea>

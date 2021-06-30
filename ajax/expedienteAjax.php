@@ -7,7 +7,7 @@ if (isset($_POST['n_exp_reg']) || isset($_POST['exp_id_up']) || isset($_POST['ex
     $ins_expediente= new expedienteControlador();
     #Para agregar un expediente
     if (isset($_POST['n_exp_reg'])){
-        echo $ins_expediente->agregar_expediente_controlador();
+        echo $ins_expediente->agregar_proceso_denuncia_controlador();
     }
     
     
