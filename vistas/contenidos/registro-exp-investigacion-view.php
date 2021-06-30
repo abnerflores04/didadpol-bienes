@@ -40,7 +40,7 @@ if (!isset($_SESSION['id_spm'])) {
                        
                       
                         <div class="col-sm-12">
-                          <h5 class="font-weight-bold " >Datos del denunciante</h5>
+                          <h5 class="font-weight-bold text-uppercase" >Datos del denunciante</h5>
                             <hr>
                             </div>
                             <div class="col-sm-12">
@@ -105,7 +105,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 </div>
                             </div>
                             <div class="col-sm-12">
-                            <h5 class="font-weight-bold " >Datos del investigado y expediente</h5>
+                            <h5 class="font-weight-bold text-uppercase" >Datos del investigado y expediente</h5>
                             <hr>
                             </div>
                             <div class="col-sm-6">
@@ -117,9 +117,17 @@ if (!isset($_SESSION['id_spm'])) {
                                     <input type="text" autocomplete="off" style="text-transform:uppercase" class="form-control" placeholder="0000-0000-00000" name="n_exp_reg" id="n_exp_reg">
                                 </div>
                             </div>
+
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for=""> Nombre completo del investigado <span class="text-danger">*</span></label>
+                                    <label>Fecha conocimiento DIDADPOL<span class="text-danger">*</label>
+                                    <input type="date" autocomplete="off" class="form-control" name="fecha_inicio_exp_reg" id="fecha_inicio_exp_reg">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for=""> Nombre completo del investigado</label>
                                     <input type="text" class="form-control" style="text-transform:uppercase" name="investigado" id="investigado">
                                 </div>
                             </div>
@@ -166,63 +174,6 @@ if (!isset($_SESSION['id_spm'])) {
                                     </select>
                                 </div>
                             </div>
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">Investigador <span class="text-danger">*</span></label>
-                                    <select class="form-control" name="investigador_reg" id="investigador_reg">
-                                        <option value="">Seleccione investigador</option>
-                                        <?php
-
-                                        require_once './modelos/conectar.php';
-                                        $resultado = $conexion->query("SELECT * FROM tbl_usuario WHERE rol_id=2");
-
-                                        while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
-                                            echo '<option value="' . $registro["usu_id"] . '">' . $registro["usu_nombre"] . " " . $registro["usu_apellido"] . '</option>';
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Fecha conocimiento DIDADPOL<span class="text-danger">*</label>
-                                    <input type="date" autocomplete="off" class="form-control" name="fecha_inicio_exp_reg" id="fecha_inicio_exp_reg">
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label>Diligencias investigativas realizadas<span class="text-danger">*</span></label>
-                                    <textarea class="form-control" name="diligencia" id="diligencia" style="text-transform:uppercase" cols="30" rows="10"></textarea>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">Estado del proceso <span class="text-danger">*</span></label>
-                                    <select class="form-control" name="estado_reg" id="estado_reg">
-                                        <option value="">Seleccione el estado del proceso</option>
-                                        <?php
-
-                                        require_once './modelos/conectar.php';
-                                        $resultado = $conexion->query("SELECT * FROM tbl_est_proceso");
-
-                                        while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
-                                            echo '<option value="' . $registro["est_proceso_id"] . '">' . $registro["est_proceso_descrip"] . '</option>';
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label>Observación<span class="text-danger">*</span></label>
-                                    <textarea class="form-control" name="observacion" id="observacion" style="text-transform:uppercase" cols="30" rows="10"></textarea>
-                                </div>
-                            </div>
-
 
                             <div class="col-sm-12">
                                 <div class="col text-center">

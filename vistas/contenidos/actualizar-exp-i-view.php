@@ -193,14 +193,37 @@ if (!isset($_SESSION['id_spm'])) {
                                     </div>
                                 </div>
 
-                                <div class="col-sm-6">
+                                <div class="col-sm-12">
                                     <div class="form-group">
                                         <label>Fecha remisión a secretaria<span class="text-danger">*</label>
                                         <input type="date" autocomplete="off" class="form-control" name="fecha_remision_up" id="fecha_remision_up" value="<?php echo $campos['fecha_remision_s']; ?>">
                                     </div>
                                 </div>
 
-                                <div class="col-sm-6"></div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="">Técnico Legal</label>
+                                        <select class="form-control" name="tec_legal_up" id="tec_legal_up">
+                                            <option value="">Seleccione técnico legal</option>
+                                            <?php
+                                            $resultado = $conexion->query("SELECT * FROM tbl_usuario WHERE rol_id=3");
+                                            while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
+                                            ?>
+                                                <option value="<?php echo $registro['usu_id']; ?>" <?php if ($registro['usu_id'] == $campos['legal_id']) {
+                                                                                                        echo 'selected';
+                                                                                                    }
+                                                                                                    ?>><?php echo $registro['usu_nombre'] . " " . $registro['usu_apellido']; ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Fecha asignación técnico legal<span class="text-danger">*</label>
+                                        <input type="date" autocomplete="off" class="form-control" name="fecha_asignacion_up" id="fecha_asignacion_up" value="<?php echo $campos['fecha_asignacion']; ?>">
+                                    </div>
+                                </div>
 
                                 <div class="col-sm-6">
                                     <div class="form-group">
@@ -231,16 +254,23 @@ if (!isset($_SESSION['id_spm'])) {
                                 
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="">Seleccione</label>
-                                        <select class="form-control" name="recomendacion_up" id="recomendacion_up">
+                                        <label for="">Seleccione resolución</label>
+                                        <select class="form-control" name="resolucion_up" id="resolucion_up">
                                             <option value="">Seleccione opcion</option>
                                             <?php
-                                            $resultado = $conexion->query("SELECT * FROM tbl_recomen");
+                                            $resultado = $conexion->query("SELECT * FROM tbl_resoluciones");
                                             while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
                                             ?>
-                                                <option value="<?php echo $registro['recomendacion_id']; ?>" ><?php echo $registro['recomen']; ?></option>
+                                                <option value="<?php echo $registro['resolve_id']; ?>" ><?php echo $registro['resolve']; ?></option>
                                             <?php } ?>
                                         </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6" id="contenedor">
+                                    <div class="form-group">
+                                        <label>N° Documento</label>
+                                        <input type="text" class="form-control" style="text-transform:uppercase" name="n_documento_up" id="n_documento_up" value="<?php echo $campos['n_documento']; ?>">
                                     </div>
                                 </div>
                                 
@@ -264,6 +294,13 @@ if (!isset($_SESSION['id_spm'])) {
                                 
                                 <div class="col-sm-6">
                                     <div class="form-group">
+                                        <label>Fecha devolución de expediente<span class="text-danger">*</label>
+                                        <input type="date" autocomplete="off" class="form-control" name="fecha_devolucion_up" id="fecha_devolucion_up" value="<?php echo $campos['fecha_devolucion']; ?>">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
                                         <label>Folios</label>
                                         <input type="number" class="form-control" name="folios_up" id="folios_up" value="<?php echo $campos['folios']; ?>">
                                     </div>
@@ -271,7 +308,7 @@ if (!isset($_SESSION['id_spm'])) {
 
                                 <div class="col-6 text-center">
                                     <div class="col">
-                                        <label for="text" >MP y/o TSC</label>
+                                        <label for="text" >Ministerio Público y/o Tribunal Supremo de Cuentas</label>
                                     </div>
                                     <div class="col">
                                         <div class="checkbox checkbox-primary pull-left p-t-0">
