@@ -8,7 +8,7 @@ if (isset($_POST['usuario_log']) || isset($_POST['usuario_log'])) {
 <div class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="../../index2.html"><b>DIDADPOL </b>BIENES</a>
+            <a href="#"><b>DIDADPOL </b></a>
         </div>
         <!-- /.login-logo -->
         <div class="card">
