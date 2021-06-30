@@ -352,9 +352,18 @@ class expedienteControlador extends expedienteModelo
         $diligencia = mainModel2::limpiar_cadena(strtoupper($_POST['diligencia_up']));
         $estado = mainModel2::limpiar_cadena($_POST['estado_up']);
         $observacion = strtoupper(mainModel2::limpiar_cadena($_POST['observacion_up']));
+        $folios = strtoupper(mainModel2::limpiar_cadena($_POST['folios_up']));
+        $recomendacion = strtoupper(mainModel2::limpiar_cadena($_POST['recomen_up']));
+        $num_dictamen = strtoupper(mainModel2::limpiar_cadena($_POST['num_dictan_up']));
+        $num_archivo = strtoupper(mainModel2::limpiar_cadena($_POST['num_arch_up']));
+        $legal_id = strtoupper(mainModel2::limpiar_cadena($_POST['legal_id_up']));
 
         /*comprobar campos vacios*/
-        if ($n_exp == "" ||  $municipio == "" ||  $depto == ""||  $sexo == ""||  $investigado == "" || $rango == ""  || $tipo_falta == "" || $investigador == "" || $fecha_inicio_exp == "" || $fecha_final_exp == "" || $fecha_inicio_i == ""|| $fecha_final_i_pre == "" || $fecha_final_i == "" || $fecha_remision == ""|| $diligencia == "" || $estado == "" || $observacion == "" || $art_input == "") {
+        if ($n_exp == "" ||  $municipio == "" ||  $depto == ""||  $sexo == ""||  $investigado == "" || 
+            $rango == ""  || $tipo_falta == "" || $investigador == "" || $fecha_inicio_exp == "" || 
+            $fecha_final_exp == "" || $fecha_inicio_i == ""|| $fecha_final_i_pre == "" || $fecha_final_i == "" || 
+            $fecha_remision == ""|| $diligencia == "" || $estado == "" || $observacion == "" || $art_input == "" || 
+            $folios == "" || $recomendacion == "" || $num_dictamen == "" || $num_archivo == "" || $legal_id == "") {
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
@@ -484,7 +493,12 @@ class expedienteControlador extends expedienteModelo
             "estado" => $estado,
             "fecha_remision" => $fecha_remision,
             "observacion" => $observacion,
-            "exp_id"=>$id_exp
+            "exp_id"=>$id_exp,
+            "folios"=>$folios,
+            "recomen"=>$recomendacion,
+            "num_dictan"=>$num_dictamen,
+            "num_arch"=>$num_archivo,
+            "legal_id"=>$legal_id
         ];
 
         $actualizar_exp =  expedienteModelo::actualizar_expediente_modelo($datos_expediente_up);
