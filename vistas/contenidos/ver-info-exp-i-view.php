@@ -65,6 +65,7 @@ if (!isset($_SESSION['id_spm'])) {
                                     <div class="form-group">
                                         <label>Identidad</label>
                                         <input type="text" class="form-control" name="identidad_d_up" id="identidad_d_up" value="<?php echo $campos['identidad_denunciante']; ?>" readonly>
+
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
@@ -88,7 +89,9 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="">Departamento <span class="text-danger">*</span></label>
+
                                         <select class="form-control" name="depto_up" id="depto" disabled>
+
                                             <option value="">Seleccione departamento</option>
                                             <?php
                                             $resultado = $conexion->query("SELECT * FROM tbl_depto");
@@ -151,6 +154,7 @@ if (!isset($_SESSION['id_spm'])) {
 
                                 <div class="col-sm-12">
                                     <div class="form-group">
+
                                         <label>Diligencias preliminares realizadas<span class="text-danger">*</span></label>
                                         <textarea class="form-control" name="diligencia_pre_up" id="diligencia_pre_up" style="text-transform:uppercase" cols="30" rows="10" readonly><?php echo $campos['diligencia_pre']; ?></textarea>
                                     </div>
@@ -158,6 +162,7 @@ if (!isset($_SESSION['id_spm'])) {
 
                                 <div class="col-sm-12">
                                     <div class="form-group">
+
                                         <label for="">Investigador</label>
                                         <select class="form-control" name="investigador_up" id="investigador_up" readonly>
                                             <option value="">Seleccione investigador</option>
@@ -196,6 +201,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label>Diligencias investigativas realizadas<span class="text-danger">*</span></label>
+
                                         <textarea class="form-control" name="diligencias_invest_up" id="diligencias_invest_up" style="text-transform:uppercase" cols="30" rows="10" readonly><?php echo $campos['diligencias_invest']; ?></textarea>
                                     </div>
                                 </div>
@@ -206,6 +212,7 @@ if (!isset($_SESSION['id_spm'])) {
                                         <input type="date" autocomplete="off" class="form-control" name="fecha_remision_up" id="fecha_remision_up" value="<?php echo $campos['fecha_remision_s']; ?>" readonly>
                                     </div>
                                 </div>
+
 
                                 <div class="col-sm-6">
                                     <div class="form-group">
@@ -228,13 +235,16 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Fecha asignación técnico legal<span class="text-danger">*</label>
-                                        <input type="date" autocomplete="off" class="form-control" name="fecha_asignacion_up" id="fecha_asignacion_up" value="<?php echo $campos['fecha_tec_legal']; ?>" readonly>
+
+                                        <input type="date" autocomplete="off" class="form-control" name="fecha_asignacion_up" id="fecha_asignacion_up" value="<?php echo $campos['fecha_asignacion']; ?>" readonly>
+
                                     </div>
                                 </div>
 
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Fecha audiencia de descargo<span class="text-danger">*</label>
+
                                         <input type="date" autocomplete="off" class="form-control" name="fecha_aud_desc_up" id="fecha_aud_desc_up" readonly value="<?php echo $campos['fecha_aud_desc']; ?>">
                                     </div>
                                 </div>
@@ -242,6 +252,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col-6 text-center">
                                     <div class="col">
                                         <label for="text" >Comparecio</label>
+
                                     </div>
                                     <div class="col">
                                         <div class="checkbox checkbox-primary pull-left p-t-0">
@@ -252,17 +263,21 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col"></div>
                                 </div>
 
+
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label>Diligencias legal realizadas<span class="text-danger">*</span></label>
                                         <textarea class="form-control" name="diligencias_legal_up" id="diligencias_legal_up" style="text-transform:uppercase" cols="30" rows="10" readonly><?php echo $campos['diligencias_legal']; ?></textarea>
                                     </div>
+
                                 </div>
 
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Finalización 3 días técnico legal<span class="text-danger">*</label>
+
                                         <input type="date" autocomplete="off" class="form-control" name="fecha_dias_tec_legal_up" id="fecha_dias_tec_legal_up" value="<?php echo $campos['fecha_dias_tec_legal']; ?>" readonly>
+
                                     </div>
                                 </div>
                                 
@@ -284,7 +299,9 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col-sm-6" id="contenedor">
                                     <div class="form-group">
                                         <label>N° Documento</label>
+
                                         <input type="text" class="form-control" style="text-transform:uppercase" name="num_resolve_up" id="num_resolve_up" value="<?php echo $campos['num_resolve']; ?>" readonly>
+
                                     </div>
                                 </div>
                                 
@@ -310,6 +327,7 @@ if (!isset($_SESSION['id_spm'])) {
                                     <div class="form-group">
                                         <label>Fecha devolución de expediente<span class="text-danger">*</label>
                                         <input type="date" autocomplete="off" class="form-control" name="fecha_devolucion_up" id="fecha_devolucion_up" value="<?php echo $campos['fecha_devolucion']; ?>" readonly>
+
                                     </div>
                                 </div>
 
@@ -320,13 +338,16 @@ if (!isset($_SESSION['id_spm'])) {
                                     </div>
                                 </div>
 
+
                                 <div class="col-6 text-center">
                                     <div class="col">
                                         <label for="text" >Ministerio Público y/o Tribunal Supremo de Cuentas</label>
                                     </div>
                                     <div class="col">
                                         <div class="checkbox checkbox-primary pull-left p-t-0">
+
                                             <input id="checkbox-mp_tsc_up" type="checkbox" class="filled-in chk-col-light-blue" value="<?php echo $campos['remision_mp_tsc']; ?>" disabled>
+
                                             <label for="checkbox-mp_tsc_up"></label>
                                         </div>
                                     </div>
@@ -334,6 +355,10 @@ if (!isset($_SESSION['id_spm'])) {
                                 </div>
 
                                 <div class="col-sm-12">
+<<<<<<< HEAD
+=======
+
+>>>>>>> rivera-formulario-correccion
                                     <div class="form-group">
                                         <label>Observación<span class="text-danger">*</span></label>
                                         <textarea class="form-control" name="observacion_up" id="observacion_up" style="text-transform:uppercase" cols="30" rows="10" readonly><?php echo $campos['observacion']; ?></textarea>
@@ -346,6 +371,7 @@ if (!isset($_SESSION['id_spm'])) {
                                     <hr>
                                 </div>
                                 
+
 
                                 <div class="col-sm-6">
                                     <div class="form-group">
@@ -427,6 +453,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 
                                 <div class="col-sm-6">
                                     <div class="form-group">
+
                                         <label for="">Estado del proceso <span class="text-danger">*</span></label>
                                         <select class="form-control" name="estado_up" id="estado_up" readonly>
                                             <option value="">Seleccione el estado del proceso</option>
@@ -445,6 +472,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 
                                 <div class="col-sm-12">
                                     <div class="col text-center">
+
                                         <div class="form-group"> 
                                             <button class="btn btn-info"><i class="fas fa-check-circle"></i> Emitir expediente</button>
                                             <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
