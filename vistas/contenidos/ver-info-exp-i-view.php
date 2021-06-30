@@ -273,7 +273,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col-sm-12">
                                 <div class="form-group">
                                     <label>Diligencias investigativas realizadas<span class="text-danger">*</span></label>
-                                    <textarea class="form-control" name="diligencia_up" id="diligencia_up" style="text-transform:uppercase" cols="30" rows="10" readonly ><?php echo $campos['diligencia_exp']; ?></textarea>
+                                    <textarea class="form-control" name="diligencia_up" id="diligencia_up" style="text-transform:uppercase" cols="30" rows="10" readonly ><?php echo $campos['diligencia_pre']; ?></textarea>
                                 </div>
                             </div>
                                 <div class="col-sm-6">

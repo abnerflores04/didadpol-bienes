@@ -3,9 +3,9 @@ require_once "mainModel2.php";
 class expedienteModelo extends mainModel2
 {
     /* Modelo agregar usuario*/
-    protected static function agregar_expediente_modelo($datos)
+    protected static function agregar_proceso_denuncia_modelo($datos)
     {
-        $sql = mainModel2::conectar()->prepare("INSERT INTO tbl_exp(nombre_denunciante, identidad_denunciante, genero_id, depto_id, municipio_id, num_exp, nombre_investigado, rango_id, tipo_falta_id, investigador_id, fecha_inicio_exp, fecha_final_exp, fecha_inicio_i, fecha_final_i_pre, fecha_final_i, diligencia_exp, est_proceso_id, fecha_remision_s, observacion) VALUES (:nombre_denunciante,:identidad_denunciante,:genero,:depto,:municipio,:n_exp,:nombre_investigado,:rango,:tipo_falta,:investigador,:fecha_inicio_exp,:fecha_final_exp,:fecha_inicio_i,:fecha_final_i_pre,:fecha_final_i,:diligencia,:estado,:fecha_remision,:observacion)");
+        $sql = mainModel2::conectar()->prepare("INSERT INTO tbl_exp(nombre_denunciante, identidad_denunciante, genero_id, depto_id, municipio_id, num_exp, nombre_investigado, rango_id, tipo_falta_id, fecha_inicio_exp, fecha_final_exp, fecha_final_i_pre, fecha_final_i ) VALUES (:nombre_denunciante,:identidad_denunciante,:genero,:depto,:municipio,:n_exp,:nombre_investigado,:rango,:tipo_falta,:fecha_inicio_exp,:fecha_final_exp,:fecha_final_i_pre,:fecha_final_i)");
         $sql->bindParam(":nombre_denunciante", $datos['nombre_denunciante']);
         $sql->bindParam(":identidad_denunciante", $datos['identidad_denunciante']);
         $sql->bindParam(":genero", $datos['genero']);
@@ -15,26 +15,29 @@ class expedienteModelo extends mainModel2
         $sql->bindParam(":nombre_investigado", $datos['nombre_investigado']);
         $sql->bindParam(":rango", $datos['rango']);
         $sql->bindParam(":tipo_falta", $datos['tipo_falta']);
-        $sql->bindParam(":investigador", $datos['investigador']);
         $sql->bindParam(":fecha_inicio_exp", $datos['fecha_inicio_exp']);
         $sql->bindParam(":fecha_final_exp", $datos['fecha_final_exp']);
-        $sql->bindParam(":fecha_inicio_i", $datos['fecha_inicio_i']);
         $sql->bindParam(":fecha_final_i_pre", $datos['fecha_final_i_pre']);
         $sql->bindParam(":fecha_final_i", $datos['fecha_final_i']);
-        $sql->bindParam(":diligencia", $datos['diligencia']);
-        $sql->bindParam(":estado", $datos['estado']);
-        $sql->bindParam(":fecha_remision", $datos['fecha_remision']);
-        $sql->bindParam(":observacion", $datos['observacion']);
+        $sql->execute();
+        return $sql;
+    }
+    protected static function agregar_bit_fec_cono_modelo($exp_id, $fecha_inicio_exp,$proceso_id)
+    {
+        $sql = mainModel2::conectar()->prepare("INSERT INTO tbl_bitacora_fechas(exp_id,fec_conocimiento, proceso_id) VALUES (:exp_id,:fec_conocimiento,:proceso_id)");
+        $sql->bindParam(":exp_id", $exp_id);
+        $sql->bindParam(":fec_conocimiento", $fecha_inicio_exp);
+        $sql->bindParam(":proceso_id", $proceso_id);
         $sql->execute();
         return $sql;
     }
     protected static function agregar_exp_art_modelo($exp_id, $articulo)
     {
         foreach ($articulo as $a) {
-                $sql = mainModel2::conectar()->prepare("INSERT INTO tbl_exp_art ( exp_id, art_id) VALUES (:exp_id,:art_id)");
-                $sql->bindParam(":exp_id", $exp_id);
-                $sql->bindParam(":art_id", $a);
-                $sql->execute();    
+            $sql = mainModel2::conectar()->prepare("INSERT INTO tbl_exp_art ( exp_id, art_id) VALUES (:exp_id,:art_id)");
+            $sql->bindParam(":exp_id", $exp_id);
+            $sql->bindParam(":art_id", $a);
+            $sql->execute();
         }
         return $sql;
     }
@@ -101,7 +104,7 @@ class expedienteModelo extends mainModel2
                 $sql2 = mainModel2::conectar()->prepare("INSERT INTO tbl_exp_art ( exp_id, art_id) VALUES (:exp_id,:art_id)");
                 $sql2->bindParam(":exp_id", $id_exp);
                 $sql2->bindParam(":art_id", $input_val);
-                $sql2->execute();  
+                $sql2->execute();
                 /*$sql2->bindParam(":colaborador", $input_val);
                 $sql2->bindParam(":id_salida", $id_salida);
                 $sql2->execute();*/
