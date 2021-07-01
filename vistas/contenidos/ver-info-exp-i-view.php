@@ -465,34 +465,39 @@ if (!isset($_SESSION['id_spm'])) {
                                         </select>
                                     </div>
                                 </div>
+                        </form>
+                        <div class="col-sm-12">
+                            <div class="col text-center">
 
-                                <div class="col-sm-12">
-                                    <div class="col text-center">
+                                <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
+                                    <div class="form-group">
+                                        <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
+                                        <input type="hidden" name="fec_emision" id="fec_emision" value="<?php echo date('Y-m-d'); ?>">
+                                        <?php if ($campos['proceso_id'] == 1) { ?>
+                                            <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Emitir expediente</button>
+                                        <?php } ?>
+                                        <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
 
-                                        <div class="form-group">
-                                            <form class="FormulariosAjax" action="' . SERVERURL . 'ajax/expedienteAjax.php" method="POST" data-form="update" autocomplete="off" style="margin: 0 auto;">
-                                                <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
-                                                <input type="hidden" name="fec_emision" id="fec_emision" value="<?php echo date('Y-m-d'); ?>">
-                                                <button class="btn btn-info"><i class="fas fa-check-circle"></i> Emitir expediente</button>
-                                            </form>
-                                            <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
-                                        </div>
+
                                     </div>
-                                </div>
+                                </form>
                             </div>
+                        </div>
                     </div>
             </div>
         </div>
-        </form>
-    <?php } else {  ?>
+</div>
 
-        <div class="alert alert-danger text-center" role="alert">
-            <p><i class="fas fa-exclamation-triangle fa-5x"></i></p>
-            <h4 class="alert-heading">¡Ocurrió un error inesperado!</h4>
-            <p class="mb-0">Lo sentimos, no podemos mostrar la información solicitada debido a un error.</p>
-        </div>
-    <?php } ?>
-    </section>
+
+<?php } else {  ?>
+
+    <div class="alert alert-danger text-center" role="alert">
+        <p><i class="fas fa-exclamation-triangle fa-5x"></i></p>
+        <h4 class="alert-heading">¡Ocurrió un error inesperado!</h4>
+        <p class="mb-0">Lo sentimos, no podemos mostrar la información solicitada debido a un error.</p>
+    </div>
+<?php } ?>
+</section>
 
 </div>
 <footer class="main-footer">

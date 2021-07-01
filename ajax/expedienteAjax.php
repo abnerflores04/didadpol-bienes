@@ -1,7 +1,7 @@
 <?php
 $peticionAjax=true;
 require_once "../config/APP.php";
-if (isset($_POST['n_exp_reg']) || isset($_POST['exp_id_up']) || isset($_POST['exp_id_del'])){
+if (isset($_POST['n_exp_reg']) || isset($_POST['exp_id_up']) || isset($_POST['exp_id_del']) || isset($_POST['bit_id'])){
     #Instancia al controlador
     require_once "../controladores/expedienteControlador.php";
     $ins_expediente= new expedienteControlador();
@@ -9,7 +9,10 @@ if (isset($_POST['n_exp_reg']) || isset($_POST['exp_id_up']) || isset($_POST['ex
     if (isset($_POST['n_exp_reg'])){
         echo $ins_expediente->agregar_proceso_denuncia_controlador();
     }
-    
+      #Para pasar al proceso de emision
+      if (isset($_POST['bit_id'])){
+        echo $ins_expediente->agregar_proceso_emision_controlador();
+    }
     
     #Para actualizar un usuario
     if (isset($_POST['exp_id_up'])){

@@ -302,8 +302,7 @@ class expedienteControlador extends expedienteModelo
             "fecha_final_exp" => $fecha_final_exp,
             "fecha_final_i_pre" => $fecha_final_i_pre,
             "fecha_final_i" => $fecha_final_i,
-           
-
+            "proceso_id" => $proceso_id
         ];
 
         $agregar_expediente =  expedienteModelo::agregar_proceso_denuncia_modelo($datos_expediente_reg);
@@ -338,6 +337,39 @@ class expedienteControlador extends expedienteModelo
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
                 "Texto" => "NO SE HA PODIDO REGISTRAR EL EXPEDIENTE",
+                "Tipo" => "error"
+            ];
+        }
+        echo json_encode($alerta);
+        /**************************** */
+    }/*fin controlador */
+    /* controlador agregar expediente*/
+    public function agregar_proceso_emision_controlador()
+    {
+        $bit_id = mainModel2::limpiar_cadena($_POST['bit_id']);
+        $fec_emision=$_POST['fec_emision'];
+        $proceso_id=2;
+        
+        $datos_proc_up = [
+            "bitacora_id"=>$bit_id,
+            "fec_emision"=>$fec_emision,
+            "proceso_id"=>$proceso_id
+        ];
+
+        $agregar_proc= expedienteModelo::agregar_proceso_emision_modelo($datos_proc_up);
+        
+        if ($agregar_proc) {
+            $alerta = [
+                "Alerta" => "recargar",
+                "Titulo" => "HECHO",
+                "Texto" => "EL EXPEDIENTE EMITIDO CON ÉXITO",
+                "Tipo" => "success"
+            ];
+        } else {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE EMITIÓ EL EXPEDIENTE",
                 "Tipo" => "error"
             ];
         }
