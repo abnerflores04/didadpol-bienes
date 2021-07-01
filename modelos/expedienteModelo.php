@@ -57,7 +57,7 @@ class expedienteModelo extends mainModel2
     protected static function datos_expediente_modelo($tipo, $id)
     {
         if ($tipo == "Unico") {
-            $sql = mainModel2::conectar()->prepare("SELECT * FROM tbl_exp  WHERE exp_id=:id");
+            $sql = mainModel2::conectar()->prepare("SELECT * FROM tbl_exp te INNER JOIN tbl_bitacora_fechas tbf on te.exp_id=tbf.exp_id WHERE te.exp_id=:id");
             $sql->bindParam(":id", $id);
         } elseif ($tipo == "Conteo") {
             $sql = mainModel2::conectar()->prepare("SELECT exp_id FROM tbl_exp");

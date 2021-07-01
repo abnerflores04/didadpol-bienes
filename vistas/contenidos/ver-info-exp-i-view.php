@@ -71,7 +71,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="">Sexo <span class="text-danger">*</span></label>
-                                        <select class="form-control" name="genero_up" id="genero_up" readonly>
+                                        <select class="form-control" name="genero_up" id="genero_up" disabled>
                                             <option value="">Seleccione sexo:</option>
                                             <?php
                                             require_once './modelos/conectar.php';
@@ -109,7 +109,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="">Municipio <span class="text-danger">*</span></label>
-                                        <select class="form-control" name="municipio_up" id="municipio" readonly>
+                                        <select class="form-control" name="municipio_up" id="municipio" disabled>
                                             <option value="">Seleccione municipio</option>
                                             <?php
                                             $resultado = $conexion->query("SELECT * FROM tbl_municipio");
@@ -164,7 +164,7 @@ if (!isset($_SESSION['id_spm'])) {
                                     <div class="form-group">
 
                                         <label for="">Investigador</label>
-                                        <select class="form-control" name="investigador_up" id="investigador_up" readonly>
+                                        <select class="form-control" name="investigador_up" id="investigador_up" disabled>
                                             <option value="">Seleccione investigador</option>
                                             <?php
                                             $resultado = $conexion->query("SELECT * FROM tbl_usuario WHERE rol_id=2");
@@ -217,13 +217,13 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="">Técnico Legal</label>
-                                        <select class="form-control" name="tec_legal_up" id="tec_legal_up" readonly>
+                                        <select class="form-control" name="tec_legal_up" id="tec_legal_up" disabled>
                                             <option value="">Seleccione técnico legal</option>
                                             <?php
                                             $resultado = $conexion->query("SELECT * FROM tbl_usuario WHERE rol_id=3");
                                             while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
                                             ?>
-                                                <option value="<?php echo $registro['usu_id']; ?>" <?php if ($registro['usu_id'] == $campos['legal_id']) {
+                                                <option value="<?php echo $registro['usu_id']; ?>" <?php if ($registro['usu_id'] == $campos['tecnico_legal']) {
                                                                                                         echo 'selected';
                                                                                                     }
                                                                                                     ?>><?php echo $registro['usu_nombre'] . " " . $registro['usu_apellido']; ?></option>
@@ -236,7 +236,7 @@ if (!isset($_SESSION['id_spm'])) {
                                     <div class="form-group">
                                         <label>Fecha asignación técnico legal<span class="text-danger">*</label>
 
-                                        <input type="date" autocomplete="off" class="form-control" name="fecha_asignacion_up" id="fecha_asignacion_up" value="<?php echo $campos['fecha_asignacion']; ?>" readonly>
+                                        <input type="date" autocomplete="off" class="form-control" name="fecha_asignacion_up" id="fecha_asignacion_up"value="<?php echo $campos['fecha_tec_legal']; ?>" readonly>
 
                                     </div>
                                 </div>
@@ -256,7 +256,7 @@ if (!isset($_SESSION['id_spm'])) {
                                     </div>
                                     <div class="col">
                                         <div class="checkbox checkbox-primary pull-left p-t-0">
-                                            <input id="checkbox-comparecio" type="checkbox" class="filled-in chk-col-light-blue" value="<?php echo $campos['comparecio']; ?>" disabled>
+                                            <input id="checkbox-comparecio" type="checkbox" class="filled-in chk-col-light-blue" value="<?php echo $campos['comparecio']; ?>">
                                             <label for="checkbox-comparecio"></label>
                                         </div>
                                     </div>
@@ -284,7 +284,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="">Seleccione resolución</label>
-                                        <select class="form-control" name="resolucion_up" id="resolucion_up" readonly>
+                                        <select class="form-control" name="resolucion_up" id="resolucion_up" disabled>
                                             <option value="">Seleccione opcion</option>
                                             <?php
                                             $resultado = $conexion->query("SELECT * FROM tbl_resoluciones");
@@ -308,13 +308,13 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="">Recomendación</label>
-                                        <select class="form-control" name="recomendacion_up" id="recomendacion_up" readonly>
-                                            <option value="">Seleccione recomendacion</option>
+                                        <select class="form-control" name="recomendacion_up" id="recomendacion_up" disabled>
+                                            <option value="">Seleccione recomendación</option>
                                             <?php
                                             $resultado = $conexion->query("SELECT * FROM tbl_recomen");
                                             while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
                                             ?>
-                                                <option value="<?php echo $registro['recomendacion_id']; ?>" <?php if ($registro['recomendacion_id'] == $campos['recomendacion_id']) {
+                                                <option value="<?php echo $registro['recomen_id']; ?>" <?php if ($registro['recomen_id'] == $campos['recomen_id']) {
                                                                                                         echo 'selected';
                                                                                                     }
                                                                                                     ?>><?php echo $registro['recomen']; ?></option>
@@ -326,7 +326,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Fecha devolución de expediente<span class="text-danger">*</label>
-                                        <input type="date" autocomplete="off" class="form-control" name="fecha_devolucion_up" id="fecha_devolucion_up" value="<?php echo $campos['fecha_devolucion']; ?>" readonly>
+                                        <input type="date" autocomplete="off" class="form-control" name="fecha_devolucion_up" id="fecha_devolucion_up" value="<?php echo $campos['fec_devolucion']; ?>" readonly>
 
                                     </div>
                                 </div>
@@ -355,10 +355,6 @@ if (!isset($_SESSION['id_spm'])) {
                                 </div>
 
                                 <div class="col-sm-12">
-<<<<<<< HEAD
-=======
-
->>>>>>> rivera-formulario-correccion
                                     <div class="form-group">
                                         <label>Observación<span class="text-danger">*</span></label>
                                         <textarea class="form-control" name="observacion_up" id="observacion_up" style="text-transform:uppercase" cols="30" rows="10" readonly><?php echo $campos['observacion']; ?></textarea>
@@ -382,7 +378,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="">Rango</label>
-                                        <select class="form-control" name="rango_up" id="rango_id_reg" readonly>
+                                        <select class="form-control" name="rango_up" id="rango_id_reg" disabled>
                                             <option value="">Seleccione rango</option>
                                             <?php
                                             require_once './modelos/conectar.php';
@@ -401,7 +397,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="">Tipo de falta</label>
-                                        <select class="form-control" name="tipo_falta_up" id="lista_f" readonly>
+                                        <select class="form-control" name="tipo_falta_up" id="lista_f" disabled>
                                             <option value="">Seleccione tipo de falta</option>
                                             <?php
                                             $resultado = $conexion->query("SELECT * FROM tbl_tipo_falta");
@@ -428,7 +424,7 @@ if (!isset($_SESSION['id_spm'])) {
                                         }
                                         ?>
                                         <label for="">Articulos <span class="text-danger">*</span></label>
-                                        <select class="form-control lista_a" name="articulos_up[]" id="lista_a" multiple="multiple" style="width:100%;" readonly>
+                                        <select class="form-control lista_a" name="articulos_up[]" id="lista_a" multiple="multiple" style="width:100%;" disabled>
                                             <?php
                                             $query2 = "SELECT * FROM tbl_articulo";
                                             $resultado_articulo = $conexion->prepare($query2);
@@ -455,7 +451,7 @@ if (!isset($_SESSION['id_spm'])) {
                                     <div class="form-group">
 
                                         <label for="">Estado del proceso <span class="text-danger">*</span></label>
-                                        <select class="form-control" name="estado_up" id="estado_up" readonly>
+                                        <select class="form-control" name="estado_up" id="estado_up" disabled>
                                             <option value="">Seleccione el estado del proceso</option>
                                             <?php
                                             $resultado = $conexion->query("SELECT * FROM tbl_est_proceso");
