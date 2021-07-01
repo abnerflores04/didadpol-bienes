@@ -476,6 +476,14 @@ if (!isset($_SESSION['id_spm'])) {
                                         <?php if ($campos['proceso_id'] == 1) { ?>
                                             <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Emitir expediente</button>
                                         <?php } ?>
+                                        <?php if ($campos['proceso_id'] == 2) { ?>
+                                            <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Admitir</button>
+                                        <?php } ?>
+                                        <?php if ($campos['proceso_id'] == 3) { ?>
+                                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#ModalAsignar">
+                                                Asignar investigador
+                                            </button>
+                                        <?php } ?>
                                         <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
 
 
@@ -513,3 +521,47 @@ if (!isset($_SESSION['id_spm'])) {
 
     });
 </script>
+
+<!-- Modal Asignar investigador -->
+<div class="modal" id="ModalAsignar">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Asignar Investigador</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                        <label for="">Investigador</label>
+                    <select class="form-control" name="rango_up" id="rango_id_reg">
+                        <option value="">Seleccione investigador</option>
+                        <?php
+                        require_once './modelos/conectar.php';
+                        $resultado = $conexion->query("SELECT * FROM tbl_usuario WHERE rol_id = 2");
+                        while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
+                        ?>
+                            <option value="<?php echo $registro['rol_id']; ?>" ><?php echo $registro['usu_nombre']. ' ' .$registro['usu_apellido']; ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <?php if ($campos['proceso_id'] == 3) { ?>
+            <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Asignar</button>
+        <?php } ?>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
