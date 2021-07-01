@@ -138,14 +138,22 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Fecha conocimiento DIDADPOL<span class="text-danger">*</label>
-                                        <input type="date" autocomplete="off" class="form-control" value="<?php echo $campos['fecha_inicio_exp']; ?>" name="fecha_inicio_exp_up" readonly>
+                                        <input type="date" autocomplete="off" class="form-control" value="<?php echo $campos['fecha_inicio_exp']; ?>" name="fecha_inicio_exp_up">
                                     </div>
                                 </div>
 
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Fecha final expediente<span class="text-danger">*</label>
-                                        <input type="date" autocomplete="off" class="form-control" name="fecha_final_exp_up" id="fecha_final_exp_up" value="<?php echo $campos['fecha_final_exp']; ?>" readonly>
+                                        <input type="date" autocomplete="off" class="form-control" name="fecha_final_exp_up" id="fecha_final_exp_up" value="<?php echo $campos['fecha_final_exp']; ?>">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+
+                                        <label>Diligencias preliminares realizadas<span class="text-danger">*</span></label>
+                                        <textarea class="form-control" name="diligencia_pre_up" id="diligencia_pre_up" style="text-transform:uppercase" cols="30" rows="10"><?php echo $campos['diligencia_pre']; ?></textarea>
                                     </div>
                                 </div>
 
@@ -182,14 +190,14 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Fecha finalizacion investigación<span class="text-danger">*</label>
-                                        <input type="date" autocomplete="off" class="form-control" name="fecha_final_i_up" id="fecha_final_i_up" value="<?php echo $campos['fecha_final_i']; ?>" readonly>
+                                        <input type="date" autocomplete="off" class="form-control" name="fecha_final_i_up" id="fecha_final_i_up" value="<?php echo $campos['fecha_final_i']; ?>">
                                     </div>
                                 </div>
                                 
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label>Diligencias investigativas realizadas<span class="text-danger">*</span></label>
-                                        <textarea class="form-control" name="diligencia_up" id="diligencia_up" style="text-transform:uppercase" cols="30" rows="10"><?php echo $campos['diligencia_exp']; ?></textarea>
+                                        <textarea class="form-control" name="diligencias_invest_up" id="diligencias_invest_up" style="text-transform:uppercase" cols="30" rows="10"><?php echo $campos['diligencias_invest']; ?></textarea>
                                     </div>
                                 </div>
 
@@ -221,14 +229,14 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Fecha asignación técnico legal<span class="text-danger">*</label>
-                                        <input type="date" autocomplete="off" class="form-control" name="fecha_asignacion_up" id="fecha_asignacion_up" value="<?php echo $campos['fecha_asignacion']; ?>">
+                                        <input type="date" autocomplete="off" class="form-control" name="fecha_asignacion_up" id="fecha_asignacion_up"value="<?php echo $campos['fecha_tec_legal']; ?>">
                                     </div>
                                 </div>
 
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Fecha audiencia de descargo<span class="text-danger">*</label>
-                                        <input type="date" autocomplete="off" class="form-control" name="fecha_audiencia_up" id="fecha_audiencia_up" value="<?php echo $campos['fecha_audiencia']; ?>">
+                                        <input type="date" autocomplete="off" class="form-control" name="fecha_aud_desc_up" id="fecha_aud_desc_up" value="<?php echo $campos['fecha_aud_desc']; ?>">
                                     </div>
                                 </div>
 
@@ -245,10 +253,17 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col"></div>
                                 </div>
 
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label>Diligencias legal realizadas<span class="text-danger">*</span></label>
+                                        <textarea class="form-control" name="diligencias_legal_up" id="diligencias_legal_up" style="text-transform:uppercase" cols="30" rows="10"><?php echo $campos['diligencias_legal']; ?></textarea>
+                                    </div>
+                                </div>
+
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Finalización 3 días técnico legal<span class="text-danger">*</label>
-                                        <input type="date" autocomplete="off" class="form-control" name="fecha_tecnico_up" id="fecha_tecnico_up" value="<?php echo $campos['fecha_tecnico']; ?>">
+                                        <input type="date" autocomplete="off" class="form-control" name="fecha_dias_tec_legal_up" id="fecha_dias_tec_legal_up" value="<?php echo $campos['fecha_dias_tec_legal']; ?>">
                                     </div>
                                 </div>
                                 
@@ -270,7 +285,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col-sm-6" id="contenedor">
                                     <div class="form-group">
                                         <label>N° Documento</label>
-                                        <input type="text" class="form-control" style="text-transform:uppercase" name="n_documento_up" id="n_documento_up" value="<?php echo $campos['n_documento']; ?>">
+                                        <input type="text" class="form-control" style="text-transform:uppercase" name="num_resolve_up" id="num_resolve_up" value="<?php echo $campos['num_resolve']; ?>">
                                     </div>
                                 </div>
                                 
@@ -295,14 +310,14 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Fecha devolución de expediente<span class="text-danger">*</label>
-                                        <input type="date" autocomplete="off" class="form-control" name="fecha_devolucion_up" id="fecha_devolucion_up" value="<?php echo $campos['fecha_devolucion']; ?>">
+                                        <input type="date" autocomplete="off" class="form-control" name="fecha_devolucion_up" id="fecha_devolucion_up" value="<?php echo $campos['fec_devolucion']; ?>">
                                     </div>
                                 </div>
 
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Folios</label>
-                                        <input type="number" class="form-control" name="folios_up" id="folios_up" value="<?php echo $campos['folios']; ?>">
+                                        <input type="number" class="form-control" name="folios_up" id="folios_up" value="<?php echo $campos['folio']; ?>">
                                     </div>
                                 </div>
 
