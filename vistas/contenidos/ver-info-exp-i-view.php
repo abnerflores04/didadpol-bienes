@@ -60,7 +60,7 @@ if (!isset($_SESSION['id_spm'])) {
                                     </div>
 
                                 </div>
-                               
+
                                 <div class="col-sm-6" id="contenedor2">
                                     <div class="form-group">
                                         <label>Identidad</label>
@@ -127,7 +127,7 @@ if (!isset($_SESSION['id_spm'])) {
                                     <h5 class="font-weight-bold text-uppercase">Datos del expediente</h5>
                                     <hr>
                                 </div>
-                                
+
                                 <div class="col-sm-6">
                                     <label>N° de expediente<span class="text-danger">*</span></label>
                                     <div class="input-group mb-3">
@@ -197,7 +197,7 @@ if (!isset($_SESSION['id_spm'])) {
                                         <input type="date" autocomplete="off" class="form-control" name="fecha_final_i_up" id="fecha_final_i_up" value="<?php echo $campos['fecha_final_i']; ?>" readonly>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label>Diligencias investigativas realizadas<span class="text-danger">*</span></label>
@@ -236,7 +236,7 @@ if (!isset($_SESSION['id_spm'])) {
                                     <div class="form-group">
                                         <label>Fecha asignación técnico legal<span class="text-danger">*</label>
 
-                                        <input type="date" autocomplete="off" class="form-control" name="fecha_asignacion_up" id="fecha_asignacion_up"value="<?php echo $campos['fecha_tec_legal']; ?>" readonly>
+                                        <input type="date" autocomplete="off" class="form-control" name="fecha_asignacion_up" id="fecha_asignacion_up" value="<?php echo $campos['fecha_tec_legal']; ?>" readonly>
 
                                     </div>
                                 </div>
@@ -251,7 +251,7 @@ if (!isset($_SESSION['id_spm'])) {
 
                                 <div class="col-6 text-center">
                                     <div class="col">
-                                        <label for="text" >Comparecio</label>
+                                        <label for="text">Comparecio</label>
 
                                     </div>
                                     <div class="col">
@@ -260,7 +260,7 @@ if (!isset($_SESSION['id_spm'])) {
                                             <label for="checkbox-comparecio"></label>
                                         </div>
                                     </div>
-                                <div class="col"></div>
+                                    <div class="col"></div>
                                 </div>
 
 
@@ -280,7 +280,7 @@ if (!isset($_SESSION['id_spm'])) {
 
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="">Seleccione resolución</label>
@@ -290,7 +290,7 @@ if (!isset($_SESSION['id_spm'])) {
                                             $resultado = $conexion->query("SELECT * FROM tbl_resoluciones");
                                             while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
                                             ?>
-                                                <option value="<?php echo $registro['resolve_id']; ?>" ><?php echo $registro['resolve']; ?></option>
+                                                <option value="<?php echo $registro['resolve_id']; ?>"><?php echo $registro['resolve']; ?></option>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -304,7 +304,7 @@ if (!isset($_SESSION['id_spm'])) {
 
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="">Recomendación</label>
@@ -315,14 +315,14 @@ if (!isset($_SESSION['id_spm'])) {
                                             while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
                                             ?>
                                                 <option value="<?php echo $registro['recomen_id']; ?>" <?php if ($registro['recomen_id'] == $campos['recomen_id']) {
-                                                                                                        echo 'selected';
-                                                                                                    }
-                                                                                                    ?>><?php echo $registro['recomen']; ?></option>
+                                                                                                            echo 'selected';
+                                                                                                        }
+                                                                                                        ?>><?php echo $registro['recomen']; ?></option>
                                             <?php } ?>
                                         </select>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Fecha devolución de expediente<span class="text-danger">*</label>
@@ -341,7 +341,7 @@ if (!isset($_SESSION['id_spm'])) {
 
                                 <div class="col-6 text-center">
                                     <div class="col">
-                                        <label for="text" >Ministerio Público y/o Tribunal Supremo de Cuentas</label>
+                                        <label for="text">Ministerio Público y/o Tribunal Supremo de Cuentas</label>
                                     </div>
                                     <div class="col">
                                         <div class="checkbox checkbox-primary pull-left p-t-0">
@@ -366,7 +366,7 @@ if (!isset($_SESSION['id_spm'])) {
                                     <h5 class="font-weight-bold text-uppercase">Datos del investigado</h5>
                                     <hr>
                                 </div>
-                                
+
 
 
                                 <div class="col-sm-6">
@@ -411,7 +411,7 @@ if (!isset($_SESSION['id_spm'])) {
                                         </select>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <?php
@@ -446,7 +446,7 @@ if (!isset($_SESSION['id_spm'])) {
                                         </select>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-sm-6">
                                     <div class="form-group">
 
@@ -465,12 +465,16 @@ if (!isset($_SESSION['id_spm'])) {
                                         </select>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-sm-12">
                                     <div class="col text-center">
 
-                                        <div class="form-group"> 
-                                            <button class="btn btn-info"><i class="fas fa-check-circle"></i> Emitir expediente</button>
+                                        <div class="form-group">
+                                            <form class="FormulariosAjax" action="' . SERVERURL . 'ajax/expedienteAjax.php" method="POST" data-form="update" autocomplete="off" style="margin: 0 auto;">
+                                                <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
+                                                <input type="hidden" name="fec_emision" id="fec_emision" value="<?php echo date('Y-m-d'); ?>">
+                                                <button class="btn btn-info"><i class="fas fa-check-circle"></i> Emitir expediente</button>
+                                            </form>
                                             <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
                                         </div>
                                     </div>
