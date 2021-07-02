@@ -44,7 +44,17 @@ if (!isset($_SESSION['id_spm'])) {
                 ?>
                     <!-- /.card-body -->
                     <div class="card-body">
-                        <p class="text-danger ">Campos obligatorios *</p>
+                        <div class="row">
+                            <div class="col">
+                                <p class="text-danger ">Campos obligatorios *</p>
+                            </div>
+                            <div class="col"></div>
+                            <div class="col">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModaldiligenciaPre">
+                                    <i class="fa fa-plus" aria-hidden="true"></i> Agregar diligencia
+                                </button>
+                            </div>
+                        </div>
                         <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="update" autocomplete="off">
                             <div class="row">
                                 <div class="col-sm-12">
@@ -511,6 +521,21 @@ if (!isset($_SESSION['id_spm'])) {
                                     </div>
                                 <?php } ?>
                                 <!-- /Boton asignar -->
+                                <!-- Boton emitir de investigacion a director -->
+                                <?php if ($campos['proceso_id'] == 4) { ?>
+                                    <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
+                                        <div class="form-group">
+                                            <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
+                                            <input type="hidden" name="fec_emitir_invest" id="fec_emitir_invest" value="<?php echo date('Y-m-d'); ?>">
+                                            
+                                            <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Emitir a director</button>
+                                            <!-- Boton volver atras -->
+                                            <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
+                                            <!-- /Boton volver atras -->
+                                        </div>
+                                    </form>
+                                <?php } ?>
+                                <!-- /Boton apertura -->
                                 <!-- Boton apertura -->
                                 <?php if ($campos['proceso_id'] == 4) { ?>
                                     <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
@@ -745,6 +770,45 @@ if (!isset($_SESSION['id_spm'])) {
 
     });
 </script>
+
+<!-- Modal diligencia preliminares -->
+<div class="modal" id="ModaldiligenciaPre">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">agregar Diligencias</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+        <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                    
+                        <div class="form-group">
+                            <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
+                            <input type="hidden" name="fec_asignar_inves" id="fec_asignar_inves" value="<?php echo date('Y-m-d'); ?>">
+                        
+                            <label for="diligencias_invest">Diligencias</label>
+                            <textarea class="form-control" name="diligencias_invest" id="diligencias_invest" style="text-transform:uppercase" cols="30" rows="5"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <?php if ($campos['proceso_id'] == 3) { ?>
+                    <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Asignar</button>
+                <?php } ?>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>
 
 <!-- Modal Asignar investigador -->
 <div class="modal" id="ModalAsignar">
