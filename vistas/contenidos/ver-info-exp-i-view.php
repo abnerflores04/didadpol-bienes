@@ -668,6 +668,51 @@ if (!isset($_SESSION['id_spm'])) {
                                     </form>
                                 <?php } ?>
                                 <!-- /Boton dictamen -->
+                                <!-- Boton devolución -->
+                                <?php if ($campos['proceso_id'] == 15) { ?>
+                                    <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
+                                        <div class="form-group">
+                                            <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
+                                            <input type="hidden" name="fec_devolucion" id="fec_devolucion" value="<?php echo date('Y-m-d'); ?>">
+                                        
+                                            <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Devolución</button>
+                                            <!-- Boton volver atras -->
+                                            <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
+                                            <!-- /Boton volver atras -->
+                                        </div>
+                                    </form>
+                                <?php } ?>
+                                <!-- /Boton devolución -->
+                                <!-- Boton entrega dictamen -->
+                                <?php if ($campos['proceso_id'] == 15) { ?>
+                                    <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
+                                        <div class="form-group">
+                                            <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
+                                            <input type="hidden" name="fec_entrega_dictamen" id="fec_entrega_dictamen" value="<?php echo date('Y-m-d'); ?>">
+                                        
+                                            <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Entrega dictamen</button>
+                                            <!-- Boton volver atras -->
+                                            <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
+                                            <!-- /Boton volver atras -->
+                                        </div>
+                                    </form>
+                                <?php } ?>
+                                <!-- /Boton devolución -->
+                                <!-- Boton Memorandum -->
+                                <?php if ($campos['proceso_id'] == 17) { ?>
+                                    <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
+                                        <div class="form-group">
+                                            <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
+                                            <input type="hidden" name="fec_memorandum" id="fec_memorandum" value="<?php echo date('Y-m-d'); ?>">
+                                        
+                                            <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Memorandum</button>
+                                            <!-- Boton volver atras -->
+                                            <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
+                                            <!-- /Boton volver atras -->
+                                        </div>
+                                    </form>
+                                <?php } ?>
+                                <!-- /Boton Memorandum -->
                             </div>
                         </div>
                     </div>
