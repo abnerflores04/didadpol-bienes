@@ -186,7 +186,7 @@ class expedienteControlador extends expedienteModelo
         echo json_encode($alerta);
         /**************************** */
     }/*fin controlador */
-    /* controlador agregar expediente*/
+    /* controlador agregar proceso de denuncia*/
     public function agregar_proceso_denuncia_controlador()
     {
         $n_exp = mainModel2::limpiar_cadena($_POST['n_exp_reg']);
@@ -343,7 +343,7 @@ class expedienteControlador extends expedienteModelo
         echo json_encode($alerta);
         /**************************** */
     }/*fin controlador */
-    /* controlador agregar expediente*/
+    /* controlador agregar proceso de emision*/
     public function agregar_proceso_emision_controlador()
     {
         $bit_id = mainModel2::limpiar_cadena($_POST['bit_id']);
@@ -376,6 +376,88 @@ class expedienteControlador extends expedienteModelo
         echo json_encode($alerta);
         /**************************** */
     }/*fin controlador */
+     /* controlador agregar proceso de admision*/
+     public function agregar_proceso_admision_controlador()
+     {
+         $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_3']);
+         $fec_admision=$_POST['fec_admitir'];
+         $proceso_id=3;
+         
+         $datos_proc_up = [
+             "bitacora_id"=>$bit_id,
+             "fec_admision"=>$fec_admision,
+             "proceso_id"=>$proceso_id
+         ];
+ 
+         $agregar_proc= expedienteModelo::agregar_proceso_admision_modelo($datos_proc_up);
+         
+         if ($agregar_proc) {
+             $alerta = [
+                 "Alerta" => "recargar",
+                 "Titulo" => "HECHO",
+                 "Texto" => "EL EXPEDIENTE ADMITIDO CON ÉXITO",
+                 "Tipo" => "success"
+             ];
+         } else {
+             $alerta = [
+                 "Alerta" => "simple",
+                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                 "Texto" => "NO SE ADMITIÓ EL EXPEDIENTE",
+                 "Tipo" => "error"
+             ];
+         }
+         echo json_encode($alerta);
+         /**************************** */
+     }/*fin controlador */
+     /* controlador agregar proceso de asignacion de expediente a investigador*/
+     public function agregar_proceso_asig_i_controlador()
+     {
+         $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_4']);
+         $fec_asig=$_POST['fec_asignar_inves'];
+         $investigador=mainModel2::limpiar_cadena($_POST['investigador']);
+         $proceso_id=4;
+         $exp_id=mainModel2::limpiar_cadena($_POST['exp_id']);
+         /*comprobar campos vacios*/
+        if ($investigador == "") {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "CAMPO VACIO, POR FAVOR SELECCIONE INVESTIGADOR",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        }
+         
+         $datos_proc_up = [
+             "bitacora_id"=>$bit_id,
+             "fec_asignacion"=>$fec_asig,
+             "investigador_id"=>$investigador,
+             "proceso_id"=>$proceso_id,
+             "exp_id"=>$exp_id
+         ];
+ 
+         $agregar_proc= expedienteModelo::agregar_proceso_asig_i_modelo($datos_proc_up);
+         
+         if ($agregar_proc) {
+             $alerta = [
+                 "Alerta" => "recargar",
+                 "Titulo" => "HECHO",
+                 "Texto" => "EL EXPEDIENTE SE HA ASIGNADO CON ÉXITO",
+                 "Tipo" => "success"
+             ];
+         } else {
+             $alerta = [
+                 "Alerta" => "simple",
+                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                 "Texto" => "NO SE HA PODIDO ASIGNAR EL EXPEDIENTE",
+                 "Tipo" => "error"
+             ];
+         }
+         echo json_encode($alerta);
+         /**************************** */
+     }/*fin controlador */
+      /* controlador para listar expedientes*/
     public function listar_exp_controlador()
     {
         $tabla = '';

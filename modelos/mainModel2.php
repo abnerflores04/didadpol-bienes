@@ -148,51 +148,51 @@ class mainModel2
         $endDate = strtotime($endDate);
         $startDate = strtotime($startDate);
 
-        //The total number of days between the two dates. We compute the no. of seconds and divide it to 60*60*24 
-        //We add one to inlude both dates in the interval.
+        //El número total de días entre las dos fechas. Calculamos el no. de segundos y dividirlo entre 60 * 60 * 24 
+        //Agregamos uno para incluir ambas fechas en el intervalo. 
         $days = ($endDate - $startDate) / 86400 + 1;
 
         $no_full_weeks = floor($days / 7);
         $no_remaining_days = fmod($days, 7);
 
-        //It will return 1 if it's Monday,.. ,7 for Sunday
+        //Devolverá 1 si es lunes, 7 para el domingo. 
         $the_first_day_of_week = date("N", $startDate);
         $the_last_day_of_week = date("N", $endDate);
 
 
-        //---->The two can be equal in leap years when february has 29 days, the equal sign is added here 
-        //In the first case the whole interval is within a week, in the second case the interval falls in two weeks.
+        //---->Los dos pueden ser iguales en años bisiestos cuando febrero tiene 29 días, el signo igual se agrega aquí 
+        //En el primer caso, el intervalo completo está dentro de una semana, en el segundo caso, el intervalo cae en dos semanas. 
         if ($the_first_day_of_week <= $the_last_day_of_week) {
             if ($the_first_day_of_week <= 6 && 6 <= $the_last_day_of_week)  $no_remaining_days--;
             if ($the_first_day_of_week <= 7 && 7 <= $the_last_day_of_week) $no_remaining_days--;
         } else {
 
-            // (edit by Tokes to fix an edge case where the start day was a Sunday 
-            // and the end day was NOT a Saturday) 
-            // the day of the week for start is later than the day of the week for end 
+            // (editar por Tokes para arreglar un caso de borde donde el día de inicio era un domingo 
+            // y el día final NO fue sábado)
+            // el día de la semana de inicio es posterior al día de la semana de finalización 
             if ($the_first_day_of_week == 7) {
-                // if the start date is a Sunday, then we definitely subtract 1 day
+                // si la fecha de inicio es un domingo, definitivamente restamos 1 día 
                 $no_remaining_days--;
                 if ($the_last_day_of_week == 6) {
-                    // if the end date is a Saturday, then we subtract another day
+                    // si la fecha de finalización es un sábado, restamos otro día 
                     $no_remaining_days--;
                 }
             } else {
-                // the start date was a Saturday (or earlier), and the end date was (Mon..Fri) 
-                // so we skip an entire weekend and subtract 2 days 
+                // la fecha de inicio fue un sábado (o antes) y la fecha de finalización fue (lunes, viernes) 
+                // así que saltamos un fin de semana completo y restamos 2 días 
                 $no_remaining_days -= 2;
             }
         }
-        //The no. of business days is: (number of weeks between the two dates) * (5 working days) + the remainder 
-        //---->february in none leap years gave a remainder of 0 but still calculated weekends between first and last day, this is one way to fix it 
+        //El no. de días hábiles es: (número de semanas entre las dos fechas) * (5 días hábiles) + el resto 
+        //---->febrero en ninguno de los años bisiestos dio un resto de 0, pero aún así se calcularon los fines de semana entre el primer y el último día, esta es una forma de solucionarlo 
         $workingDays = $no_full_weeks * 5;
         if ($no_remaining_days > 0) {
             $workingDays += $no_remaining_days;
         }
-        //We subtract the holidays 
+        //Nosotros restamos las vacaciones
         foreach ($holidays as $holiday) {
             $time_stamp = strtotime($holiday);
-            //If the holiday doesn't fall in weekend 
+            //Si las vacaciones no caen en fin de semana  
             if ($startDate <= $time_stamp && $time_stamp <= $endDate && date("N", $time_stamp) != 6 && date("N", $time_stamp) != 7)
                 $workingDays--;
         }

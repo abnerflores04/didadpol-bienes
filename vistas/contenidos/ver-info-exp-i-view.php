@@ -488,7 +488,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <?php if ($campos['proceso_id'] == 2) { ?>
                                     <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
                                         <div class="form-group">
-                                            <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
+                                            <input type="hidden" class="form-control" name="bit_id_3" id="bit_id_3" value="<?php echo $campos['bitacora_id']; ?>">
                                             <input type="hidden" name="fec_admitir" id="fec_admitir" value="<?php echo date('Y-m-d'); ?>">
                                             
                                             <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Admitir</button>
@@ -763,18 +763,19 @@ if (!isset($_SESSION['id_spm'])) {
                     <div class="col-sm-12">
                     
                         <div class="form-group">
-                            <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
+                            <input type="hidden" class="form-control" name="bit_id_4" id="bit_id_4" value="<?php echo $campos['bitacora_id']; ?>">
+                            <input type="hidden" class="form-control" name="exp_id" id="exp_id" value="<?php echo $campos['exp_id']; ?>">
                             <input type="hidden" name="fec_asignar_inves" id="fec_asignar_inves" value="<?php echo date('Y-m-d'); ?>">
                         
                             <label for="">Investigador</label>
-                            <select class="form-control" name="rango_up" id="rango_id_reg">
+                            <select class="form-control" name="investigador" id="investigador">
                                 <option value="">Seleccione investigador</option>
                                 <?php
                                 require_once './modelos/conectar.php';
                                 $resultado = $conexion->query("SELECT * FROM tbl_usuario WHERE rol_id = 2");
                                 while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
                                 ?>
-                                    <option value="<?php echo $registro['rol_id']; ?>" ><?php echo $registro['usu_nombre']. ' ' .$registro['usu_apellido']; ?></option>
+                                    <option value="<?php echo $registro['usu_id']; ?>" ><?php echo $registro['usu_nombre']. ' ' .$registro['usu_apellido']; ?></option>
                                 <?php } ?>
                             </select>
                         </div>
