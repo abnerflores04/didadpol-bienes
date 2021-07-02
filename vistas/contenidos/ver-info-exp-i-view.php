@@ -44,7 +44,17 @@ if (!isset($_SESSION['id_spm'])) {
                 ?>
                     <!-- /.card-body -->
                     <div class="card-body">
-                        <p class="text-danger ">Campos obligatorios *</p>
+                        <div class="row">
+                            <div class="col">
+                                <p class="text-danger ">Campos obligatorios *</p>
+                            </div>
+                            <div class="col"></div>
+                            <div class="col">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModaldiligenciaPre">
+                                    <i class="fa fa-plus" aria-hidden="true"></i> Agregar diligencia
+                                </button>
+                            </div>
+                        </div>
                         <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="update" autocomplete="off">
                             <div class="row">
                                 <div class="col-sm-12">
@@ -511,8 +521,23 @@ if (!isset($_SESSION['id_spm'])) {
                                     </div>
                                 <?php } ?>
                                 <!-- /Boton asignar -->
-                                <!-- Boton apertura -->
+                                <!-- Boton emitir de investigacion a director -->
                                 <?php if ($campos['proceso_id'] == 4) { ?>
+                                    <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
+                                        <div class="form-group">
+                                            <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
+                                            <input type="hidden" name="fec_emitir_invest" id="fec_emitir_invest" value="<?php echo date('Y-m-d'); ?>">
+                                            
+                                            <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Emitir a director</button>
+                                            <!-- Boton volver atras -->
+                                            <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
+                                            <!-- /Boton volver atras -->
+                                        </div>
+                                    </form>
+                                <?php } ?>
+                                <!-- /Boton apertura -->
+                                <!-- Boton apertura -->
+                                <?php if ($campos['proceso_id'] == 5) { ?>
                                     <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
@@ -527,7 +552,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <?php } ?>
                                 <!-- /Boton apertura -->
                                 <!-- Boton Comunicación -->
-                                <?php if ($campos['proceso_id'] == 5) { ?>
+                                <?php if ($campos['proceso_id'] == 6) { ?>
                                     <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
@@ -542,7 +567,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <?php } ?>
                                 <!-- /Boton Comunicación -->
                                 <!-- Boton Recepción investigacion -->
-                                <?php if ($campos['proceso_id'] == 6) { ?>
+                                <?php if ($campos['proceso_id'] == 7) { ?>
                                     <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
@@ -557,7 +582,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <?php } ?>
                                 <!-- /Boton Recepción investigacion -->
                                 <!-- Boton Estado Proceso -->
-                                <?php if ($campos['proceso_id'] == 7) { ?>
+                                <?php if ($campos['proceso_id'] == 8) { ?>
                                     <div class="form-group">
                                         
                                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#ModalEstadoProcess">
@@ -570,7 +595,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <?php } ?>
                                 <!-- /Boton Estado Proceso -->
                                 <!-- Boton Validación -->
-                                <?php if ($campos['proceso_id'] == 8) { ?>
+                                <?php if ($campos['proceso_id'] == 9) { ?>
                                     <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
@@ -585,7 +610,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <?php } ?>
                                 <!-- /Boton Validación -->
                                 <!-- Boton Recepción Secretaria -->
-                                <?php if ($campos['proceso_id'] == 9) { ?>
+                                <?php if ($campos['proceso_id'] == 10) { ?>
                                     <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
@@ -600,7 +625,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <?php } ?>
                                 <!-- /Boton Recepción Secretaria -->
                                 <!-- Boton Citación -->
-                                <?php if ($campos['proceso_id'] == 10) { ?>
+                                <?php if ($campos['proceso_id'] == 11) { ?>
                                     <div class="form-group">
                                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#ModalCitacion">
                                             Citación
@@ -612,7 +637,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <?php } ?>
                                 <!-- /Boton Citación -->
                                 <!-- Boton recepción legal -->
-                                <?php if ($campos['proceso_id'] == 11) { ?>
+                                <?php if ($campos['proceso_id'] == 12) { ?>
                                     <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
@@ -627,7 +652,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <?php } ?>
                                 <!-- /Boton recepción legal -->
                                 <!-- Boton asignar -->
-                                <?php if ($campos['proceso_id'] == 12) { ?>
+                                <?php if ($campos['proceso_id'] == 13) { ?>
                                     <div class="form-group">
                                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#ModalAsignarTecLeg">
                                             Asignar técnico legal
@@ -639,7 +664,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <?php } ?>
                                 <!-- /Boton asignar -->
                                 <!-- Boton audiencia -->
-                                <?php if ($campos['proceso_id'] == 13) { ?>
+                                <?php if ($campos['proceso_id'] == 14) { ?>
                                     <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
@@ -654,7 +679,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <?php } ?>
                                 <!-- /Boton audiencia -->
                                 <!-- Boton dictamen -->
-                                <?php if ($campos['proceso_id'] == 14) { ?>
+                                <?php if ($campos['proceso_id'] == 15) { ?>
                                     <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
@@ -669,7 +694,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <?php } ?>
                                 <!-- /Boton dictamen -->
                                 <!-- Boton devolución -->
-                                <?php if ($campos['proceso_id'] == 15) { ?>
+                                <?php if ($campos['proceso_id'] == 16) { ?>
                                     <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
@@ -684,7 +709,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <?php } ?>
                                 <!-- /Boton devolución -->
                                 <!-- Boton entrega dictamen -->
-                                <?php if ($campos['proceso_id'] == 15) { ?>
+                                <?php if ($campos['proceso_id'] == 17) { ?>
                                     <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
@@ -699,7 +724,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <?php } ?>
                                 <!-- /Boton devolución -->
                                 <!-- Boton Memorandum -->
-                                <?php if ($campos['proceso_id'] == 17) { ?>
+                                <?php if ($campos['proceso_id'] == 18) { ?>
                                     <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
@@ -745,6 +770,43 @@ if (!isset($_SESSION['id_spm'])) {
 
     });
 </script>
+
+<!-- Modal diligencia preliminares -->
+<div class="modal" id="ModaldiligenciaPre">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">agregar Diligencias</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+        <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                    
+                        <div class="form-group">
+                            <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
+                            <input type="hidden" name="fec_asignar_inves" id="fec_asignar_inves" value="<?php echo date('Y-m-d'); ?>">
+                        
+                            <label for="diligencias_invest">Diligencias</label>
+                            <textarea class="form-control" name="diligencias_invest" id="diligencias_invest" style="text-transform:uppercase" cols="30" rows="5"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Asignar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>
 
 <!-- Modal Asignar investigador -->
 <div class="modal" id="ModalAsignar">
@@ -832,7 +894,7 @@ if (!isset($_SESSION['id_spm'])) {
 
             <!-- Modal footer -->
             <div class="modal-footer">
-                <?php if ($campos['proceso_id'] == 7) { ?>
+                <?php if ($campos['proceso_id'] == 8) { ?>
                     <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Confirmar</button>
                 <?php } ?>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -870,7 +932,7 @@ if (!isset($_SESSION['id_spm'])) {
 
             <!-- Modal footer -->
             <div class="modal-footer">
-                <?php if ($campos['proceso_id'] == 7) { ?>
+                <?php if ($campos['proceso_id'] == 11) { ?>
                     <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Confirmar</button>
                 <?php } ?>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -917,7 +979,7 @@ if (!isset($_SESSION['id_spm'])) {
 
             <!-- Modal footer -->
             <div class="modal-footer">
-                <?php if ($campos['proceso_id'] == 12) { ?>
+                <?php if ($campos['proceso_id'] == 13) { ?>
                     <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Asignar</button>
                 <?php } ?>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
