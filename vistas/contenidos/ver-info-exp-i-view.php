@@ -662,21 +662,21 @@ if (!isset($_SESSION['id_spm'])) {
                                     </div>
                                 <?php } ?>
                                 <!-- /Boton Citación -->
-                                <!-- Boton recepción legal -->
+                                <!-- Boton remitir a legal -->
                                 <?php if ($campos['proceso_id'] == 12) { ?>
                                     <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" name="bit_id_13" id="bit_id_13" value="<?php echo $campos['bitacora_id']; ?>">
-                                            <input type="hidden" name="fec_recep_legal" id="fec_recep_legal" value="<?php echo date('Y-m-d'); ?>">
+                                            <input type="hidden" name="fec_remi_legal" id="fec_remi_legal" value="<?php echo date('Y-m-d'); ?>">
                                         
-                                            <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Recepción</button>
+                                            <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Remitir a legal</button>
                                             <!-- Boton volver atras -->
                                             <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
                                             <!-- /Boton volver atras -->
                                         </div>
                                     </form>
                                 <?php } ?>
-                                <!-- /Boton recepción legal -->
+                                <!-- /Boton remitir a legal -->
                                 <!-- Boton asignar -->
                                 <?php if ($campos['proceso_id'] == 13) { ?>
                                     <div class="form-group">
@@ -689,29 +689,14 @@ if (!isset($_SESSION['id_spm'])) {
                                     </div>
                                 <?php } ?>
                                 <!-- /Boton asignar -->
-                                <!-- Boton audiencia -->
+                                <!-- Boton entregar dictamen -->
                                 <?php if ($campos['proceso_id'] == 14) { ?>
-                                    <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
-                                        <div class="form-group">
-                                            <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
-                                            <input type="hidden" name="fec_audiencia" id="fec_audiencia" value="<?php echo date('Y-m-d'); ?>">
-                                        
-                                            <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Audiencia</button>
-                                            <!-- Boton volver atras -->
-                                            <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
-                                            <!-- /Boton volver atras -->
-                                        </div>
-                                    </form>
-                                <?php } ?>
-                                <!-- /Boton audiencia -->
-                                <!-- Boton dictamen -->
-                                <?php if ($campos['proceso_id'] == 15) { ?>
                                     <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
                                             <input type="hidden" name="fec_dictamen" id="fec_dictamen" value="<?php echo date('Y-m-d'); ?>">
                                         
-                                            <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Dictamen</button>
+                                            <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Entregar dictamen</button>
                                             <!-- Boton volver atras -->
                                             <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
                                             <!-- /Boton volver atras -->
@@ -720,13 +705,14 @@ if (!isset($_SESSION['id_spm'])) {
                                 <?php } ?>
                                 <!-- /Boton dictamen -->
                                 <!-- Boton devolución -->
-                                <?php if ($campos['proceso_id'] == 16) { ?>
+                                <?php if ($campos['proceso_id'] == 15) { ?>
                                     <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
                                             <input type="hidden" name="fec_devolucion" id="fec_devolucion" value="<?php echo date('Y-m-d'); ?>">
                                         
-                                            <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Devolución</button>
+                                            <button type="submit" class="btn btn-success"><i class="fas fa-check-circle"></i> Remitir a Dirección</button>
+                                            <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Auto de devolución</button>
                                             <!-- Boton volver atras -->
                                             <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
                                             <!-- /Boton volver atras -->
@@ -735,13 +721,13 @@ if (!isset($_SESSION['id_spm'])) {
                                 <?php } ?>
                                 <!-- /Boton devolución -->
                                 <!-- Boton entrega dictamen -->
-                                <?php if ($campos['proceso_id'] == 17) { ?>
+                                <?php if ($campos['proceso_id'] == 16) { ?>
                                     <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
                                             <input type="hidden" name="fec_entrega_dictamen" id="fec_entrega_dictamen" value="<?php echo date('Y-m-d'); ?>">
                                         
-                                            <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Entrega dictamen</button>
+                                            <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Entregar dictamen</button>
                                             <!-- Boton volver atras -->
                                             <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
                                             <!-- /Boton volver atras -->
@@ -749,6 +735,21 @@ if (!isset($_SESSION['id_spm'])) {
                                     </form>
                                 <?php } ?>
                                 <!-- /Boton devolución -->
+                                <!-- Boton entrega a dirección -->
+                                <?php if ($campos['proceso_id'] == 17) { ?>
+                                    <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
+                                        <div class="form-group">
+                                            <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
+                                            <input type="hidden" name="fec_entrega_direccion" id="fec_entrega_direccion" value="<?php echo date('Y-m-d'); ?>">
+                                        
+                                            <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Remitir a Dirección</button>
+                                            <!-- Boton volver atras -->
+                                            <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
+                                            <!-- /Boton volver atras -->
+                                        </div>
+                                    </form>
+                                <?php } ?>
+                                <!-- /Boton entrega a dirección -->
                                 <!-- Boton Memorandum -->
                                 <?php if ($campos['proceso_id'] == 18) { ?>
                                     <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
@@ -1050,7 +1051,7 @@ if (!isset($_SESSION['id_spm'])) {
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">Agregar fecha citación</h4>
+        <h4 class="modal-title">Agregar fecha audiencia descargo</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
@@ -1063,7 +1064,7 @@ if (!isset($_SESSION['id_spm'])) {
                             <input type="hidden" class="form-control" name="exp_id" id="exp_id" value="<?php echo $campos['exp_id']; ?>">
                             <input type="hidden" name="fec_citacion" id="fec_citacion" value="<?php echo date('Y-m-d'); ?>">
                                     
-                            <label for="">Fecha citación</label>
+                            <label for="">Fecha audiencia de descargo</label>
                             <input type="date" autocomplete="off" class="form-control" name="fecha_aud_desc" id="fecha_aud_desc">
                         </div>
                     </div>
