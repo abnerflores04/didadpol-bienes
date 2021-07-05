@@ -48,30 +48,7 @@ if (!isset($_SESSION['id_spm'])) {
                             <div class="col">
                                 <p class="text-danger ">Campos obligatorios *</p>
                             </div>
-                            <?php if ($campos['proceso_id'] > 2 && $campos['proceso_id'] < 10) { ?>
-                                <div class="col">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModaldiligenciaPre">
-                                        <i class="fa fa-plus" aria-hidden="true"></i> Agregar diligencia preliminar
-                                    </button>
-                                </div>
-                                <div class="col">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModaldiligenciaInv">
-                                        <i class="fa fa-plus" aria-hidden="true"></i> Agregar diligencia investigación
-                                    </button>
-                                </div>
-                            <?php } ?>
-                            <?php if ($campos['proceso_id'] > 9 && $campos['proceso_id'] < 20) { ?>
-                                <div class="col">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModaldiligenciaCita">
-                                        <i class="fa fa-plus" aria-hidden="true"></i> Agregar diligencia citación
-                                    </button>
-                                </div>
-                                <div class="col">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModaldiligenciaLeg">
-                                        <i class="fa fa-plus" aria-hidden="true"></i> Agregar diligencia legal
-                                    </button>
-                                </div>
-                            <?php } ?>
+                            
                         </div>
                         <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="update" autocomplete="off">
                             <div class="row">
@@ -284,7 +261,7 @@ if (!isset($_SESSION['id_spm'])) {
                                     </div>
                                     <div class="col">
                                         <div class="checkbox checkbox-primary pull-left p-t-0">
-                                            <input id="checkbox-comparecio" type="checkbox" class="filled-in chk-col-light-blue" value="<?php echo $campos['comparecio']; ?>">
+                                            <input id="checkbox-comparecio" type="checkbox" class="filled-in chk-col-light-blue" value="<?php echo $campos['comparecio']; ?>" disabled>
                                             <label for="checkbox-comparecio"></label>
                                         </div>
                                     </div>
@@ -494,7 +471,37 @@ if (!isset($_SESSION['id_spm'])) {
                                     </div>
                                 </div>
                         </form>
-                        <div class="col-sm-12">
+                        <div class="col-sm-12 mt-5">
+                            <div class="row text-center">
+                                <?php if ($campos['proceso_id'] > 2 && $campos['proceso_id'] < 10) { ?>
+                                    <div class="col">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModaldiligenciaPre">
+                                            <i class="fa fa-plus" aria-hidden="true"></i> Agregar diligencia preliminar
+                                        </button>
+                                    </div>
+                                    <div class="col">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModaldiligenciaInv">
+                                            <i class="fa fa-plus" aria-hidden="true"></i> Agregar diligencia investigación
+                                        </button>
+                                    </div>
+                                <?php } ?>
+                                <?php if ($campos['proceso_id'] > 9 && $campos['proceso_id'] < 20) { ?>
+                                    <div class="col">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModaldiligenciaCita">
+                                            <i class="fa fa-plus" aria-hidden="true"></i> Agregar diligencia citación
+                                        </button>
+                                    </div>
+                                    <div class="col">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModaldiligenciaLeg">
+                                            <i class="fa fa-plus" aria-hidden="true"></i> Agregar diligencia legal
+                                        </button>
+                                    </div>
+                                <?php } ?>
+                            </div>
+                            <hr>
+                        </div>
+
+                        <div class="col-sm-12 mt-5">
                             <div class="col text-center">
 
                                 <!-- Boton emitir -->
@@ -881,10 +888,10 @@ if (!isset($_SESSION['id_spm'])) {
                     
                         <div class="form-group">
                             <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
-                            <input type="hidden" name="fec_asignar_inves" id="fec_asignar_inves" value="<?php echo date('Y-m-d'); ?>">
+                            <input type="hidden" name="fec_diligencia_cita" id="fec_diligencia_cita" value="<?php echo date('Y-m-d'); ?>">
                         
-                            <label for="diligencias_invest">Diligencias</label>
-                            <textarea class="form-control" name="diligencias_invest" id="diligencias_invest" style="text-transform:uppercase" cols="30" rows="5"></textarea>
+                            <label for="diligencias_cita">Diligencias</label>
+                            <textarea class="form-control" name="diligencias_cita" id="diligencias_cita" style="text-transform:uppercase" cols="30" rows="5"></textarea>
                         </div>
                     </div>
                 </div>
@@ -918,10 +925,10 @@ if (!isset($_SESSION['id_spm'])) {
                     
                         <div class="form-group">
                             <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
-                            <input type="hidden" name="fec_asignar_inves" id="fec_asignar_inves" value="<?php echo date('Y-m-d'); ?>">
+                            <input type="hidden" name="fec_diligancia_leg" id="fec_diligancia_leg" value="<?php echo date('Y-m-d'); ?>">
                         
-                            <label for="diligencias_invest">Diligencias</label>
-                            <textarea class="form-control" name="diligencias_invest" id="diligencias_invest" style="text-transform:uppercase" cols="30" rows="5"></textarea>
+                            <label for="diligencias_leg">Diligencias</label>
+                            <textarea class="form-control" name="diligencias_leg" id="diligencias_leg" style="text-transform:uppercase" cols="30" rows="5"></textarea>
                         </div>
                     </div>
                 </div>
