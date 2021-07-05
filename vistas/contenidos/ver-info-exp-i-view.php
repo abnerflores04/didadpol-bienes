@@ -48,12 +48,30 @@ if (!isset($_SESSION['id_spm'])) {
                             <div class="col">
                                 <p class="text-danger ">Campos obligatorios *</p>
                             </div>
-                            <div class="col"></div>
-                            <div class="col">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModaldiligenciaPre">
-                                    <i class="fa fa-plus" aria-hidden="true"></i> Agregar diligencia
-                                </button>
-                            </div>
+                            <?php if ($campos['proceso_id'] > 2 && $campos['proceso_id'] < 10) { ?>
+                                <div class="col">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModaldiligenciaPre">
+                                        <i class="fa fa-plus" aria-hidden="true"></i> Agregar diligencia preliminar
+                                    </button>
+                                </div>
+                                <div class="col">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModaldiligenciaInv">
+                                        <i class="fa fa-plus" aria-hidden="true"></i> Agregar diligencia investigación
+                                    </button>
+                                </div>
+                            <?php } ?>
+                            <?php if ($campos['proceso_id'] > 9 && $campos['proceso_id'] < 20) { ?>
+                                <div class="col">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModaldiligenciaCita">
+                                        <i class="fa fa-plus" aria-hidden="true"></i> Agregar diligencia citación
+                                    </button>
+                                </div>
+                                <div class="col">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModaldiligenciaLeg">
+                                        <i class="fa fa-plus" aria-hidden="true"></i> Agregar diligencia legal
+                                    </button>
+                                </div>
+                            <?php } ?>
                         </div>
                         <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="update" autocomplete="off">
                             <div class="row">
@@ -778,7 +796,7 @@ if (!isset($_SESSION['id_spm'])) {
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">agregar Diligencias</h4>
+        <h4 class="modal-title">Agregar diligencias preliminares</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
         <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
@@ -800,8 +818,119 @@ if (!isset($_SESSION['id_spm'])) {
             
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Asignar</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Confimar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal diligencia investigación -->
+<div class="modal" id="ModaldiligenciaInv">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Agregar diligencias investigación</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+        <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                    
+                        <div class="form-group">
+                            <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
+                            <input type="hidden" name="fec_asignar_inves" id="fec_asignar_inves" value="<?php echo date('Y-m-d'); ?>">
+                        
+                            <label for="diligencias_invest">Diligencias</label>
+                            <textarea class="form-control" name="diligencias_invest" id="diligencias_invest" style="text-transform:uppercase" cols="30" rows="5"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Confimar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal diligencia citación -->
+<div class="modal" id="ModaldiligenciaCita">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Agregar diligencias citación</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+        <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                    
+                        <div class="form-group">
+                            <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
+                            <input type="hidden" name="fec_asignar_inves" id="fec_asignar_inves" value="<?php echo date('Y-m-d'); ?>">
+                        
+                            <label for="diligencias_invest">Diligencias</label>
+                            <textarea class="form-control" name="diligencias_invest" id="diligencias_invest" style="text-transform:uppercase" cols="30" rows="5"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Confimar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal diligencia legal -->
+<div class="modal" id="ModaldiligenciaLeg">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Agregar diligencias legal</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+        <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                    
+                        <div class="form-group">
+                            <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
+                            <input type="hidden" name="fec_asignar_inves" id="fec_asignar_inves" value="<?php echo date('Y-m-d'); ?>">
+                        
+                            <label for="diligencias_invest">Diligencias</label>
+                            <textarea class="form-control" name="diligencias_invest" id="diligencias_invest" style="text-transform:uppercase" cols="30" rows="5"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Confimar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
             </div>
         </form>
     </div>
@@ -850,7 +979,7 @@ if (!isset($_SESSION['id_spm'])) {
                 <?php if ($campos['proceso_id'] == 3) { ?>
                     <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Asignar</button>
                 <?php } ?>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
             </div>
         </form>
     </div>
@@ -897,7 +1026,7 @@ if (!isset($_SESSION['id_spm'])) {
                 <?php if ($campos['proceso_id'] == 8) { ?>
                     <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Confirmar</button>
                 <?php } ?>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
             </div>
         </form>
     </div>
@@ -935,7 +1064,7 @@ if (!isset($_SESSION['id_spm'])) {
                 <?php if ($campos['proceso_id'] == 11) { ?>
                     <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Confirmar</button>
                 <?php } ?>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
             </div>    
         </form>
     </div>
@@ -982,7 +1111,7 @@ if (!isset($_SESSION['id_spm'])) {
                 <?php if ($campos['proceso_id'] == 13) { ?>
                     <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Asignar</button>
                 <?php } ?>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
             </div>
         </form>
     </div>
