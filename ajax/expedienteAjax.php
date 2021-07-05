@@ -1,7 +1,7 @@
 <?php
 $peticionAjax=true;
 require_once "../config/APP.php";
-if (isset($_POST['n_exp_reg']) || isset($_POST['exp_id_up']) || isset($_POST['exp_id_del']) || isset($_POST['bit_id'])|| isset($_POST['bit_id_3']) || isset($_POST['bit_id_4'])){
+if (isset($_POST['n_exp_reg']) || isset($_POST['exp_id_up']) || isset($_POST['exp_id_del']) || isset($_POST['bit_id'])|| isset($_POST['bit_id_3']) || isset($_POST['bit_id_4']) || isset($_POST['bit_id_5']) || isset($_POST['bit_id_6']) || isset($_POST['bit_id_7']) || isset($_POST['bit_id_8']) || isset($_POST['bit_id_9']) || isset($_POST['bit_id_10']) || isset($_POST['bit_id_11']) || isset($_POST['bit_id_12']) || isset($_POST['bit_id_13'])){
     #Instancia al controlador
     require_once "../controladores/expedienteControlador.php";
     $ins_expediente= new expedienteControlador();
@@ -17,11 +17,46 @@ if (isset($_POST['n_exp_reg']) || isset($_POST['exp_id_up']) || isset($_POST['ex
      if (isset($_POST['bit_id_3'])){
         echo $ins_expediente->agregar_proceso_admision_controlador();
     }
-     #Para pasar al proceso de asiganacion de expediente a investigador
+     #Para pasar al proceso de asignacion de expediente a investigador
      if (isset($_POST['bit_id_4'])){
         echo $ins_expediente->agregar_proceso_asig_i_controlador();
     }
-    
+    #Para pasar al proceso de emision a direccion
+    if (isset($_POST['bit_id_5'])){
+        echo $ins_expediente->agregar_proceso_emision_direccion_controlador();
+    }
+    #Para pasar al proceso de auto apertura
+    if (isset($_POST['bit_id_6'])){
+        echo $ins_expediente->agregar_proceso_apertura_controlador();
+    }
+     #Para pasar al proceso de comunicacion
+     if (isset($_POST['bit_id_7'])){
+        echo $ins_expediente->agregar_proceso_comunicacion_controlador();
+    }
+    #Para pasar al proceso recepcion investigacion
+    if (isset($_POST['bit_id_8'])){
+        echo $ins_expediente->agregar_proceso_recep_invest_controlador();
+    }
+    #Para pasar al proceso estado del proceso
+    if (isset($_POST['bit_id_9'])){
+        echo $ins_expediente->agregar_proceso_estado_controlador();
+    }
+    #Para pasar al proceso validacion
+    if (isset($_POST['bit_id_10'])){
+        echo $ins_expediente->agregar_proceso_validacion_controlador();
+    }
+    #Para pasar al proceso recepcion secretaria
+    if (isset($_POST['bit_id_11'])){
+        echo $ins_expediente->agregar_proceso_recep_secretaria_controlador();
+    }
+    #Para pasar al proceso recepcion secretaria
+    if (isset($_POST['bit_id_12'])){
+        echo $ins_expediente->agregar_proceso_citacion_controlador();
+    }
+    #Para pasar al proceso recepcion secretaria
+    if (isset($_POST['bit_id_13'])){
+        echo $ins_expediente->agregar_proceso_recep_legal_controlador();
+    }
     #Para actualizar un usuario
     if (isset($_POST['exp_id_up'])){
         echo $ins_expediente->actualizar_expediente_controlador();

@@ -10,11 +10,11 @@ class expedienteControlador extends expedienteModelo
     public function agregar_expediente_controlador()
     {
         $n_exp = mainModel2::limpiar_cadena($_POST['n_exp_reg']);
-        $nombre_d= strtoupper(mainModel2::limpiar_cadena($_POST['nombre_d_reg']));
-        $identidad_d= mainModel2::limpiar_cadena($_POST['identidad_d_reg']);
-        $sexo= mainModel2::limpiar_cadena($_POST['genero_reg']);
-        $depto= mainModel2::limpiar_cadena($_POST['depto_reg']);
-        $municipio= mainModel2::limpiar_cadena($_POST['municipio_reg']);
+        $nombre_d = strtoupper(mainModel2::limpiar_cadena($_POST['nombre_d_reg']));
+        $identidad_d = mainModel2::limpiar_cadena($_POST['identidad_d_reg']);
+        $sexo = mainModel2::limpiar_cadena($_POST['genero_reg']);
+        $depto = mainModel2::limpiar_cadena($_POST['depto_reg']);
+        $municipio = mainModel2::limpiar_cadena($_POST['municipio_reg']);
         $investigado = mainModel2::limpiar_cadena(strtoupper($_POST['investigado']));
         $rango = mainModel2::limpiar_cadena($_POST['rango_id_reg']);
         $tipo_falta = mainModel2::limpiar_cadena($_POST['tipo_falta_reg']);
@@ -25,9 +25,9 @@ class expedienteControlador extends expedienteModelo
         $estado = mainModel2::limpiar_cadena($_POST['estado_reg']);
         $fecha_remision = '';
         $observacion = strtoupper(mainModel2::limpiar_cadena($_POST['observacion']));
-        $articulo=$_POST['articulos_reg'];
+        $articulo = $_POST['articulos_reg'];
         /*comprobar campos vacios*/
-        if ($n_exp == "" ||  $municipio == "" ||  $depto == ""||  $sexo == ""||  $investigado == "" || $rango == ""  ||   $fecha_inicio_exp == "") {
+        if ($n_exp == "" ||  $municipio == "" ||  $depto == "" ||  $sexo == "" ||  $investigado == "" || $rango == ""  ||   $fecha_inicio_exp == "") {
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
@@ -107,7 +107,7 @@ class expedienteControlador extends expedienteModelo
             echo json_encode($alerta);
             exit();
         }
-        
+
         //guardar los fecha de feriados o vacaciones en el array feriados
         $feriados = [];
         $consulta = "SELECT * FROM tbl_feriado ORDER BY feriado_fecha ASC";
@@ -126,13 +126,13 @@ class expedienteControlador extends expedienteModelo
 
 
         $datos_expediente_reg = [
-            "nombre_denunciante"=>$nombre_d,
-            "identidad_denunciante"=>$identidad_d,
-            "genero"=>$sexo,
-            "depto"=>$depto,
-            "municipio"=>$municipio,
+            "nombre_denunciante" => $nombre_d,
+            "identidad_denunciante" => $identidad_d,
+            "genero" => $sexo,
+            "depto" => $depto,
+            "municipio" => $municipio,
             "n_exp" => $n_exp,
-            "nombre_investigado"=>$investigado,
+            "nombre_investigado" => $investigado,
             "rango" => $rango,
             "tipo_falta" => $tipo_falta,
             "investigador" => $investigador,
@@ -166,8 +166,8 @@ class expedienteControlador extends expedienteModelo
         $exp_id = $campos['exp_id'];
 
         //insertamos los articulos en su respectiva tabla
-        $agregar_articulos= expedienteModelo::agregar_exp_art_modelo($exp_id, $articulo);
-        
+        $agregar_articulos = expedienteModelo::agregar_exp_art_modelo($exp_id, $articulo);
+
         if ($agregar_expediente->rowCount() == 1 && $agregar_articulos) {
             $alerta = [
                 "Alerta" => "recargar",
@@ -190,20 +190,20 @@ class expedienteControlador extends expedienteModelo
     public function agregar_proceso_denuncia_controlador()
     {
         $n_exp = mainModel2::limpiar_cadena($_POST['n_exp_reg']);
-        $nombre_d= strtoupper(mainModel2::limpiar_cadena($_POST['nombre_d_reg']));
-        $identidad_d= mainModel2::limpiar_cadena($_POST['identidad_d_reg']);
-        $sexo= mainModel2::limpiar_cadena($_POST['genero_reg']);
-        $depto= mainModel2::limpiar_cadena($_POST['depto_reg']);
-        $municipio= mainModel2::limpiar_cadena($_POST['municipio_reg']);
+        $nombre_d = strtoupper(mainModel2::limpiar_cadena($_POST['nombre_d_reg']));
+        $identidad_d = mainModel2::limpiar_cadena($_POST['identidad_d_reg']);
+        $sexo = mainModel2::limpiar_cadena($_POST['genero_reg']);
+        $depto = mainModel2::limpiar_cadena($_POST['depto_reg']);
+        $municipio = mainModel2::limpiar_cadena($_POST['municipio_reg']);
         $investigado = mainModel2::limpiar_cadena(strtoupper($_POST['investigado']));
         $rango = mainModel2::limpiar_cadena($_POST['rango_id_reg']);
         $tipo_falta = mainModel2::limpiar_cadena($_POST['tipo_falta_reg']);
         $articulo = $_POST['articulos_reg'];
         $fecha_inicio_exp = $_POST['fecha_inicio_exp_reg'];
-        $proceso_id=1;
-        
+        $proceso_id = 1;
+
         /*comprobar campos vacios*/
-        if ($n_exp == "" ||  $municipio == "" ||  $depto == ""||  $sexo == ""||  $investigado == "" || $rango == ""  ||   $fecha_inicio_exp == "" ) {
+        if ($n_exp == "" ||  $municipio == "" ||  $depto == "" ||  $sexo == "" ||  $investigado == "" || $rango == ""  ||   $fecha_inicio_exp == "") {
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
@@ -237,7 +237,7 @@ class expedienteControlador extends expedienteModelo
                 exit();
             }
         }
-      
+
         if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚÑÜ ]{3,255}", $investigado)) {
             $alerta = [
                 "Alerta" => "simple",
@@ -272,7 +272,7 @@ class expedienteControlador extends expedienteModelo
             echo json_encode($alerta);
             exit();
         }
-        
+
         //guardar los fecha de feriados o vacaciones en el array feriados
         $feriados = [];
         $consulta = "SELECT * FROM tbl_feriado ORDER BY feriado_fecha ASC";
@@ -282,20 +282,20 @@ class expedienteControlador extends expedienteModelo
         foreach ($datos as $rows) {
             array_push($feriados, $rows['feriado_fecha']);
         }
-      
+
         $fecha_final_i_pre = mainModel2::addWorkingDays($fecha_inicio_exp, 9, $feriados);
         $fecha_final_i = mainModel2::addWorkingDays($fecha_inicio_exp, 39, $feriados);
         $fecha_final_exp = mainModel2::addWorkingDays($fecha_inicio_exp, 74, $feriados);
 
 
         $datos_expediente_reg = [
-            "nombre_denunciante"=>$nombre_d,
-            "identidad_denunciante"=>$identidad_d,
-            "genero"=>$sexo,
-            "depto"=>$depto,
-            "municipio"=>$municipio,
+            "nombre_denunciante" => $nombre_d,
+            "identidad_denunciante" => $identidad_d,
+            "genero" => $sexo,
+            "depto" => $depto,
+            "municipio" => $municipio,
             "n_exp" => $n_exp,
-            "nombre_investigado"=>$investigado,
+            "nombre_investigado" => $investigado,
             "rango" => $rango,
             "tipo_falta" => $tipo_falta,
             "fecha_inicio_exp" => $fecha_inicio_exp,
@@ -323,9 +323,9 @@ class expedienteControlador extends expedienteModelo
         $exp_id = $campos['exp_id'];
 
         //insertamos los articulos en su respectiva tabla
-        $agregar_articulos= expedienteModelo::agregar_exp_art_modelo($exp_id,$articulo);
-        $agregar_b =  expedienteModelo::agregar_bit_fec_cono_modelo($exp_id,$fecha_inicio_exp,$proceso_id);
-        if ($agregar_expediente->rowCount() == 1 && $agregar_articulos && $agregar_b ) {
+        $agregar_articulos = expedienteModelo::agregar_exp_art_modelo($exp_id, $articulo);
+        $agregar_b =  expedienteModelo::agregar_bit_fec_cono_modelo($exp_id, $fecha_inicio_exp, $proceso_id);
+        if ($agregar_expediente->rowCount() == 1 && $agregar_articulos && $agregar_b) {
             $alerta = [
                 "Alerta" => "recargar",
                 "Titulo" => "EXPEDIENTE REGISTRADO",
@@ -347,17 +347,17 @@ class expedienteControlador extends expedienteModelo
     public function agregar_proceso_emision_controlador()
     {
         $bit_id = mainModel2::limpiar_cadena($_POST['bit_id']);
-        $fec_emision=$_POST['fec_emision'];
-        $proceso_id=2;
-        
+        $fec_emision = $_POST['fec_emision'];
+        $proceso_id = 2;
+
         $datos_proc_up = [
-            "bitacora_id"=>$bit_id,
-            "fec_emision"=>$fec_emision,
-            "proceso_id"=>$proceso_id
+            "bitacora_id" => $bit_id,
+            "fec_emision" => $fec_emision,
+            "proceso_id" => $proceso_id
         ];
 
-        $agregar_proc= expedienteModelo::agregar_proceso_emision_modelo($datos_proc_up);
-        
+        $agregar_proc = expedienteModelo::agregar_proceso_emision_modelo($datos_proc_up);
+
         if ($agregar_proc) {
             $alerta = [
                 "Alerta" => "recargar",
@@ -376,48 +376,48 @@ class expedienteControlador extends expedienteModelo
         echo json_encode($alerta);
         /**************************** */
     }/*fin controlador */
-     /* controlador agregar proceso de admision*/
-     public function agregar_proceso_admision_controlador()
-     {
-         $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_3']);
-         $fec_admision=$_POST['fec_admitir'];
-         $proceso_id=3;
-         
-         $datos_proc_up = [
-             "bitacora_id"=>$bit_id,
-             "fec_admision"=>$fec_admision,
-             "proceso_id"=>$proceso_id
-         ];
- 
-         $agregar_proc= expedienteModelo::agregar_proceso_admision_modelo($datos_proc_up);
-         
-         if ($agregar_proc) {
-             $alerta = [
-                 "Alerta" => "recargar",
-                 "Titulo" => "HECHO",
-                 "Texto" => "EL EXPEDIENTE ADMITIDO CON ÉXITO",
-                 "Tipo" => "success"
-             ];
-         } else {
-             $alerta = [
-                 "Alerta" => "simple",
-                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                 "Texto" => "NO SE ADMITIÓ EL EXPEDIENTE",
-                 "Tipo" => "error"
-             ];
-         }
-         echo json_encode($alerta);
-         /**************************** */
-     }/*fin controlador */
-     /* controlador agregar proceso de asignacion de expediente a investigador*/
-     public function agregar_proceso_asig_i_controlador()
-     {
-         $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_4']);
-         $fec_asig=$_POST['fec_asignar_inves'];
-         $investigador=mainModel2::limpiar_cadena($_POST['investigador']);
-         $proceso_id=4;
-         $exp_id=mainModel2::limpiar_cadena($_POST['exp_id']);
-         /*comprobar campos vacios*/
+    /* controlador agregar proceso de admision*/
+    public function agregar_proceso_admision_controlador()
+    {
+        $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_3']);
+        $fec_admision = $_POST['fec_admitir'];
+        $proceso_id = 3;
+
+        $datos_proc_up = [
+            "bitacora_id" => $bit_id,
+            "fec_admision" => $fec_admision,
+            "proceso_id" => $proceso_id
+        ];
+
+        $agregar_proc = expedienteModelo::agregar_proceso_admision_modelo($datos_proc_up);
+
+        if ($agregar_proc) {
+            $alerta = [
+                "Alerta" => "recargar",
+                "Titulo" => "HECHO",
+                "Texto" => "EL EXPEDIENTE ADMITIDO CON ÉXITO",
+                "Tipo" => "success"
+            ];
+        } else {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE ADMITIÓ EL EXPEDIENTE",
+                "Tipo" => "error"
+            ];
+        }
+        echo json_encode($alerta);
+        /**************************** */
+    }/*fin controlador */
+    /* controlador agregar proceso de asignacion de expediente a investigador*/
+    public function agregar_proceso_asig_i_controlador()
+    {
+        $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_4']);
+        $fec_asig = $_POST['fec_asignar_inves'];
+        $investigador = mainModel2::limpiar_cadena($_POST['investigador']);
+        $proceso_id = 4;
+        $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
+        /*comprobar campos vacios*/
         if ($investigador == "") {
             $alerta = [
                 "Alerta" => "simple",
@@ -428,36 +428,359 @@ class expedienteControlador extends expedienteModelo
             echo json_encode($alerta);
             exit();
         }
-         
-         $datos_proc_up = [
-             "bitacora_id"=>$bit_id,
-             "fec_asignacion"=>$fec_asig,
-             "investigador_id"=>$investigador,
-             "proceso_id"=>$proceso_id,
-             "exp_id"=>$exp_id
-         ];
- 
-         $agregar_proc= expedienteModelo::agregar_proceso_asig_i_modelo($datos_proc_up);
-         
-         if ($agregar_proc) {
-             $alerta = [
-                 "Alerta" => "recargar",
-                 "Titulo" => "HECHO",
-                 "Texto" => "EL EXPEDIENTE SE HA ASIGNADO CON ÉXITO",
-                 "Tipo" => "success"
-             ];
-         } else {
-             $alerta = [
-                 "Alerta" => "simple",
-                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                 "Texto" => "NO SE HA PODIDO ASIGNAR EL EXPEDIENTE",
-                 "Tipo" => "error"
-             ];
-         }
-         echo json_encode($alerta);
-         /**************************** */
-     }/*fin controlador */
-      /* controlador para listar expedientes*/
+
+        $datos_proc_up = [
+            "bitacora_id" => $bit_id,
+            "fec_asignacion" => $fec_asig,
+            "investigador_id" => $investigador,
+            "proceso_id" => $proceso_id,
+            "exp_id" => $exp_id
+        ];
+
+        $agregar_proc = expedienteModelo::agregar_proceso_asig_i_modelo($datos_proc_up);
+
+        if ($agregar_proc) {
+            $alerta = [
+                "Alerta" => "recargar",
+                "Titulo" => "HECHO",
+                "Texto" => "EL EXPEDIENTE SE HA ASIGNADO CON ÉXITO",
+                "Tipo" => "success"
+            ];
+        } else {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE HA PODIDO ASIGNAR EL EXPEDIENTE",
+                "Tipo" => "error"
+            ];
+        }
+        echo json_encode($alerta);
+        /**************************** */
+    }/*fin controlador */
+    /* controlador agregar proceso de emision direccion*/
+    public function agregar_proceso_emision_direccion_controlador()
+    {
+        $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_5']);
+        $fec_emitir_i = $_POST['fec_emitir_invest'];
+        $proceso_id = 5;
+
+        $datos_proc_up = [
+            "bitacora_id" => $bit_id,
+            "fec_emision_invest" => $fec_emitir_i,
+            "proceso_id" => $proceso_id
+        ];
+
+        $agregar_proc = expedienteModelo::agregar_proceso_emision_direccion_modelo($datos_proc_up);
+
+        if ($agregar_proc) {
+            $alerta = [
+                "Alerta" => "recargar",
+                "Titulo" => "HECHO",
+                "Texto" => "EL EXPEDIENTE EMITIDO  CON ÉXITO",
+                "Tipo" => "success"
+            ];
+        } else {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE EMITIÓ EL EXPEDIENTE",
+                "Tipo" => "error"
+            ];
+        }
+        echo json_encode($alerta);
+        /**************************** */
+    }/*fin controlador */
+    /* controlador agregar proceso de auto apertura*/
+    public function agregar_proceso_apertura_controlador()
+    {
+        $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_6']);
+        $fec_apertura = $_POST['fec_apertura'];
+        $proceso_id = 6;
+
+        $datos_proc_up = [
+            "bitacora_id" => $bit_id,
+            "fec_act_apertura" => $fec_apertura,
+            "proceso_id" => $proceso_id
+        ];
+
+        $agregar_proc = expedienteModelo::agregar_proceso_apertura_modelo($datos_proc_up);
+
+        if ($agregar_proc) {
+            $alerta = [
+                "Alerta" => "recargar",
+                "Titulo" => "HECHO",
+                "Texto" => "EL EXPEDIENTE SE HA AUTO APERTURADO CON ÉXITO",
+                "Tipo" => "success"
+            ];
+        } else {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE AUTO APERTURADO EL EXPEDIENTE",
+                "Tipo" => "error"
+            ];
+        }
+        echo json_encode($alerta);
+        /**************************** */
+    }/*fin controlador */
+    /* controlador agregar proceso de comunicacion*/
+    public function agregar_proceso_comunicacion_controlador()
+    {
+        $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_7']);
+        $fec_comunicacion = $_POST['fec_comunicacion'];
+        $proceso_id = 7;
+
+        $datos_proc_up = [
+            "bitacora_id" => $bit_id,
+            "fec_comunicacion" => $fec_comunicacion,
+            "proceso_id" => $proceso_id
+        ];
+
+        $agregar_proc = expedienteModelo::agregar_proceso_comunicacion_modelo($datos_proc_up);
+
+        if ($agregar_proc) {
+            $alerta = [
+                "Alerta" => "recargar",
+                "Titulo" => "HECHO",
+                "Texto" => "EL EXPEDIENTE SE HA COMUNICADO CON ÉXITO",
+                "Tipo" => "success"
+            ];
+        } else {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE COMUNICADO EL EXPEDIENTE",
+                "Tipo" => "error"
+            ];
+        }
+        echo json_encode($alerta);
+        /**************************** */
+    }/*fin controlador */
+    /* controlador agregar proceso de comunicacion*/
+    public function agregar_proceso_recep_invest_controlador()
+    {
+        $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_8']);
+        $fec_recep_invest = $_POST['fec_recep_investigacion'];
+        $proceso_id = 8;
+
+        $datos_proc_up = [
+            "bitacora_id" => $bit_id,
+            "fec_recep_invest" => $fec_recep_invest,
+            "proceso_id" => $proceso_id
+        ];
+
+        $agregar_proc = expedienteModelo::agregar_proceso_recep_invest_modelo($datos_proc_up);
+
+        if ($agregar_proc) {
+            $alerta = [
+                "Alerta" => "recargar",
+                "Titulo" => "HECHO",
+                "Texto" => "EL EXPEDIENTE SE HA RECEPCIONADO CON ÉXITO",
+                "Tipo" => "success"
+            ];
+        } else {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE RECEPCIONADO EL EXPEDIENTE",
+                "Tipo" => "error"
+            ];
+        }
+        echo json_encode($alerta);
+        /**************************** */
+    }/*fin controlador */
+    /* controlador agregar proceso de estado de procesos*/
+    public function agregar_proceso_estado_controlador()
+    {
+        $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_9']);
+        $fec_estado = $_POST['fec_est_proceso'];
+        $est_proceso_id = mainModel2::limpiar_cadena($_POST['est_proceso_id']);
+        $proceso_id = 9;
+        $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
+        /*comprobar campos vacios*/
+        if ($est_proceso_id == "") {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "CAMPO VACIO, POR FAVOR SELECCIONE UN ESTADO PROCESO",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        }
+
+        $datos_proc_up = [
+            "bitacora_id" => $bit_id,
+            "fec_infor_cierre" => $fec_estado,
+            "est_proceso_id " => $est_proceso_id,
+            "proceso_id" => $proceso_id,
+            "exp_id" => $exp_id
+        ];
+
+        $agregar_proc = expedienteModelo::agregar_proceso_estado_modelo($datos_proc_up);
+
+        if ($agregar_proc) {
+            $alerta = [
+                "Alerta" => "recargar",
+                "Titulo" => "HECHO",
+                "Texto" => "SE HA CAMBIADO EL ESTADO DEL PROCESO DEL EXPEDIENTE CON ÉXITO",
+                "Tipo" => "success"
+            ];
+        } else {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO HA SE CAMBIADO EL ESTADO DEL PROCESO DEL EXPEDIENTE",
+                "Tipo" => "error"
+            ];
+        }
+        echo json_encode($alerta);
+        /**************************** */
+    }/*fin controlador */
+    /* controlador agregar proceso de validacion direccion*/
+    public function agregar_proceso_validacion_controlador()
+    {
+        $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_10']);
+        $fec_val_dirreccion = $_POST['fec_validacion'];
+        $proceso_id = 10;
+
+        $datos_proc_up = [
+            "bitacora_id" => $bit_id,
+            "fec_val_dirreccion" => $fec_val_dirreccion,
+            "proceso_id" => $proceso_id
+        ];
+
+        $agregar_proc = expedienteModelo::agregar_proceso_validacion_modelo($datos_proc_up);
+
+        if ($agregar_proc) {
+            $alerta = [
+                "Alerta" => "recargar",
+                "Titulo" => "HECHO",
+                "Texto" => "EL EXPEDIENTE SE HA VALIDADO CON ÉXITO",
+                "Tipo" => "success"
+            ];
+        } else {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE VALIDADO EL EXPEDIENTE",
+                "Tipo" => "error"
+            ];
+        }
+        echo json_encode($alerta);
+        /**************************** */
+    }/*fin controlador */
+    /* controlador agregar proceso de recepcion secretaria*/
+    public function agregar_proceso_recep_secretaria_controlador()
+    {
+        $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_11']);
+        $fec_remision_secretaria = $_POST['fec_recep_secretaria'];
+        $proceso_id = 11;
+
+        $datos_proc_up = [
+            "bitacora_id" => $bit_id,
+            "fec_recep_secretaria" => $fec_remision_secretaria,
+            "proceso_id" => $proceso_id
+        ];
+
+        $agregar_proc = expedienteModelo::agregar_proceso_recep_secretaria_modelo($datos_proc_up);
+
+        if ($agregar_proc) {
+            $alerta = [
+                "Alerta" => "recargar",
+                "Titulo" => "HECHO",
+                "Texto" => "EL EXPEDIENTE SE HA RECEPCIONADO A SECRETARIA CON ÉXITO",
+                "Tipo" => "success"
+            ];
+        } else {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE HA RECEPCIONADO A SECRETARIA EL EXPEDIENTE",
+                "Tipo" => "error"
+            ];
+        }
+        echo json_encode($alerta);
+        /**************************** */
+    }/*fin controlador */
+    /* controlador agregar proceso de citacion*/
+    public function agregar_proceso_citacion_controlador()
+    {
+        $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_12']);
+        $fecha_citacion = $_POST['fec_citacion'];
+        $proceso_id = 12;
+        /*comprobar campos vacios*/
+        if ($fecha_citacion == "") {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "CAMPO VACIO, POR FAVOR INGRESE LA FECHA DE CITACIÓN",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        }
+        
+        $datos_proc_up = [
+            "bitacora_id" => $bit_id,
+            "fecha_citacion" => $fecha_citacion,
+            "proceso_id" => $proceso_id
+        ];
+
+        $agregar_proc = expedienteModelo::agregar_proceso_citacion_modelo($datos_proc_up);
+
+        if ($agregar_proc) {
+            $alerta = [
+                "Alerta" => "recargar",
+                "Titulo" => "HECHO",
+                "Texto" => "EL EXPEDIENTE SE HA CITADO CON ÉXITO",
+                "Tipo" => "success"
+            ];
+        } else {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE HA CITADO EL EXPEDIENTE",
+                "Tipo" => "error"
+            ];
+        }
+        echo json_encode($alerta);
+        /**************************** */
+    }/*fin controlador */
+    /* controlador agregar proceso de recepcion legal*/
+    public function agregar_proceso_recep_legal_controlador()
+    {
+        $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_13']);
+        $fec_recep_legal = $_POST['fec_recep_legal'];
+        $proceso_id = 13;
+        
+        $datos_proc_up = [
+            "bitacora_id" => $bit_id,
+            "fec_recep_legal" => $fec_recep_legal,
+            "proceso_id" => $proceso_id
+        ];
+
+        $agregar_proc = expedienteModelo::agregar_proceso_recep_legal_modelo($datos_proc_up);
+
+        if ($agregar_proc) {
+            $alerta = [
+                "Alerta" => "recargar",
+                "Titulo" => "HECHO",
+                "Texto" => "EL EXPEDIENTE SE HA ENVIADO A LEGAL CON ÉXITO",
+                "Tipo" => "success"
+            ];
+        } else {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE HA ENVIADO A LEGAL EL EXPEDIENTE",
+                "Tipo" => "error"
+            ];
+        }
+        echo json_encode($alerta);
+        /**************************** */
+    }/*fin controlador */
+    /* controlador para listar expedientes*/
     public function listar_exp_controlador()
     {
         $tabla = '';
@@ -503,51 +826,51 @@ class expedienteControlador extends expedienteModelo
         foreach ($datos as $rows) {
             $dias = mainModel2::getWorkingDays(date('Y-m-d'), $rows['fecha_final_exp'], $feriados);
             $dias2 = mainModel2::getWorkingDays(date('Y-m-d'), $rows['fecha_final_i'], $feriados);
-            
+
             $tabla .= '<tr>
                 <td style="font-size: 18px;"><span class="badge badge badge-dark">' . $rows['num_exp'] . '</span></td>';
-            
-        
-             
+
+
+
             $tabla .= ' 
                 
                 <td class="text-center">' . date('d/m/Y', strtotime($rows['fecha_inicio_exp'])) . '</td>
-                <td class="text-center">' . date('d/m/Y', strtotime($rows['fecha_final_exp'] )). '</td>';
+                <td class="text-center">' . date('d/m/Y', strtotime($rows['fecha_final_exp'])) . '</td>';
 
-                if ($dias >= 60) {
-                    $tabla .= '<td  style="font-size: 20px;"class=" text-center bg-success">';
-                    $dias= $dias.' DÍAS';
-                } elseif ($dias >= 40 && $dias <=59) {
-                    $tabla .= '<td  style="font-size: 20px;"class=" text-center bg-warning">';
-                    $dias= $dias.' DÍAS';
-                } elseif ($dias >= 1 && $dias <=39) {
-                    $tabla .= '<td  style="font-size: 20px;"class=" text-center bg-danger">';
-                    $dias= $dias.' DÍAS';
-                } elseif ($dias2 <=0) {
-                    $tabla .= '<td  style="font-size: 20px;"class=" text-center bg-danger">';
-                    $dias= 'PLAZO TERMINADO';
-                }
-
-              $tabla.='<span class="badge badge badge-dark">' . $dias . '</span></td>';
-
-              if ($dias2 >= 21 ) {
+            if ($dias >= 60) {
                 $tabla .= '<td  style="font-size: 20px;"class=" text-center bg-success">';
-                $dias2= $dias2.' DÍAS';
-            } elseif ($dias2 >= 6 && $dias2 <=20) {
+                $dias = $dias . ' DÍAS';
+            } elseif ($dias >= 40 && $dias <= 59) {
                 $tabla .= '<td  style="font-size: 20px;"class=" text-center bg-warning">';
-                $dias2= $dias2.' DÍAS';
-            } elseif ($dias2 >= 1 && $dias2 <=5) {
+                $dias = $dias . ' DÍAS';
+            } elseif ($dias >= 1 && $dias <= 39) {
                 $tabla .= '<td  style="font-size: 20px;"class=" text-center bg-danger">';
-                $dias2= $dias2.' DÍAS';
-            } elseif ($dias2 <=0) {
-                
-                $tabla .= '<td  style="font-size: 20px;"class=" text-center bg-secondary">';
-                $dias2= 'PLAZO TERMINADO';
+                $dias = $dias . ' DÍAS';
+            } elseif ($dias2 <= 0) {
+                $tabla .= '<td  style="font-size: 20px;"class=" text-center bg-danger">';
+                $dias = 'PLAZO TERMINADO';
             }
-                $tabla.='<span class="badge badge badge-dark">' . $dias2 . '</span></td>
+
+            $tabla .= '<span class="badge badge badge-dark">' . $dias . '</span></td>';
+
+            if ($dias2 >= 21) {
+                $tabla .= '<td  style="font-size: 20px;"class=" text-center bg-success">';
+                $dias2 = $dias2 . ' DÍAS';
+            } elseif ($dias2 >= 6 && $dias2 <= 20) {
+                $tabla .= '<td  style="font-size: 20px;"class=" text-center bg-warning">';
+                $dias2 = $dias2 . ' DÍAS';
+            } elseif ($dias2 >= 1 && $dias2 <= 5) {
+                $tabla .= '<td  style="font-size: 20px;"class=" text-center bg-danger">';
+                $dias2 = $dias2 . ' DÍAS';
+            } elseif ($dias2 <= 0) {
+
+                $tabla .= '<td  style="font-size: 20px;"class=" text-center bg-secondary">';
+                $dias2 = 'PLAZO TERMINADO';
+            }
+            $tabla .= '<span class="badge badge badge-dark">' . $dias2 . '</span></td>
                 ';
 
-               
+
 
             $tabla .= '  <td>
                 <div class="row">
@@ -602,14 +925,14 @@ class expedienteControlador extends expedienteModelo
         } else {
             $campos = $check_exp2->fetch();
         }
-        
+
         $art_input = $_POST['articulos_up'];
         $n_exp = mainModel2::limpiar_cadena($_POST['n_exp_up']);
-        $nombre_d= strtoupper(mainModel2::limpiar_cadena($_POST['nombre_d_up']));
-        $identidad_d= mainModel2::limpiar_cadena($_POST['identidad_d_up']);
-        $sexo= mainModel2::limpiar_cadena($_POST['genero_up']);
-        $depto= mainModel2::limpiar_cadena($_POST['depto_up']);
-        $municipio= mainModel2::limpiar_cadena($_POST['municipio_up']);
+        $nombre_d = strtoupper(mainModel2::limpiar_cadena($_POST['nombre_d_up']));
+        $identidad_d = mainModel2::limpiar_cadena($_POST['identidad_d_up']);
+        $sexo = mainModel2::limpiar_cadena($_POST['genero_up']);
+        $depto = mainModel2::limpiar_cadena($_POST['depto_up']);
+        $municipio = mainModel2::limpiar_cadena($_POST['municipio_up']);
         $investigado = mainModel2::limpiar_cadena(strtoupper($_POST['investigado_up']));
         $rango = mainModel2::limpiar_cadena($_POST['rango_up']);
         $tipo_falta = mainModel2::limpiar_cadena($_POST['tipo_falta_up']);
@@ -630,11 +953,13 @@ class expedienteControlador extends expedienteModelo
         $legal_id = strtoupper(mainModel2::limpiar_cadena($_POST['legal_id_up']));
 
         /*comprobar campos vacios*/
-        if ($n_exp == "" ||  $municipio == "" ||  $depto == ""||  $sexo == ""||  $investigado == "" || 
-            $rango == ""  || $tipo_falta == "" || $investigador == "" || $fecha_inicio_exp == "" || 
-            $fecha_final_exp == "" || $fecha_inicio_i == ""|| $fecha_final_i_pre == "" || $fecha_final_i == "" || 
-            $fecha_remision == ""|| $diligencia == "" || $estado == "" || $observacion == "" || $art_input == "" || 
-            $folios == "" || $recomendacion == "" || $num_dictamen == "" || $num_archivo == "" || $legal_id == "") {
+        if (
+            $n_exp == "" ||  $municipio == "" ||  $depto == "" ||  $sexo == "" ||  $investigado == "" ||
+            $rango == ""  || $tipo_falta == "" || $investigador == "" || $fecha_inicio_exp == "" ||
+            $fecha_final_exp == "" || $fecha_inicio_i == "" || $fecha_final_i_pre == "" || $fecha_final_i == "" ||
+            $fecha_remision == "" || $diligencia == "" || $estado == "" || $observacion == "" || $art_input == "" ||
+            $folios == "" || $recomendacion == "" || $num_dictamen == "" || $num_archivo == "" || $legal_id == ""
+        ) {
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
@@ -668,23 +993,23 @@ class expedienteControlador extends expedienteModelo
                 exit();
             }
         }
-        
+
         if ($identidad_d != $campos['identidad_denunciante']) {
-             /*validar DNI*/
-        $check_identidad = mainModel2::ejecutar_consulta_simple("SELECT identidad_denunciante FROM tbl_exp WHERE 	identidad_denunciante='$identidad_d'");
-        if ($check_identidad->rowCount() > 0) {
-            $alerta = [
-                "Alerta" => "simple",
-                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                "Texto" => "LA IDENTIDAD DEL DENUNCIANTE YA ESTÁ REGISTRADO",
-                "Tipo" => "error"
-            ];
-            echo json_encode($alerta);
-            exit();
+            /*validar DNI*/
+            $check_identidad = mainModel2::ejecutar_consulta_simple("SELECT identidad_denunciante FROM tbl_exp WHERE 	identidad_denunciante='$identidad_d'");
+            if ($check_identidad->rowCount() > 0) {
+                $alerta = [
+                    "Alerta" => "simple",
+                    "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                    "Texto" => "LA IDENTIDAD DEL DENUNCIANTE YA ESTÁ REGISTRADO",
+                    "Tipo" => "error"
+                ];
+                echo json_encode($alerta);
+                exit();
+            }
         }
-        }
-      
-      
+
+
         if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚÑÜ ]{3,255}", $investigado)) {
             $alerta = [
                 "Alerta" => "simple",
@@ -708,20 +1033,20 @@ class expedienteControlador extends expedienteModelo
         $n_exp = "DPL-" . $n_exp;
         //VALIDAR QUE NO EXISTA OTRO EXPEDIENTE
         if ($n_exp != $campos['num_exp']) {
-             /*validar n_exp*/
-             $check_exp = mainModel2::ejecutar_consulta_simple("SELECT num_exp FROM tbl_exp WHERE num_exp='$n_exp'");
-             if ($check_exp->rowCount() > 0) {
-                 $alerta = [
-                     "Alerta" => "simple",
-                     "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                     "Texto" => "EL EXPEDIENTE YA ESTÁ REGISTRADO",
-                     "Tipo" => "error"
-                 ];
-                 echo json_encode($alerta);
-                 exit();
-             }
+            /*validar n_exp*/
+            $check_exp = mainModel2::ejecutar_consulta_simple("SELECT num_exp FROM tbl_exp WHERE num_exp='$n_exp'");
+            if ($check_exp->rowCount() > 0) {
+                $alerta = [
+                    "Alerta" => "simple",
+                    "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                    "Texto" => "EL EXPEDIENTE YA ESTÁ REGISTRADO",
+                    "Tipo" => "error"
+                ];
+                echo json_encode($alerta);
+                exit();
+            }
         }
-        
+
 
 
 
@@ -745,13 +1070,13 @@ class expedienteControlador extends expedienteModelo
         }
 
         $datos_expediente_up = [
-            "nombre_denunciante"=>$nombre_d,
-            "identidad_denunciante"=>$identidad_d,
-            "genero"=>$sexo,
-            "depto"=>$depto,
-            "municipio"=>$municipio,
+            "nombre_denunciante" => $nombre_d,
+            "identidad_denunciante" => $identidad_d,
+            "genero" => $sexo,
+            "depto" => $depto,
+            "municipio" => $municipio,
             "n_exp" => $n_exp,
-            "nombre_investigado"=>$investigado,
+            "nombre_investigado" => $investigado,
             "rango" => $rango,
             "tipo_falta" => $tipo_falta,
             "investigador" => $investigador,
@@ -764,12 +1089,12 @@ class expedienteControlador extends expedienteModelo
             "estado" => $estado,
             "fecha_remision" => $fecha_remision,
             "observacion" => $observacion,
-            "exp_id"=>$id_exp,
-            "folios"=>$folios,
-            "recomen"=>$recomendacion,
-            "num_dictan"=>$num_dictamen,
-            "num_arch"=>$num_archivo,
-            "legal_id"=>$legal_id
+            "exp_id" => $id_exp,
+            "folios" => $folios,
+            "recomen" => $recomendacion,
+            "num_dictan" => $num_dictamen,
+            "num_arch" => $num_archivo,
+            "legal_id" => $legal_id
         ];
 
         $actualizar_exp =  expedienteModelo::actualizar_expediente_modelo($datos_expediente_up);
