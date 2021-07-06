@@ -1,7 +1,7 @@
 <?php
 $peticionAjax=true;
 require_once "../config/APP.php";
-if (isset($_POST['n_exp_reg']) || isset($_POST['exp_id_up']) || isset($_POST['exp_id_del']) || isset($_POST['bit_id'])|| isset($_POST['bit_id_3']) || isset($_POST['bit_id_4']) || isset($_POST['bit_id_5']) || isset($_POST['bit_id_6']) || isset($_POST['bit_id_7']) || isset($_POST['bit_id_8']) || isset($_POST['bit_id_9']) || isset($_POST['bit_id_10']) || isset($_POST['bit_id_11']) || isset($_POST['bit_id_12']) || isset($_POST['bit_id_13']) || isset($_POST['bit_id_14']) || isset($_POST['bit_id_15'])){
+if (isset($_POST['n_exp_reg']) || isset($_POST['exp_id_up']) || isset($_POST['exp_id_del']) || isset($_POST['bit_id'])|| isset($_POST['bit_id_3']) || isset($_POST['bit_id_4']) || isset($_POST['bit_id_5']) || isset($_POST['bit_id_6']) || isset($_POST['bit_id_7']) || isset($_POST['bit_id_8']) || isset($_POST['bit_id_9']) || isset($_POST['bit_id_10']) || isset($_POST['bit_id_11']) || isset($_POST['bit_id_12']) || isset($_POST['bit_id_13']) || isset($_POST['bit_id_14']) || isset($_POST['bit_id_15']) || isset($_POST['bit_id_16']) || isset($_POST['bit_id_17']) || isset($_POST['bit_id_18']) || isset($_POST['bit_id_19']) || isset($_POST['bit_id_40'])){
     #Instancia al controlador
     require_once "../controladores/expedienteControlador.php";
     $ins_expediente= new expedienteControlador();
@@ -64,6 +64,26 @@ if (isset($_POST['n_exp_reg']) || isset($_POST['exp_id_up']) || isset($_POST['ex
     #Para pasar al proceso dictamen
     if (isset($_POST['bit_id_15'])){
         echo $ins_expediente->agregar_proceso_dictamen_controlador();
+    }
+    #Para pasar al proceso devolucion
+    if (isset($_POST['bit_id_16'])){
+        echo $ins_expediente->agregar_proceso_devolucion_controlador();
+    }
+    #Para pasar al proceso de entrega de dictamen
+    if (isset($_POST['bit_id_17'])){
+        echo $ins_expediente->agregar_proceso_entre_dictamen_controlador();
+    }
+    #Para pasar al proceso de remitir a direccion
+    if (isset($_POST['bit_id_18'])){
+        echo $ins_expediente->agregar_proceso_remi_direccion_controlador();
+    }
+    #Para pasar al proceso de remitir a direccion
+    if (isset($_POST['bit_id_19'])){
+        echo $ins_expediente->agregar_proceso_memorandum_controlador();
+    }
+    #Para pasar al proceso de remitir a direccion
+    if (isset($_POST['bit_id_40'])){
+        echo $ins_expediente->agregar_proceso_remi_direccion_d_controlador();
     }
     #Para actualizar un usuario
     if (isset($_POST['exp_id_up'])){

@@ -874,6 +874,171 @@ class expedienteControlador extends expedienteModelo
         echo json_encode($alerta);
         /**************************** */
     }/*fin controlador */
+    /*controlador agregar proceso devolucion*/
+    public function agregar_proceso_devolucion_controlador()
+    {
+        $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_16']);
+        $fec_devolucion = $_POST['fec_devolucion'];
+        $proceso_id = 16;
+
+        $datos_proc_up = [
+            "bitacora_id" => $bit_id,
+            "fec_devolucion" => $fec_devolucion,
+            "proceso_id" => $proceso_id
+        ];
+
+        $agregar_proc = expedienteModelo::agregar_proceso_devolucion_modelo($datos_proc_up);
+
+        if ($agregar_proc) {
+            $alerta = [
+                "Alerta" => "recargar",
+                "Titulo" => "HECHO",
+                "Texto" => "EL EXPEDIENTE SE HA DEVUELTO A TÉCNICO LEGAL CON ÉXITO",
+                "Tipo" => "success"
+            ];
+        } else {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE HA DEVUELTO EL EXPEDIENTE A TÉCNICO LEGAL",
+                "Tipo" => "error"
+            ];
+        }
+        echo json_encode($alerta);
+        /**************************** */
+    }/*fin controlador */
+    /*controlador agregar proceso de entrega de dictamen*/
+    public function agregar_proceso_entre_dictamen_controlador()
+    {
+        $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_17']);
+        $fec_entrega_dictamen = $_POST['fec_entrega_dictamen'];
+        $proceso_id = 17;
+
+        $datos_proc_up = [
+            "bitacora_id" => $bit_id,
+            "fec_entrega_dicta" => $fec_entrega_dictamen,
+            "proceso_id" => $proceso_id
+        ];
+
+        $agregar_proc = expedienteModelo::agregar_proceso_entre_dictamen_modelo($datos_proc_up);
+
+        if ($agregar_proc) {
+            $alerta = [
+                "Alerta" => "recargar",
+                "Titulo" => "HECHO",
+                "Texto" => "SE HA ENTREGADO EL DICTAMEN CON ÉXITO",
+                "Tipo" => "success"
+            ];
+        } else {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE HA ENTREGADO EL DICTAMEN",
+                "Tipo" => "error"
+            ];
+        }
+        echo json_encode($alerta);
+        /**************************** */
+    }/*fin controlador */
+    /*controlador agregar proceso de remision a direccion*/
+    public function agregar_proceso_remi_direccion_controlador()
+    {
+        $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_18']);
+        $fec_remi_direccion = $_POST['fec_remi_direccion'];
+        $proceso_id = 18;
+
+        $datos_proc_up = [
+            "bitacora_id" => $bit_id,
+            "fec_remi_direccion" => $fec_remi_direccion,
+            "proceso_id" => $proceso_id
+        ];
+
+        $agregar_proc = expedienteModelo::agregar_proceso_remi_direccion_modelo($datos_proc_up);
+
+        if ($agregar_proc) {
+            $alerta = [
+                "Alerta" => "recargar",
+                "Titulo" => "HECHO",
+                "Texto" => "SE HA ENTREGADO A DIRECCION CON ÉXITO",
+                "Tipo" => "success"
+            ];
+        } else {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE HA ENTREGADO A DIRECCION",
+                "Tipo" => "error"
+            ];
+        }
+        echo json_encode($alerta);
+        /**************************** */
+    }/*fin controlador */
+    /*controlador agregar proceso de remision a direccion*/
+    public function agregar_proceso_memorandum_controlador()
+    {
+        $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_19']);
+        $fec_memorandum = $_POST['fec_memorandum'];
+        $proceso_id = 19;
+
+        $datos_proc_up = [
+            "bitacora_id" => $bit_id,
+            "fec_memorandum" => $fec_memorandum,
+            "proceso_id" => $proceso_id
+        ];
+
+        $agregar_proc = expedienteModelo::agregar_proceso_memorandum_modelo($datos_proc_up);
+
+        if ($agregar_proc) {
+            $alerta = [
+                "Alerta" => "recargar",
+                "Titulo" => "HECHO",
+                "Texto" => "SE HA REALIZADO EL MEMORANDUM CON ÉXITO",
+                "Tipo" => "success"
+            ];
+        } else {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE HA REALIZADO EL MEMORANDUM A DIRECCIÓN",
+                "Tipo" => "error"
+            ];
+        }
+        echo json_encode($alerta);
+        /**************************** */
+    }/*fin controlador */
+    /*controlador agregar proceso de remision a direccion*/
+    public function agregar_proceso_remi_direccion_d_controlador()
+    {
+        $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_40']);
+        $fec_remi_direccion = $_POST['fec_remi_direccion'];
+        $proceso_id = 18;
+
+        $datos_proc_up = [
+            "bitacora_id" => $bit_id,
+            "fec_remi_direccion" => $fec_remi_direccion,
+            "proceso_id" => $proceso_id
+        ];
+
+        $agregar_proc = expedienteModelo::agregar_proceso_remi_direccion_modelo($datos_proc_up);
+
+        if ($agregar_proc) {
+            $alerta = [
+                "Alerta" => "recargar",
+                "Titulo" => "HECHO",
+                "Texto" => "SE HA ENTREGADO A DIRECCION CON ÉXITO",
+                "Tipo" => "success"
+            ];
+        } else {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE HA ENTREGADO A DIRECCION",
+                "Tipo" => "error"
+            ];
+        }
+        echo json_encode($alerta);
+        /**************************** */
+    }/*fin controlador */
     /* controlador para listar expedientes*/
     public function listar_exp_controlador()
     {

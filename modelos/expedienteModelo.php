@@ -184,6 +184,46 @@ class expedienteModelo extends mainModel2
         $sql->execute();
         return $sql;
     }
+    /* Modelo devolucion*/
+    protected static function agregar_proceso_devolucion_modelo($datos)
+    {
+        $sql = mainModel2::conectar()->prepare("UPDATE tbl_bitacora_fechas SET fec_devolucion=:fec_devolucion, proceso_id=:proceso_id WHERE bitacora_id=:bitacora_id");
+        $sql->bindParam(":fec_devolucion", $datos['fec_devolucion']);
+        $sql->bindParam(":proceso_id", $datos['proceso_id']);
+        $sql->bindParam(":bitacora_id", $datos['bitacora_id']);
+        $sql->execute();
+        return $sql;
+    }
+    /* Modelo entrega de dictamen*/
+    protected static function agregar_proceso_entre_dictamen_modelo($datos)
+    {
+        $sql = mainModel2::conectar()->prepare("UPDATE tbl_bitacora_fechas SET fec_entrega_dicta=:fec_entrega_dicta, proceso_id=:proceso_id WHERE bitacora_id=:bitacora_id");
+        $sql->bindParam(":fec_entrega_dicta", $datos['fec_entrega_dicta']);
+        $sql->bindParam(":proceso_id", $datos['proceso_id']);
+        $sql->bindParam(":bitacora_id", $datos['bitacora_id']);
+        $sql->execute();
+        return $sql;
+    }
+    /* Modelo entrega de dictamen*/
+    protected static function agregar_proceso_remi_direccion_modelo($datos)
+    {
+        $sql = mainModel2::conectar()->prepare("UPDATE tbl_bitacora_fechas SET fec_remi_direccion=:fec_remi_direccion, proceso_id=:proceso_id WHERE bitacora_id=:bitacora_id");
+        $sql->bindParam(":fec_remi_direccion", $datos['fec_remi_direccion']);
+        $sql->bindParam(":proceso_id", $datos['proceso_id']);
+        $sql->bindParam(":bitacora_id", $datos['bitacora_id']);
+        $sql->execute();
+        return $sql;
+    }
+    /* Modelo memorandum*/
+    protected static function agregar_proceso_memorandum_modelo($datos)
+    {
+        $sql = mainModel2::conectar()->prepare("UPDATE tbl_bitacora_fechas SET fec_memorandum=:fec_memorandum, proceso_id=:proceso_id WHERE bitacora_id=:bitacora_id");
+        $sql->bindParam(":fec_memorandum", $datos['fec_memorandum']);
+        $sql->bindParam(":proceso_id", $datos['proceso_id']);
+        $sql->bindParam(":bitacora_id", $datos['bitacora_id']);
+        $sql->execute();
+        return $sql;
+    }
     protected static function agregar_bit_fec_cono_modelo($exp_id, $fecha_inicio_exp, $proceso_id)
     {
         $sql = mainModel2::conectar()->prepare("INSERT INTO tbl_bitacora_fechas(exp_id,fec_conocimiento, proceso_id) VALUES (:exp_id,:fec_conocimiento,:proceso_id)");

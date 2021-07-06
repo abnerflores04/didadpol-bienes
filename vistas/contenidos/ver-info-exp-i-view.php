@@ -486,16 +486,20 @@ if (!isset($_SESSION['id_spm'])) {
                                     </div>
                                 <?php } ?>
                                 <?php if ($campos['proceso_id'] > 9 && $campos['proceso_id'] < 20) { ?>
-                                    <div class="col">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModaldiligenciaCita">
-                                            <i class="fa fa-plus" aria-hidden="true"></i> Agregar diligencia citación
-                                        </button>
-                                    </div>
-                                    <div class="col">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModaldiligenciaLeg">
-                                            <i class="fa fa-plus" aria-hidden="true"></i> Agregar diligencia legal
-                                        </button>
-                                    </div>
+                                    <?php if ($campos['proceso_id'] > 9 && $campos['proceso_id'] < 14) { ?>
+                                        <div class="col">
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModaldiligenciaCita">
+                                                <i class="fa fa-plus" aria-hidden="true"></i> Agregar diligencia citación
+                                            </button>
+                                        </div>
+                                    <?php } ?>
+                                    <?php if ($campos['proceso_id'] > 13 && $campos['proceso_id'] < 18) { ?>
+                                        <div class="col">
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModaldiligenciaLeg">
+                                                <i class="fa fa-plus" aria-hidden="true"></i> Agregar diligencia legal
+                                            </button>
+                                        </div>
+                                    <?php } ?>
                                 <?php } ?>
                             </div>
                             <hr>
@@ -708,15 +712,15 @@ if (!isset($_SESSION['id_spm'])) {
                                     <?php if ($campos['proceso_id'] == 15) { ?>
                                         <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
                                             <div class="form-group">
-                                                <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
-                                                <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="direccion">
-                                                <input type="hidden" name="fec_devolucion" id="fec_devolucion" value="<?php echo date('Y-m-d'); ?>">
+                                                <input type="hidden" class="form-control" name="bit_id_40" id="bit_id_40" value="<?php echo $campos['bitacora_id']; ?>">
+                                                
+                                                <input type="hidden" name="fec_remi_direccion" id="fec_remi_direccion" value="<?php echo date('Y-m-d'); ?>">
 
                                                 <button type="submit" class="btn btn-success mb-2"><i class="fas fa-check-circle"></i> Remitir a Dirección</button>
                                         </form>
                                         <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
-                                                <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
-                                                <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="devolucion">
+                                                <input type="hidden" class="form-control" name="bit_id_16" id="bit_id_16" value="<?php echo $campos['bitacora_id']; ?>">
+                                                
                                                 <input type="hidden" name="fec_devolucion" id="fec_devolucion" value="<?php echo date('Y-m-d'); ?>">
 
                                                 <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Auto de devolución</button>
@@ -731,7 +735,7 @@ if (!isset($_SESSION['id_spm'])) {
                                     <?php if ($campos['proceso_id'] == 16) { ?>
                                         <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
                                             <div class="form-group">
-                                                <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
+                                                <input type="hidden" class="form-control" name="bit_id_17" id="bit_id_17" value="<?php echo $campos['bitacora_id']; ?>">
                                                 <input type="hidden" name="fec_entrega_dictamen" id="fec_entrega_dictamen" value="<?php echo date('Y-m-d'); ?>">
 
                                                 <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Entregar dictamen</button>
@@ -746,8 +750,8 @@ if (!isset($_SESSION['id_spm'])) {
                                     <?php if ($campos['proceso_id'] == 17) { ?>
                                         <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
                                             <div class="form-group">
-                                                <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
-                                                <input type="hidden" name="fec_entrega_direccion" id="fec_entrega_direccion" value="<?php echo date('Y-m-d'); ?>">
+                                                <input type="hidden" class="form-control" name="bit_id_18" id="bit_id_18" value="<?php echo $campos['bitacora_id']; ?>">
+                                                <input type="hidden" name="fec_remi_direccion" id="fec_remi_direccion" value="<?php echo date('Y-m-d'); ?>">
 
                                                 <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Remitir a Dirección</button>
                                                 <!-- Boton volver atras -->
@@ -761,7 +765,7 @@ if (!isset($_SESSION['id_spm'])) {
                                     <?php if ($campos['proceso_id'] == 18) { ?>
                                         <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
                                             <div class="form-group">
-                                                <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
+                                                <input type="hidden" class="form-control" name="bit_id_19" id="bit_id_19" value="<?php echo $campos['bitacora_id']; ?>">
                                                 <input type="hidden" name="fec_memorandum" id="fec_memorandum" value="<?php echo date('Y-m-d'); ?>">
 
                                                 <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Memorandum</button>
