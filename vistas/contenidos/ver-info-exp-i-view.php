@@ -709,9 +709,16 @@ if (!isset($_SESSION['id_spm'])) {
                                         <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
                                             <div class="form-group">
                                                 <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
+                                                <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="direccion">
                                                 <input type="hidden" name="fec_devolucion" id="fec_devolucion" value="<?php echo date('Y-m-d'); ?>">
 
-                                                <button type="submit" class="btn btn-success"><i class="fas fa-check-circle"></i> Remitir a Dirección</button>
+                                                <button type="submit" class="btn btn-success mb-2"><i class="fas fa-check-circle"></i> Remitir a Dirección</button>
+                                        </form>
+                                        <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
+                                                <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
+                                                <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="devolucion">
+                                                <input type="hidden" name="fec_devolucion" id="fec_devolucion" value="<?php echo date('Y-m-d'); ?>">
+
                                                 <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Auto de devolución</button>
                                                 <!-- Boton volver atras -->
                                                 <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
