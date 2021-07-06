@@ -48,7 +48,7 @@ if (!isset($_SESSION['id_spm'])) {
                             <div class="col">
                                 <p class="text-danger ">Campos obligatorios *</p>
                             </div>
-                            
+
                         </div>
                         <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="update" autocomplete="off">
                             <div class="row">
@@ -383,7 +383,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="">Rango</label>
-                                        <select class="form-control" name="rango_up" id="rango_id_reg" disabled>
+                                        <select class="form-control" name="tecnico_l_id" id="tecnico_l_id" disabled>
                                             <option value="">Seleccione rango</option>
                                             <?php
                                             require_once './modelos/conectar.php';
@@ -510,8 +510,8 @@ if (!isset($_SESSION['id_spm'])) {
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
                                             <input type="hidden" name="fec_emision" id="fec_emision" value="<?php echo date('Y-m-d'); ?>">
-                                            
-                                                <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Emitir expediente</button>
+
+                                            <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Emitir expediente</button>
                                             <!-- Boton volver atras -->
                                             <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
                                             <!-- /Boton volver atras -->
@@ -525,7 +525,7 @@ if (!isset($_SESSION['id_spm'])) {
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" name="bit_id_3" id="bit_id_3" value="<?php echo $campos['bitacora_id']; ?>">
                                             <input type="hidden" name="fec_admitir" id="fec_admitir" value="<?php echo date('Y-m-d'); ?>">
-                                            
+
                                             <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Admitir</button>
                                             <!-- Boton volver atras -->
                                             <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
@@ -536,7 +536,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <!-- /Boton admitir -->
                                 <!-- Boton asignar -->
                                 <?php if ($campos['proceso_id'] == 3) { ?>
-                                    <div class="form-group">    
+                                    <div class="form-group">
                                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#ModalAsignar">
                                             Asignar investigador
                                         </button>
@@ -552,7 +552,7 @@ if (!isset($_SESSION['id_spm'])) {
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" name="bit_id_5" id="bit_id_5" value="<?php echo $campos['bitacora_id']; ?>">
                                             <input type="hidden" name="fec_emitir_invest" id="fec_emitir_invest" value="<?php echo date('Y-m-d'); ?>">
-                                            
+
                                             <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Emitir a director</button>
                                             <!-- Boton volver atras -->
                                             <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
@@ -567,7 +567,7 @@ if (!isset($_SESSION['id_spm'])) {
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" name="bit_id_6" id="bit_id_6" value="<?php echo $campos['bitacora_id']; ?>">
                                             <input type="hidden" name="fec_apertura" id="fec_apertura" value="<?php echo date('Y-m-d'); ?>">
-                                            
+
                                             <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Auto de apertura</button>
                                             <!-- Boton volver atras -->
                                             <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
@@ -582,7 +582,7 @@ if (!isset($_SESSION['id_spm'])) {
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" name="bit_id_7" id="bit_id_7" value="<?php echo $campos['bitacora_id']; ?>">
                                             <input type="hidden" name="fec_comunicacion" id="fec_comunicacion" value="<?php echo date('Y-m-d'); ?>">
-                                        
+
                                             <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Comunicación</button>
                                             <!-- Boton volver atras -->
                                             <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
@@ -597,7 +597,7 @@ if (!isset($_SESSION['id_spm'])) {
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" name="bit_id_8" id="bit_id_8" value="<?php echo $campos['bitacora_id']; ?>">
                                             <input type="hidden" name="fec_recep_investigacion" id="fec_recep_investigacion" value="<?php echo date('Y-m-d'); ?>">
-                                        
+
                                             <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Recepción</button>
                                             <!-- Boton volver atras -->
                                             <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
@@ -609,7 +609,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <!-- Boton Estado Proceso -->
                                 <?php if ($campos['proceso_id'] == 8) { ?>
                                     <div class="form-group">
-                                        
+
                                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#ModalEstadoProcess">
                                             Estado actual proceso
                                         </button>
@@ -621,150 +621,150 @@ if (!isset($_SESSION['id_spm'])) {
                                 <!-- /Boton Estado Proceso -->
                                 <!-- Boton Validación -->
                                 <?php if ($campos['est_proceso_id'] != 6) { ?>
-                                <?php if ($campos['proceso_id'] == 9) { ?>
-                                    <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
+                                    <?php if ($campos['proceso_id'] == 9) { ?>
+                                        <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
+                                            <div class="form-group">
+                                                <input type="hidden" class="form-control" name="bit_id_10" id="bit_id_10" value="<?php echo $campos['bitacora_id']; ?>">
+                                                <input type="hidden" name="fec_validacion" id="fec_validacion" value="<?php echo date('Y-m-d'); ?>">
+
+                                                <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Validación</button>
+                                                <!-- Boton volver atras -->
+                                                <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
+                                                <!-- /Boton volver atras -->
+                                            </div>
+                                        </form>
+                                    <?php } ?>
+                                    <!-- /Boton Validación -->
+                                    <!-- Boton Recepción Secretaria -->
+                                    <?php if ($campos['proceso_id'] == 10) { ?>
+                                        <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
+                                            <div class="form-group">
+                                                <input type="hidden" class="form-control" name="bit_id_11" id="bit_id_11" value="<?php echo $campos['bitacora_id']; ?>">
+                                                <input type="hidden" name="fec_recep_secretaria" id="fec_recep_secretaria" value="<?php echo date('Y-m-d'); ?>">
+
+                                                <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Recepción</button>
+                                                <!-- Boton volver atras -->
+                                                <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
+                                                <!-- /Boton volver atras -->
+                                            </div>
+                                        </form>
+                                    <?php } ?>
+                                    <!-- /Boton Recepción Secretaria -->
+                                    <!-- Boton Citación -->
+                                    <?php if ($campos['proceso_id'] == 11) { ?>
                                         <div class="form-group">
-                                            <input type="hidden" class="form-control" name="bit_id_10" id="bit_id_10" value="<?php echo $campos['bitacora_id']; ?>">
-                                            <input type="hidden" name="fec_validacion" id="fec_validacion" value="<?php echo date('Y-m-d'); ?>">
-                                        
-                                            <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Validación</button>
+                                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#ModalCitacion">
+                                                Citación
+                                            </button>
                                             <!-- Boton volver atras -->
                                             <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
                                             <!-- /Boton volver atras -->
                                         </div>
-                                    </form>
-                                <?php } ?>
-                                <!-- /Boton Validación -->
-                                <!-- Boton Recepción Secretaria -->
-                                <?php if ($campos['proceso_id'] == 10) { ?>
-                                    <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
+                                    <?php } ?>
+                                    <!-- /Boton Citación -->
+                                    <!-- Boton remitir a legal -->
+                                    <?php if ($campos['proceso_id'] == 12) { ?>
+                                        <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
+                                            <div class="form-group">
+                                                <input type="hidden" class="form-control" name="bit_id_13" id="bit_id_13" value="<?php echo $campos['bitacora_id']; ?>">
+                                                <input type="hidden" name="fec_remi_legal" id="fec_remi_legal" value="<?php echo date('Y-m-d'); ?>">
+
+                                                <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Remitir a legal</button>
+                                                <!-- Boton volver atras -->
+                                                <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
+                                                <!-- /Boton volver atras -->
+                                            </div>
+                                        </form>
+                                    <?php } ?>
+                                    <!-- /Boton remitir a legal -->
+                                    <!-- Boton asignar -->
+                                    <?php if ($campos['proceso_id'] == 13) { ?>
                                         <div class="form-group">
-                                            <input type="hidden" class="form-control" name="bit_id_11" id="bit_id_11" value="<?php echo $campos['bitacora_id']; ?>">
-                                            <input type="hidden" name="fec_recep_secretaria" id="fec_recep_secretaria" value="<?php echo date('Y-m-d'); ?>">
-                                        
-                                            <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Recepción</button>
+                                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#ModalAsignarTecLeg">
+                                                Asignar técnico legal
+                                            </button>
                                             <!-- Boton volver atras -->
                                             <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
                                             <!-- /Boton volver atras -->
                                         </div>
-                                    </form>
-                                <?php } ?>
-                                <!-- /Boton Recepción Secretaria -->
-                                <!-- Boton Citación -->
-                                <?php if ($campos['proceso_id'] == 11) { ?>
-                                    <div class="form-group">
-                                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#ModalCitacion">
-                                            Citación
-                                        </button>
-                                        <!-- Boton volver atras -->
-                                        <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
-                                        <!-- /Boton volver atras -->
-                                    </div>
-                                <?php } ?>
-                                <!-- /Boton Citación -->
-                                <!-- Boton remitir a legal -->
-                                <?php if ($campos['proceso_id'] == 12) { ?>
-                                    <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
-                                        <div class="form-group">
-                                            <input type="hidden" class="form-control" name="bit_id_13" id="bit_id_13" value="<?php echo $campos['bitacora_id']; ?>">
-                                            <input type="hidden" name="fec_remi_legal" id="fec_remi_legal" value="<?php echo date('Y-m-d'); ?>">
-                                        
-                                            <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Remitir a legal</button>
-                                            <!-- Boton volver atras -->
-                                            <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
-                                            <!-- /Boton volver atras -->
-                                        </div>
-                                    </form>
-                                <?php } ?>
-                                <!-- /Boton remitir a legal -->
-                                <!-- Boton asignar -->
-                                <?php if ($campos['proceso_id'] == 13) { ?>
-                                    <div class="form-group">
-                                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#ModalAsignarTecLeg">
-                                            Asignar técnico legal
-                                        </button>
-                                        <!-- Boton volver atras -->
-                                        <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
-                                        <!-- /Boton volver atras -->
-                                    </div>
-                                <?php } ?>
-                                <!-- /Boton asignar -->
-                                <!-- Boton entregar dictamen -->
-                                <?php if ($campos['proceso_id'] == 14) { ?>
-                                    <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
-                                        <div class="form-group">
-                                            <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
-                                            <input type="hidden" name="fec_dictamen" id="fec_dictamen" value="<?php echo date('Y-m-d'); ?>">
-                                        
-                                            <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Entregar dictamen</button>
-                                            <!-- Boton volver atras -->
-                                            <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
-                                            <!-- /Boton volver atras -->
-                                        </div>
-                                    </form>
-                                <?php } ?>
-                                <!-- /Boton dictamen -->
-                                <!-- Boton devolución -->
-                                <?php if ($campos['proceso_id'] == 15) { ?>
-                                    <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
-                                        <div class="form-group">
-                                            <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
-                                            <input type="hidden" name="fec_devolucion" id="fec_devolucion" value="<?php echo date('Y-m-d'); ?>">
-                                        
-                                            <button type="submit" class="btn btn-success"><i class="fas fa-check-circle"></i> Remitir a Dirección</button>
-                                            <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Auto de devolución</button>
-                                            <!-- Boton volver atras -->
-                                            <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
-                                            <!-- /Boton volver atras -->
-                                        </div>
-                                    </form>
-                                <?php } ?>
-                                <!-- /Boton devolución -->
-                                <!-- Boton entrega dictamen -->
-                                <?php if ($campos['proceso_id'] == 16) { ?>
-                                    <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
-                                        <div class="form-group">
-                                            <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
-                                            <input type="hidden" name="fec_entrega_dictamen" id="fec_entrega_dictamen" value="<?php echo date('Y-m-d'); ?>">
-                                        
-                                            <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Entregar dictamen</button>
-                                            <!-- Boton volver atras -->
-                                            <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
-                                            <!-- /Boton volver atras -->
-                                        </div>
-                                    </form>
-                                <?php } ?>
-                                <!-- /Boton devolución -->
-                                <!-- Boton entrega a dirección -->
-                                <?php if ($campos['proceso_id'] == 17) { ?>
-                                    <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
-                                        <div class="form-group">
-                                            <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
-                                            <input type="hidden" name="fec_entrega_direccion" id="fec_entrega_direccion" value="<?php echo date('Y-m-d'); ?>">
-                                        
-                                            <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Remitir a Dirección</button>
-                                            <!-- Boton volver atras -->
-                                            <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
-                                            <!-- /Boton volver atras -->
-                                        </div>
-                                    </form>
-                                <?php } ?>
-                                <!-- /Boton entrega a dirección -->
-                                <!-- Boton Memorandum -->
-                                <?php if ($campos['proceso_id'] == 18) { ?>
-                                    <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
-                                        <div class="form-group">
-                                            <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
-                                            <input type="hidden" name="fec_memorandum" id="fec_memorandum" value="<?php echo date('Y-m-d'); ?>">
-                                        
-                                            <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Memorandum</button>
-                                            <!-- Boton volver atras -->
-                                            <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
-                                            <!-- /Boton volver atras -->
-                                        </div>
-                                    </form>
-                                <?php } ?>
-                                <!-- /Boton Memorandum -->
+                                    <?php } ?>
+                                    <!-- /Boton asignar -->
+                                    <!-- Boton entregar dictamen -->
+                                    <?php if ($campos['proceso_id'] == 14) { ?>
+                                        <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
+                                            <div class="form-group">
+                                                <input type="hidden" class="form-control" name="bit_id_15" id="bit_id_15" value="<?php echo $campos['bitacora_id']; ?>">
+                                              
+
+                                                <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Entregar dictamen</button>
+                                                <!-- Boton volver atras -->
+                                                <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
+                                                <!-- /Boton volver atras -->
+                                            </div>
+                                        </form>
+                                    <?php } ?>
+                                    <!-- /Boton dictamen -->
+                                    <!-- Boton devolución -->
+                                    <?php if ($campos['proceso_id'] == 15) { ?>
+                                        <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
+                                            <div class="form-group">
+                                                <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
+                                                <input type="hidden" name="fec_devolucion" id="fec_devolucion" value="<?php echo date('Y-m-d'); ?>">
+
+                                                <button type="submit" class="btn btn-success"><i class="fas fa-check-circle"></i> Remitir a Dirección</button>
+                                                <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Auto de devolución</button>
+                                                <!-- Boton volver atras -->
+                                                <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
+                                                <!-- /Boton volver atras -->
+                                            </div>
+                                        </form>
+                                    <?php } ?>
+                                    <!-- /Boton devolución -->
+                                    <!-- Boton entrega dictamen -->
+                                    <?php if ($campos['proceso_id'] == 16) { ?>
+                                        <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
+                                            <div class="form-group">
+                                                <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
+                                                <input type="hidden" name="fec_entrega_dictamen" id="fec_entrega_dictamen" value="<?php echo date('Y-m-d'); ?>">
+
+                                                <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Entregar dictamen</button>
+                                                <!-- Boton volver atras -->
+                                                <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
+                                                <!-- /Boton volver atras -->
+                                            </div>
+                                        </form>
+                                    <?php } ?>
+                                    <!-- /Boton devolución -->
+                                    <!-- Boton entrega a dirección -->
+                                    <?php if ($campos['proceso_id'] == 17) { ?>
+                                        <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
+                                            <div class="form-group">
+                                                <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
+                                                <input type="hidden" name="fec_entrega_direccion" id="fec_entrega_direccion" value="<?php echo date('Y-m-d'); ?>">
+
+                                                <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Remitir a Dirección</button>
+                                                <!-- Boton volver atras -->
+                                                <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
+                                                <!-- /Boton volver atras -->
+                                            </div>
+                                        </form>
+                                    <?php } ?>
+                                    <!-- /Boton entrega a dirección -->
+                                    <!-- Boton Memorandum -->
+                                    <?php if ($campos['proceso_id'] == 18) { ?>
+                                        <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
+                                            <div class="form-group">
+                                                <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
+                                                <input type="hidden" name="fec_memorandum" id="fec_memorandum" value="<?php echo date('Y-m-d'); ?>">
+
+                                                <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Memorandum</button>
+                                                <!-- Boton volver atras -->
+                                                <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
+                                                <!-- /Boton volver atras -->
+                                            </div>
+                                        </form>
+                                    <?php } ?>
+                                    <!-- /Boton Memorandum -->
                                 <?php } ?>
                             </div>
                         </div>
@@ -801,331 +801,331 @@ if (!isset($_SESSION['id_spm'])) {
 
 <!-- Modal diligencia preliminares -->
 <div class="modal" id="ModaldiligenciaPre">
-  <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Agregar diligencias preliminares</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-        <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
-            <!-- Modal body -->
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-sm-12">
-                    
-                        <div class="form-group">
-                            <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
-                            <input type="hidden" name="fec_asignar_inves" id="fec_asignar_inves" value="<?php echo date('Y-m-d'); ?>">
-                        
-                            <label for="diligencias_invest">Diligencias</label>
-                            <textarea class="form-control" name="diligencias_invest" id="diligencias_invest" style="text-transform:uppercase" cols="30" rows="5"></textarea>
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Agregar diligencias preliminares</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+
+                            <div class="form-group">
+                                <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
+                                <input type="hidden" name="fec_asignar_inves" id="fec_asignar_inves" value="<?php echo date('Y-m-d'); ?>">
+
+                                <label for="diligencias_invest">Diligencias</label>
+                                <textarea class="form-control" name="diligencias_invest" id="diligencias_invest" style="text-transform:uppercase" cols="30" rows="5"></textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Confimar</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-            </div>
-        </form>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Confimar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                </div>
+            </form>
+        </div>
     </div>
-  </div>
 </div>
 
 <!-- Modal diligencia investigación -->
 <div class="modal" id="ModaldiligenciaInv">
-  <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Agregar diligencias investigación</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-        <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
-            <!-- Modal body -->
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-sm-12">
-                    
-                        <div class="form-group">
-                            <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
-                            <input type="hidden" name="fec_asignar_inves" id="fec_asignar_inves" value="<?php echo date('Y-m-d'); ?>">
-                        
-                            <label for="diligencias_invest">Diligencias</label>
-                            <textarea class="form-control" name="diligencias_invest" id="diligencias_invest" style="text-transform:uppercase" cols="30" rows="5"></textarea>
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Agregar diligencias investigación</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+
+                            <div class="form-group">
+                                <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
+                                <input type="hidden" name="fec_asignar_inves" id="fec_asignar_inves" value="<?php echo date('Y-m-d'); ?>">
+
+                                <label for="diligencias_invest">Diligencias</label>
+                                <textarea class="form-control" name="diligencias_invest" id="diligencias_invest" style="text-transform:uppercase" cols="30" rows="5"></textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Confimar</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-            </div>
-        </form>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Confimar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                </div>
+            </form>
+        </div>
     </div>
-  </div>
 </div>
 
 <!-- Modal diligencia citación -->
 <div class="modal" id="ModaldiligenciaCita">
-  <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Agregar diligencias citación</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-        <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
-            <!-- Modal body -->
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-sm-12">
-                    
-                        <div class="form-group">
-                            <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
-                            <input type="hidden" name="fec_diligencia_cita" id="fec_diligencia_cita" value="<?php echo date('Y-m-d'); ?>">
-                        
-                            <label for="diligencias_cita">Diligencias</label>
-                            <textarea class="form-control" name="diligencias_cita" id="diligencias_cita" style="text-transform:uppercase" cols="30" rows="5"></textarea>
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Agregar diligencias citación</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+
+                            <div class="form-group">
+                                <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
+                                <input type="hidden" name="fec_diligencia_cita" id="fec_diligencia_cita" value="<?php echo date('Y-m-d'); ?>">
+
+                                <label for="diligencias_cita">Diligencias</label>
+                                <textarea class="form-control" name="diligencias_cita" id="diligencias_cita" style="text-transform:uppercase" cols="30" rows="5"></textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Confimar</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-            </div>
-        </form>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Confimar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                </div>
+            </form>
+        </div>
     </div>
-  </div>
 </div>
 
 <!-- Modal diligencia legal -->
 <div class="modal" id="ModaldiligenciaLeg">
-  <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Agregar diligencias legal</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-        <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
-            <!-- Modal body -->
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-sm-12">
-                    
-                        <div class="form-group">
-                            <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
-                            <input type="hidden" name="fec_diligancia_leg" id="fec_diligancia_leg" value="<?php echo date('Y-m-d'); ?>">
-                        
-                            <label for="diligencias_leg">Diligencias</label>
-                            <textarea class="form-control" name="diligencias_leg" id="diligencias_leg" style="text-transform:uppercase" cols="30" rows="5"></textarea>
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Agregar diligencias legal</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+
+                            <div class="form-group">
+                                <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
+                                <input type="hidden" name="fec_diligancia_leg" id="fec_diligancia_leg" value="<?php echo date('Y-m-d'); ?>">
+
+                                <label for="diligencias_leg">Diligencias</label>
+                                <textarea class="form-control" name="diligencias_leg" id="diligencias_leg" style="text-transform:uppercase" cols="30" rows="5"></textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Confimar</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-            </div>
-        </form>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Confimar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                </div>
+            </form>
+        </div>
     </div>
-  </div>
 </div>
 
 <!-- Modal Asignar investigador -->
 <div class="modal" id="ModalAsignar">
-  <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Asignar investigador</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-        <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
-            <!-- Modal body -->
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-sm-12">
-                    
-                        <div class="form-group">
-                            <input type="hidden" class="form-control" name="bit_id_4" id="bit_id_4" value="<?php echo $campos['bitacora_id']; ?>">
-                            <input type="hidden" class="form-control" name="exp_id" id="exp_id" value="<?php echo $campos['exp_id']; ?>">
-                            <input type="hidden" name="fec_asignar_inves" id="fec_asignar_inves" value="<?php echo date('Y-m-d'); ?>">
-                        
-                            <label for="">Investigador</label>
-                            <select class="form-control" name="investigador" id="investigador">
-                                <option value="">Seleccione investigador</option>
-                                <?php
-                                require_once './modelos/conectar.php';
-                                $resultado = $conexion->query("SELECT * FROM tbl_usuario WHERE rol_id = 2");
-                                while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
-                                ?>
-                                    <option value="<?php echo $registro['usu_id']; ?>" ><?php echo $registro['usu_nombre']. ' ' .$registro['usu_apellido']; ?></option>
-                                <?php } ?>
-                            </select>
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Asignar investigador</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+
+                            <div class="form-group">
+                                <input type="hidden" class="form-control" name="bit_id_4" id="bit_id_4" value="<?php echo $campos['bitacora_id']; ?>">
+                                <input type="hidden" class="form-control" name="exp_id" id="exp_id" value="<?php echo $campos['exp_id']; ?>">
+                                <input type="hidden" name="fec_asignar_inves" id="fec_asignar_inves" value="<?php echo date('Y-m-d'); ?>">
+
+                                <label for="">Investigador</label>
+                                <select class="form-control" name="investigador" id="investigador">
+                                    <option value="">Seleccione investigador</option>
+                                    <?php
+                                    require_once './modelos/conectar.php';
+                                    $resultado = $conexion->query("SELECT * FROM tbl_usuario WHERE rol_id = 2");
+                                    while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
+                                    ?>
+                                        <option value="<?php echo $registro['usu_id']; ?>"><?php echo $registro['usu_nombre'] . ' ' . $registro['usu_apellido']; ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <?php if ($campos['proceso_id'] == 3) { ?>
-                    <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Asignar</button>
-                <?php } ?>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-            </div>
-        </form>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <?php if ($campos['proceso_id'] == 3) { ?>
+                        <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Asignar</button>
+                    <?php } ?>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                </div>
+            </form>
+        </div>
     </div>
-  </div>
 </div>
 
 <!-- Modal informe de cierre (Investigación) -->
 <div class="modal" id="ModalEstadoProcess">
-  <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Estado actual del proceso</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-      <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
-            <!-- Modal body -->
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="form-group">
-                            <input type="hidden" class="form-control" name="bit_id_9" id="bit_id_9" value="<?php echo $campos['bitacora_id']; ?>">
-                            <input type="hidden" name="fec_est_proceso" id="fec_est_proceso" value="<?php echo date('Y-m-d'); ?>">
-                            <input type="hidden" class="form-control" name="exp_id" id="exp_id" value="<?php echo $campos['exp_id']; ?>">
-                                    
-                            <label for="">Estado del proceso</label>
-                            <select class="form-control" name="est_proceso_id" id="est_proceso_id">
-                                <option value="">Seleccione un estado</option>
-                                <?php
-                                require_once './modelos/conectar.php';
-                                $resultado = $conexion->query("SELECT * FROM tbl_est_proceso");
-                                while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
-                                ?>
-                                    <option value="<?php echo $registro['est_proceso_id']; ?>" ><?php echo $registro['est_proceso_descrip']; ?></option>
-                                <?php } ?>
-                            </select>
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Estado actual del proceso</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <input type="hidden" class="form-control" name="bit_id_9" id="bit_id_9" value="<?php echo $campos['bitacora_id']; ?>">
+                                <input type="hidden" name="fec_est_proceso" id="fec_est_proceso" value="<?php echo date('Y-m-d'); ?>">
+                                <input type="hidden" class="form-control" name="exp_id" id="exp_id" value="<?php echo $campos['exp_id']; ?>">
+
+                                <label for="">Estado del proceso</label>
+                                <select class="form-control" name="est_proceso_id" id="est_proceso_id">
+                                    <option value="">Seleccione un estado</option>
+                                    <?php
+                                    require_once './modelos/conectar.php';
+                                    $resultado = $conexion->query("SELECT * FROM tbl_est_proceso");
+                                    while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
+                                    ?>
+                                        <option value="<?php echo $registro['est_proceso_id']; ?>"><?php echo $registro['est_proceso_descrip']; ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <?php if ($campos['proceso_id'] == 8) { ?>
-                    <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Confirmar</button>
-                <?php } ?>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-            </div>
-        </form>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <?php if ($campos['proceso_id'] == 8) { ?>
+                        <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Confirmar</button>
+                    <?php } ?>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                </div>
+            </form>
+        </div>
     </div>
-  </div>
 </div>
 
 <!-- Modal informe de cierre (Investigación) -->
 <div class="modal" id="ModalCitacion">
-  <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Agregar fecha audiencia descargo</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-      <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
-            <!-- Modal body -->
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="form-group">
-                            <input type="hidden" class="form-control" name="bit_id_12" id="bit_id_12" value="<?php echo $campos['bitacora_id']; ?>">
-                            <input type="hidden" class="form-control" name="exp_id" id="exp_id" value="<?php echo $campos['exp_id']; ?>">
-                            <input type="hidden" name="fec_citacion" id="fec_citacion" value="<?php echo date('Y-m-d'); ?>">
-                                    
-                            <label for="">Fecha audiencia de descargo</label>
-                            <input type="date" autocomplete="off" class="form-control" name="fecha_aud_desc" id="fecha_aud_desc">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Agregar fecha audiencia descargo</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <input type="hidden" class="form-control" name="bit_id_12" id="bit_id_12" value="<?php echo $campos['bitacora_id']; ?>">
+                                <input type="hidden" class="form-control" name="exp_id" id="exp_id" value="<?php echo $campos['exp_id']; ?>">
+                                <input type="hidden" name="fec_citacion" id="fec_citacion" value="<?php echo date('Y-m-d'); ?>">
+
+                                <label for="">Fecha audiencia de descargo</label>
+                                <input type="date" autocomplete="off" class="form-control" name="fecha_aud_desc" id="fecha_aud_desc">
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <?php if ($campos['proceso_id'] == 11) { ?>
-                    <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Confirmar</button>
-                <?php } ?>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-            </div>    
-        </form>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <?php if ($campos['proceso_id'] == 11) { ?>
+                        <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Confirmar</button>
+                    <?php } ?>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                </div>
+            </form>
+        </div>
     </div>
-  </div>
 </div>
 
 <!-- Modal asignar tecnico legal -->
 <div class="modal" id="ModalAsignarTecLeg">
     <div class="modal-dialog">
-    <div class="modal-content">
+        <div class="modal-content">
 
-        <!-- Modal Header -->
-        <div class="modal-header">
-        <h4 class="modal-title">Asignar técnico legal</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
-            <!-- Modal body -->
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="form-group">
-                            <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
-                            <input type="hidden" name="fec_emision" id="fec_emision" value="<?php echo date('Y-m-d'); ?>">
-                                        
-                            <label for="">Técnico legal</label>
-                            <select class="form-control" name="rango_up" id="rango_id_reg">
-                                <option value="">Seleccione técnico legal</option>
-                                <?php
-                                require_once './modelos/conectar.php';
-                                $resultado = $conexion->query("SELECT * FROM tbl_usuario WHERE rol_id = 3");
-                                while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
-                                ?>
-                                    <option value="<?php echo $registro['rol_id']; ?>" ><?php echo $registro['usu_nombre']. ' ' .$registro['usu_apellido']; ?></option>
-                                <?php } ?>
-                            </select>
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Asignar técnico legal</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <input type="hidden" class="form-control" name="bit_id_14" id="bit_id_14" value="<?php echo $campos['bitacora_id']; ?>">
+                                <input type="hidden" name="fec_asigna_legal" id="fec_asigna_legal" value="<?php echo date('Y-m-d'); ?>">
+                                <input type="hidden" class="form-control" name="exp_id" id="exp_id" value="<?php echo $campos['exp_id']; ?>">
+                                <label for="">Técnico legal</label>
+                                <select class="form-control" name="tecnico_id" id="tecnico_id">
+                                    <option value="">Seleccione técnico legal</option>
+                                    <?php
+                                    require_once './modelos/conectar.php';
+                                    $resultado = $conexion->query("SELECT * FROM tbl_usuario WHERE rol_id = 3");
+                                    while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
+                                    ?>
+                                        <option value="<?php echo $registro['rol_id']; ?>"><?php echo $registro['usu_nombre'] . ' ' . $registro['usu_apellido']; ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <?php if ($campos['proceso_id'] == 13) { ?>
-                    <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Asignar</button>
-                <?php } ?>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-            </div>
-        </form>
-    </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <?php if ($campos['proceso_id'] == 13) { ?>
+                        <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Asignar</button>
+                    <?php } ?>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>

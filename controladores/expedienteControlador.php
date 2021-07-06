@@ -201,7 +201,6 @@ class expedienteControlador extends expedienteModelo
         $articulo = $_POST['articulos_reg'];
         $fecha_inicio_exp = $_POST['fecha_inicio_exp_reg'];
         $proceso_id = 1;
-
         /*comprobar campos vacios*/
         if ($n_exp == "" ||  $municipio == "" ||  $depto == "" ||  $sexo == "" ||  $investigado == "" || $rango == ""  ||   $fecha_inicio_exp == "") {
             $alerta = [
@@ -301,8 +300,7 @@ class expedienteControlador extends expedienteModelo
             "fecha_inicio_exp" => $fecha_inicio_exp,
             "fecha_final_exp" => $fecha_final_exp,
             "fecha_final_i_pre" => $fecha_final_i_pre,
-            "fecha_final_i" => $fecha_final_i,
-            "proceso_id" => $proceso_id
+            "fecha_final_i" => $fecha_final_i
         ];
 
         $agregar_expediente =  expedienteModelo::agregar_proceso_denuncia_modelo($datos_expediente_reg);
@@ -457,6 +455,7 @@ class expedienteControlador extends expedienteModelo
         echo json_encode($alerta);
         /**************************** */
     }/*fin controlador */
+
     /* controlador agregar proceso de emision direccion*/
     public function agregar_proceso_emision_direccion_controlador()
     {
@@ -612,8 +611,8 @@ class expedienteControlador extends expedienteModelo
         $datos_proc_up = [
             "bitacora_id" => $bit_id,
             "fec_infor_cierre" => $fec_estado,
-            "est_proceso_id " => $est_proceso_id,
             "proceso_id" => $proceso_id,
+            "est_proceso_id" => $est_proceso_id,
             "exp_id" => $exp_id
         ];
 
@@ -708,7 +707,9 @@ class expedienteControlador extends expedienteModelo
     {
         $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_12']);
         $fecha_citacion = $_POST['fec_citacion'];
+        $fecha_aud_desc = $_POST['fecha_aud_desc'];
         $proceso_id = 12;
+        $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
         /*comprobar campos vacios*/
         if ($fecha_citacion == "") {
             $alerta = [
@@ -720,11 +721,24 @@ class expedienteControlador extends expedienteModelo
             echo json_encode($alerta);
             exit();
         }
-        
+        //guardar los fecha de feriados o vacaciones en el array feriados
+        $feriados = [];
+        $consulta = "SELECT * FROM tbl_feriado ORDER BY feriado_fecha ASC";
+        $conexion = mainModel2::conectar();
+        $datos = $conexion->query($consulta);
+        $datos = $datos->fetchAll();
+        foreach ($datos as $rows) {
+            array_push($feriados, $rows['feriado_fecha']);
+        }
+
+        $fecha_dias_tec_legal = mainModel2::addWorkingDays($fecha_aud_desc, 2, $feriados);
         $datos_proc_up = [
             "bitacora_id" => $bit_id,
             "fecha_citacion" => $fecha_citacion,
-            "proceso_id" => $proceso_id
+            "proceso_id" => $proceso_id,
+            "exp_id" => $exp_id,
+            "fecha_dias_tec_legal" => $fecha_dias_tec_legal,
+            "fecha_aud_desc" => $fecha_aud_desc
         ];
 
         $agregar_proc = expedienteModelo::agregar_proceso_citacion_modelo($datos_proc_up);
@@ -733,14 +747,14 @@ class expedienteControlador extends expedienteModelo
             $alerta = [
                 "Alerta" => "recargar",
                 "Titulo" => "HECHO",
-                "Texto" => "EL EXPEDIENTE SE HA CITADO CON ÉXITO",
+                "Texto" => "SE HA AGREGADO LA FECHA DE LA AUDIENCIA CON ÉXITO",
                 "Tipo" => "success"
             ];
         } else {
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                "Texto" => "NO SE HA CITADO EL EXPEDIENTE",
+                "Texto" => "NO SE HA AGREGADO LA FECHA DE LA AUDIENCIA",
                 "Tipo" => "error"
             ];
         }
@@ -748,19 +762,19 @@ class expedienteControlador extends expedienteModelo
         /**************************** */
     }/*fin controlador */
     /* controlador agregar proceso de recepcion legal*/
-    public function agregar_proceso_recep_legal_controlador()
+    public function agregar_proceso_remi_legal_controlador()
     {
         $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_13']);
-        $fec_recep_legal = $_POST['fec_recep_legal'];
+        $fec_remision_secretaria = $_POST['fec_remi_legal'];
         $proceso_id = 13;
-        
+
         $datos_proc_up = [
             "bitacora_id" => $bit_id,
-            "fec_recep_legal" => $fec_recep_legal,
+            "fec_remision_secretaria" => $fec_remision_secretaria,
             "proceso_id" => $proceso_id
         ];
 
-        $agregar_proc = expedienteModelo::agregar_proceso_recep_legal_modelo($datos_proc_up);
+        $agregar_proc = expedienteModelo::agregar_proceso_remi_legal_modelo($datos_proc_up);
 
         if ($agregar_proc) {
             $alerta = [
@@ -774,6 +788,86 @@ class expedienteControlador extends expedienteModelo
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
                 "Texto" => "NO SE HA ENVIADO A LEGAL EL EXPEDIENTE",
+                "Tipo" => "error"
+            ];
+        }
+        echo json_encode($alerta);
+        /**************************** */
+    }/*fin controlador */
+    /* controlador agregar proceso de asignacion de expediente a tecnico legal*/
+    public function agregar_proceso_asig_l_controlador()
+    {
+        $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_14']);
+        $fec_asigna_legal = $_POST['fec_asigna_legal'];
+        $tecnico_legal = mainModel2::limpiar_cadena($_POST['tecnico_id']);
+        $proceso_id = 14;
+        $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
+        /*comprobar campos vacios*/
+        if ($tecnico_legal == "") {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "CAMPO VACIO, POR FAVOR SELECCIONE TÉCNICO LEGAL",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        }
+
+        $datos_proc_up = [
+            "bitacora_id" => $bit_id,
+            "fec_asigna_legal" => $fec_asigna_legal,
+            "tecnico_legal" => $tecnico_legal,
+            "proceso_id" => $proceso_id,
+            "exp_id" => $exp_id
+        ];
+
+        $agregar_proc = expedienteModelo::agregar_proceso_asig_l_modelo($datos_proc_up);
+
+        if ($agregar_proc) {
+            $alerta = [
+                "Alerta" => "recargar",
+                "Titulo" => "HECHO",
+                "Texto" => "EL EXPEDIENTE SE HA ASIGNADO CON ÉXITO",
+                "Tipo" => "success"
+            ];
+        } else {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE HA PODIDO ASIGNAR EL EXPEDIENTE",
+                "Tipo" => "error"
+            ];
+        }
+        echo json_encode($alerta);
+        /**************************** */
+    }/*fin controlador */
+    /* controlador agregar proceso de dictamen*/
+    public function agregar_proceso_dictamen_controlador()
+    {
+        $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_15']);
+
+        $proceso_id = 15;
+
+        $datos_proc_up = [
+            "bitacora_id" => $bit_id,
+            "proceso_id" => $proceso_id
+        ];
+
+        $agregar_proc = expedienteModelo::agregar_proceso_dictamen_modelo($datos_proc_up);
+
+        if ($agregar_proc) {
+            $alerta = [
+                "Alerta" => "recargar",
+                "Titulo" => "HECHO",
+                "Texto" => "SE HA ENTREGADO EL DICTAMEN CON ÉXITO",
+                "Tipo" => "success"
+            ];
+        } else {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE HA ENTREGADO EL DICTAMEN",
                 "Tipo" => "error"
             ];
         }
