@@ -1,7 +1,7 @@
 <?php
 $peticionAjax=true;
 require_once "../config/APP.php";
-if (isset($_POST['n_exp_reg']) || isset($_POST['exp_id_up']) || isset($_POST['exp_id_del']) || isset($_POST['bit_id'])|| isset($_POST['bit_id_3']) || isset($_POST['bit_id_4']) || isset($_POST['bit_id_5']) || isset($_POST['bit_id_6']) || isset($_POST['bit_id_7']) || isset($_POST['bit_id_8']) || isset($_POST['bit_id_9']) || isset($_POST['bit_id_10']) || isset($_POST['bit_id_11']) || isset($_POST['bit_id_12']) || isset($_POST['bit_id_13']) || isset($_POST['bit_id_14']) || isset($_POST['bit_id_15']) || isset($_POST['bit_id_16']) || isset($_POST['bit_id_17']) || isset($_POST['bit_id_18']) || isset($_POST['bit_id_19']) || isset($_POST['bit_id_40'])){
+if (isset($_POST['n_exp_reg']) || isset($_POST['exp_id_up']) || isset($_POST['exp_id_del']) || isset($_POST['bit_id'])|| isset($_POST['bit_id_3']) || isset($_POST['bit_id_4']) || isset($_POST['bit_id_5']) || isset($_POST['bit_id_6']) || isset($_POST['bit_id_7']) || isset($_POST['bit_id_8']) || isset($_POST['bit_id_9']) || isset($_POST['bit_id_10']) || isset($_POST['bit_id_11']) || isset($_POST['bit_id_12']) || isset($_POST['bit_id_13']) || isset($_POST['bit_id_14']) || isset($_POST['bit_id_15']) || isset($_POST['bit_id_16']) || isset($_POST['bit_id_17']) || isset($_POST['bit_id_18']) || isset($_POST['bit_id_19']) || isset($_POST['bit_id_40']) || isset($_POST['diligencia_pre'])){
     #Instancia al controlador
     require_once "../controladores/expedienteControlador.php";
     $ins_expediente= new expedienteControlador();
@@ -85,10 +85,15 @@ if (isset($_POST['n_exp_reg']) || isset($_POST['exp_id_up']) || isset($_POST['ex
     if (isset($_POST['bit_id_40'])){
         echo $ins_expediente->agregar_proceso_remi_direccion_d_controlador();
     }
+    #Para agregar diligencias preliminares
+    if (isset($_POST['diligencia_pre'])){
+        echo $ins_expediente->agregar_diligencia_pre_controlador();
+    }
     #Para actualizar un usuario
     if (isset($_POST['exp_id_up'])){
         echo $ins_expediente->actualizar_expediente_controlador();
     }
+    
     /*Para eliminar un usuario
     if (isset($_POST['usuario_id_del'])){
         echo $ins_usuario->eliminar_usuario_controlador();
