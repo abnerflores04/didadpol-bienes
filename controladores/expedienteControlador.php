@@ -213,7 +213,7 @@ class expedienteControlador extends expedienteModelo
             exit();
         }
         if ($nombre_d != '') {
-            if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚÑÜ ]{3,255}", $nombre_d)) {
+            if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚáéíóúñÑ ]{3,255}", $nombre_d)) {
                 $alerta = [
                     "Alerta" => "simple",
                     "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
@@ -237,7 +237,7 @@ class expedienteControlador extends expedienteModelo
             }
         }
 
-        if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚÑÜ ]{3,255}", $investigado)) {
+        if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚáéíóúñÑ ]{3,255}", $investigado)) {
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
@@ -1446,7 +1446,7 @@ class expedienteControlador extends expedienteModelo
             exit();
         }
         if ($nombre_d != '') {
-            if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚÑÜ ]{3,255}", $nombre_d)) {
+            if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚáéíóúñÑ ]{3,255}", $nombre_d)) {
                 $alerta = [
                     "Alerta" => "simple",
                     "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
@@ -1486,7 +1486,7 @@ class expedienteControlador extends expedienteModelo
         }
 
 
-        if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚÑÜ ]{3,255}", $investigado)) {
+        if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚáéíóúñÑ ]{3,255}", $investigado)) {
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",

@@ -25,7 +25,7 @@ class rolControlador extends rolModelo
             exit();
         }
 
-        if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚÑ ]{3,100}", $rol_nombre)) {
+        if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚáéíóúñÑ ]{3,100}", $rol_nombre)) {
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
@@ -36,7 +36,7 @@ class rolControlador extends rolModelo
             exit();
         }
         if ($descrip != "") {
-            if (mainModel2::verificar_datos("[A-Z0-9ÁÉÍÓÚÑ ]{3,100}", $descrip)) {
+            if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚáéíóúñÑ0-9 ]{3,100}", $descrip)) {
                 $alerta = [
                     "Alerta" => "simple",
                     "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
@@ -174,7 +174,7 @@ class rolControlador extends rolModelo
 
         $rol_nombre = strtoupper(mainModel2::limpiar_cadena($_POST['rol_nombre_up']));
         $descrip = strtoupper(mainModel2::limpiar_cadena($_POST['rol_descrip_up']));
-        if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚÑ ]{3,100}", $rol_nombre)) {
+        if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚáéíóúñÑ ]{3,100}", $rol_nombre)) {
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
@@ -185,7 +185,7 @@ class rolControlador extends rolModelo
             exit();
         }
         if ($descrip != "") {
-            if (mainModel2::verificar_datos("[A-Z0-9ÁÉÍÓÚÑ ]{3,100}", $descrip)) {
+            if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚáéíóúñÑ0-9 ]{3,100}", $descrip)) {
                 $alerta = [
                     "Alerta" => "simple",
                     "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
