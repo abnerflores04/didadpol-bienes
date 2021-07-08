@@ -61,6 +61,7 @@ class loginControlador extends loginModelo
             $_SESSION['apellido_spm'] = $row['usu_apellido'];
             $_SESSION['usuario_spm'] = $row['usu_usuario'];
             $_SESSION['estado_spm'] = $row['usu_estado'];
+            $_SESSION['rol_id'] = $row['rol_id'];
             $_SESSION['token_spm'] = md5(uniqid(mt_rand(), true));
             if ( $_SESSION['estado_spm']=='ACTIVO') {
                 return header("Location:" . SERVERURL . "home/");
