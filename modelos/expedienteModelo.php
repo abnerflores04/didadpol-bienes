@@ -242,10 +242,18 @@ class expedienteModelo extends mainModel2
         $sql->execute();
         return $sql;
     }
+    protected static function agregar_exp_usu_modelo($exp_id, $usu_id)
+    {
+        $sql = mainModel2::conectar()->prepare("INSERT INTO tbl_exp_usu(exp_id, usu_id) VALUES (:exp_id,:usu_id)");
+        $sql->bindParam(":exp_id", $exp_id);
+        $sql->bindParam(":usu_id", $usu_id);
+        $sql->execute();
+        return $sql;
+    }
     protected static function agregar_exp_art_modelo($exp_id, $articulo)
     {
         foreach ($articulo as $a) {
-            $sql = mainModel2::conectar()->prepare("INSERT INTO tbl_exp_art ( exp_id, art_id) VALUES (:exp_id,:art_id)");
+            $sql = mainModel2::conectar()->prepare("INSERT INTO tbl_exp_art (exp_id, art_id) VALUES (:exp_id,:art_id)");
             $sql->bindParam(":exp_id", $exp_id);
             $sql->bindParam(":art_id", $a);
             $sql->execute();
