@@ -1040,7 +1040,7 @@ class expedienteControlador extends expedienteModelo
         echo json_encode($alerta);
         /**************************** */
     }/*fin controlador */
-    /*controlador agregar proceso de remision a direccion*/
+    /*controlador agregar diligencia preliminar*/
     public function agregar_diligencia_pre_controlador()
     {
         $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
@@ -1088,6 +1088,168 @@ class expedienteControlador extends expedienteModelo
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
                 "Texto" => "NO SE HA AGREGADO LAS DILIGENCIAS PRELIMINARES",
+                "Tipo" => "error"
+            ];
+        }
+        echo json_encode($alerta);
+        /**************************** */
+    }/*fin controlador */
+    /*controlador agregar diligencia investigacion*/
+    public function agregar_diligencia_invest_controlador()
+    {
+        $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
+        $diligencias_invest = strtoupper(mainModel2::limpiar_cadena($_POST['diligencias_invest']));
+
+        /*comprobar campos vacios*/
+        if ($diligencias_invest == "") {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "CAMPO VACIO, INGRESE DILIGENCIAS INVESTIGATIVAS PORFAVOR",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        }
+
+        if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚáéíóúñÑ0-9-#,. ]{3,200}", $diligencias_invest)) {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "EL CAMPO DESCRIPCIÓN SOLO PUEDE INCLUIR LETRAS, NUMEROS, COMAS Y GUIONES ",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        }
+
+        $datos_proc_up = [
+            "exp_id" => $exp_id,
+            "diligencias_invest" => $diligencias_invest
+        ];
+
+        $agregar_proc = expedienteModelo::agregar_diligencia_invest_modelo($datos_proc_up);
+
+        if ($agregar_proc) {
+            $alerta = [
+                "Alerta" => "recargar",
+                "Titulo" => "HECHO",
+                "Texto" => "SE HA AGREGADO LAS DILIGENCIAS INVESTIGATIVAS CON ÉXITO",
+                "Tipo" => "success"
+            ];
+        } else {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE HA AGREGADO LAS DILIGENCIAS INVESTIGATIVAS",
+                "Tipo" => "error"
+            ];
+        }
+        echo json_encode($alerta);
+        /**************************** */
+    }/*fin controlador */
+    /*controlador agregar diligencia citacion*/
+    public function agregar_diligencia_citacion_controlador()
+    {
+        $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
+        $diligencia_cita = strtoupper(mainModel2::limpiar_cadena($_POST['diligencia_cita']));
+
+        /*comprobar campos vacios*/
+        if ($diligencia_cita == "") {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "CAMPO VACIO, INGRESE DILIGENCIAS DE CITACIÓN PORFAVOR",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        }
+
+        if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚáéíóúñÑ0-9-#,. ]{3,200}", $diligencia_cita)) {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "EL CAMPO DESCRIPCIÓN SOLO PUEDE INCLUIR LETRAS, NUMEROS, COMAS Y GUIONES ",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        }
+
+        $datos_proc_up = [
+            "exp_id" => $exp_id,
+            "diligencia_cita" => $diligencia_cita
+        ];
+
+        $agregar_proc = expedienteModelo::agregar_diligencia_citacion_modelo($datos_proc_up);
+
+        if ($agregar_proc) {
+            $alerta = [
+                "Alerta" => "recargar",
+                "Titulo" => "HECHO",
+                "Texto" => "SE HA AGREGADO LAS DILIGENCIAS DE CITACIÓN CON ÉXITO",
+                "Tipo" => "success"
+            ];
+        } else {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE HA AGREGADO LAS DILIGENCIAS DE CITACIÓN",
+                "Tipo" => "error"
+            ];
+        }
+        echo json_encode($alerta);
+        /**************************** */
+    }/*fin controlador */
+    /*controlador agregar diligencia legal*/
+    public function agregar_diligencia_legal_controlador()
+    {
+        $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
+        $diligencias_legal = strtoupper(mainModel2::limpiar_cadena($_POST['diligencias_legal']));
+
+        /*comprobar campos vacios*/
+        if ($diligencias_legal == "") {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "CAMPO VACIO, INGRESE DILIGENCIAS DE LEGAL PORFAVOR",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        }
+
+        if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚáéíóúñÑ0-9-#,. ]{3,200}", $diligencias_legal)) {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "EL CAMPO DESCRIPCIÓN SOLO PUEDE INCLUIR LETRAS, NUMEROS, COMAS Y GUIONES ",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        }
+
+        $datos_proc_up = [
+            "exp_id" => $exp_id,
+            "diligencias_legal" => $diligencias_legal
+        ];
+
+        $agregar_proc = expedienteModelo::agregar_diligencia_legal_modelo($datos_proc_up);
+
+        if ($agregar_proc) {
+            $alerta = [
+                "Alerta" => "recargar",
+                "Titulo" => "HECHO",
+                "Texto" => "SE HA AGREGADO LAS DILIGENCIAS DE LEGAL CON ÉXITO",
+                "Tipo" => "success"
+            ];
+        } else {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE HA AGREGADO LAS DILIGENCIAS DE LEGAL",
                 "Tipo" => "error"
             ];
         }

@@ -624,7 +624,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <?php } ?>
                                 <!-- /Boton Estado Proceso -->
                                 <!-- Boton Validación -->
-                                <?php if ($campos['est_proceso_id'] != 6) { ?>
+                                <?php if ($campos['est_proceso_id'] != 6) { ?>    
                                     <?php if ($campos['proceso_id'] == 9) { ?>
                                         <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
                                             <div class="form-group">
@@ -892,8 +892,8 @@ if (!isset($_SESSION['id_spm'])) {
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <input type="hidden" class="form-control" name="exp_id" id="exp_id" value="<?php echo $campos['exp_id']; ?>">
-                                <label for="diligencias_cita">Diligencias</label>
-                                <textarea class="form-control" name="diligencias_cita" id="diligencias_cita" style="text-transform:uppercase" cols="30" rows="5"><?php echo $campos['diligencia_cita']; ?></textarea>
+                                <label for="diligencia_cita">Diligencias</label>
+                                <textarea class="form-control" name="diligencia_cita" id="diligencia_cita" style="text-transform:uppercase" cols="30" rows="5"><?php echo $campos['diligencia_cita']; ?></textarea>
                             </div>
                         </div>
                     </div>
