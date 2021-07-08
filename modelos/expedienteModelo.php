@@ -224,6 +224,15 @@ class expedienteModelo extends mainModel2
         $sql->execute();
         return $sql;
     }
+    /* Modelo agregar */
+    protected static function agregar_diligencia_pre_modelo($datos)
+    {
+        $sql = mainModel2::conectar()->prepare("UPDATE tbl_exp SET diligencia_pre=:diligencia_pre WHERE exp_id=:exp_id");
+        $sql->bindParam(":diligencia_pre", $datos['diligencia_pre']);
+        $sql->bindParam(":exp_id", $datos['exp_id']);
+        $sql->execute();
+        return $sql;
+    }
     protected static function agregar_bit_fec_cono_modelo($exp_id, $fecha_inicio_exp, $proceso_id)
     {
         $sql = mainModel2::conectar()->prepare("INSERT INTO tbl_bitacora_fechas(exp_id,fec_conocimiento, proceso_id) VALUES (:exp_id,:fec_conocimiento,:proceso_id)");

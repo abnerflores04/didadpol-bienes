@@ -1039,6 +1039,60 @@ class expedienteControlador extends expedienteModelo
         echo json_encode($alerta);
         /**************************** */
     }/*fin controlador */
+    /*controlador agregar proceso de remision a direccion*/
+    public function agregar_diligencia_pre_controlador()
+    {
+        $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
+        $diligencia_pre = strtoupper(mainModel2::limpiar_cadena($_POST['diligencia_pre']));
+
+        /*comprobar campos vacios*/
+        if ($diligencia_pre == "") {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "CAMPO VACIO, INGRESE DILIGENCIAS PRELIMINARES PORFAVOR",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        }
+
+        if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚáéíóúñÑ0-9-#,. ]{3,200}", $diligencia_pre)) {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "EL CAMPO DESCRIPCIÓN SOLO PUEDE INCLUIR LETRAS, NUMEROS, COMAS Y GUIONES ",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        }
+
+        $datos_proc_up = [
+            "exp_id" => $exp_id,
+            "diligencia_pre" => $diligencia_pre
+        ];
+
+        $agregar_proc = expedienteModelo::agregar_diligencia_pre_modelo($datos_proc_up);
+
+        if ($agregar_proc) {
+            $alerta = [
+                "Alerta" => "recargar",
+                "Titulo" => "HECHO",
+                "Texto" => "SE HA AGREGADO LAS DILIGENCIAS PRELIMINARES CON ÉXITO",
+                "Tipo" => "success"
+            ];
+        } else {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE HA AGREGADO LAS DILIGENCIAS PRELIMINARES",
+                "Tipo" => "error"
+            ];
+        }
+        echo json_encode($alerta);
+        /**************************** */
+    }/*fin controlador */
     /* controlador para listar expedientes*/
     public function listar_exp_controlador()
     {
