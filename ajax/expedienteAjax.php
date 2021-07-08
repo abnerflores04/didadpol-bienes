@@ -1,7 +1,13 @@
 <?php
 $peticionAjax=true;
 require_once "../config/APP.php";
-if (isset($_POST['n_exp_reg']) || isset($_POST['exp_id_up']) || isset($_POST['exp_id_del']) || isset($_POST['bit_id'])|| isset($_POST['bit_id_3']) || isset($_POST['bit_id_4']) || isset($_POST['bit_id_5']) || isset($_POST['bit_id_6']) || isset($_POST['bit_id_7']) || isset($_POST['bit_id_8']) || isset($_POST['bit_id_9']) || isset($_POST['bit_id_10']) || isset($_POST['bit_id_11']) || isset($_POST['bit_id_12']) || isset($_POST['bit_id_13']) || isset($_POST['bit_id_14']) || isset($_POST['bit_id_15']) || isset($_POST['bit_id_16']) || isset($_POST['bit_id_17']) || isset($_POST['bit_id_18']) || isset($_POST['bit_id_19']) || isset($_POST['bit_id_40']) || isset($_POST['diligencia_pre'])){
+if (isset($_POST['n_exp_reg']) || isset($_POST['exp_id_up']) || isset($_POST['exp_id_del']) || isset($_POST['bit_id']) 
+    || isset($_POST['bit_id_3']) || isset($_POST['bit_id_4']) || isset($_POST['bit_id_5']) || isset($_POST['bit_id_6']) 
+    || isset($_POST['bit_id_7']) || isset($_POST['bit_id_8']) || isset($_POST['bit_id_9']) || isset($_POST['bit_id_10']) 
+    || isset($_POST['bit_id_11']) || isset($_POST['bit_id_12']) || isset($_POST['bit_id_13']) || isset($_POST['bit_id_14']) 
+    || isset($_POST['bit_id_15']) || isset($_POST['bit_id_16']) || isset($_POST['bit_id_17']) || isset($_POST['bit_id_18']) 
+    || isset($_POST['bit_id_19']) || isset($_POST['bit_id_40']) || isset($_POST['diligencia_pre']) || isset($_POST['diligencias_invest'])
+    || isset($_POST['diligencia_cita'])){
     #Instancia al controlador
     require_once "../controladores/expedienteControlador.php";
     $ins_expediente= new expedienteControlador();
@@ -88,6 +94,14 @@ if (isset($_POST['n_exp_reg']) || isset($_POST['exp_id_up']) || isset($_POST['ex
     #Para agregar diligencias preliminares
     if (isset($_POST['diligencia_pre'])){
         echo $ins_expediente->agregar_diligencia_pre_controlador();
+    }
+    #Para agregar diligencias Investigativas
+    if (isset($_POST['diligencias_invest'])){
+        echo $ins_expediente->agregar_diligencia_invest_controlador();
+    }
+    #Para agregar diligencias citaciones
+    if (isset($_POST['diligencia_cita'])){
+        echo $ins_expediente->agregar_diligencia_citacion_controlador();
     }
     #Para actualizar un usuario
     if (isset($_POST['exp_id_up'])){
