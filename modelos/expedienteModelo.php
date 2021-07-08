@@ -233,6 +233,33 @@ class expedienteModelo extends mainModel2
         $sql->execute();
         return $sql;
     }
+    /* Modelo agregar diligencia invest*/
+    protected static function agregar_diligencia_invest_modelo($datos)
+    {
+        $sql = mainModel2::conectar()->prepare("UPDATE tbl_exp SET diligencias_invest=:diligencias_invest WHERE exp_id=:exp_id");
+        $sql->bindParam(":diligencias_invest", $datos['diligencias_invest']);
+        $sql->bindParam(":exp_id", $datos['exp_id']);
+        $sql->execute();
+        return $sql;
+    }
+    /* Modelo agregar diligencia citacion*/
+    protected static function agregar_diligencia_citacion_modelo($datos)
+    {
+        $sql = mainModel2::conectar()->prepare("UPDATE tbl_exp SET diligencia_cita=:diligencia_cita WHERE exp_id=:exp_id");
+        $sql->bindParam(":diligencia_cita", $datos['diligencia_cita']);
+        $sql->bindParam(":exp_id", $datos['exp_id']);
+        $sql->execute();
+        return $sql;
+    }
+    /* Modelo agregar diligencia legal*/
+    protected static function agregar_diligencia_legal_modelo($datos)
+    {
+        $sql = mainModel2::conectar()->prepare("UPDATE tbl_exp SET diligencias_legal=:diligencias_legal WHERE exp_id=:exp_id");
+        $sql->bindParam(":diligencias_legal", $datos['diligencias_legal']);
+        $sql->bindParam(":exp_id", $datos['exp_id']);
+        $sql->execute();
+        return $sql;
+    }
     protected static function agregar_bit_fec_cono_modelo($exp_id, $fecha_inicio_exp, $proceso_id)
     {
         $sql = mainModel2::conectar()->prepare("INSERT INTO tbl_bitacora_fechas(exp_id,fec_conocimiento, proceso_id) VALUES (:exp_id,:fec_conocimiento,:proceso_id)");

@@ -33,7 +33,7 @@ class usuarioControlador extends usuarioModelo
             exit();
         }
 
-        if (mainModel::verificar_datos("[A-ZÁÉÍÓÚÑÜ ]{3,35}", $nombres)) {
+        if (mainModel::verificar_datos("[A-ZÁÉÍÓÚáéíóúñÑ ]{3,35}", $nombres)) {
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
@@ -43,7 +43,7 @@ class usuarioControlador extends usuarioModelo
             echo json_encode($alerta);
             exit();
         }
-        if (mainModel::verificar_datos("[A-ZÁÉÍÓÚÑÜ ]{3,35}", $apellidos)) {
+        if (mainModel::verificar_datos("[A-ZÁÉÍÓÚáéíóúñÑ ]{3,35}", $apellidos)) {
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
