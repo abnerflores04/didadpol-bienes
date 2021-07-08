@@ -319,11 +319,12 @@ class expedienteControlador extends expedienteModelo
             $campos = $consultar_id->fetch();
         }
         $exp_id = $campos['exp_id'];
-
         //insertamos los articulos en su respectiva tabla
+        session_start();
         $agregar_articulos = expedienteModelo::agregar_exp_art_modelo($exp_id, $articulo);
+        $agregar_exp_usu= expedienteModelo::agregar_exp_usu_modelo($exp_id,$_SESSION['id_spm']);
         $agregar_b =  expedienteModelo::agregar_bit_fec_cono_modelo($exp_id, $fecha_inicio_exp, $proceso_id);
-        if ($agregar_expediente->rowCount() == 1 && $agregar_articulos && $agregar_b) {
+        if ($agregar_expediente->rowCount() == 1 && $agregar_articulos && $agregar_b && $agregar_exp_usu) {
             $alerta = [
                 "Alerta" => "recargar",
                 "Titulo" => "EXPEDIENTE REGISTRADO",
@@ -1097,7 +1098,7 @@ class expedienteControlador extends expedienteModelo
     public function listar_exp_controlador()
     {
         $tabla = '';
-        $consulta = "SELECT * FROM tbl_exp";
+        $consulta = "SELECT * FROM tbl_exp_usu teu INNER JOIN tbl_exp te ON teu.exp_id=te.exp_id INNER JOIN tbl_usuario tu  ON teu.usu_id=tu.usu_id WHERE teu.usu_id= $_SESSION[id_spm]";
         $conexion = mainModel2::conectar();
 
         $datos = $conexion->query($consulta);
