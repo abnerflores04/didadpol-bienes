@@ -7,7 +7,7 @@ if (isset($_POST['n_exp_reg']) || isset($_POST['exp_id_up']) || isset($_POST['ex
     || isset($_POST['bit_id_11']) || isset($_POST['bit_id_12']) || isset($_POST['bit_id_13']) || isset($_POST['bit_id_14']) 
     || isset($_POST['bit_id_15']) || isset($_POST['bit_id_16']) || isset($_POST['bit_id_17']) || isset($_POST['bit_id_18']) 
     || isset($_POST['bit_id_19']) || isset($_POST['bit_id_40']) || isset($_POST['diligencia_pre']) || isset($_POST['diligencias_invest'])
-    || isset($_POST['diligencia_cita'])){
+    || isset($_POST['diligencia_cita']) || isset($_POST['diligencias_legal'])){
     #Instancia al controlador
     require_once "../controladores/expedienteControlador.php";
     $ins_expediente= new expedienteControlador();
@@ -102,6 +102,10 @@ if (isset($_POST['n_exp_reg']) || isset($_POST['exp_id_up']) || isset($_POST['ex
     #Para agregar diligencias citaciones
     if (isset($_POST['diligencia_cita'])){
         echo $ins_expediente->agregar_diligencia_citacion_controlador();
+    }
+    #Para agregar diligencias legal
+    if (isset($_POST['diligencias_legal'])){
+        echo $ins_expediente->agregar_diligencia_legal_controlador();
     }
     #Para actualizar un usuario
     if (isset($_POST['exp_id_up'])){
