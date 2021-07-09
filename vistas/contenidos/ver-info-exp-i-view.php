@@ -214,7 +214,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label>Fecha remisión a secretaria<span class="text-danger">*</label>
-                                        <input type="date" autocomplete="off" class="form-control" name="fecha_remision_up" id="fecha_remision_up" value="<?php echo $campos['fecha_remision_s']; ?>" readonly>
+                                        <input type="date" autocomplete="off" class="form-control" name="fecha_remision_up" id="fecha_remision_up" value="<?php echo $campos['fec_remision_secretaria']; ?>" readonly>
                                     </div>
                                 </div>
 
@@ -241,7 +241,7 @@ if (!isset($_SESSION['id_spm'])) {
                                     <div class="form-group">
                                         <label>Fecha asignación técnico legal<span class="text-danger">*</label>
 
-                                        <input type="date" autocomplete="off" class="form-control" name="fecha_asignacion_up" id="fecha_asignacion_up" value="<?php echo $campos['fecha_tec_legal']; ?>" readonly>
+                                        <input type="date" autocomplete="off" class="form-control" name="fecha_asignacion_up" id="fecha_asignacion_up" value="<?php echo $campos['fec_asigna_legal']; ?>" readonly>
 
                                     </div>
                                 </div>
