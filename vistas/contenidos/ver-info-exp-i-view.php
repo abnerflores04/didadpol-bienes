@@ -630,7 +630,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <?php } ?>
                                 <!-- /Boton Estado Proceso -->
                                 <!-- Boton Validación -->
-                                <?php if ($campos['est_proceso_id'] != 6) { ?>    
+                                <?php if ($campos['est_proceso_id'] != 6) { ?>
                                     <?php if ($campos['proceso_id'] == 9 && $_SESSION['rol_id'] == 7) { ?>
                                         <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
                                             <div class="form-group">
@@ -729,15 +729,16 @@ if (!isset($_SESSION['id_spm'])) {
                                         </form>
                                         <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
                                             <input type="hidden" class="form-control" name="bit_id_16" id="bit_id_16" value="<?php echo $campos['bitacora_id']; ?>">
-
+                                            <input type="hidden" class="form-control" name="exp_id" id="exp_id" value="<?php echo $campos['exp_id']; ?>">
                                             <input type="hidden" name="fec_devolucion" id="fec_devolucion" value="<?php echo date('Y-m-d'); ?>">
+
 
                                             <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Auto de devolución</button>
                                             <!-- Boton volver atras -->
                                             <a href="<?php echo SERVERURL . 'lista-exp-investigacion/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> Volver atrás</a>
                                             <!-- /Boton volver atras -->
+                                        </form>
                             </div>
-                            </form>
                         <?php } ?>
                         <!-- /Boton devolución -->
                         <!-- Boton entrega dictamen -->
@@ -1118,7 +1119,7 @@ if (!isset($_SESSION['id_spm'])) {
                                     $resultado = $conexion->query("SELECT * FROM tbl_usuario WHERE rol_id = 3");
                                     while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
                                     ?>
-                                        <option value="<?php echo $registro['rol_id']; ?>"><?php echo $registro['usu_nombre'] . ' ' . $registro['usu_apellido']; ?></option>
+                                        <option value="<?php echo $registro['usu_id']; ?>"><?php echo $registro['usu_nombre'] . ' ' . $registro['usu_apellido']; ?></option>
                                     <?php } ?>
                                 </select>
                             </div>

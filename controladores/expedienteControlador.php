@@ -276,7 +276,7 @@ class expedienteControlador extends expedienteModelo
             "investigador_id" => $investigador,
             "proceso_id" => $proceso_id,
             "exp_id" => $exp_id,
-            "usu_id" => $_SESSION['id_spm']
+            "usu_id" => $investigador
         ];
 
         $agregar_proc = expedienteModelo::agregar_proceso_asig_i_modelo($datos_proc_up);
@@ -307,13 +307,29 @@ class expedienteControlador extends expedienteModelo
         $fec_emitir_i = $_POST['fec_emitir_invest'];
         $proceso_id = 5;
         $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
-        session_start();
+        // CAPTURAMOS EL VALOR USUARIO JEFE DE INVESTIGACION
+        $consultar_id = mainModel2::ejecutar_consulta_simple("SELECT usu_id FROM tbl_usuario WHERE rol_id=7");
+        if ($consultar_id->rowCount() <= 0) {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE ENCONTRO USUARIO",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        } else {
+            $campos = $consultar_id->fetch();
+        }
+        
+        $usu_id = $campos['usu_id'];
+        // INSERTAMOS LOS DATOS EN SUS RESPECTIVAS TABLAS
         $datos_proc_up = [
             "bitacora_id" => $bit_id,
             "fec_emision_invest" => $fec_emitir_i,
             "proceso_id" => $proceso_id,
             "exp_id" => $exp_id,
-            "usu_id" => $_SESSION['id_spm']
+            "usu_id" => $usu_id
         ];
 
         $agregar_proc = expedienteModelo::agregar_proceso_emision_direccion_modelo($datos_proc_up);
@@ -343,13 +359,29 @@ class expedienteControlador extends expedienteModelo
         $fec_apertura = $_POST['fec_apertura'];
         $proceso_id = 6;
         $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
-        session_start();
+        // CAPTURAMOS EL VALOR USUARIO JEFE DE INVESTIGACION
+        $consultar_id = mainModel2::ejecutar_consulta_simple("SELECT usu_id FROM tbl_usuario WHERE rol_id=8");
+        if ($consultar_id->rowCount() <= 0) {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE ENCONTRO USUARIO",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        } else {
+            $campos = $consultar_id->fetch();
+        }
+        
+        $usu_id = $campos['usu_id'];
+        // INSERTAMOS LOS DATOS EN SUS RESPECTIVAS TABLAS
         $datos_proc_up = [
             "bitacora_id" => $bit_id,
             "fec_act_apertura" => $fec_apertura,
             "proceso_id" => $proceso_id,
             "exp_id" => $exp_id,
-            "usu_id" => $_SESSION['id_spm']
+            "usu_id" => $usu_id
         ];
 
         $agregar_proc = expedienteModelo::agregar_proceso_apertura_modelo($datos_proc_up);
@@ -379,13 +411,29 @@ class expedienteControlador extends expedienteModelo
         $fec_comunicacion = $_POST['fec_comunicacion'];
         $proceso_id = 7;
         $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
-        session_start();
+        // CAPTURAMOS EL VALOR USUARIO QUE LLEVA LA INVESTIGACION
+        $consultar_id = mainModel2::ejecutar_consulta_simple("SELECT investigador_id FROM tbl_exp WHERE exp_id = $exp_id");
+        if ($consultar_id->rowCount() <= 0) {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE ENCONTRO USUARIO",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        } else {
+            $campos = $consultar_id->fetch();
+        }
+        
+        $usu_id = $campos['investigador_id'];
+        // INSERTAMOS LOS DATOS EN SUS RESPECTIVAS TABLAS
         $datos_proc_up = [
             "bitacora_id" => $bit_id,
             "fec_comunicacion" => $fec_comunicacion,
             "proceso_id" => $proceso_id,
             "exp_id" => $exp_id,
-            "usu_id" => $_SESSION['id_spm']
+            "usu_id" => $usu_id
         ];
 
         $agregar_proc = expedienteModelo::agregar_proceso_comunicacion_modelo($datos_proc_up);
@@ -445,6 +493,7 @@ class expedienteControlador extends expedienteModelo
         /**************************** */
     }/*fin controlador */
     /* controlador agregar proceso de estado de procesos*/
+    // ROL INVESTIGADOR
     public function agregar_proceso_estado_controlador()
     {
         $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_9']);
@@ -463,14 +512,30 @@ class expedienteControlador extends expedienteModelo
             echo json_encode($alerta);
             exit();
         }
-        session_start();
+        // CAPTURAMOS EL VALOR USUARIO 
+        $consultar_id = mainModel2::ejecutar_consulta_simple("SELECT usu_id FROM tbl_usuario WHERE rol_id=7");
+        if ($consultar_id->rowCount() <= 0) {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE ENCONTRO USUARIO",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        } else {
+            $campos = $consultar_id->fetch();
+        }
+        
+        $usu_id = $campos['usu_id'];
+        // INSERTAMOS LOS DATOS EN SUS RESPECTIVAS TABLAS
         $datos_proc_up = [
             "bitacora_id" => $bit_id,
             "fec_infor_cierre" => $fec_estado,
             "proceso_id" => $proceso_id,
             "est_proceso_id" => $est_proceso_id,
             "exp_id" => $exp_id,
-            "usu_id" => $_SESSION['id_spm']
+            "usu_id" => $usu_id
         ];
 
         $agregar_proc = expedienteModelo::agregar_proceso_estado_modelo($datos_proc_up);
@@ -493,19 +558,36 @@ class expedienteControlador extends expedienteModelo
         /**************************** */
     }/*fin controlador */
     /* controlador agregar proceso de validacion direccion*/
+    // ROL DIRECTOR
     public function agregar_proceso_validacion_controlador()
     {
         $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_10']);
         $fec_val_dirreccion = $_POST['fec_validacion'];
         $proceso_id = 10;
         $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
-        session_start();
+        // CAPTURAMOS EL VALOR USUARIO SECRETARIA
+        $consultar_id = mainModel2::ejecutar_consulta_simple("SELECT usu_id FROM tbl_usuario WHERE rol_id=8");
+        if ($consultar_id->rowCount() <= 0) {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE ENCONTRO USUARIO",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        } else {
+            $campos = $consultar_id->fetch();
+        }
+        
+        $usu_id = $campos['usu_id'];
+        // INSERTAMOS LOS DATOS EN SUS RESPECTIVAS TABLAS
         $datos_proc_up = [
             "bitacora_id" => $bit_id,
             "fec_val_dirreccion" => $fec_val_dirreccion,
             "proceso_id" => $proceso_id,
             "exp_id" => $exp_id,
-            "usu_id" => $_SESSION['id_spm']
+            "usu_id" => $usu_id
         ];
 
         $agregar_proc = expedienteModelo::agregar_proceso_validacion_modelo($datos_proc_up);
@@ -565,6 +647,7 @@ class expedienteControlador extends expedienteModelo
         /**************************** */
     }/*fin controlador */
     /* controlador agregar proceso de citacion*/
+    // ROL SECRETARIA
     public function agregar_proceso_citacion_controlador()
     {
         $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_12']);
@@ -626,19 +709,36 @@ class expedienteControlador extends expedienteModelo
         /**************************** */
     }/*fin controlador */
     /* controlador agregar proceso de recepcion legal*/
+    // ROL SECRETARIA
     public function agregar_proceso_remi_legal_controlador()
     {
         $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_13']);
         $fec_remision_secretaria = $_POST['fec_remi_legal'];
         $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
         $proceso_id = 13;
-        session_start();
+        // CAPTURAMOS EL VALOR USUARIO JEFE DE LEGAL
+        $consultar_id = mainModel2::ejecutar_consulta_simple("SELECT usu_id FROM tbl_usuario WHERE rol_id=5");
+        if ($consultar_id->rowCount() <= 0) {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE ENCONTRO USUARIO",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        } else {
+            $campos = $consultar_id->fetch();
+        }
+        
+        $usu_id = $campos['usu_id'];
+        // INSERTAMOS LOS DATOS EN SUS RESPECTIVAS TABLAS
         $datos_proc_up = [
             "bitacora_id" => $bit_id,
             "fec_remision_secretaria" => $fec_remision_secretaria,
             "proceso_id" => $proceso_id,
             "exp_id" => $exp_id,
-            "usu_id" => $_SESSION['id_spm']
+            "usu_id" => $usu_id
         ];
 
         $agregar_proc = expedienteModelo::agregar_proceso_remi_legal_modelo($datos_proc_up);
@@ -687,7 +787,7 @@ class expedienteControlador extends expedienteModelo
             "tecnico_legal" => $tecnico_legal,
             "proceso_id" => $proceso_id,
             "exp_id" => $exp_id,
-            "usu_id" => $_SESSION['id_spm']
+            "usu_id" => $tecnico_legal
         ];
 
         $agregar_proc = expedienteModelo::agregar_proceso_asig_l_modelo($datos_proc_up);
@@ -716,12 +816,28 @@ class expedienteControlador extends expedienteModelo
         $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_15']);
         $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
         $proceso_id = 15;
-        session_start();
+        // CAPTURAMOS EL VALOR USUARIO JEFE DE LEGAL
+        $consultar_id = mainModel2::ejecutar_consulta_simple("SELECT usu_id FROM tbl_usuario WHERE rol_id=5");
+        if ($consultar_id->rowCount() <= 0) {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE ENCONTRO USUARIO",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        } else {
+            $campos = $consultar_id->fetch();
+        }
+        
+        $usu_id = $campos['usu_id'];
+        // INSERTAMOS LOS DATOS EN SUS RESPECTIVAS TABLAS
         $datos_proc_up = [
             "bitacora_id" => $bit_id,
             "proceso_id" => $proceso_id,
             "exp_id" => $exp_id,
-            "usu_id" => $_SESSION['id_spm']
+            "usu_id" => $usu_id
         ];
 
         $agregar_proc = expedienteModelo::agregar_proceso_dictamen_modelo($datos_proc_up);
@@ -751,13 +867,29 @@ class expedienteControlador extends expedienteModelo
         $fec_devolucion = $_POST['fec_devolucion'];
         $proceso_id = 16;
         $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
-        session_start();
+        // CAPTURAMOS EL VALOR USUARIO QUE LLEVA LA INVESTIGACION
+        $consultar_id = mainModel2::ejecutar_consulta_simple("SELECT tecnico_legal FROM tbl_exp WHERE exp_id = $exp_id");
+        if ($consultar_id->rowCount() <= 0) {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE ENCONTRO USUARIO",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        } else {
+            $campos = $consultar_id->fetch();
+        }
+        
+        $usu_id = $campos['tecnico_legal'];
+        // INSERTAMOS LOS DATOS EN SUS RESPECTIVAS TABLAS
         $datos_proc_up = [
             "bitacora_id" => $bit_id,
             "fec_devolucion" => $fec_devolucion,
             "proceso_id" => $proceso_id,
             "exp_id" => $exp_id,
-            "usu_id" => $_SESSION['id_spm']
+            "usu_id" => $usu_id
         ];
 
         $agregar_proc = expedienteModelo::agregar_proceso_devolucion_modelo($datos_proc_up);
@@ -787,13 +919,29 @@ class expedienteControlador extends expedienteModelo
         $fec_entrega_dictamen = $_POST['fec_entrega_dictamen'];
         $proceso_id = 17;
         $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
-        session_start();
+        // CAPTURAMOS EL VALOR USUARIO JEFE DE INVESTIGACION
+        $consultar_id = mainModel2::ejecutar_consulta_simple("SELECT usu_id FROM tbl_usuario WHERE rol_id=5");
+        if ($consultar_id->rowCount() <= 0) {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE ENCONTRO USUARIO",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        } else {
+            $campos = $consultar_id->fetch();
+        }
+        
+        $usu_id = $campos['usu_id'];
+        // INSERTAMOS LOS DATOS EN SUS RESPECTIVAS TABLAS
         $datos_proc_up = [
             "bitacora_id" => $bit_id,
             "fec_entrega_dicta" => $fec_entrega_dictamen,
             "proceso_id" => $proceso_id,
             "exp_id" => $exp_id,
-            "usu_id" => $_SESSION['id_spm']
+            "usu_id" => $usu_id
         ];
 
         $agregar_proc = expedienteModelo::agregar_proceso_entre_dictamen_modelo($datos_proc_up);
@@ -823,13 +971,29 @@ class expedienteControlador extends expedienteModelo
         $fec_remi_direccion = $_POST['fec_remi_direccion'];
         $proceso_id = 18;
         $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
-        session_start();
+        // CAPTURAMOS EL VALOR USUARIO JEFE DE LEGAL
+        $consultar_id = mainModel2::ejecutar_consulta_simple("SELECT usu_id FROM tbl_usuario WHERE rol_id=7");
+        if ($consultar_id->rowCount() <= 0) {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE ENCONTRO USUARIO",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        } else {
+            $campos = $consultar_id->fetch();
+        }
+        
+        $usu_id = $campos['usu_id'];
+        // INSERTAMOS LOS DATOS EN SUS RESPECTIVAS TABLAS
         $datos_proc_up = [
             "bitacora_id" => $bit_id,
             "fec_remi_direccion" => $fec_remi_direccion,
             "proceso_id" => $proceso_id,
             "exp_id" => $exp_id,
-            "usu_id" => $_SESSION['id_spm']
+            "usu_id" => $usu_id
         ];
 
         $agregar_proc = expedienteModelo::agregar_proceso_remi_direccion_modelo($datos_proc_up);
@@ -895,13 +1059,29 @@ class expedienteControlador extends expedienteModelo
         $fec_remi_direccion = $_POST['fec_remi_direccion'];
         $proceso_id = 18;
         $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
-        session_start();
+        // CAPTURAMOS EL VALOR USUARIO JEFE DE LEGAL
+        $consultar_id = mainModel2::ejecutar_consulta_simple("SELECT usu_id FROM tbl_usuario WHERE rol_id=7");
+        if ($consultar_id->rowCount() <= 0) {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE ENCONTRO USUARIO",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        } else {
+            $campos = $consultar_id->fetch();
+        }
+        
+        $usu_id = $campos['usu_id'];
+        // INSERTAMOS LOS DATOS EN SUS RESPECTIVAS TABLAS
         $datos_proc_up = [
             "bitacora_id" => $bit_id,
             "fec_remi_direccion" => $fec_remi_direccion,
             "proceso_id" => $proceso_id,
             "exp_id" => $exp_id,
-            "usu_id" => $_SESSION['id_spm']
+            "usu_id" => $usu_id
         ];
 
         $agregar_proc = expedienteModelo::agregar_proceso_remi_direccion_modelo($datos_proc_up);

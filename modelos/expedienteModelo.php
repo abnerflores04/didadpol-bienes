@@ -168,6 +168,12 @@ class expedienteModelo extends mainModel2
         $sql->bindParam(":proceso_id", $datos['proceso_id']);
         $sql->bindParam(":bitacora_id", $datos['bitacora_id']);
         $sql->execute();
+
+        $sql2 = mainModel2::conectar()->prepare("UPDATE tbl_exp_usu SET usu_id=:usu_id WHERE exp_id=:exp_id");
+        $sql2->bindParam(":usu_id", $datos['usu_id']);
+        $sql2->bindParam(":exp_id", $datos['exp_id']);
+        $sql2->execute();
+
         return $sql;
     }
     /* Modelo recepcion secretaria*/
@@ -252,12 +258,14 @@ class expedienteModelo extends mainModel2
         $sql->bindParam(":proceso_id", $datos['proceso_id']);
         $sql->bindParam(":bitacora_id", $datos['bitacora_id']);
         $sql->execute();
-        return $sql;
+        
 
         $sql2 = mainModel2::conectar()->prepare("UPDATE tbl_exp_usu SET usu_id=:usu_id WHERE exp_id=:exp_id");
         $sql2->bindParam(":usu_id", $datos['usu_id']);
         $sql2->bindParam(":exp_id", $datos['exp_id']);
         $sql2->execute();
+
+        return $sql;
     }
     /* Modelo devolucion*/
     protected static function agregar_proceso_devolucion_modelo($datos)
