@@ -6,186 +6,6 @@ if ($peticionAjax) {
 }
 class expedienteControlador extends expedienteModelo
 {
-    /* controlador agregar expediente*/
-    public function agregar_expediente_controlador()
-    {
-        $n_exp = mainModel2::limpiar_cadena($_POST['n_exp_reg']);
-        $nombre_d = strtoupper(mainModel2::limpiar_cadena($_POST['nombre_d_reg']));
-        $identidad_d = mainModel2::limpiar_cadena($_POST['identidad_d_reg']);
-        $sexo = mainModel2::limpiar_cadena($_POST['genero_reg']);
-        $depto = mainModel2::limpiar_cadena($_POST['depto_reg']);
-        $municipio = mainModel2::limpiar_cadena($_POST['municipio_reg']);
-        $investigado = mainModel2::limpiar_cadena(strtoupper($_POST['investigado']));
-        $rango = mainModel2::limpiar_cadena($_POST['rango_id_reg']);
-        $tipo_falta = mainModel2::limpiar_cadena($_POST['tipo_falta_reg']);
-        $investigador = mainModel2::limpiar_cadena($_POST['investigador_reg']);
-        $fecha_inicio_exp = $_POST['fecha_inicio_exp_reg'];
-        $fecha_inicio_i = '';
-        $diligencia = mainModel2::limpiar_cadena(strtoupper($_POST['diligencia']));
-        $estado = mainModel2::limpiar_cadena($_POST['estado_reg']);
-        $fecha_remision = '';
-        $observacion = strtoupper(mainModel2::limpiar_cadena($_POST['observacion']));
-        $articulo = $_POST['articulos_reg'];
-        /*comprobar campos vacios*/
-        if ($n_exp == "" ||  $municipio == "" ||  $depto == "" ||  $sexo == "" ||  $investigado == "" || $rango == ""  ||   $fecha_inicio_exp == "") {
-            $alerta = [
-                "Alerta" => "simple",
-                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                "Texto" => "NO HAS COMPLETADO TODOS LOS CAMPOS QUE SON OBLIGATORIOS",
-                "Tipo" => "error"
-            ];
-            echo json_encode($alerta);
-            exit();
-        }
-        if ($nombre_d != '') {
-            if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚÑÜ ]{3,255}", $nombre_d)) {
-                $alerta = [
-                    "Alerta" => "simple",
-                    "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                    "Texto" => "EL CAMPO NOMBRE DEL DENUNCIANTE SOLO DEBE INCLUIR LETRAS Y NUMEROS",
-                    "Tipo" => "error"
-                ];
-                echo json_encode($alerta);
-                exit();
-            }
-        }
-        if ($identidad_d != '') {
-            if (mainModel2::verificar_datos("[0-9]{13}", $identidad_d)) {
-                $alerta = [
-                    "Alerta" => "simple",
-                    "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                    "Texto" => "EL DNI DEL DENUNCIANTE NO COINCIDE CON EL FORMATO SOLICITADO",
-                    "Tipo" => "error"
-                ];
-                echo json_encode($alerta);
-                exit();
-            }
-        }
-        /*validar DNI*/
-        $check_identidad = mainModel2::ejecutar_consulta_simple("SELECT identidad_denunciante FROM tbl_exp WHERE 	identidad_denunciante='$identidad_d'");
-        if ($check_identidad->rowCount() > 0) {
-            $alerta = [
-                "Alerta" => "simple",
-                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                "Texto" => "LA IDENTIDAD DEL DENUNCIANTE YA ESTÁ REGISTRADO",
-                "Tipo" => "error"
-            ];
-            echo json_encode($alerta);
-            exit();
-        }
-        if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚÑÜ ]{3,255}", $investigado)) {
-            $alerta = [
-                "Alerta" => "simple",
-                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                "Texto" => "EL CAMPO NOMBRE DEL DENUNCIANTE SOLO DEBE INCLUIR LETRAS Y NUMEROS",
-                "Tipo" => "error"
-            ];
-            echo json_encode($alerta);
-            exit();
-        }
-        if (mainModel2::verificar_datos("[0-9-]{15}", $n_exp)) {
-            $alerta = [
-                "Alerta" => "simple",
-                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                "Texto" => "EL NUMERO DE EXPEDIENTE NO CUMPLE CON FORMATO SOLICITADO DEBE DE CONTENER 15 CARACTERES",
-                "Tipo" => "error"
-            ];
-            echo json_encode($alerta);
-            exit();
-        }
-        $n_exp = "DPL-" . $n_exp;
-        //VALIDAR QUE NO EXISTA OTRO EXPEDIENTE
-        /*validar DNI*/
-        $check_exp = mainModel2::ejecutar_consulta_simple("SELECT num_exp FROM tbl_exp WHERE num_exp='$n_exp'");
-        if ($check_exp->rowCount() > 0) {
-            $alerta = [
-                "Alerta" => "simple",
-                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                "Texto" => "EL EXPEDIENTE YA ESTÁ REGISTRADO",
-                "Tipo" => "error"
-            ];
-            echo json_encode($alerta);
-            exit();
-        }
-
-        //guardar los fecha de feriados o vacaciones en el array feriados
-        $feriados = [];
-        $consulta = "SELECT * FROM tbl_feriado ORDER BY feriado_fecha ASC";
-        $conexion = mainModel2::conectar();
-        $datos = $conexion->query($consulta);
-        $datos = $datos->fetchAll();
-        foreach ($datos as $rows) {
-            array_push($feriados, $rows['feriado_fecha']);
-        }
-        //se hace el calculo respecto al fecha de reconocimiento didapol
-        //$fecha_final_i_pre = mainModel2::addWorkingDays($fecha_inicio_exp,9,$feriados);
-        //$fecha_final_i = mainModel2::addWorkingDays($fecha_inicio_exp,39,$feriados);
-        $fecha_final_i_pre = mainModel2::addWorkingDays($fecha_inicio_exp, 9, $feriados);
-        $fecha_final_i = mainModel2::addWorkingDays($fecha_inicio_exp, 39, $feriados);
-        $fecha_final_exp = mainModel2::addWorkingDays($fecha_inicio_exp, 74, $feriados);
-
-
-        $datos_expediente_reg = [
-            "nombre_denunciante" => $nombre_d,
-            "identidad_denunciante" => $identidad_d,
-            "genero" => $sexo,
-            "depto" => $depto,
-            "municipio" => $municipio,
-            "n_exp" => $n_exp,
-            "nombre_investigado" => $investigado,
-            "rango" => $rango,
-            "tipo_falta" => $tipo_falta,
-            "investigador" => $investigador,
-            "fecha_inicio_exp" => $fecha_inicio_exp,
-            "fecha_final_exp" => $fecha_final_exp,
-            "fecha_inicio_i" => $fecha_inicio_i,
-            "fecha_final_i_pre" => $fecha_final_i_pre,
-            "fecha_final_i" => $fecha_final_i,
-            "diligencia" => $diligencia,
-            "estado" => $estado,
-            "fecha_remision" => $fecha_remision,
-            "observacion" => $observacion
-
-        ];
-
-        $agregar_expediente =  expedienteModelo::agregar_proceso_denuncia_modelo($datos_expediente_reg);
-        // CAPTURAMOS EL VALOR DE EL ULTIMO REGISTRO DE LA TABLA EXPEDIENTES
-        $consultar_id = mainModel2::ejecutar_consulta_simple("SELECT exp_id FROM tbl_exp ORDER BY exp_id DESC LIMIT 1");
-        if ($consultar_id->rowCount() <= 0) {
-            $alerta = [
-                "Alerta" => "simple",
-                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                "Texto" => "ERROR EN LA CONSULTA",
-                "Tipo" => "error"
-            ];
-            echo json_encode($alerta);
-            exit();
-        } else {
-            $campos = $consultar_id->fetch();
-        }
-        $exp_id = $campos['exp_id'];
-
-        //insertamos los articulos en su respectiva tabla
-        $agregar_articulos = expedienteModelo::agregar_exp_art_modelo($exp_id, $articulo);
-
-        if ($agregar_expediente->rowCount() == 1 && $agregar_articulos) {
-            $alerta = [
-                "Alerta" => "recargar",
-                "Titulo" => "EXPEDIENTE REGISTRADO",
-                "Texto" => "LOS DATOS DEL EXPEDIENTE SE HAN REGISTRADO CON ÉXITO",
-                "Tipo" => "success"
-            ];
-        } else {
-            $alerta = [
-                "Alerta" => "simple",
-                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                "Texto" => "NO SE HA PODIDO REGISTRAR EL EXPEDIENTE",
-                "Tipo" => "error"
-            ];
-        }
-        echo json_encode($alerta);
-        /**************************** */
-    }/*fin controlador */
     /* controlador agregar proceso de denuncia*/
     public function agregar_proceso_denuncia_controlador()
     {
@@ -320,9 +140,8 @@ class expedienteControlador extends expedienteModelo
         }
         $exp_id = $campos['exp_id'];
         //insertamos los articulos en su respectiva tabla
-        session_start();
         $agregar_articulos = expedienteModelo::agregar_exp_art_modelo($exp_id, $articulo);
-        $agregar_exp_usu= expedienteModelo::agregar_exp_usu_modelo($exp_id,$_SESSION['id_spm']);
+        $agregar_exp_usu = expedienteModelo::agregar_exp_usu_modelo($exp_id, $_SESSION['id_spm']);
         $agregar_b =  expedienteModelo::agregar_bit_fec_cono_modelo($exp_id, $fecha_inicio_exp, $proceso_id);
         if ($agregar_expediente->rowCount() == 1 && $agregar_articulos && $agregar_b && $agregar_exp_usu) {
             $alerta = [
@@ -347,12 +166,15 @@ class expedienteControlador extends expedienteModelo
     {
         $bit_id = mainModel2::limpiar_cadena($_POST['bit_id']);
         $fec_emision = $_POST['fec_emision'];
+        $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
         $proceso_id = 2;
 
         $datos_proc_up = [
             "bitacora_id" => $bit_id,
             "fec_emision" => $fec_emision,
-            "proceso_id" => $proceso_id
+            "proceso_id" => $proceso_id,
+            "exp_id" => $exp_id,
+            "usu_id" => $_SESSION['id_spm']
         ];
 
         $agregar_proc = expedienteModelo::agregar_proceso_emision_modelo($datos_proc_up);
@@ -381,11 +203,13 @@ class expedienteControlador extends expedienteModelo
         $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_3']);
         $fec_admision = $_POST['fec_admitir'];
         $proceso_id = 3;
-
+        $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
         $datos_proc_up = [
             "bitacora_id" => $bit_id,
             "fec_admision" => $fec_admision,
-            "proceso_id" => $proceso_id
+            "proceso_id" => $proceso_id,
+            "exp_id" => $exp_id,
+            "usu_id" => $_SESSION['id_spm']
         ];
 
         $agregar_proc = expedienteModelo::agregar_proceso_admision_modelo($datos_proc_up);
@@ -433,7 +257,8 @@ class expedienteControlador extends expedienteModelo
             "fec_asignacion" => $fec_asig,
             "investigador_id" => $investigador,
             "proceso_id" => $proceso_id,
-            "exp_id" => $exp_id
+            "exp_id" => $exp_id,
+            "usu_id" => $_SESSION['id_spm']
         ];
 
         $agregar_proc = expedienteModelo::agregar_proceso_asig_i_modelo($datos_proc_up);
@@ -463,11 +288,14 @@ class expedienteControlador extends expedienteModelo
         $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_5']);
         $fec_emitir_i = $_POST['fec_emitir_invest'];
         $proceso_id = 5;
+        $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
 
         $datos_proc_up = [
             "bitacora_id" => $bit_id,
             "fec_emision_invest" => $fec_emitir_i,
-            "proceso_id" => $proceso_id
+            "proceso_id" => $proceso_id,
+            "exp_id" => $exp_id,
+            "usu_id" => $_SESSION['id_spm']
         ];
 
         $agregar_proc = expedienteModelo::agregar_proceso_emision_direccion_modelo($datos_proc_up);
@@ -496,11 +324,13 @@ class expedienteControlador extends expedienteModelo
         $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_6']);
         $fec_apertura = $_POST['fec_apertura'];
         $proceso_id = 6;
-
+        $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
         $datos_proc_up = [
             "bitacora_id" => $bit_id,
             "fec_act_apertura" => $fec_apertura,
-            "proceso_id" => $proceso_id
+            "proceso_id" => $proceso_id,
+            "exp_id" => $exp_id,
+            "usu_id" => $_SESSION['id_spm']
         ];
 
         $agregar_proc = expedienteModelo::agregar_proceso_apertura_modelo($datos_proc_up);
@@ -529,11 +359,14 @@ class expedienteControlador extends expedienteModelo
         $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_7']);
         $fec_comunicacion = $_POST['fec_comunicacion'];
         $proceso_id = 7;
+        $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
 
         $datos_proc_up = [
             "bitacora_id" => $bit_id,
             "fec_comunicacion" => $fec_comunicacion,
-            "proceso_id" => $proceso_id
+            "proceso_id" => $proceso_id,
+            "exp_id" => $exp_id,
+            "usu_id" => $_SESSION['id_spm']
         ];
 
         $agregar_proc = expedienteModelo::agregar_proceso_comunicacion_modelo($datos_proc_up);
@@ -562,11 +395,14 @@ class expedienteControlador extends expedienteModelo
         $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_8']);
         $fec_recep_invest = $_POST['fec_recep_investigacion'];
         $proceso_id = 8;
+        $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
 
         $datos_proc_up = [
             "bitacora_id" => $bit_id,
             "fec_recep_invest" => $fec_recep_invest,
-            "proceso_id" => $proceso_id
+            "proceso_id" => $proceso_id,
+            "exp_id" => $exp_id,
+            "usu_id" => $_SESSION['id_spm']
         ];
 
         $agregar_proc = expedienteModelo::agregar_proceso_recep_invest_modelo($datos_proc_up);
@@ -614,11 +450,11 @@ class expedienteControlador extends expedienteModelo
             "fec_infor_cierre" => $fec_estado,
             "proceso_id" => $proceso_id,
             "est_proceso_id" => $est_proceso_id,
-            "exp_id" => $exp_id
+            "exp_id" => $exp_id,
+            "usu_id" => $_SESSION['id_spm']
         ];
 
         $agregar_proc = expedienteModelo::agregar_proceso_estado_modelo($datos_proc_up);
-
         if ($agregar_proc) {
             $alerta = [
                 "Alerta" => "recargar",
@@ -643,11 +479,13 @@ class expedienteControlador extends expedienteModelo
         $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_10']);
         $fec_val_dirreccion = $_POST['fec_validacion'];
         $proceso_id = 10;
-
+        $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
         $datos_proc_up = [
             "bitacora_id" => $bit_id,
             "fec_val_dirreccion" => $fec_val_dirreccion,
-            "proceso_id" => $proceso_id
+            "proceso_id" => $proceso_id,
+            "exp_id" => $exp_id,
+            "usu_id" => $_SESSION['id_spm']
         ];
 
         $agregar_proc = expedienteModelo::agregar_proceso_validacion_modelo($datos_proc_up);
@@ -676,11 +514,14 @@ class expedienteControlador extends expedienteModelo
         $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_11']);
         $fec_remision_secretaria = $_POST['fec_recep_secretaria'];
         $proceso_id = 11;
+        $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
 
         $datos_proc_up = [
             "bitacora_id" => $bit_id,
             "fec_recep_secretaria" => $fec_remision_secretaria,
-            "proceso_id" => $proceso_id
+            "proceso_id" => $proceso_id,
+            "exp_id" => $exp_id,
+            "usu_id" => $_SESSION['id_spm']
         ];
 
         $agregar_proc = expedienteModelo::agregar_proceso_recep_secretaria_modelo($datos_proc_up);
@@ -739,7 +580,8 @@ class expedienteControlador extends expedienteModelo
             "proceso_id" => $proceso_id,
             "exp_id" => $exp_id,
             "fecha_dias_tec_legal" => $fecha_dias_tec_legal,
-            "fecha_aud_desc" => $fecha_aud_desc
+            "fecha_aud_desc" => $fecha_aud_desc,
+            "usu_id" => $_SESSION['id_spm']
         ];
 
         $agregar_proc = expedienteModelo::agregar_proceso_citacion_modelo($datos_proc_up);
@@ -767,12 +609,15 @@ class expedienteControlador extends expedienteModelo
     {
         $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_13']);
         $fec_remision_secretaria = $_POST['fec_remi_legal'];
+        $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
         $proceso_id = 13;
 
         $datos_proc_up = [
             "bitacora_id" => $bit_id,
             "fec_remision_secretaria" => $fec_remision_secretaria,
-            "proceso_id" => $proceso_id
+            "proceso_id" => $proceso_id,
+            "exp_id" => $exp_id,
+            "usu_id" => $_SESSION['id_spm']
         ];
 
         $agregar_proc = expedienteModelo::agregar_proceso_remi_legal_modelo($datos_proc_up);
@@ -820,7 +665,8 @@ class expedienteControlador extends expedienteModelo
             "fec_asigna_legal" => $fec_asigna_legal,
             "tecnico_legal" => $tecnico_legal,
             "proceso_id" => $proceso_id,
-            "exp_id" => $exp_id
+            "exp_id" => $exp_id,
+            "usu_id" => $_SESSION['id_spm']
         ];
 
         $agregar_proc = expedienteModelo::agregar_proceso_asig_l_modelo($datos_proc_up);
@@ -847,12 +693,14 @@ class expedienteControlador extends expedienteModelo
     public function agregar_proceso_dictamen_controlador()
     {
         $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_15']);
-
+        $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
         $proceso_id = 15;
 
         $datos_proc_up = [
             "bitacora_id" => $bit_id,
-            "proceso_id" => $proceso_id
+            "proceso_id" => $proceso_id,
+            "exp_id" => $exp_id,
+            "usu_id" => $_SESSION['id_spm']
         ];
 
         $agregar_proc = expedienteModelo::agregar_proceso_dictamen_modelo($datos_proc_up);
@@ -881,11 +729,14 @@ class expedienteControlador extends expedienteModelo
         $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_16']);
         $fec_devolucion = $_POST['fec_devolucion'];
         $proceso_id = 16;
+        $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
 
         $datos_proc_up = [
             "bitacora_id" => $bit_id,
             "fec_devolucion" => $fec_devolucion,
-            "proceso_id" => $proceso_id
+            "proceso_id" => $proceso_id,
+            "exp_id" => $exp_id,
+            "usu_id" => $_SESSION['id_spm']
         ];
 
         $agregar_proc = expedienteModelo::agregar_proceso_devolucion_modelo($datos_proc_up);
@@ -914,11 +765,13 @@ class expedienteControlador extends expedienteModelo
         $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_17']);
         $fec_entrega_dictamen = $_POST['fec_entrega_dictamen'];
         $proceso_id = 17;
-
+        $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
         $datos_proc_up = [
             "bitacora_id" => $bit_id,
             "fec_entrega_dicta" => $fec_entrega_dictamen,
-            "proceso_id" => $proceso_id
+            "proceso_id" => $proceso_id,
+            "exp_id" => $exp_id,
+            "usu_id" => $_SESSION['id_spm']
         ];
 
         $agregar_proc = expedienteModelo::agregar_proceso_entre_dictamen_modelo($datos_proc_up);
@@ -947,11 +800,14 @@ class expedienteControlador extends expedienteModelo
         $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_18']);
         $fec_remi_direccion = $_POST['fec_remi_direccion'];
         $proceso_id = 18;
+        $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
 
         $datos_proc_up = [
             "bitacora_id" => $bit_id,
             "fec_remi_direccion" => $fec_remi_direccion,
-            "proceso_id" => $proceso_id
+            "proceso_id" => $proceso_id,
+            "exp_id" => $exp_id,
+            "usu_id" => $_SESSION['id_spm']
         ];
 
         $agregar_proc = expedienteModelo::agregar_proceso_remi_direccion_modelo($datos_proc_up);
@@ -980,11 +836,14 @@ class expedienteControlador extends expedienteModelo
         $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_19']);
         $fec_memorandum = $_POST['fec_memorandum'];
         $proceso_id = 19;
+        $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
 
         $datos_proc_up = [
             "bitacora_id" => $bit_id,
             "fec_memorandum" => $fec_memorandum,
-            "proceso_id" => $proceso_id
+            "proceso_id" => $proceso_id,
+            "exp_id" => $exp_id,
+            "usu_id" => $_SESSION['id_spm']
         ];
 
         $agregar_proc = expedienteModelo::agregar_proceso_memorandum_modelo($datos_proc_up);
@@ -1013,11 +872,14 @@ class expedienteControlador extends expedienteModelo
         $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_40']);
         $fec_remi_direccion = $_POST['fec_remi_direccion'];
         $proceso_id = 18;
+        $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
 
         $datos_proc_up = [
             "bitacora_id" => $bit_id,
             "fec_remi_direccion" => $fec_remi_direccion,
-            "proceso_id" => $proceso_id
+            "proceso_id" => $proceso_id,
+            "exp_id" => $exp_id,
+            "usu_id" => $_SESSION['id_spm']
         ];
 
         $agregar_proc = expedienteModelo::agregar_proceso_remi_direccion_modelo($datos_proc_up);

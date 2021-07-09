@@ -30,6 +30,13 @@ class expedienteModelo extends mainModel2
         $sql->bindParam(":proceso_id", $datos['proceso_id']);
         $sql->bindParam(":bitacora_id", $datos['bitacora_id']);
         $sql->execute();
+
+        $sql2 = mainModel2::conectar()->prepare("UPDATE tbl_exp_usu SET usu_id=:usu_id WHERE exp_id=:exp_id");
+        $sql2->bindParam(":usu_id", $datos['usu_id']);
+        $sql2->bindParam(":exp_id", $datos['exp_id']);
+        $sql2->execute();
+
+
         return $sql;
     }
     /* Modelo agregar usuario*/
@@ -40,6 +47,12 @@ class expedienteModelo extends mainModel2
         $sql->bindParam(":proceso_id", $datos['proceso_id']);
         $sql->bindParam(":bitacora_id", $datos['bitacora_id']);
         $sql->execute();
+
+        $sql2 = mainModel2::conectar()->prepare("UPDATE tbl_exp_usu SET usu_id=:usu_id WHERE exp_id=:exp_id");
+        $sql2->bindParam(":usu_id", $datos['usu_id']);
+        $sql2->bindParam(":exp_id", $datos['exp_id']);
+        $sql2->execute();
+
         return $sql;
     }
     /* Modelo agregar usuario*/
@@ -55,6 +68,11 @@ class expedienteModelo extends mainModel2
         $sql2->bindParam(":investigador_id", $datos['investigador_id']);
         $sql2->bindParam(":exp_id", $datos['exp_id']);
         $sql2->execute();
+
+        $sql3 = mainModel2::conectar()->prepare("UPDATE tbl_exp_usu SET usu_id=:usu_id WHERE exp_id=:exp_id");
+        $sql3->bindParam(":usu_id", $datos['usu_id']);
+        $sql3->bindParam(":exp_id", $datos['exp_id']);
+        $sql3->execute();
         return $sql;
     }
     /* Modelo emision a direccion*/
@@ -65,6 +83,12 @@ class expedienteModelo extends mainModel2
         $sql->bindParam(":proceso_id", $datos['proceso_id']);
         $sql->bindParam(":bitacora_id", $datos['bitacora_id']);
         $sql->execute();
+
+        $sql2 = mainModel2::conectar()->prepare("UPDATE tbl_exp_usu SET usu_id=:usu_id WHERE exp_id=:exp_id");
+        $sql2->bindParam(":usu_id", $datos['usu_id']);
+        $sql2->bindParam(":exp_id", $datos['exp_id']);
+        $sql2->execute();
+
         return $sql;
     }
     /* Modelo auto apertura*/
@@ -75,6 +99,12 @@ class expedienteModelo extends mainModel2
         $sql->bindParam(":proceso_id", $datos['proceso_id']);
         $sql->bindParam(":bitacora_id", $datos['bitacora_id']);
         $sql->execute();
+
+        $sql2 = mainModel2::conectar()->prepare("UPDATE tbl_exp_usu SET usu_id=:usu_id WHERE exp_id=:exp_id");
+        $sql2->bindParam(":usu_id", $datos['usu_id']);
+        $sql2->bindParam(":exp_id", $datos['exp_id']);
+        $sql2->execute();
+
         return $sql;
     }
     /* Modelo comunicacion*/
@@ -85,6 +115,12 @@ class expedienteModelo extends mainModel2
         $sql->bindParam(":proceso_id", $datos['proceso_id']);
         $sql->bindParam(":bitacora_id", $datos['bitacora_id']);
         $sql->execute();
+
+        $sql2 = mainModel2::conectar()->prepare("UPDATE tbl_exp_usu SET usu_id=:usu_id WHERE exp_id=:exp_id");
+        $sql2->bindParam(":usu_id", $datos['usu_id']);
+        $sql2->bindParam(":exp_id", $datos['exp_id']);
+        $sql2->execute();
+
         return $sql;
     }
     /* Modelo recepcion exp investigador*/
@@ -95,6 +131,12 @@ class expedienteModelo extends mainModel2
         $sql->bindParam(":proceso_id", $datos['proceso_id']);
         $sql->bindParam(":bitacora_id", $datos['bitacora_id']);
         $sql->execute();
+
+        $sql2 = mainModel2::conectar()->prepare("UPDATE tbl_exp_usu SET usu_id=:usu_id WHERE exp_id=:exp_id");
+        $sql2->bindParam(":usu_id", $datos['usu_id']);
+        $sql2->bindParam(":exp_id", $datos['exp_id']);
+        $sql2->execute();
+
         return $sql;
     }
     /* Modelo estado del proceso*/
@@ -110,6 +152,11 @@ class expedienteModelo extends mainModel2
         $sql2->bindParam(":est_proceso_id", $datos['est_proceso_id']);
         $sql2->bindParam(":exp_id", $datos['exp_id']);
         $sql2->execute();
+
+        $sql3 = mainModel2::conectar()->prepare("UPDATE tbl_exp_usu SET usu_id=:usu_id WHERE exp_id=:exp_id");
+        $sql3->bindParam(":usu_id", $datos['usu_id']);
+        $sql3->bindParam(":exp_id", $datos['exp_id']);
+        $sql3->execute();
 
         return $sql;
     }
@@ -131,6 +178,12 @@ class expedienteModelo extends mainModel2
         $sql->bindParam(":proceso_id", $datos['proceso_id']);
         $sql->bindParam(":bitacora_id", $datos['bitacora_id']);
         $sql->execute();
+
+        $sql2 = mainModel2::conectar()->prepare("UPDATE tbl_exp_usu SET usu_id=:usu_id WHERE exp_id=:exp_id");
+        $sql2->bindParam(":usu_id", $datos['usu_id']);
+        $sql2->bindParam(":exp_id", $datos['exp_id']);
+        $sql2->execute();
+
         return $sql;
     }
     /* Modelo citacion*/
@@ -148,6 +201,11 @@ class expedienteModelo extends mainModel2
         $sql2->bindParam(":exp_id", $datos['exp_id']);
         $sql2->execute();
 
+        $sql3= mainModel2::conectar()->prepare("UPDATE tbl_exp_usu SET usu_id=:usu_id WHERE exp_id=:exp_id");
+        $sql3->bindParam(":usu_id", $datos['usu_id']);
+        $sql3->bindParam(":exp_id", $datos['exp_id']);
+        $sql3->execute();
+
         return $sql;
     }
     /* Modelo recepcion secretaria*/
@@ -158,6 +216,12 @@ class expedienteModelo extends mainModel2
         $sql->bindParam(":proceso_id", $datos['proceso_id']);
         $sql->bindParam(":bitacora_id", $datos['bitacora_id']);
         $sql->execute();
+
+        $sql2 = mainModel2::conectar()->prepare("UPDATE tbl_exp_usu SET usu_id=:usu_id WHERE exp_id=:exp_id");
+        $sql2->bindParam(":usu_id", $datos['usu_id']);
+        $sql2->bindParam(":exp_id", $datos['exp_id']);
+        $sql2->execute();
+
         return $sql;
     }
      /* Modelo asignacion tecnico legal*/
@@ -173,6 +237,12 @@ class expedienteModelo extends mainModel2
          $sql2->bindParam(":tecnico_legal", $datos['tecnico_legal']);
          $sql2->bindParam(":exp_id", $datos['exp_id']);
          $sql2->execute();
+
+         $sql3 = mainModel2::conectar()->prepare("UPDATE tbl_exp_usu SET usu_id=:usu_id WHERE exp_id=:exp_id");
+         $sql3->bindParam(":usu_id", $datos['usu_id']);
+         $sql3->bindParam(":exp_id", $datos['exp_id']);
+         $sql3->execute();
+
          return $sql;
      }
       /* Modelo dictamen*/
@@ -183,6 +253,11 @@ class expedienteModelo extends mainModel2
         $sql->bindParam(":bitacora_id", $datos['bitacora_id']);
         $sql->execute();
         return $sql;
+
+        $sql2 = mainModel2::conectar()->prepare("UPDATE tbl_exp_usu SET usu_id=:usu_id WHERE exp_id=:exp_id");
+        $sql2->bindParam(":usu_id", $datos['usu_id']);
+        $sql2->bindParam(":exp_id", $datos['exp_id']);
+        $sql2->execute();
     }
     /* Modelo devolucion*/
     protected static function agregar_proceso_devolucion_modelo($datos)
@@ -192,6 +267,12 @@ class expedienteModelo extends mainModel2
         $sql->bindParam(":proceso_id", $datos['proceso_id']);
         $sql->bindParam(":bitacora_id", $datos['bitacora_id']);
         $sql->execute();
+
+        $sql2 = mainModel2::conectar()->prepare("UPDATE tbl_exp_usu SET usu_id=:usu_id WHERE exp_id=:exp_id");
+        $sql2->bindParam(":usu_id", $datos['usu_id']);
+        $sql2->bindParam(":exp_id", $datos['exp_id']);
+        $sql2->execute();
+
         return $sql;
     }
     /* Modelo entrega de dictamen*/
@@ -202,6 +283,12 @@ class expedienteModelo extends mainModel2
         $sql->bindParam(":proceso_id", $datos['proceso_id']);
         $sql->bindParam(":bitacora_id", $datos['bitacora_id']);
         $sql->execute();
+
+        $sql2 = mainModel2::conectar()->prepare("UPDATE tbl_exp_usu SET usu_id=:usu_id WHERE exp_id=:exp_id");
+        $sql2->bindParam(":usu_id", $datos['usu_id']);
+        $sql2->bindParam(":exp_id", $datos['exp_id']);
+        $sql2->execute();
+
         return $sql;
     }
     /* Modelo entrega de dictamen*/
@@ -212,6 +299,12 @@ class expedienteModelo extends mainModel2
         $sql->bindParam(":proceso_id", $datos['proceso_id']);
         $sql->bindParam(":bitacora_id", $datos['bitacora_id']);
         $sql->execute();
+
+        $sql2 = mainModel2::conectar()->prepare("UPDATE tbl_exp_usu SET usu_id=:usu_id WHERE exp_id=:exp_id");
+        $sql2->bindParam(":usu_id", $datos['usu_id']);
+        $sql2->bindParam(":exp_id", $datos['exp_id']);
+        $sql2->execute();
+
         return $sql;
     }
     /* Modelo memorandum*/
@@ -222,6 +315,12 @@ class expedienteModelo extends mainModel2
         $sql->bindParam(":proceso_id", $datos['proceso_id']);
         $sql->bindParam(":bitacora_id", $datos['bitacora_id']);
         $sql->execute();
+
+        $sql2 = mainModel2::conectar()->prepare("UPDATE tbl_exp_usu SET usu_id=:usu_id WHERE exp_id=:exp_id");
+        $sql2->bindParam(":usu_id", $datos['usu_id']);
+        $sql2->bindParam(":exp_id", $datos['exp_id']);
+        $sql2->execute();
+        
         return $sql;
     }
     /* Modelo agregar */
@@ -287,19 +386,7 @@ class expedienteModelo extends mainModel2
         }
         return $sql;
     }
-    protected static function agregar_diligencia_modelo($exp_id, $diligencia)
-    {
-        foreach ($diligencia as $d) {
-            if ($d != '') {
-                $sql = mainModel2::conectar()->prepare("INSERT INTO tbl_diligencias(exp_id, diligencia_descripcion) VALUES (:exp_id, :diligencia)");
-                $sql->bindParam(":exp_id", $exp_id);
-                $sql->bindParam(":diligencia", $d);
-                $sql->execute();
-            }
-        }
-        return $sql;
-    }
-    /* Modelo datos del usuario*/
+    /* Modelo datos del exp*/
     protected static function datos_expediente_modelo($tipo, $id)
     {
         if ($tipo == "Unico") {
@@ -311,7 +398,7 @@ class expedienteModelo extends mainModel2
         $sql->execute();
         return $sql;
     }
-    //Actualizar gira modelo
+    //Actualizar exp 
     protected static function actualizar_expediente_modelo($datos)
     {
         $sql1 = mainModel2::conectar()->prepare("UPDATE tbl_exp SET nombre_denunciante=:nombre_denunciante,identidad_denunciante=:identidad_denunciante,genero_id=:genero,depto_id=:depto,municipio_id=:municipio,num_exp=:n_exp,nombre_investigado=:nombre_investigado,rango_id=:rango,tipo_falta_id=:tipo_falta,investigador_id=:investigador,fecha_inicio_exp=:fecha_inicio_exp,fecha_final_exp=:fecha_final_exp,fecha_inicio_i=:fecha_inicio_i,fecha_final_i_pre=:fecha_final_i_pre,fecha_final_i=:fecha_final_i,diligencia_exp=:diligencia,est_proceso_id=:estado,fecha_remision_s=:fecha_remision,observacion=:observacion WHERE exp_id=:exp_id");
