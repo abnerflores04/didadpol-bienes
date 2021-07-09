@@ -514,7 +514,7 @@ if (!isset($_SESSION['id_spm'])) {
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" name="bit_id" id="bit_id" value="<?php echo $campos['bitacora_id']; ?>">
                                             <input type="hidden" class="form-control" name="exp_id" id="exp_id" value="<?php echo $campos['exp_id']; ?>">
-                                            <input type="hidden" name="fec_emision" id="fec_emision" value="<?php echo date('Y-m-d'); ?>">
+                                            <input type="hidden" name="fec_emision" id="fec_emision" value="<?php echo date('Y-m-d H:i:s'); ?>">
 
                                             <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Emitir expediente</button>
                                             <!-- Boton volver atras -->
@@ -530,7 +530,7 @@ if (!isset($_SESSION['id_spm'])) {
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" name="bit_id_3" id="bit_id_3" value="<?php echo $campos['bitacora_id']; ?>">
                                             <input type="hidden" class="form-control" name="exp_id" id="exp_id" value="<?php echo $campos['exp_id']; ?>">
-                                            <input type="hidden" name="fec_admitir" id="fec_admitir" value="<?php echo date('Y-m-d'); ?>">
+                                            <input type="hidden" name="fec_admitir" id="fec_admitir" value="<?php echo date('Y-m-d H:i:s'); ?>">
 
                                             <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Admitir</button>
                                             <!-- Boton volver atras -->
@@ -557,7 +557,7 @@ if (!isset($_SESSION['id_spm'])) {
                                     <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" name="bit_id_5" id="bit_id_5" value="<?php echo $campos['bitacora_id']; ?>">
-                                            <input type="hidden" name="fec_emitir_invest" id="fec_emitir_invest" value="<?php echo date('Y-m-d'); ?>">
+                                            <input type="hidden" name="fec_emitir_invest" id="fec_emitir_invest" value="<?php echo date('Y-m-d H:i:s'); ?>">
                                             <input type="hidden" class="form-control" name="exp_id" id="exp_id" value="<?php echo $campos['exp_id']; ?>">
 
                                             <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Emitir a director</button>
@@ -573,7 +573,7 @@ if (!isset($_SESSION['id_spm'])) {
                                     <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" name="bit_id_6" id="bit_id_6" value="<?php echo $campos['bitacora_id']; ?>">
-                                            <input type="hidden" name="fec_apertura" id="fec_apertura" value="<?php echo date('Y-m-d'); ?>">
+                                            <input type="hidden" name="fec_apertura" id="fec_apertura" value="<?php echo date('Y-m-d H:i:s'); ?>">
                                             <input type="hidden" class="form-control" name="exp_id" id="exp_id" value="<?php echo $campos['exp_id']; ?>">
 
                                             <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Auto de apertura</button>
@@ -589,7 +589,7 @@ if (!isset($_SESSION['id_spm'])) {
                                     <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" name="bit_id_7" id="bit_id_7" value="<?php echo $campos['bitacora_id']; ?>">
-                                            <input type="hidden" name="fec_comunicacion" id="fec_comunicacion" value="<?php echo date('Y-m-d'); ?>">
+                                            <input type="hidden" name="fec_comunicacion" id="fec_comunicacion" value="<?php echo date('Y-m-d H:i:s'); ?>">
                                             <input type="hidden" class="form-control" name="exp_id" id="exp_id" value="<?php echo $campos['exp_id']; ?>">
 
                                             <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Comunicación</button>
@@ -605,7 +605,7 @@ if (!isset($_SESSION['id_spm'])) {
                                     <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" name="bit_id_8" id="bit_id_8" value="<?php echo $campos['bitacora_id']; ?>">
-                                            <input type="hidden" name="fec_recep_investigacion" id="fec_recep_investigacion" value="<?php echo date('Y-m-d'); ?>">
+                                            <input type="hidden" name="fec_recep_investigacion" id="fec_recep_investigacion" value="<?php echo date('Y-m-d H:i:s'); ?>">
                                             <input type="hidden" class="form-control" name="exp_id" id="exp_id" value="<?php echo $campos['exp_id']; ?>">
 
                                             <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Recepción</button>
@@ -635,7 +635,7 @@ if (!isset($_SESSION['id_spm'])) {
                                         <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
                                             <div class="form-group">
                                                 <input type="hidden" class="form-control" name="bit_id_10" id="bit_id_10" value="<?php echo $campos['bitacora_id']; ?>">
-                                                <input type="hidden" name="fec_validacion" id="fec_validacion" value="<?php echo date('Y-m-d'); ?>">
+                                                <input type="hidden" name="fec_validacion" id="fec_validacion" value="<?php echo date('Y-m-d H:i:s'); ?>">
                                                 <input type="hidden" class="form-control" name="exp_id" id="exp_id" value="<?php echo $campos['exp_id']; ?>">
 
                                                 <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Validación</button>
@@ -651,7 +651,7 @@ if (!isset($_SESSION['id_spm'])) {
                                         <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
                                             <div class="form-group">
                                                 <input type="hidden" class="form-control" name="bit_id_11" id="bit_id_11" value="<?php echo $campos['bitacora_id']; ?>">
-                                                <input type="hidden" name="fec_recep_secretaria" id="fec_recep_secretaria" value="<?php echo date('Y-m-d'); ?>">
+                                                <input type="hidden" name="fec_recep_secretaria" id="fec_recep_secretaria" value="<?php echo date('Y-m-d H:i:s'); ?>">
                                                 <input type="hidden" class="form-control" name="exp_id" id="exp_id" value="<?php echo $campos['exp_id']; ?>">
 
                                                 <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Recepción</button>
@@ -679,7 +679,7 @@ if (!isset($_SESSION['id_spm'])) {
                                         <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
                                             <div class="form-group">
                                                 <input type="hidden" class="form-control" name="bit_id_13" id="bit_id_13" value="<?php echo $campos['bitacora_id']; ?>">
-                                                <input type="hidden" name="fec_remi_legal" id="fec_remi_legal" value="<?php echo date('Y-m-d'); ?>">
+                                                <input type="hidden" name="fec_remi_legal" id="fec_remi_legal" value="<?php echo date('Y-m-d H:i:s'); ?>">
                                                 <input type="hidden" class="form-control" name="exp_id" id="exp_id" value="<?php echo $campos['exp_id']; ?>">
 
                                                 <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Remitir a legal</button>
@@ -722,7 +722,7 @@ if (!isset($_SESSION['id_spm'])) {
                                             <div class="form-group">
                                                 <input type="hidden" class="form-control" name="bit_id_40" id="bit_id_40" value="<?php echo $campos['bitacora_id']; ?>">
 
-                                                <input type="hidden" name="fec_remi_direccion" id="fec_remi_direccion" value="<?php echo date('Y-m-d'); ?>">
+                                                <input type="hidden" name="fec_remi_direccion" id="fec_remi_direccion" value="<?php echo date('Y-m-d H:i:s'); ?>">
                                                 <input type="hidden" class="form-control" name="exp_id" id="exp_id" value="<?php echo $campos['exp_id']; ?>">
 
                                                 <button type="submit" class="btn btn-success mb-2"><i class="fas fa-check-circle"></i> Remitir a Dirección</button>
@@ -730,7 +730,7 @@ if (!isset($_SESSION['id_spm'])) {
                                         <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
                                             <input type="hidden" class="form-control" name="bit_id_16" id="bit_id_16" value="<?php echo $campos['bitacora_id']; ?>">
                                             <input type="hidden" class="form-control" name="exp_id" id="exp_id" value="<?php echo $campos['exp_id']; ?>">
-                                            <input type="hidden" name="fec_devolucion" id="fec_devolucion" value="<?php echo date('Y-m-d'); ?>">
+                                            <input type="hidden" name="fec_devolucion" id="fec_devolucion" value="<?php echo date('Y-m-d H:i:s'); ?>">
 
 
                                             <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Auto de devolución</button>
@@ -746,7 +746,7 @@ if (!isset($_SESSION['id_spm'])) {
                             <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
                                 <div class="form-group">
                                     <input type="hidden" class="form-control" name="bit_id_17" id="bit_id_17" value="<?php echo $campos['bitacora_id']; ?>">
-                                    <input type="hidden" name="fec_entrega_dictamen" id="fec_entrega_dictamen" value="<?php echo date('Y-m-d'); ?>">
+                                    <input type="hidden" name="fec_entrega_dictamen" id="fec_entrega_dictamen" value="<?php echo date('Y-m-d H:i:s'); ?>">
                                     <input type="hidden" class="form-control" name="exp_id" id="exp_id" value="<?php echo $campos['exp_id']; ?>">
 
                                     <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Entregar dictamen</button>
@@ -762,7 +762,7 @@ if (!isset($_SESSION['id_spm'])) {
                             <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
                                 <div class="form-group">
                                     <input type="hidden" class="form-control" name="bit_id_18" id="bit_id_18" value="<?php echo $campos['bitacora_id']; ?>">
-                                    <input type="hidden" name="fec_remi_direccion" id="fec_remi_direccion" value="<?php echo date('Y-m-d'); ?>">
+                                    <input type="hidden" name="fec_remi_direccion" id="fec_remi_direccion" value="<?php echo date('Y-m-d H:i:s'); ?>">
                                     <input type="hidden" class="form-control" name="exp_id" id="exp_id" value="<?php echo $campos['exp_id']; ?>">
 
                                     <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Remitir a Dirección</button>
@@ -778,7 +778,7 @@ if (!isset($_SESSION['id_spm'])) {
                             <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
                                 <div class="form-group">
                                     <input type="hidden" class="form-control" name="bit_id_19" id="bit_id_19" value="<?php echo $campos['bitacora_id']; ?>">
-                                    <input type="hidden" name="fec_memorandum" id="fec_memorandum" value="<?php echo date('Y-m-d'); ?>">
+                                    <input type="hidden" name="fec_memorandum" id="fec_memorandum" value="<?php echo date('Y-m-d H:i:s'); ?>">
                                     <input type="hidden" class="form-control" name="exp_id" id="exp_id" value="<?php echo $campos['exp_id']; ?>">
 
                                     <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Memorandum</button>
@@ -975,7 +975,7 @@ if (!isset($_SESSION['id_spm'])) {
                             <div class="form-group">
                                 <input type="hidden" class="form-control" name="bit_id_4" id="bit_id_4" value="<?php echo $campos['bitacora_id']; ?>">
                                 <input type="hidden" class="form-control" name="exp_id" id="exp_id" value="<?php echo $campos['exp_id']; ?>">
-                                <input type="hidden" name="fec_asignar_inves" id="fec_asignar_inves" value="<?php echo date('Y-m-d'); ?>">
+                                <input type="hidden" name="fec_asignar_inves" id="fec_asignar_inves" value="<?php echo date('Y-m-d H:i:s'); ?>">
 
                                 <label for="">Investigador</label>
                                 <select class="form-control" name="investigador" id="investigador">
@@ -1022,7 +1022,7 @@ if (!isset($_SESSION['id_spm'])) {
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <input type="hidden" class="form-control" name="bit_id_9" id="bit_id_9" value="<?php echo $campos['bitacora_id']; ?>">
-                                <input type="hidden" name="fec_est_proceso" id="fec_est_proceso" value="<?php echo date('Y-m-d'); ?>">
+                                <input type="hidden" name="fec_est_proceso" id="fec_est_proceso" value="<?php echo date('Y-m-d H:i:s'); ?>">
                                 <input type="hidden" class="form-control" name="exp_id" id="exp_id" value="<?php echo $campos['exp_id']; ?>">
 
                                 <label for="">Estado del proceso</label>
@@ -1071,7 +1071,7 @@ if (!isset($_SESSION['id_spm'])) {
                             <div class="form-group">
                                 <input type="hidden" class="form-control" name="bit_id_12" id="bit_id_12" value="<?php echo $campos['bitacora_id']; ?>">
                                 <input type="hidden" class="form-control" name="exp_id" id="exp_id" value="<?php echo $campos['exp_id']; ?>">
-                                <input type="hidden" name="fec_citacion" id="fec_citacion" value="<?php echo date('Y-m-d'); ?>">
+                                <input type="hidden" name="fec_citacion" id="fec_citacion" value="<?php echo date('Y-m-d H:i:s'); ?>">
 
                                 <label for="">Fecha audiencia de descargo</label>
                                 <input type="date" autocomplete="off" class="form-control" name="fecha_aud_desc" id="fecha_aud_desc">
@@ -1109,7 +1109,7 @@ if (!isset($_SESSION['id_spm'])) {
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <input type="hidden" class="form-control" name="bit_id_14" id="bit_id_14" value="<?php echo $campos['bitacora_id']; ?>">
-                                <input type="hidden" name="fec_asigna_legal" id="fec_asigna_legal" value="<?php echo date('Y-m-d'); ?>">
+                                <input type="hidden" name="fec_asigna_legal" id="fec_asigna_legal" value="<?php echo date('Y-m-d H:i:s'); ?>">
                                 <input type="hidden" class="form-control" name="exp_id" id="exp_id" value="<?php echo $campos['exp_id']; ?>">
                                 <label for="">Técnico legal</label>
                                 <select class="form-control" name="tecnico_id" id="tecnico_id">
