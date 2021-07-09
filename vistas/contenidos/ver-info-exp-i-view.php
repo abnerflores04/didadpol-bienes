@@ -525,7 +525,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <?php } ?>
                                 <!-- /Boton emitir -->
                                 <!-- Boton admitir -->
-                                <?php if ($campos['proceso_id'] == 2 &&  $_SESSION['rol_id'] == 6) { ?>
+                                <?php if ($campos['proceso_id'] == 2 &&  $_SESSION['rol_id'] == 4) { ?>
                                     <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" name="bit_id_3" id="bit_id_3" value="<?php echo $campos['bitacora_id']; ?>">
