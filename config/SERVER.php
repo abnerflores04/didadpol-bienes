@@ -1,10 +1,19 @@
 <?php
+<<<<<<< Updated upstream
     /* const SERVER="remotemysql.com";
     const DB="fk9JKgfnAc";
     const USER="fk9JKgfnAc";
     const PASS="2p9GWTkHKc"; */
 
    const SERVER="localhost";
+=======
+    /*const SERVER="remotemysql.com";
+    const DB="fk9JKgfnAc";
+    const USER="fk9JKgfnAc";
+    const PASS="2p9GWTkHKc";*/
+
+    const SERVER="localhost";
+>>>>>>> Stashed changes
     const DB="didadpol";
     const USER="root";
     const PASS="";

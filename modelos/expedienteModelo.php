@@ -409,31 +409,30 @@ class expedienteModelo extends mainModel2
     //Actualizar exp 
     protected static function actualizar_expediente_modelo($datos)
     {
-        $sql1 = mainModel2::conectar()->prepare("UPDATE tbl_exp SET nombre_denunciante=:nombre_denunciante,identidad_denunciante=:identidad_denunciante,genero_id=:genero,depto_id=:depto,municipio_id=:municipio,num_exp=:n_exp,nombre_investigado=:nombre_investigado,rango_id=:rango,tipo_falta_id=:tipo_falta,investigador_id=:investigador,fecha_inicio_exp=:fecha_inicio_exp,fecha_final_exp=:fecha_final_exp,fecha_inicio_i=:fecha_inicio_i,fecha_final_i_pre=:fecha_final_i_pre,fecha_final_i=:fecha_final_i,diligencia_exp=:diligencia,est_proceso_id=:estado,fecha_remision_s=:fecha_remision,observacion=:observacion WHERE exp_id=:exp_id");
+        $sql1 = mainModel2::conectar()->prepare("UPDATE tbl_exp SET nombre_denunciante=:nombre_denunciante,identidad_denunciante=:identidad_denunciante,genero_id=:genero_id,depto_id=:depto_id,municipio_id=:municipio_id,nombre_investigado=:nombre_investigado,rango_id=:rango_id,tipo_falta_id=:tipo_falta_id,investigador_id=:investigador_id,fecha_inicio_i=:fecha_inicio_i,diligencia_pre=:diligencia_pre,est_proceso_id=:est_proceso_id,observacion=:observacion,tecnico_legal=:tecnico_legal,comparecio=:comparecio,resolve_id=:resolve_id,num_resolve=:num_resolve,recomen_id=:recomen_id,diligencias_invest=:diligencias_invest,diligencias_legal=:diligencias_legal,folio=:folio,remision_mp_tsc=:remision_mp_tsc WHERE exp_id=:exp_id");
         $sql1->bindParam(":nombre_denunciante", $datos['nombre_denunciante']);
         $sql1->bindParam(":identidad_denunciante", $datos['identidad_denunciante']);
-        $sql1->bindParam(":genero", $datos['genero']);
-        $sql1->bindParam(":depto", $datos['depto']);
-        $sql1->bindParam(":municipio", $datos['municipio']);
-        $sql1->bindParam(":n_exp", $datos['n_exp']);
+        $sql1->bindParam(":genero_id", $datos['genero_id']);
+        $sql1->bindParam(":depto_id", $datos['depto_id']);
+        $sql1->bindParam(":municipio_id", $datos['municipio_id']);
         $sql1->bindParam(":nombre_investigado", $datos['nombre_investigado']);
-        $sql1->bindParam(":rango", $datos['rango']);
-        $sql1->bindParam(":tipo_falta", $datos['tipo_falta']);
-        $sql1->bindParam(":investigador", $datos['investigador']);
-        $sql1->bindParam(":fecha_inicio_exp", $datos['fecha_inicio_exp']);
-        $sql1->bindParam(":fecha_final_exp", $datos['fecha_final_exp']);
+        $sql1->bindParam(":rango_id", $datos['rango_id']);
+        $sql1->bindParam(":tipo_falta_id", $datos['tipo_falta_id']);
+        $sql1->bindParam(":investigador_id", $datos['investigador_id']);
         $sql1->bindParam(":fecha_inicio_i", $datos['fecha_inicio_i']);
-        $sql1->bindParam(":fecha_final_i_pre", $datos['fecha_final_i_pre']);
-        $sql1->bindParam(":fecha_final_i", $datos['fecha_final_i']);
-        $sql1->bindParam(":diligencia", $datos['diligencia']);
-        $sql1->bindParam(":estado", $datos['estado']);
-        $sql1->bindParam(":fecha_remision", $datos['fecha_remision']);
+        $sql1->bindParam(":diligencia_pre", $datos['diligencia_pre']);
+        $sql1->bindParam(":est_proceso_id", $datos['est_proceso_id']);
         $sql1->bindParam(":observacion", $datos['observacion']);
+        $sql1->bindParam(":tecnico_legal", $datos['tecnico_legal']);
+        $sql1->bindParam(":comparecio", $datos['comparecio']);
+        $sql1->bindParam(":resolve_id", $datos['resolve_id']);
+        $sql1->bindParam(":num_resolve", $datos['num_resolve']);
+        $sql1->bindParam(":recomen_id", $datos['recomen_id']);
+        $sql1->bindParam(":diligencias_invest", $datos['diligencias_invest']);
+        $sql1->bindParam(":diligencias_legal", $datos['diligencias_legal']);
+        $sql1->bindParam(":folio", $datos['folio']);
+        $sql1->bindParam(":remision_mp_tsc", $datos['remision_mp_tsc']);
         $sql1->bindParam(":exp_id", $datos['exp_id']);
-        $sql1->bindParam(":folios", $datos['folios']);
-        $sql1->bindParam(":recomen", $datos['recomen']);
-        $sql1->bindParam(":num_dictan", $datos['num_dictan']);
-        $sql1->bindParam(":num_arch", $datos['num_arch']);
         $sql1->execute();
         return $sql1;
     }
@@ -442,13 +441,10 @@ class expedienteModelo extends mainModel2
     {
         foreach ($art_input as $input_val) {
             if (!in_array($input_val, $art_values)) {
-                $sql2 = mainModel2::conectar()->prepare("INSERT INTO tbl_exp_art ( exp_id, art_id) VALUES (:exp_id,:art_id)");
+                $sql2 = mainModel2::conectar()->prepare("INSERT INTO tbl_exp_art (exp_id, art_id) VALUES (:exp_id,:art_id)");
                 $sql2->bindParam(":exp_id", $id_exp);
                 $sql2->bindParam(":art_id", $input_val);
                 $sql2->execute();
-                /*$sql2->bindParam(":colaborador", $input_val);
-                $sql2->bindParam(":id_salida", $id_salida);
-                $sql2->execute();*/
             }
         }
     }

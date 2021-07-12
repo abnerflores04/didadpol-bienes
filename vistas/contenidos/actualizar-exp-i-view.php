@@ -33,7 +33,6 @@ if (!isset($_SESSION['id_spm'])) {
                 </div>
                 <?php
                 require_once "./controladores/expedienteControlador.php";
-
                 $ins_exp = new expedienteControlador();
                 $datos_exp = $ins_exp->datos_expediente_controlador("Unico", $pagina[1]);
                 if ($datos_exp->rowCount() == 1) {
@@ -71,7 +70,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="">Sexo <span class="text-danger">*</span></label>
-                                        <select class="form-control" name="genero_up" id="genero_up" >
+                                        <select class="form-control" name="genero_up" id="genero_up">
                                             <option value="">Seleccione sexo:</option>
                                             <?php
                                             require_once './modelos/conectar.php';
@@ -90,7 +89,7 @@ if (!isset($_SESSION['id_spm'])) {
                                     <div class="form-group">
                                         <label for="">Departamento <span class="text-danger">*</span></label>
 
-                                        <select class="form-control" name="depto_up" id="depto" >
+                                        <select class="form-control" name="depto_up" id="depto">
 
                                             <option value="">Seleccione departamento</option>
                                             <?php
@@ -109,7 +108,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="">Municipio <span class="text-danger">*</span></label>
-                                        <select class="form-control" name="municipio_up" id="municipio" >
+                                        <select class="form-control" name="municipio_up" id="municipio">
                                             <option value="">Seleccione municipio</option>
                                             <?php
                                             $resultado = $conexion->query("SELECT * FROM tbl_municipio");
@@ -134,7 +133,7 @@ if (!isset($_SESSION['id_spm'])) {
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">DPL-</span>
                                         </div>
-                                        <input type="text" autocomplete="off" style="text-transform:uppercase" class="form-control" placeholder="0000-0000-00000" name="n_exp_up" id="n_exp_reg" value="<?php echo $campos['num_exp']; ?>" readonly>
+                                        <input type="text" autocomplete="off" style="text-transform:uppercase" class="form-control" placeholder="0000-0000-00000" name="n_exp_up" id="n_exp_up" value="<?php echo $campos['num_exp']; ?>" readonly>
                                     </div>
                                 </div>
 
@@ -164,7 +163,7 @@ if (!isset($_SESSION['id_spm'])) {
                                     <div class="form-group">
 
                                         <label for="">Investigador</label>
-                                        <select class="form-control" name="investigador_up" id="investigador_up" >
+                                        <select class="form-control" name="investigador_up" id="investigador_up">
                                             <option value="">Seleccione investigador</option>
                                             <?php
                                             $resultado = $conexion->query("SELECT * FROM tbl_usuario WHERE rol_id=2");
@@ -182,7 +181,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Fecha inicial de investigación<span class="text-danger">*</label>
-                                        <input type="date" autocomplete="off" class="form-control" name="fecha_inicio_i_up" id="fecha_inicio_i_up" value="<?php echo $campos['fecha_inicio_i']; ?>" readonly>
+                                        <input type="date" autocomplete="off" class="form-control" name="fecha_inicio_i_up" id="fecha_inicio_i_up" value="<?php echo $campos['fecha_inicio_i']; ?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -206,18 +205,11 @@ if (!isset($_SESSION['id_spm'])) {
                                     </div>
                                 </div>
 
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label>Fecha remisión a secretaria<span class="text-danger">*</label>
-                                        <input type="date" autocomplete="off" class="form-control" name="fecha_remision_up" id="fecha_remision_up" value="<?php echo $campos['fec_remision_secretaria']; ?>" readonly>
-                                    </div>
-                                </div>
-
 
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="">Técnico Legal</label>
-                                        <select class="form-control" name="tec_legal_up" id="tec_legal_up" >
+                                        <select class="form-control" name="tec_legal_up" id="tec_legal_up">
                                             <option value="">Seleccione técnico legal</option>
                                             <?php
                                             $resultado = $conexion->query("SELECT * FROM tbl_usuario WHERE rol_id=3");
@@ -256,8 +248,10 @@ if (!isset($_SESSION['id_spm'])) {
                                     </div>
                                     <div class="col">
                                         <div class="checkbox checkbox-primary pull-left p-t-0">
-                                            <input id="checkbox-comparecio" type="checkbox" class="filled-in chk-col-light-blue" value="<?php echo $campos['comparecio']; ?>" >
-                                            <label for="checkbox-comparecio"></label>
+                                        <label for="si">Si</label>
+                                            <input type="radio" name="comparecio_up" id="si" value="1" <?php if ($campos['comparecio'] == 1) {  echo 'checked'; }?>>
+                                            <label for="no">No</label>
+                                            <input type="radio" name="comparecio_up" id="no" value="0" <?php if ($campos['comparecio'] == 0) {  echo 'checked'; } ?>>
                                         </div>
                                     </div>
                                     <div class="col"></div>
@@ -284,13 +278,17 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="">Seleccione resolución</label>
-                                        <select class="form-control" name="resolucion_up" id="resolucion_up" >
+                                        <select class="form-control" name="resolucion_up" id="resolucion_up">
                                             <option value="">Seleccione opcion</option>
                                             <?php
                                             $resultado = $conexion->query("SELECT * FROM tbl_resoluciones");
                                             while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
                                             ?>
-                                                <option value="<?php echo $registro['resolve_id']; ?>"><?php echo $registro['resolve']; ?></option>
+
+                                                <option value="<?php echo $registro['resolve_id']; ?>" <?php if ($registro['resolve_id'] == $campos['resolve_id']) {
+                                                                                                            echo 'selected';
+                                                                                                        }
+                                                                                                        ?>><?php echo $registro['resolve']; ?></option>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -308,7 +306,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="">Recomendación</label>
-                                        <select class="form-control" name="recomendacion_up" id="recomendacion_up" >
+                                        <select class="form-control" name="recomen_up" id="recomendacion_up">
                                             <option value="">Seleccione recomendación</option>
                                             <?php
                                             $resultado = $conexion->query("SELECT * FROM tbl_recomen");
@@ -345,8 +343,11 @@ if (!isset($_SESSION['id_spm'])) {
                                     </div>
                                     <div class="col">
                                         <div class="checkbox checkbox-primary pull-left p-t-0">
+                                            <label for="si">Si</label>
+                                            <input type="radio" name="remi_mp_tsc_up" id="si" value="1" <?php if ($campos['remision_mp_tsc'] == 1) {  echo 'checked'; }?>>
+                                            <label for="no">No</label>
+                                            <input type="radio" name="remi_mp_tsc_up" id="no" value="0" <?php if ($campos['remision_mp_tsc'] == 0) {  echo 'checked'; } ?>>
 
-                                            <input id="checkbox-mp_tsc_up" type="checkbox" class="filled-in chk-col-light-blue" value="<?php echo $campos['remision_mp_tsc']; ?>" >
 
                                             <label for="checkbox-mp_tsc_up"></label>
                                         </div>
@@ -378,7 +379,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="">Rango</label>
-                                        <select class="form-control" name="tecnico_l_id" id="tecnico_l_id" >
+                                        <select class="form-control" name="rango_up" id="rango_up">
                                             <option value="">Seleccione rango</option>
                                             <?php
                                             require_once './modelos/conectar.php';
@@ -397,7 +398,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="">Tipo de falta</label>
-                                        <select class="form-control" name="tipo_falta_up" id="lista_f" >
+                                        <select class="form-control" name="tipo_falta_up" id="lista_f">
                                             <option value="">Seleccione tipo de falta</option>
                                             <?php
                                             $resultado = $conexion->query("SELECT * FROM tbl_tipo_falta");
@@ -424,7 +425,7 @@ if (!isset($_SESSION['id_spm'])) {
                                         }
                                         ?>
                                         <label for="">Articulos <span class="text-danger">*</span></label>
-                                        <select class="form-control lista_a" name="articulos_up[]" id="lista_a" multiple="multiple" style="width:100%;" >
+                                        <select class="form-control lista_a" name="articulos_up[]" id="lista_a" multiple="multiple" style="width:100%;">
                                             <?php
                                             $query2 = "SELECT * FROM tbl_articulo";
                                             $resultado_articulo = $conexion->prepare($query2);
@@ -451,7 +452,7 @@ if (!isset($_SESSION['id_spm'])) {
                                     <div class="form-group">
 
                                         <label for="">Estado del proceso <span class="text-danger">*</span></label>
-                                        <select class="form-control" name="estado_up" id="estado_up" >
+                                        <select class="form-control" name="estado_up" id="estado_up">
                                             <option value="">Seleccione el estado del proceso</option>
                                             <?php
                                             $resultado = $conexion->query("SELECT * FROM tbl_est_proceso");

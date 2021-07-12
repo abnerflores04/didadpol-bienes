@@ -183,7 +183,7 @@ class expedienteControlador extends expedienteModelo
         } else {
             $campos = $consultar_id->fetch();
         }
-        
+
         $usu_id = $campos['usu_id'];
         //insertamos los articulos en su respectiva tabla
         $datos_proc_up = [
@@ -321,7 +321,7 @@ class expedienteControlador extends expedienteModelo
         } else {
             $campos = $consultar_id->fetch();
         }
-        
+
         $usu_id = $campos['usu_id'];
         // INSERTAMOS LOS DATOS EN SUS RESPECTIVAS TABLAS
         $datos_proc_up = [
@@ -373,7 +373,7 @@ class expedienteControlador extends expedienteModelo
         } else {
             $campos = $consultar_id->fetch();
         }
-        
+
         $usu_id = $campos['usu_id'];
         // INSERTAMOS LOS DATOS EN SUS RESPECTIVAS TABLAS
         $datos_proc_up = [
@@ -425,7 +425,7 @@ class expedienteControlador extends expedienteModelo
         } else {
             $campos = $consultar_id->fetch();
         }
-        
+
         $usu_id = $campos['investigador_id'];
         // INSERTAMOS LOS DATOS EN SUS RESPECTIVAS TABLAS
         $datos_proc_up = [
@@ -526,7 +526,7 @@ class expedienteControlador extends expedienteModelo
         } else {
             $campos = $consultar_id->fetch();
         }
-        
+
         $usu_id = $campos['usu_id'];
         // INSERTAMOS LOS DATOS EN SUS RESPECTIVAS TABLAS
         $datos_proc_up = [
@@ -579,7 +579,7 @@ class expedienteControlador extends expedienteModelo
         } else {
             $campos = $consultar_id->fetch();
         }
-        
+
         $usu_id = $campos['usu_id'];
         // INSERTAMOS LOS DATOS EN SUS RESPECTIVAS TABLAS
         $datos_proc_up = [
@@ -730,7 +730,7 @@ class expedienteControlador extends expedienteModelo
         } else {
             $campos = $consultar_id->fetch();
         }
-        
+
         $usu_id = $campos['usu_id'];
         // INSERTAMOS LOS DATOS EN SUS RESPECTIVAS TABLAS
         $datos_proc_up = [
@@ -830,7 +830,7 @@ class expedienteControlador extends expedienteModelo
         } else {
             $campos = $consultar_id->fetch();
         }
-        
+
         $usu_id = $campos['usu_id'];
         // INSERTAMOS LOS DATOS EN SUS RESPECTIVAS TABLAS
         $datos_proc_up = [
@@ -881,7 +881,7 @@ class expedienteControlador extends expedienteModelo
         } else {
             $campos = $consultar_id->fetch();
         }
-        
+
         $usu_id = $campos['tecnico_legal'];
         // INSERTAMOS LOS DATOS EN SUS RESPECTIVAS TABLAS
         $datos_proc_up = [
@@ -933,7 +933,7 @@ class expedienteControlador extends expedienteModelo
         } else {
             $campos = $consultar_id->fetch();
         }
-        
+
         $usu_id = $campos['usu_id'];
         // INSERTAMOS LOS DATOS EN SUS RESPECTIVAS TABLAS
         $datos_proc_up = [
@@ -985,7 +985,7 @@ class expedienteControlador extends expedienteModelo
         } else {
             $campos = $consultar_id->fetch();
         }
-        
+
         $usu_id = $campos['usu_id'];
         // INSERTAMOS LOS DATOS EN SUS RESPECTIVAS TABLAS
         $datos_proc_up = [
@@ -1073,7 +1073,7 @@ class expedienteControlador extends expedienteModelo
         } else {
             $campos = $consultar_id->fetch();
         }
-        
+
         $usu_id = $campos['usu_id'];
         // INSERTAMOS LOS DATOS EN SUS RESPECTIVAS TABLAS
         $datos_proc_up = [
@@ -1452,8 +1452,8 @@ class expedienteControlador extends expedienteModelo
         $id_exp = mainModel2::limpiar_cadena($id_exp);
 
         //comprobar si existe salida en el sistema
-        $check_exp2 = mainModel2::ejecutar_consulta_simple("SELECT * FROM tbl_exp WHERE exp_id=$id_exp");
-        if ($check_exp2->rowCount() <= 0) {
+        $check_exp = mainModel2::ejecutar_consulta_simple("SELECT * FROM tbl_exp WHERE exp_id=$id_exp");
+        if ($check_exp->rowCount() <= 0) {
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
@@ -1463,42 +1463,41 @@ class expedienteControlador extends expedienteModelo
             echo json_encode($alerta);
             exit();
         } else {
-            $campos = $check_exp2->fetch();
+            $campos = $check_exp->fetch();
         }
 
-        $art_input = $_POST['articulos_up'];
-        $n_exp = mainModel2::limpiar_cadena($_POST['n_exp_up']);
+
         $nombre_d = strtoupper(mainModel2::limpiar_cadena($_POST['nombre_d_up']));
         $identidad_d = mainModel2::limpiar_cadena($_POST['identidad_d_up']);
         $sexo = mainModel2::limpiar_cadena($_POST['genero_up']);
         $depto = mainModel2::limpiar_cadena($_POST['depto_up']);
         $municipio = mainModel2::limpiar_cadena($_POST['municipio_up']);
+        $diligencia_pre = mainModel2::limpiar_cadena(strtoupper($_POST['diligencia_pre_up']));
+        $investigador = mainModel2::limpiar_cadena($_POST['investigador_up']);
+        $fecha_inicio_i = $_POST['fecha_inicio_i_up'];
+        $diligencias_invest = mainModel2::limpiar_cadena(strtoupper($_POST['diligencias_invest_up']));
+        $legal_id = strtoupper(mainModel2::limpiar_cadena($_POST['tec_legal_up']));
+        $diligencia_legal = mainModel2::limpiar_cadena(strtoupper($_POST['diligencias_legal_up']));
+        $resolucion = mainModel2::limpiar_cadena($_POST['resolucion_up']);
+        $n_doc = strtoupper(mainModel2::limpiar_cadena($_POST['num_resolve_up']));
+        $recomendacion = strtoupper(mainModel2::limpiar_cadena($_POST['recomen_up']));
+        $folios = strtoupper(mainModel2::limpiar_cadena($_POST['folios_up']));
+        $observacion = strtoupper(mainModel2::limpiar_cadena($_POST['observacion_up']));
         $investigado = mainModel2::limpiar_cadena(strtoupper($_POST['investigado_up']));
         $rango = mainModel2::limpiar_cadena($_POST['rango_up']);
         $tipo_falta = mainModel2::limpiar_cadena($_POST['tipo_falta_up']);
-        $investigador = mainModel2::limpiar_cadena($_POST['investigador_up']);
-        $fecha_inicio_exp = $_POST['fecha_inicio_exp_up'];
-        $fecha_final_exp = $_POST['fecha_final_exp_up'];
-        $fecha_inicio_i = $_POST['fecha_inicio_i_up'];
-        $fecha_final_i_pre = $_POST['fecha_final_i_pre_up'];
-        $fecha_final_i = $_POST['fecha_final_i_up'];
-        $fecha_remision = $_POST['fecha_remision_up'];
-        $diligencia = mainModel2::limpiar_cadena(strtoupper($_POST['diligencia_up']));
+        $art_input = $_POST['articulos_up'];
         $estado = mainModel2::limpiar_cadena($_POST['estado_up']);
-        $observacion = strtoupper(mainModel2::limpiar_cadena($_POST['observacion_up']));
-        $folios = strtoupper(mainModel2::limpiar_cadena($_POST['folios_up']));
-        $recomendacion = strtoupper(mainModel2::limpiar_cadena($_POST['recomen_up']));
-        $num_dictamen = strtoupper(mainModel2::limpiar_cadena($_POST['num_dictan_up']));
-        $num_archivo = strtoupper(mainModel2::limpiar_cadena($_POST['num_arch_up']));
-        $legal_id = strtoupper(mainModel2::limpiar_cadena($_POST['legal_id_up']));
+        $comparecio = mainModel2::limpiar_cadena($_POST['comparecio_up']);
+        $remi_mp_tsc_up = mainModel2::limpiar_cadena($_POST['remi_mp_tsc_up']);
+       
 
-        /*comprobar campos vacios*/
+        /*comprobar campos vacios
         if (
-            $n_exp == "" ||  $municipio == "" ||  $depto == "" ||  $sexo == "" ||  $investigado == "" ||
-            $rango == ""  || $tipo_falta == "" || $investigador == "" || $fecha_inicio_exp == "" ||
-            $fecha_final_exp == "" || $fecha_inicio_i == "" || $fecha_final_i_pre == "" || $fecha_final_i == "" ||
-            $fecha_remision == "" || $diligencia == "" || $estado == "" || $observacion == "" || $art_input == "" ||
-            $folios == "" || $recomendacion == "" || $num_dictamen == "" || $num_archivo == "" || $legal_id == ""
+            $municipio == "" ||  $depto == "" ||  $sexo == "" ||  $investigado == "" ||
+            $rango == ""  || $tipo_falta == "" || $investigador == "" || $fecha_inicio_i == "" ||
+            $diligencia_pre == "" || $diligencias_invest == "" || $diligencia_legal == "" || $estado == "" || $observacion == "" || $art_input == "" ||
+            $folios == "" || $recomendacion == "" ||  $legal_id == ""  || $diligencia_pre == "" || $resolucion == "" || $n_doc == ""  
         ) {
             $alerta = [
                 "Alerta" => "simple",
@@ -1508,7 +1507,9 @@ class expedienteControlador extends expedienteModelo
             ];
             echo json_encode($alerta);
             exit();
-        }
+        }*/
+
+
         if ($nombre_d != '') {
             if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚáéíóúñÑ ]{3,255}", $nombre_d)) {
                 $alerta = [
@@ -1534,21 +1535,6 @@ class expedienteControlador extends expedienteModelo
             }
         }
 
-        if ($identidad_d != $campos['identidad_denunciante']) {
-            /*validar DNI*/
-            $check_identidad = mainModel2::ejecutar_consulta_simple("SELECT identidad_denunciante FROM tbl_exp WHERE 	identidad_denunciante='$identidad_d'");
-            if ($check_identidad->rowCount() > 0) {
-                $alerta = [
-                    "Alerta" => "simple",
-                    "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                    "Texto" => "LA IDENTIDAD DEL DENUNCIANTE YA ESTÁ REGISTRADO",
-                    "Tipo" => "error"
-                ];
-                echo json_encode($alerta);
-                exit();
-            }
-        }
-
 
         if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚáéíóúñÑ ]{3,255}", $investigado)) {
             $alerta = [
@@ -1560,36 +1546,7 @@ class expedienteControlador extends expedienteModelo
             echo json_encode($alerta);
             exit();
         }
-        if (mainModel2::verificar_datos("[0-9-]{15}", $n_exp)) {
-            $alerta = [
-                "Alerta" => "simple",
-                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                "Texto" => "EL NUMERO DE EXPEDIENTE NO CUMPLE CON FORMATO SOLICITADO DEBE DE CONTENER 15 CARACTERES",
-                "Tipo" => "error"
-            ];
-            echo json_encode($alerta);
-            exit();
-        }
-        $n_exp = "DPL-" . $n_exp;
-        //VALIDAR QUE NO EXISTA OTRO EXPEDIENTE
-        if ($n_exp != $campos['num_exp']) {
-            /*validar n_exp*/
-            $check_exp = mainModel2::ejecutar_consulta_simple("SELECT num_exp FROM tbl_exp WHERE num_exp='$n_exp'");
-            if ($check_exp->rowCount() > 0) {
-                $alerta = [
-                    "Alerta" => "simple",
-                    "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                    "Texto" => "EL EXPEDIENTE YA ESTÁ REGISTRADO",
-                    "Tipo" => "error"
-                ];
-                echo json_encode($alerta);
-                exit();
-            }
-        }
-
-
-
-
+        
         $check_exp_art = mainModel2::ejecutar_consulta_simple("SELECT * FROM tbl_exp_art WHERE exp_id=$id_exp");
         if ($check_exp_art->rowCount() <= 0) {
             $alerta = [
@@ -1612,29 +1569,27 @@ class expedienteControlador extends expedienteModelo
         $datos_expediente_up = [
             "nombre_denunciante" => $nombre_d,
             "identidad_denunciante" => $identidad_d,
-            "genero" => $sexo,
-            "depto" => $depto,
-            "municipio" => $municipio,
-            "n_exp" => $n_exp,
+            "genero_id" => $sexo,
+            "depto_id" => $depto,
+            "municipio_id" => $municipio,
             "nombre_investigado" => $investigado,
-            "rango" => $rango,
-            "tipo_falta" => $tipo_falta,
-            "investigador" => $investigador,
-            "fecha_inicio_exp" => $fecha_inicio_exp,
-            "fecha_final_exp" => $fecha_final_exp,
+            "rango_id" => $rango,
+            "tipo_falta_id" => $tipo_falta,
+            "investigador_id" => $investigador,
             "fecha_inicio_i" => $fecha_inicio_i,
-            "fecha_final_i_pre" => $fecha_final_i_pre,
-            "fecha_final_i" => $fecha_final_i,
-            "diligencia" => $diligencia,
-            "estado" => $estado,
-            "fecha_remision" => $fecha_remision,
+            "diligencia_pre" => $diligencia_pre,
+            "est_proceso_id" => $estado,
             "observacion" => $observacion,
-            "exp_id" => $id_exp,
-            "folios" => $folios,
-            "recomen" => $recomendacion,
-            "num_dictan" => $num_dictamen,
-            "num_arch" => $num_archivo,
-            "legal_id" => $legal_id
+            "tecnico_legal" => $legal_id,
+            "comparecio" => $comparecio,
+            "resolve_id" => $resolucion,
+            "num_resolve" => $n_doc,
+            "recomen_id" => $recomendacion,
+            "diligencias_invest" => $diligencias_invest,
+            "diligencias_legal" => $diligencia_legal,
+            "folio" => $folios,
+            "remision_mp_tsc"=>$remi_mp_tsc_up,
+            "exp_id" => $id_exp
         ];
 
         $actualizar_exp =  expedienteModelo::actualizar_expediente_modelo($datos_expediente_up);
@@ -1660,4 +1615,4 @@ class expedienteControlador extends expedienteModelo
         }
         echo json_encode($alerta);
     }
-}/* fin clase */
+}
