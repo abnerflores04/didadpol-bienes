@@ -75,6 +75,12 @@
                                         <p> Exp. investigación</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="<?php echo SERVERURL;?>lista-reportes-exp/" class="nav-link">
+                                        <i class="nav-icon fas fa-list"></i>
+                                        <p> Reportes de expediente</p>
+                                    </a>
+                                </li>
                                  </ul>
                         </li>
                         
