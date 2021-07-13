@@ -25,7 +25,7 @@
                     <div class="card">
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/reportesAjax.php" method="POST" data-form="save" autocomplete="off">
+                            <form  action="" method="POST" autocomplete="off">
                                 <div class="row">
                                     <div class="col">
                                         <label for="">Departamento <span class="text-danger">*</span></label>
@@ -34,7 +34,7 @@
                                             <?php
                                             require_once './modelos/conectar.php';
                                             $resultado = $conexion->query("SELECT * FROM tbl_depto");
-    
+
                                             while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
                                                 echo '<option value="' . $registro["depto_id"] . '">' . $registro["depto_nombre"] . '</option>';
                                             }
@@ -46,24 +46,24 @@
                                             <label for="">Municipio <span class="text-danger">*</span></label>
                                             <select class="form-control" name="municipio_reg" id="municipio">
                                                 <option value="">Seleccione municipio</option>
-    
+
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col">
-                                    <div class="form-group">
-                                        <label for="">Rango <span class="text-danger">*</span></label>
-                                        <select class="form-control" name="rango_id_reg" id="rango_id_reg">
-                                            <option value="">Seleccione rango</option>
-                                            <?php
-                                            $resultado = $conexion->query("SELECT * FROM tbl_rango");
-    
-                                            while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
-                                                echo '<option value="' . $registro["rango_id"] . '">' . $registro["rango_descripcion"] . '</option>';
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
+                                        <div class="form-group">
+                                            <label for="">Rango <span class="text-danger">*</span></label>
+                                            <select class="form-control" name="rango_id_reg" id="rango_id_reg">
+                                                <option value="">Seleccione rango</option>
+                                                <?php
+                                                $resultado = $conexion->query("SELECT * FROM tbl_rango");
+
+                                                while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
+                                                    echo '<option value="' . $registro["rango_id"] . '">' . $registro["rango_descripcion"] . '</option>';
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="col">
                                         <button type="submit" class="btn btn-primary btn-block mt-4">Filtrar</button>
@@ -76,7 +76,12 @@
                             <?php
                             require_once "./controladores/reportesControlador.php";
                             $ins_exp = new reportesControlador();
-                            echo $ins_exp->listar_exp_reportes();
+                            if (!isset($_POST['depto_reg'])) {
+                                echo "tabla sin filtos";
+                            }elseif (isset($_POST['depto_reg'])) {
+                                echo $ins_exp->listar_exp_reportes();
+                            } 
+                           
                             ?>
                         </div>
                         <!-- /.card-body -->

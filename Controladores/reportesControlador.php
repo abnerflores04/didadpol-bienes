@@ -104,4 +104,11 @@ class reportesControlador extends reporteModelo
         </div>';
         return $tabla;
     }
+    // Controlador para listar los reportes de expediente
+    public function listar_exp_reportes2()
+    {
+        $tabla = 'tabla general';
+        
+        return $tabla;
+    }
 }
