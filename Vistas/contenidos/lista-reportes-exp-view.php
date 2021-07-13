@@ -68,18 +68,26 @@
                                     <div class="col">
                                         <button type="submit" class="btn btn-primary btn-block mt-4">Filtrar</button>
                                     </div>
+                                </form>
                                     <div class="col">
                                         <button type="submit" class="btn btn-danger btn-block mt-4">Exportar PDF</button>
                                     </div>
                                 </div>
-                            </form>
                             <?php
                             require_once "./controladores/reportesControlador.php";
                             $ins_exp = new reportesControlador();
                             if (!isset($_POST['depto_reg'])) {
-                                echo "tabla sin filtos";
+                                if($_SESSION['rol_id'] == 3){
+                                    echo $ins_exp->listar_exp_reportes2_leg();
+                                } else if($_SESSION['rol_id'] == 2) {
+                                    echo $ins_exp->listar_exp_reportes2_invest();
+                                }
                             }elseif (isset($_POST['depto_reg'])) {
-                                echo $ins_exp->listar_exp_reportes();
+                                if($_SESSION['rol_id'] == 3){
+                                    echo $ins_exp->listar_exp_reportes_leg_f();
+                                } else if($_SESSION['rol_id'] == 2) {
+                                    echo $ins_exp->listar_exp_reportes_invest_f();
+                                }
                             } 
                            
                             ?>
