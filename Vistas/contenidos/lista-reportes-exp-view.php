@@ -3,9 +3,9 @@
 $filtros=' ';
 $_SESSION['depto']='';
 if (isset($_POST['depto_r'])) {
-    $depto=$_POST['depto_r'];
+    $_SESSION['depto']=$_POST['depto_r'];
 if ($_SESSION['depto']!='') {
-    $filtros=' AND te.depto_id='. $depto ;
+    $filtros=' AND te.depto_id='. $_SESSION['depto'] ;
 }
 }
 
