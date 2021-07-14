@@ -1,4 +1,15 @@
 <!-- Content Wrapper. Contains page content -->
+<?php
+$where='';
+$_SESSION['depto']='';
+if (isset($_POST['depto_r'])) {
+    $_SESSION['depto']=$_POST['depto_r'];
+if ($_SESSION['depto']!='') {
+    $where='AND te.depto_id='. $_SESSION['depto'];
+}
+}
+
+?>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -25,11 +36,12 @@
                     <div class="card">
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <form  action="" method="POST" autocomplete="off">
+                            
+                            <form  method="POST" autocomplete="off">
                                 <div class="row">
                                     <div class="col">
                                         <label for="">Departamento <span class="text-danger">*</span></label>
-                                        <select class="form-control" name="depto_reg" id="depto">
+                                        <select class="form-control" name="depto_r" id="depto" required>
                                             <option value="">Seleccione departamento</option>
                                             <?php
                                             require_once './modelos/conectar.php';
@@ -44,7 +56,7 @@
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="">Municipio <span class="text-danger">*</span></label>
-                                            <select class="form-control" name="municipio_reg" id="municipio">
+                                            <select class="form-control" name="municipio_r" id="municipio" required>
                                                 <option value="">Seleccione municipio</option>
 
                                             </select>
@@ -53,7 +65,7 @@
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="">Rango <span class="text-danger">*</span></label>
-                                            <select class="form-control" name="rango_id_reg" id="rango_id_reg">
+                                            <select class="form-control" name="rango_r" id="rango_id_reg" required>
                                                 <option value="">Seleccione rango</option>
                                                 <?php
                                                 $resultado = $conexion->query("SELECT * FROM tbl_rango");
@@ -68,27 +80,18 @@
                                     <div class="col">
                                         <button type="submit" class="btn btn-primary btn-block mt-4">Filtrar</button>
                                     </div>
-                                </form>
                                     <div class="col">
-                                        <button type="submit" class="btn btn-danger btn-block mt-4">Exportar PDF</button>
-                                    </div>
+                                        <a href="<?php echo SERVERURL; ?>modelos/reporte.php?d=<?php echo $_SESSION['depto'];?> "class="btn btn-danger btn-block mt-4">Exportar PDF</a>
+                                       
                                 </div>
+                            </form>
                             <?php
                             require_once "./controladores/reportesControlador.php";
+                            
                             $ins_exp = new reportesControlador();
-                            if (!isset($_POST['depto_reg'])) {
-                                if($_SESSION['rol_id'] == 3){
-                                    echo $ins_exp->listar_exp_reportes2_leg();
-                                } else if($_SESSION['rol_id'] == 2) {
-                                    echo $ins_exp->listar_exp_reportes2_invest();
-                                }
-                            }elseif (isset($_POST['depto_reg'])) {
-                                if($_SESSION['rol_id'] == 3){
-                                    echo $ins_exp->listar_exp_reportes_leg_f();
-                                } else if($_SESSION['rol_id'] == 2) {
-                                    echo $ins_exp->listar_exp_reportes_invest_f();
-                                }
-                            } 
+                                echo $ins_exp->listar_exp_reportes2_invest($where);
+                            
+                            
                            
                             ?>
                         </div>
