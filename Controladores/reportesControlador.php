@@ -15,16 +15,6 @@ class reportesControlador extends reporteModelo
 
         $datos = $conexion->query($consulta);
         $datos = $datos->fetchAll();
-        //guardar los fecha de feriados o vacaciones en el array feriados
-        $feriados = [];
-        $consulta2 = "SELECT * FROM tbl_feriado ORDER BY feriado_fecha ASC";
-        $conexion = mainModel2::conectar();
-        $datos2 = $conexion->query($consulta2);
-        $datos2 = $datos2->fetchAll();
-        foreach ($datos2 as $rows2) {
-            array_push($feriados, $rows2['feriado_fecha']);
-        }
-
 
         $tabla .= '<div class="table-responsive">
         <br><br>
@@ -90,7 +80,7 @@ class reportesControlador extends reporteModelo
 
             $tabla .= '</tr>';
         }
-        $tabla .= ' </tbody>
+        $tabla .= '</tbody>
         </table>
         </div>';
         return $tabla;
@@ -104,16 +94,6 @@ class reportesControlador extends reporteModelo
 
         $datos = $conexion->query($consulta);
         $datos = $datos->fetchAll();
-        //guardar los fecha de feriados o vacaciones en el array feriados
-        $feriados = [];
-        $consulta2 = "SELECT * FROM tbl_feriado ORDER BY feriado_fecha ASC";
-        $conexion = mainModel2::conectar();
-        $datos2 = $conexion->query($consulta2);
-        $datos2 = $datos2->fetchAll();
-        foreach ($datos2 as $rows2) {
-            array_push($feriados, $rows2['feriado_fecha']);
-        }
-        
 
         $tabla .= '<div class="table-responsive">
         <br><br>
@@ -213,16 +193,6 @@ class reportesControlador extends reporteModelo
 
         $datos = $conexion->query($consulta);
         $datos = $datos->fetchAll();
-        //guardar los fecha de feriados o vacaciones en el array feriados
-        $feriados = [];
-        $consulta2 = "SELECT * FROM tbl_feriado ORDER BY feriado_fecha ASC";
-        $conexion = mainModel2::conectar();
-        $datos2 = $conexion->query($consulta2);
-        $datos2 = $datos2->fetchAll();
-        foreach ($datos2 as $rows2) {
-            array_push($feriados, $rows2['feriado_fecha']);
-        }
-
 
         $tabla .= '<div class="table-responsive">
         <br><br>
@@ -302,17 +272,7 @@ class reportesControlador extends reporteModelo
 
         $datos = $conexion->query($consulta);
         $datos = $datos->fetchAll();
-        //guardar los fecha de feriados o vacaciones en el array feriados
-        $feriados = [];
-        $consulta2 = "SELECT * FROM tbl_feriado ORDER BY feriado_fecha ASC";
-        $conexion = mainModel2::conectar();
-        $datos2 = $conexion->query($consulta2);
-        $datos2 = $datos2->fetchAll();
-        foreach ($datos2 as $rows2) {
-            array_push($feriados, $rows2['feriado_fecha']);
-        }
         
-
         $tabla .= '<div class="table-responsive">
         <br><br>
         <table id="example1" class=" table table-striped table-bordered">
