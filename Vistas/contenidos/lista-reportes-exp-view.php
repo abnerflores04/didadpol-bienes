@@ -1,11 +1,11 @@
 <!-- Content Wrapper. Contains page content -->
 <?php
-$where='';
+$filtros=' ';
 $_SESSION['depto']='';
 if (isset($_POST['depto_r'])) {
-    $_SESSION['depto']=$_POST['depto_r'];
+    $depto=$_POST['depto_r'];
 if ($_SESSION['depto']!='') {
-    $where='AND te.depto_id='. $_SESSION['depto'];
+    $filtros=' AND te.depto_id='. $depto ;
 }
 }
 
@@ -89,7 +89,7 @@ if ($_SESSION['depto']!='') {
                             require_once "./controladores/reportesControlador.php";
                             
                             $ins_exp = new reportesControlador();
-                                echo $ins_exp->listar_exp_reportes2_invest($where);
+                                echo $ins_exp->listar_exp_reportes2_invest($filtros);
                             
                             
                            
