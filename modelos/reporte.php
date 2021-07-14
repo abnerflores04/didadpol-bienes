@@ -3,12 +3,13 @@ require('../vistas/plugins/fpdf/fpdf.php');
 require_once '../modelos/conectar2.php';
 
     $d=$_GET["d"];
+    $u=$_GET["u"];
     if ( $d!='') {
-        $where='WHERE depto_id='.$d;
+        $filtros=' AND te.depto_id='.$d;
     }elseif($d=='' ||$d==null) {
-        $where='';
+        $filtros=' ';
     }
-    $query="SELECT * FROM tbl_exp "." ".$where;
+    $query="SELECT te.num_exp, tbf.fec_conocimiento, te.fecha_final_exp, te.nombre_investigado, tr.rango_descripcion, ttf.tipo_falta_descrip, tbf.fec_asignacion, te.fecha_final_i_pre, te.diligencias_invest, tep.est_proceso_descrip, te.fecha_final_i, tbf.fec_remision_secretaria, te.observacion FROM tbl_exp_usu teu INNER JOIN tbl_exp te ON teu.exp_id = te.exp_id INNER JOIN tbl_usuario tu ON teu.usu_id = tu.usu_id INNER JOIN tbl_rango tr ON tr.rango_id = te.rango_id INNER JOIN tbl_tipo_falta ttf ON ttf.tipo_falta_id = te.tipo_falta_id INNER JOIN tbl_articulo ta ON ta.tipo_falta_id = ttf.tipo_falta_id INNER JOIN tbl_bitacora_fechas tbf ON tbf.exp_id = te.exp_id INNER JOIN tbl_est_proceso tep ON te.est_proceso_id = tep.est_proceso_id WHERE te.investigador_id =". $u. $filtros." GROUP BY ta.n_art AND ta.art_descrip, ttf.tipo_falta_descrip";
     $consulta=$conexion->prepare($query);
 $consulta->execute();
       $i=1;      
@@ -42,8 +43,11 @@ function Header()
     $this->SetFont('Arial','B',12);
     $this->SetFillColor(45,65,84);
     $this->SetTextColor(255,255,255);
-    $this->Cell(60,8,utf8_decode('Depto'),0,0,'C',1);
-    $this->Cell(95,8,utf8_decode('nombre denunciante'),0,1,'C',1);
+    $this->Cell(20,8,utf8_decode('No. Expediente'),0,0,'C',1);
+    $this->Cell(95,8,utf8_decode('Fecha Conocimiento DIDADPOL'),0,0,'C',1);
+    $this->Cell(95,8,utf8_decode('Fecha final expediente'),0,1,'C',1);
+    
+    
     
 
     
@@ -62,7 +66,7 @@ function Footer()
 }
 }
 
-$pdf = new PDF('L','mm','A4');
+$pdf = new PDF('L','mm','legal');
 $pdf->AddPage();
 $pdf->SetMargins(10,10,10,10);
 $pdf->AliasNbPages();
@@ -79,8 +83,8 @@ while($fila=$consulta->fetch()){
 
        
     
-    $pdf->Cell(60,8,utf8_decode($fila['depto_id']),0,0,'C',1);
-    $pdf->Cell(60,8,utf8_decode($fila['nombre_denunciante']),0,1,'C',1);
+    $pdf->Cell(40,8,utf8_decode($fila['num_exp']),0,0,'C',1);
+    $pdf->Cell(60,8,utf8_decode(date('d/m/Y', strtotime($fila['fec_conocimiento']))),0,1,'C',1);
  
     $i++;
    }
