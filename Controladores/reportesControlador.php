@@ -18,7 +18,7 @@ class reportesControlador extends reporteModelo
 
         $tabla .= '<div class="table-responsive">
         <br><br>
-        <table id="example1" class=" table table-striped table-bordered">
+        <table id="example1" class="table table-striped table-bordered">
 
             <thead style="vertical-align:middle;">
                 <tr>

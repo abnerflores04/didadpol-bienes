@@ -85,8 +85,8 @@ if (isset($_POST['depto_r'])) {
                                         <button type="submit" class="btn btn-primary btn-block mt-4">Filtrar</button>
                                     </div>
                                     <div class="col">
-                                        <a href="<?php echo SERVERURL; ?>modelos/reporte2.php?d=<?php echo $_SESSION['depto'];?>&m=<?php echo $_SESSION['municipio'];?>&r=<?php echo $_SESSION['rango_id_reg'];?>&u=<?php echo $_SESSION['id_spm']?>"class="btn btn-danger btn-block mt-4">Exportar PDF</a>
-                                       
+                                        <a href="<?php echo SERVERURL; ?>modelos/reporte2.php?d=<?php echo $_SESSION['depto'];?>&m=<?php echo $_SESSION['municipio'];?>&r=<?php echo $_SESSION['rango_id_reg'];?>&u=<?php echo $_SESSION['id_spm']?>"class="btn btn-danger btn-block mt-4">Exportar PDF</a>   
+                                    </div>
                                 </div>
                             </form>
                             <?php

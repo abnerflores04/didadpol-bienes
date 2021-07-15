@@ -27,12 +27,12 @@ class MYPDF extends TCPDF {
         $this->SetFont('helvetica', 'B', 20);
         // Title
         $this->Ln(7);
-        $this->Cell(0, 15, 'Dirección de asuntos disciplinarios policiales', 0,1, 'C', 0, '', 0, false, 'M', 'M');
+        $this->Cell(0, 16, 'DIRECCIÓN DE ASUNTOS DISCIPLINARIOS POLICIALES', 0,1, 'C', 0, '', 0, false, 'M', 'M');
         $this->SetFont('helvetica', 'B', 16);
-        $this->Cell(0, 15, 'Reporte de Expedientes Investigación', 0, 1, 'C', 0, '', 0, false, 'M', 'M');
-        $this->Ln(7);
-        $this->SetFont('helvetica', '', 12);
-        $this->Cell(0, 15, 'Fecha: '. date('d/m/Y'), 0, 1, 'L', 0, '', 0, false, 'M', 'M');
+        $this->Cell(0, 12, 'REPORTE DE EXPEDIENTES INVESTIGACIÓN', 0, 1, 'C', 0, '', 0, false, 'M', 'M');
+        $this->Ln(10);
+        $this->SetFont('helvetica', '', 8);
+        $this->Cell(0, 8, 'Fecha: '. date('d/m/Y'), 0, 1, 'L', 0, '', 0, false, 'M', 'M');
         
         
     }
