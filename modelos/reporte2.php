@@ -58,43 +58,48 @@ $pdf = new MYPDF('L', 'mm', 'legal');
 // add a page
 $pdf->AddPage();
 $pdf->Ln(10);
-$html="<table >
+$html='<table >
 <tr>
-    <th widht='50px'>No. Expediente</th>
-    <th>Nombre Completo</th>
-    <th>Cargo</th>
-    <th>Fecha conocimiento DIDADPOL</th>
-    <th>Finalizacion de 75 dias</th>
-    <th>Fecha de asignacion de expediente</th>
-    <th>Fecha finalizacion de investigacion preliminar</th>
-    <th>Fecha Remision Secrertaria</th>
-</tr>";
+    <th width="110px">No. Expediente</th>
+    <th width="195px">Nombre Completo</th>
+    <th width="120px">Cargo</th>
+    <th width="70px">Fecha conocimiento DIDADPOL</th>
+    <th width="70px">Finalizacion de 75 dias</th>
+    <th width="70px">Fecha de asignacion de expediente</th>
+    <th width="70px">Fecha finalizacion de investigacion preliminar</th>
+    <th width="70px">Fecha Remision Secrertaria</th>
+</tr>';
 
 while($fila=$consulta->fetch()){
-$html.="
+$html.='
 <tr>
-    <td>".$fila['num_exp']."</td>
-    <td>".$fila['nombre_investigado']."</td>
-    <td>". $fila['rango_descripcion']   ."</td>
-    <td>". date('d/m/Y', strtotime($fila['fec_conocimiento'])) . "</td>
-    <td>". date('d/m/Y', strtotime($fila['fecha_final_exp'])) ."</td>
-    <td>".$fila['fec_asignacion'] ."</td>
-    <td>".$fila['fecha_final_i_pre']."</td>
-    <td>".$fila['fec_remision_secretaria']."</td>
-</tr>";
+    <td>'.$fila['num_exp'].'</td>
+    <td>'.$fila['nombre_investigado'].'</td>
+    <td>'.
+     $fila['rango_descripcion']   .'</td>
+    <td>'. date('d/m/Y', strtotime($fila['fec_conocimiento'])) . '</td>
+    <td>'. date('d/m/Y', strtotime($fila['fecha_final_exp'])) .'</td>
+    <td>'.$fila['fec_asignacion'] .'</td>
+    <td>'.$fila['fecha_final_i_pre'].'</td>
+    <td>'.$fila['fec_remision_secretaria'].'</td>
+</tr>';
 }
-$html.="
+$html.='
 </table>
 <style>
 table{
     border:1px solid #000000;
 }
-th,td{
+th{
     border:1px solid #000000;
     text-align:center;
+    
+}
+td{
+    border:1px solid #000000;
 }
 </style>
-";
+';
 
 
 
