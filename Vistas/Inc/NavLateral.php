@@ -69,24 +69,28 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
+                                
                                 <li class="nav-item">
                                     <a href="<?php echo SERVERURL;?>lista-exp-investigacion/" class="nav-link">
                                         <i class="nav-icon fas fa-list"></i>
                                         <p> Exp. investigación</p>
                                     </a>
                                 </li>
+                                <?php if($_SESSION['rol_id'] == 2) {?>
                                 <li class="nav-item">
                                     <a href="<?php echo SERVERURL;?>lista-reportes-exp/" class="nav-link">
                                         <i class="nav-icon fas fa-list"></i>
                                         <p> Reportes de expediente</p>
                                     </a>
                                 </li>
+                                <?php } else if($_SESSION['rol_id'] == 3) {?>
                                 <li class="nav-item">
                                     <a href="<?php echo SERVERURL;?>lista-reportes-exp-leg/" class="nav-link">
                                         <i class="nav-icon fas fa-list"></i>
                                         <p> Reportes de expediente</p>
                                     </a>
                                 </li>
+                                <?php } ?>
                                  </ul>
                         </li>
                         
