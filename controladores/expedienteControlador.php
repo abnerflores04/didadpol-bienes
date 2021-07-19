@@ -1104,6 +1104,41 @@ class expedienteControlador extends expedienteModelo
         echo json_encode($alerta);
         /**************************** */
     }/*fin controlador */
+    /*controlador agregar proceso de remision a direccion*/
+    public function agregar_interrupcion_controlador()
+    {
+        $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_50']);
+        $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
+
+        $dias_interrup = $_POST['diasInterrup'];
+        $observacion = $_POST['observacion'];
+        // INSERTAMOS LOS DATOS EN SUS RESPECTIVAS TABLAS
+        $datos_proc_up = [
+            "exp_id" => $exp_id,
+            "diasInterrup" => $dias_interrup,
+            "observacion" => $observacion
+        ];
+
+        $agregar_proc = expedienteModelo::agregar_interrupcion_modelo($datos_proc_up);
+
+        if ($agregar_proc) {
+            $alerta = [
+                "Alerta" => "recargar",
+                "Titulo" => "HECHO",
+                "Texto" => "SE HA ENTREGADO A DIRECCION CON ÉXITO",
+                "Tipo" => "success"
+            ];
+        } else {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO SE HA ENTREGADO A DIRECCION",
+                "Tipo" => "error"
+            ];
+        }
+        echo json_encode($alerta);
+        /**************************** */
+    }/*fin controlador */
     /*controlador agregar diligencia preliminar*/
     public function agregar_diligencia_pre_controlador()
     {

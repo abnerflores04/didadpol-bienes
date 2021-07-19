@@ -367,6 +367,16 @@ class expedienteModelo extends mainModel2
         $sql->execute();
         return $sql;
     }
+    /* Modelo crear interrupcion*/
+    protected static function agregar_interrupcion_modelo($datos)
+    {
+        $sql = mainModel2::conectar()->prepare("INSERT INTO tbl_interrupciones(observacion,exp_id) VALUES (:observacion,:exp_id)");
+        $sql->bindParam(":exp_id", $datos['exp_id']);
+        $sql->bindParam(":observacion", $datos['observacion']);
+        $sql->execute();
+        
+        return $sql;
+    }
     protected static function agregar_bit_fec_cono_modelo($exp_id, $fecha_inicio_exp, $proceso_id)
     {
         $sql = mainModel2::conectar()->prepare("INSERT INTO tbl_bitacora_fechas(exp_id,fec_conocimiento, proceso_id) VALUES (:exp_id,:fec_conocimiento,:proceso_id)");
