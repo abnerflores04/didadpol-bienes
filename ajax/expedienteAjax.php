@@ -7,7 +7,7 @@ if (isset($_POST['n_exp_reg']) || isset($_POST['exp_id_up']) || isset($_POST['ex
     || isset($_POST['bit_id_11']) || isset($_POST['bit_id_12']) || isset($_POST['bit_id_13']) || isset($_POST['bit_id_14']) 
     || isset($_POST['bit_id_15']) || isset($_POST['bit_id_16']) || isset($_POST['bit_id_17']) || isset($_POST['bit_id_18']) 
     || isset($_POST['bit_id_19']) || isset($_POST['bit_id_40']) || isset($_POST['diligencia_pre']) || isset($_POST['diligencias_invest'])
-    || isset($_POST['diligencia_cita']) || isset($_POST['diligencias_legal'])){
+    || isset($_POST['diligencia_cita']) || isset($_POST['diligencias_legal']) || isset($_POST['bit_id_50'])){
     #Instancia al controlador
     require_once "../controladores/expedienteControlador.php";
     $ins_expediente= new expedienteControlador();
@@ -90,6 +90,10 @@ if (isset($_POST['n_exp_reg']) || isset($_POST['exp_id_up']) || isset($_POST['ex
     #Para pasar al proceso de remitir a direccion
     if (isset($_POST['bit_id_40'])){
         echo $ins_expediente->agregar_proceso_remi_direccion_d_controlador();
+    }
+    #Para crear una interrupcion
+    if (isset($_POST['bit_id_50'])){
+        echo $ins_expediente->agregar_interrupcion_controlador();
     }
     #Para agregar diligencias preliminares
     if (isset($_POST['diligencia_pre'])){

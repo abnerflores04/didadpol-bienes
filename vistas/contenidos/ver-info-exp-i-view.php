@@ -44,12 +44,14 @@ if (!isset($_SESSION['id_spm'])) {
                 ?>
                     <!-- /.card-body -->
                     <div class="card-body">
+                        
                         <div class="row">
                             <div class="col">
                                 <p class="text-danger ">Campos obligatorios *</p>
                             </div>
 
                         </div>
+
                         <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="update" autocomplete="off">
                             <div class="row">
                                 <div class="col-sm-12">
@@ -504,6 +506,14 @@ if (!isset($_SESSION['id_spm'])) {
                             </div>
                             <hr>
                         </div>
+
+                        <?php if ($campos['proceso_id'] > 2 && $campos['proceso_id'] < 14) { ?>
+                            <div class="col-sm-12 mt-5 text-center">
+                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#ModalInterrupcion">
+                                    Interrupción
+                                </button>
+                            </div>
+                        <?php } ?>
 
                         <div class="col-sm-12 mt-5">
                             <div class="col text-center">
@@ -1131,6 +1141,47 @@ if (!isset($_SESSION['id_spm'])) {
                 <div class="modal-footer">
                     <?php if ($campos['proceso_id'] == 13) { ?>
                         <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Asignar</button>
+                    <?php } ?>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Interrupcion -->
+<div class="modal" id="ModalInterrupcion">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Interrupción</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="default" autocomplete="off">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="row">
+                        <input type="hidden" class="form-control" name="bit_id_50" id="bit_id_50" value="<?php echo $campos['bitacora_id']; ?>">
+                        <input type="hidden" class="form-control" name="exp_id" id="exp_id" value="<?php echo $campos['exp_id']; ?>">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="">Numero de días de interrupción</label>
+                                <input type="number" class="form-control" name="diasInterrup" id="diasInterrup" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Observacion de interrupción</label>
+                                <textarea class="form-control" name="observacion" id="observacion" cols="30" rows="5"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <?php if ($campos['proceso_id'] > 2 && $campos['proceso_id'] < 13) { ?>
+                        <button type="submit" class="btn btn-info"><i class="fas fa-check-circle"></i> Crear interrupción</button>
                     <?php } ?>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                 </div>
