@@ -13,11 +13,12 @@ $query = "SELECT te.num_exp, tbf.fec_conocimiento, te.fecha_final_exp, te.nombre
 $consulta = $conexion->prepare($query);
 $consulta->execute();
 
-$query2 = "SELECT te.exp_id FROM tbl_exp_usu teu INNER JOIN tbl_exp te ON teu.exp_id = te.exp_id INNER JOIN tbl_usuario tu ON teu.usu_id = tu.usu_id INNER JOIN tbl_rango tr ON tr.rango_id = te.rango_id INNER JOIN tbl_tipo_falta ttf ON ttf.tipo_falta_id = te.tipo_falta_id INNER JOIN tbl_articulo ta ON ta.tipo_falta_id = ttf.tipo_falta_id INNER JOIN tbl_bitacora_fechas tbf ON tbf.exp_id = te.exp_id INNER JOIN tbl_est_proceso tep ON te.est_proceso_id = tep.est_proceso_id WHERE te.tecnico_legal =" . $u . " GROUP BY ta.n_art AND ta.art_descrip, ttf.tipo_falta_descrip";
+$query2 = "SELECT te.exp_id,ttf.tipo_falta_id FROM tbl_exp_usu teu INNER JOIN tbl_exp te ON teu.exp_id = te.exp_id INNER JOIN tbl_usuario tu ON teu.usu_id = tu.usu_id INNER JOIN tbl_rango tr ON tr.rango_id = te.rango_id INNER JOIN tbl_tipo_falta ttf ON ttf.tipo_falta_id = te.tipo_falta_id INNER JOIN tbl_articulo ta ON ta.tipo_falta_id = ttf.tipo_falta_id INNER JOIN tbl_bitacora_fechas tbf ON tbf.exp_id = te.exp_id INNER JOIN tbl_est_proceso tep ON te.est_proceso_id = tep.est_proceso_id WHERE te.tecnico_legal =" . $u . " GROUP BY ta.n_art AND ta.art_descrip, ttf.tipo_falta_descrip";
 $consulta2 = $conexion->prepare($query2);
 $consulta2->execute();
 $campos = $consulta2->fetch();
 $exp_id = $campos['exp_id'];
+$tipo_falta=$campos['tipo_falta_id'];
 
 $query3 = "SELECT ta.n_art FROM tbl_exp_art tea INNER join tbl_articulo ta on ta.art_id=tea.art_id WHERE tea.exp_id=$exp_id";
 $consulta3 = $conexion->prepare($query3);
@@ -117,9 +118,9 @@ while ($fila = $consulta->fetch()) {
     <td>' . $fila['nombre_investigado'] . '</td>
     <td>' . $fila['rango_descripcion'] . '</td>
     <td>' . $fila['tipo_falta_descrip'] . '</td>
-    <td>';
+    <td>'.$tipo_falta;
     foreach ($campos as $art) {
-        $html.= '# ' . $art['n_art'] . " ";
+        $html.= ' # ' . $art['n_art'] . " ";
     }
 
     $html.='</td>
