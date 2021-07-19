@@ -19,7 +19,7 @@ $consulta2->execute();
 $campos = $consulta2->fetch();
 $exp_id = $campos['exp_id'];
 
-$query3 = "SELECT ta.n_art FROM tbl_exp_art tea INNER join tbl_articulo ta on ta.art_id=tea.art_id WHERE tea.exp_id=3";
+$query3 = "SELECT ta.n_art FROM tbl_exp_art tea INNER join tbl_articulo ta on ta.art_id=tea.art_id WHERE tea.exp_id=$exp_id";
 $consulta3 = $conexion->prepare($query3);
 $consulta3->execute();
 $campos = $consulta3->fetchAll();
