@@ -126,7 +126,7 @@ while ($fila = $consulta->fetch()) {
     $html.='</td>
     <td>' . $fila['fec_asigna_legal'] . '</td>
     <td>' . date('d/m/Y', strtotime($fila['fecha_aud_desc'])) . '</td>
-    <td>' . date('d/m/Y', strtotime($fila['fec_devolucion'])) . '</td>
+    <td>' . date('d/m/Y', strtotime($fila['fecha_dias_tec_legal'])) . '</td>
     <td>' . $sCompa . '</td>
     <td>' . $doc . '</td>
     <td>' . $fila['recomen'] . '</td>
