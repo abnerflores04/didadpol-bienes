@@ -1,13 +1,13 @@
 <?php
-    /*const SERVER="remotemysql.com";
-    const DB="fk9JKgfnAc";
-    const USER="fk9JKgfnAc";
-    const PASS="2p9GWTkHKc";*/
+    const SERVER="sql5.freesqldatabase.com";
+    const DB="sql5426471";
+    const USER="sql5426471";
+    const PASS="Km5ukLfhir";
 
-    const SERVER="localhost";
+    /*const SERVER="localhost";
     const DB="didadpol";
     const USER="root";
-    const PASS="";
+    const PASS="";*/
 
     const SGBD="mysql:host=".SERVER.";dbname=".DB;
 

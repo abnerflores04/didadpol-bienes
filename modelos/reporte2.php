@@ -19,11 +19,12 @@ class MYPDF extends TCPDF {
 
     //Page header
     public function Header() {
-        // Logo
-        $image_file =  '../vistas/plugins/tcpdf/examples/images/logo.png';
-        
-        $this->Image($image_file, 10, 10, 25, '', 'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
-        // Set font
+       // Logo
+       $image_file =  '../vistas/plugins/tcpdf/examples/images/logo final.jpg';
+       $image_file2 =  '../vistas/plugins/tcpdf/examples/images/secretaria-de-salud-logo.jpg';
+       
+       $this->Image($image_file, 10, 10, 25, '', 'JPG', '', 'T', false, 300, '', false, false, 0, false, false, false);
+       $this->Image($image_file2, 260, 10, 25, '', 'JPG', '', 'T', false, 300, '', false, false, 0, false, false, false);
         $this->SetFont('helvetica', 'B', 20);
         // Title
         $this->Ln(7);
@@ -49,31 +50,31 @@ class MYPDF extends TCPDF {
 }
 
 // create new PDF document
-$pdf = new MYPDF('L', 'mm', 'legal');
-
-
-
-
+$pdf = new MYPDF('L', 'mm', 'Legal');
 
 // add a page
 $pdf->AddPage();
+
 $pdf->Ln(10);
 $html='<table >
 <tr>
-    <th width="110px">No. Expediente</th>
-    <th width="195px">Nombre Completo</th>
-    <th width="120px">Cargo</th>
-    <th width="70px">Fecha conocimiento DIDADPOL</th>
-    <th width="70px">Finalizacion de 75 dias</th>
-    <th width="70px">Fecha de asignacion de expediente</th>
-    <th width="70px">Fecha finalizacion de investigacion preliminar</th>
-    <th width="70px">Fecha Remision Secrertaria</th>
+    <th width="80px" >N° Expediente</th>
+    <th width="120px">Nombre Completo</th>
+    <th width="70px">Cargo</th>
+    <th width="50px">Fecha conocimiento DIDADPOL</th>
+    <th width="45px">Finalización de 75 días</th>
+    <th width="45px">Fecha de asignación de expediente</th>
+    <th width="45px">Fecha finalización de investigación preliminar</th>
+    <th width="80px">Diligencias investigativas practicadas</th>
+    <th width="80px">Estado actual del proceso</th>
+    <th width="45px">Fecha Remisión Secretaria</th>
+    <th width="125px">Observación</th>
 </tr>';
 
 while($fila=$consulta->fetch()){
 $html.='
 <tr>
-    <td>'.$fila['num_exp'].'</td>
+    <td >'.$fila['num_exp'].'</td>
     <td>'.$fila['nombre_investigado'].'</td>
     <td>'.
      $fila['rango_descripcion']   .'</td>
@@ -81,7 +82,10 @@ $html.='
     <td>'. date('d/m/Y', strtotime($fila['fecha_final_exp'])) .'</td>
     <td>'.$fila['fec_asignacion'] .'</td>
     <td>'.$fila['fecha_final_i_pre'].'</td>
+    <td>'.$fila['diligencias_invest'].'</td>
+    <td>'.$fila['est_proceso_descrip'].'</td>
     <td>'.$fila['fec_remision_secretaria'].'</td>
+    <td>'.$fila['observacion'].'</td>
 </tr>';
 }
 $html.='
@@ -90,22 +94,30 @@ $html.='
 table{
     border:1px solid #000000;
 }
-th{
+th {
     border:1px solid #000000;
     text-align:center;
+    background-color: hsla(130, 20%, 90%, 0.5);
+    
+    
     
 }
 td{
+    text-align:center;
     border:1px solid #000000;
 }
+
 </style>
 ';
 
 
 
+
 $pdf->Ln(30);
-$pdf->SetFont('helvetica', 'I', 10);
-$pdf->WriteHTMLCell(0,0,'','',$html,0);
+$pdf->SetFont('helvetica', 'I', 6.6);
+$pdf->WriteHTML($html,1,0,1,0);
+
+
 
 
 //Close and output PDF document
