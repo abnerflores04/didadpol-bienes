@@ -1163,16 +1163,20 @@ if (!isset($_SESSION['id_spm'])) {
                 <!-- Modal body -->
                 <div class="modal-body">
                     <div class="row">
+                   
+                        <input type="hidden" autocomplete="off" class="form-control" name="fecha_final_exp_up" id="fecha_final_exp_up" value="<?php echo $campos['fecha_final_exp']; ?>" readonly>
+                                    
+
                         <input type="hidden" class="form-control" name="bit_id_50" id="bit_id_50" value="<?php echo $campos['bitacora_id']; ?>">
                         <input type="hidden" class="form-control" name="exp_id" id="exp_id" value="<?php echo $campos['exp_id']; ?>">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label for="">Numero de días de interrupción</label>
+                                <label for="">Numero de días de interrupción<span class="text-danger">*</span></label>
                                 <input type="number" class="form-control" name="diasInterrup" id="diasInterrup" autocomplete="off">
                             </div>
                             <div class="form-group">
                                 <label for="">Observacion de interrupción</label>
-                                <textarea class="form-control" name="observacion" id="observacion" cols="30" rows="5"></textarea>
+                                <textarea class="form-control" style="text-transform:uppercase" name="observacion" id="observacion" cols="30" rows="5"></textarea>
                             </div>
                         </div>
                     </div>

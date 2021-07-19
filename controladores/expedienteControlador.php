@@ -1107,16 +1107,38 @@ class expedienteControlador extends expedienteModelo
     /*controlador agregar proceso de remision a direccion*/
     public function agregar_interrupcion_controlador()
     {
-        $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_50']);
+        $fecha_fa = $_POST['fecha_final_exp_up'];
         $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
-
         $dias_interrup = $_POST['diasInterrup'];
-        $observacion = $_POST['observacion'];
+        $observacion = strtoupper(mainModel2::limpiar_cadena($_POST['observacion']));
+        /*comprobar campos vacios*/
+        if ($dias_interrup=="") {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "CAMPO VACÍO, POR FAVOR INGRESE LOS DÍAS DE INTERRUPCIÓN",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        }
+        //guardar los fecha de feriados o vacaciones en el array feriados
+        $feriados = [];
+        $consulta = "SELECT * FROM tbl_feriado ORDER BY feriado_fecha ASC";
+        $conexion = mainModel2::conectar();
+        $datos = $conexion->query($consulta);
+        $datos = $datos->fetchAll();
+        foreach ($datos as $rows) {
+            array_push($feriados, $rows['feriado_fecha']);
+        }
+
         // INSERTAMOS LOS DATOS EN SUS RESPECTIVAS TABLAS
+        $fecha_final_exp = mainModel2::addWorkingDays($fecha_fa, $dias_interrup, $feriados);
         $datos_proc_up = [
             "exp_id" => $exp_id,
-            "diasInterrup" => $dias_interrup,
-            "observacion" => $observacion
+            "dias_interrupcion" => $dias_interrup,
+            "observacion" => $observacion,
+            "fecha_final_exp" => $fecha_final_exp
         ];
 
         $agregar_proc = expedienteModelo::agregar_interrupcion_modelo($datos_proc_up);
@@ -1125,14 +1147,14 @@ class expedienteControlador extends expedienteModelo
             $alerta = [
                 "Alerta" => "recargar",
                 "Titulo" => "HECHO",
-                "Texto" => "SE HA ENTREGADO A DIRECCION CON ÉXITO",
+                "Texto" => "SE HA AGREGADO LA INTERRUPCIÓN CON ÉXITO",
                 "Tipo" => "success"
             ];
         } else {
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                "Texto" => "NO SE HA ENTREGADO A DIRECCION",
+                "Texto" => "NO SE HA AGREGADO LA INTERRUPCIÓN ",
                 "Tipo" => "error"
             ];
         }
@@ -1525,7 +1547,7 @@ class expedienteControlador extends expedienteModelo
         $estado = mainModel2::limpiar_cadena($_POST['estado_up']);
         $comparecio = mainModel2::limpiar_cadena($_POST['comparecio_up']);
         $remi_mp_tsc_up = mainModel2::limpiar_cadena($_POST['remi_mp_tsc_up']);
-       
+
 
         /*comprobar campos vacios
         if (
@@ -1581,7 +1603,7 @@ class expedienteControlador extends expedienteModelo
             echo json_encode($alerta);
             exit();
         }
-        
+
         $check_exp_art = mainModel2::ejecutar_consulta_simple("SELECT * FROM tbl_exp_art WHERE exp_id=$id_exp");
         if ($check_exp_art->rowCount() <= 0) {
             $alerta = [
@@ -1623,7 +1645,7 @@ class expedienteControlador extends expedienteModelo
             "diligencias_invest" => $diligencias_invest,
             "diligencias_legal" => $diligencia_legal,
             "folio" => $folios,
-            "remision_mp_tsc"=>$remi_mp_tsc_up,
+            "remision_mp_tsc" => $remi_mp_tsc_up,
             "exp_id" => $id_exp
         ];
 

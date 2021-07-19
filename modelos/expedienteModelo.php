@@ -370,12 +370,18 @@ class expedienteModelo extends mainModel2
     /* Modelo crear interrupcion*/
     protected static function agregar_interrupcion_modelo($datos)
     {
-        $sql = mainModel2::conectar()->prepare("INSERT INTO tbl_interrupciones(observacion,exp_id) VALUES (:observacion,:exp_id)");
+        $sql = mainModel2::conectar()->prepare("INSERT INTO tbl_interrupciones(exp_id,dias_interrupcion,observacion) VALUES (:exp_id,:dias_interrupcion,:observacion)");
         $sql->bindParam(":exp_id", $datos['exp_id']);
+        $sql->bindParam(":dias_interrupcion", $datos['dias_interrupcion']);
         $sql->bindParam(":observacion", $datos['observacion']);
         $sql->execute();
+
+       $sql2 = mainModel2::conectar()->prepare("UPDATE tbl_exp SET fecha_final_exp=:fecha_final_exp WHERE exp_id=:exp_id");
+       $sql2->bindParam(":fecha_final_exp", $datos['fecha_final_exp']);
+       $sql2->bindParam(":exp_id", $datos['exp_id']);
+       $sql2->execute();
         
-        return $sql;
+        return $sql2;
     }
     protected static function agregar_bit_fec_cono_modelo($exp_id, $fecha_inicio_exp, $proceso_id)
     {
