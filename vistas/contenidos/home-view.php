@@ -17,6 +17,51 @@
         }
         $data1 = trim($data1, ",");
         $data2 = trim($data2, ",");
+        
+        $sql2 = 'SELECT COUNT(e.exp_id) AS cantidad, CONCAT(u.usu_nombre , " " , u.usu_apellido) AS nombre FROM tbl_exp e INNER JOIN tbl_usuario u ON e.tecnico_legal = u.usu_id GROUP BY e.tecnico_legal';
+
+        $consulta2 = $conexion->prepare($sql2);
+        $consulta2->execute();
+        $res2 = $consulta2->fetchAll(PDO::FETCH_ASSOC);
+        $data3 = '';
+        $data4 = '';
+
+        foreach ($res2 as $rows) {
+            $data3 = $data3 . '"' . $rows['nombre'] . '",';
+            $data4 = $data4 . '"' . $rows['cantidad'] . '",';
+        }
+        $data3 = trim($data3, ",");
+        $data4 = trim($data4, ",");
+        
+        $sql3 = 'SELECT COUNT(e.exp_id) as cantidad, d.depto_nombre as departamento FROM tbl_exp e INNER JOIN tbl_depto d ON e.depto_id = d.depto_id GROUP BY e.depto_id';
+
+        $consulta3 = $conexion->prepare($sql3);
+        $consulta3->execute();
+        $res3 = $consulta3->fetchAll(PDO::FETCH_ASSOC);
+        $data5 = '';
+        $data6 = '';
+
+        foreach ($res3 as $rows) {
+            $data5 = $data5 . '"' . $rows['departamento'] . '",';
+            $data6 = $data6 . '"' . $rows['cantidad'] . '",';
+        }
+        $data5 = trim($data5, ",");
+        $data6 = trim($data6, ",");
+        
+        $sql4 = 'SELECT COUNT(e.exp_id) as cantidad, m.municipio_nombre as municipio FROM tbl_exp e INNER JOIN tbl_municipio m ON e.municipio_id = m.municipio_id GROUP BY  e.municipio_id';
+
+        $consulta4 = $conexion->prepare($sql4);
+        $consulta4->execute();
+        $res4 = $consulta4->fetchAll(PDO::FETCH_ASSOC);
+        $data7 = '';
+        $data8 = '';
+
+        foreach ($res4 as $rows) {
+            $data7 = $data7 . '"' . $rows['municipio'] . '",';
+            $data8 = $data8 . '"' . $rows['cantidad'] . '",';
+        }
+        $data7 = trim($data7, ",");
+        $data8 = trim($data8, ",");
 
 
         ?>
@@ -117,13 +162,46 @@
                          </div>
                      </div>
                      <!-- ./col -->
+                     <div class="col-lg-12">
+                         <div class="card card-info">
+                             <div class="card-header">
+                                 <h3 class="card-title">Expedientes por investigador</h3>
+                             </div>
+                             <div class="card-body">
+                                 <canvas id="myChartInvest"></canvas>
+                             </div>
+                         </div>
+                     </div>
+                     <!-- ./col -->
+                     <div class="col-lg-12">
+                         <div class="card card-info">
+                             <div class="card-header">
+                                 <h3 class="card-title">Expedientes por técnico legal</h3>
+                             </div>
+                             <div class="card-body">
+                                 <canvas id="myChartLeg"></canvas>
+                             </div>
+                         </div>
+                     </div>
+                     <!-- ./col -->
                      <div class="col-lg-6 col-12">
                          <div class="card card-info">
                              <div class="card-header">
-                                 <h3 class="card-title">Expedientes por Investigador</h3>
+                                 <h3 class="card-title">Expedientes por departamento</h3>
                              </div>
                              <div class="card-body">
-                                 <canvas id="myChart"></canvas>
+                                 <canvas id="myChartDepto"></canvas>
+                             </div>
+                         </div>
+                     </div>
+                     <!-- ./col -->
+                     <div class="col-lg-6 col-12">
+                         <div class="card card-info">
+                             <div class="card-header">
+                                 <h3 class="card-title">Expedientes por municipio</h3>
+                             </div>
+                             <div class="card-body">
+                                 <canvas id="myChartMunci"></canvas>
                              </div>
                          </div>
                      </div>
@@ -144,7 +222,7 @@
      </footer>
 
      <script>
-         var ctx = document.getElementById('myChart');
+         var ctx = document.getElementById('myChartInvest');
 
          var myChart = new Chart(ctx, {
              type: 'bar',
@@ -153,6 +231,123 @@
                  datasets: [{
                      label: 'Cantidad de expedientes por investigador',
                      data: [<?php echo $data2; ?>],
+                     backgroundColor: [
+                         'rgba(255, 99, 132, 0.2)',
+                         'rgba(54, 162, 235, 0.2)',
+                         'rgba(255, 206, 86, 0.2)',
+                         'rgba(75, 192, 192, 0.2)',
+                         'rgba(153, 102, 255, 0.2)',
+                         'rgba(255, 159, 64, 0.2)'
+
+                     ],
+                     borderColor: [
+                         'rgba(255, 99, 132, 1)',
+                         'rgba(54, 162, 235, 1)',
+                         'rgba(255, 206, 86, 1)',
+                         'rgba(75, 192, 192, 1)',
+                         'rgba(153, 102, 255, 1)',
+                         'rgba(255, 159, 64, 1)'
+
+                     ],
+                     borderWidth: 1
+                 }]
+             },
+             options: {
+                 scales: {
+                     y: {
+                         beginAtZero: true
+                     }
+                 }
+             }
+         });
+         
+         var ctx = document.getElementById('myChartLeg');
+
+         var myChart = new Chart(ctx, {
+             type: 'bar',
+             data: {
+                 labels: [<?php echo $data3; ?>],
+                 datasets: [{
+                     label: 'Cantidad de expedientes por técnico legal',
+                     data: [<?php echo $data4; ?>],
+                     backgroundColor: [
+                         'rgba(255, 99, 132, 0.2)',
+                         'rgba(54, 162, 235, 0.2)',
+                         'rgba(255, 206, 86, 0.2)',
+                         'rgba(75, 192, 192, 0.2)',
+                         'rgba(153, 102, 255, 0.2)',
+                         'rgba(255, 159, 64, 0.2)'
+
+                     ],
+                     borderColor: [
+                         'rgba(255, 99, 132, 1)',
+                         'rgba(54, 162, 235, 1)',
+                         'rgba(255, 206, 86, 1)',
+                         'rgba(75, 192, 192, 1)',
+                         'rgba(153, 102, 255, 1)',
+                         'rgba(255, 159, 64, 1)'
+
+                     ],
+                     borderWidth: 1
+                 }]
+             },
+             options: {
+                 scales: {
+                     y: {
+                         beginAtZero: true
+                     }
+                 }
+             }
+         });
+         
+         var ctx = document.getElementById('myChartDepto');
+
+         var myChart = new Chart(ctx, {
+             type: 'doughnut',
+             data: {
+                 labels: [<?php echo $data5; ?>],
+                 datasets: [{
+                     label: 'Cantidad de expedientes por departamento',
+                     data: [<?php echo $data6; ?>],
+                     backgroundColor: [
+                         'rgba(255, 99, 132, 0.2)',
+                         'rgba(54, 162, 235, 0.2)',
+                         'rgba(255, 206, 86, 0.2)',
+                         'rgba(75, 192, 192, 0.2)',
+                         'rgba(153, 102, 255, 0.2)',
+                         'rgba(255, 159, 64, 0.2)'
+
+                     ],
+                     borderColor: [
+                         'rgba(255, 99, 132, 1)',
+                         'rgba(54, 162, 235, 1)',
+                         'rgba(255, 206, 86, 1)',
+                         'rgba(75, 192, 192, 1)',
+                         'rgba(153, 102, 255, 1)',
+                         'rgba(255, 159, 64, 1)'
+
+                     ],
+                     borderWidth: 1
+                 }]
+             },
+             options: {
+                 scales: {
+                     y: {
+                         beginAtZero: true
+                     }
+                 }
+             }
+         });
+         
+         var ctx = document.getElementById('myChartMunci');
+
+         var myChart = new Chart(ctx, {
+             type: 'doughnut',
+             data: {
+                 labels: [<?php echo $data7; ?>],
+                 datasets: [{
+                     label: 'Cantidad de expedientes por municipio',
+                     data: [<?php echo $data8; ?>],
                      backgroundColor: [
                          'rgba(255, 99, 132, 0.2)',
                          'rgba(54, 162, 235, 0.2)',
