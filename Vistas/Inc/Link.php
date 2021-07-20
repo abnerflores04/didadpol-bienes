@@ -32,4 +32,8 @@
 <!-- jQuery UI 1.11.4 -->
 <link rel="stylesheet" href="<?php echo SERVERURL;?>vistas/plugins/jquery-ui/jquery-ui.min.css">
 <script src="<?php echo SERVERURL; ?>vistas/plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- Chart Js -->
+<link rel="stylesheet" href="<?php echo SERVERURL;?>vistas/plugins/chart.js/Chart.css">
+<script src="<?php echo SERVERURL; ?>vistas/plugins/chart.js/Chart.js"></script>
+
  

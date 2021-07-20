@@ -34,6 +34,7 @@
 <script src="<?php echo SERVERURL; ?>vistas/dist/js/selectDinamicos2.js"></script>
 <script src="<?php echo SERVERURL; ?>vistas/dist/js/selectMunicipio.js"></script>
 <script src="<?php echo SERVERURL; ?>vistas/dist/js/selectArticulos.js"></script>
+
 <script>
      $(function() {
           $('.colaboradores_sal_reg').select2();
