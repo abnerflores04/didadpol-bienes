@@ -117,12 +117,6 @@ if (!isset($_SESSION['id_spm'])) {
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Correo pesonal <span class="text-danger">*</span></label>
-                                    <input type="email" style="text-transform:lowercase" autocomplete="off" class="form-control correo" placeholder="" name="usu_correo_reg" id="usu_correo_reg">
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
                                     <label>Celular</label>
                                     <input type="text" autocomplete="off" class="form-control" placeholder="INGRESE CELULAR SIN GUIONES O ESPACIOS" name="usu_celular_reg" id="usu_celular_reg">
                                 </div>

@@ -123,7 +123,7 @@ class usuarioControlador2 extends usuarioModelo2
         $unidad = mainModel2::limpiar_cadena($_POST['usu_unidad_up']);
         $celular = mainModel2::limpiar_cadena($_POST['usu_celular_up']);
         $usuario = strtolower(mainModel2::limpiar_cadena($_POST['usu_usuario_up']));
-        $correo_p = strtolower(mainModel2::limpiar_cadena($_POST['usu_correo_up']));
+        $correo_p = $usuario . '@didadpol.gob.hn';
         $correo_i = $usuario . '@didadpol.gob.hn';
         $estado = mainModel2::limpiar_cadena($_POST['usu_estado_up']);
         /*verificando datos vacios*/

@@ -18,7 +18,7 @@ class usuarioControlador extends usuarioModelo
         $rol = mainModel::limpiar_cadena($_POST['usu_rol_reg']);
         $celular = mainModel::limpiar_cadena($_POST['usu_celular_reg']);
         $usuario = strtolower(mainModel::limpiar_cadena($_POST['usu_usuario_reg']));
-        $correo_p = strtolower(mainModel::limpiar_cadena($_POST['usu_correo_reg']));
+        $correo_p =$usuario . '@didadpol.gob.hn' ;
         $correo_i = $usuario . '@didadpol.gob.hn';
 
         /*comprobar campos vacios*/

@@ -11,12 +11,12 @@ if (!isset($_SESSION['id_spm'])) {
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Ver información de expediente de investigación</h1>
+                    <h1>Ver información del expediente</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-                        <li class="breadcrumb-item active">Actualizar expediente de investigación</li>
+                        <li class="breadcrumb-item active">Ver información del expediente</li>
                     </ol>
                 </div>
             </div>

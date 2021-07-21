@@ -501,7 +501,13 @@ class expedienteControlador extends expedienteModelo
         $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_9']);
         $fec_estado = $_POST['fec_est_proceso'];
         $est_proceso_id = mainModel2::limpiar_cadena($_POST['est_proceso_id']);
-        $proceso_id = 9;
+        if ($est_proceso_id==6) {
+            $proceso_id = 19;
+        } else {
+            $proceso_id = 9;
+        }
+        
+       
         $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
         /*comprobar campos vacios*/
         if ($est_proceso_id == "") {

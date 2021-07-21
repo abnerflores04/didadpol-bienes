@@ -141,12 +141,7 @@ if (!isset($_SESSION['id_spm'])) {
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Correo pesonal <span class="text-danger">*</span></label>
-                                    <input type="email" style="text-transform:lowercase" autocomplete="off" class="form-control correo" placeholder="" name="usu_correo_up" id="usu_correo_up" value="<?php echo $campos['usu_correo_p']; ?>">
-                                </div>
-                            </div>
+                            
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Celular</label>
