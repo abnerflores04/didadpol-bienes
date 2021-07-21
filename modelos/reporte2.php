@@ -8,7 +8,7 @@ if ($d != '') {
 } elseif ($d == '' || $d == null) {
     $filtros = ' ';
 }
-$query = "SELECT te.num_exp, tbf.fec_conocimiento, te.fecha_final_exp, te.nombre_investigado, tr.rango_descripcion, ttf.tipo_falta_descrip, tbf.fec_asignacion, te.fecha_final_i_pre, te.diligencias_invest, tep.est_proceso_descrip, te.fecha_final_i, tbf.fec_remision_secretaria, te.observacion FROM tbl_exp_usu teu INNER JOIN tbl_exp te ON teu.exp_id = te.exp_id INNER JOIN tbl_usuario tu ON teu.usu_id = tu.usu_id INNER JOIN tbl_rango tr ON tr.rango_id = te.rango_id INNER JOIN tbl_tipo_falta ttf ON ttf.tipo_falta_id = te.tipo_falta_id INNER JOIN tbl_articulo ta ON ta.tipo_falta_id = ttf.tipo_falta_id INNER JOIN tbl_bitacora_fechas tbf ON tbf.exp_id = te.exp_id INNER JOIN tbl_est_proceso tep ON te.est_proceso_id = tep.est_proceso_id WHERE te.investigador_id =" . $u . $filtros . " GROUP BY ta.n_art AND ta.art_descrip, ttf.tipo_falta_descrip";
+$query = "SELECT te.num_exp, tbf.fec_conocimiento, te.fecha_final_exp, te.nombre_investigado, tr.rango_descripcion, ttf.tipo_falta_descrip, tbf.fec_asignacion, te.fecha_final_i_pre, te.diligencias_invest, tep.est_proceso_descrip, te.fecha_final_i, tbf.fec_remision_secretaria, te.observacion, CONCAT(tu.usu_nombre, ' ', tu.usu_apellido) as nombre FROM tbl_exp_usu teu INNER JOIN tbl_exp te ON teu.exp_id = te.exp_id INNER JOIN tbl_usuario tu ON te.investigador_id = tu.usu_id INNER JOIN tbl_rango tr ON tr.rango_id = te.rango_id INNER JOIN tbl_tipo_falta ttf ON ttf.tipo_falta_id = te.tipo_falta_id INNER JOIN tbl_articulo ta ON ta.tipo_falta_id = ttf.tipo_falta_id INNER JOIN tbl_bitacora_fechas tbf ON tbf.exp_id = te.exp_id INNER JOIN tbl_est_proceso tep ON te.est_proceso_id = tep.est_proceso_id WHERE te.investigador_id =" . $u . $filtros . " GROUP BY te.exp_id, ta.n_art AND ta.art_descrip, ttf.tipo_falta_descrip";
 $consulta = $conexion->prepare($query);
 $consulta->execute();
 
@@ -72,6 +72,7 @@ $html='<table >
 </tr>';
 
 while($fila=$consulta->fetch()){
+    $invest = $fila['nombre'];
 $html.='
 <tr>
     <td >'.$fila['num_exp'].'</td>
@@ -117,8 +118,16 @@ $pdf->Ln(30);
 $pdf->SetFont('helvetica', 'I', 6.6);
 $pdf->WriteHTML($html,1,0,1,0);
 
-
-
+$pdf->Ln(30);
+$pdf->MultiCell(100, 1, '__________________________________________________________', 0, 'C', false, 0);
+$pdf->MultiCell(260, 3, '__________________________________________________________', 0, 'C', false, 1);
+$pdf->MultiCell(100, 0, 'Abog. ' . $invest, 0, 'C', false, 0);
+$pdf->MultiCell(260, 0, 'Abog. ', 0, 'C', false, 1);
+$pdf->MultiCell(100, 0, 'Investigador', 0, 'C', false, 0);
+$pdf->MultiCell(260, 0, 'Gerente de Investigación', 0, 'C', false, 1);
+date_default_timezone_set('America/Tegucigalpa'); 
+$pdf->Ln(5);
+$pdf->MultiCell(260, 0, $DateAndTime = date('m-d-Y h:i a', time()), 0, 'L', false, 1);
 
 //Close and output PDF document
 $pdf->Output('example_003.pdf', 'I');

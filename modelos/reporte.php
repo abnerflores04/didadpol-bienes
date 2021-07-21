@@ -9,7 +9,7 @@ if ($d != '') {
     $filtros = ' ';
 }
 
-$query = "SELECT te.num_exp, tbf.fec_conocimiento, te.fecha_final_exp, te.nombre_investigado, tr.rango_descripcion, ttf.tipo_falta_descrip, tbf.fec_asigna_legal, te.fecha_aud_desc, te.comparecio, te.fecha_dias_tec_legal, tres.resolve, te.num_resolve, trec.recomen, tbf.fec_devolucion, te.folio, te.remision_mp_tsc, CONCAT(tu.usu_nombre, ' " . "', tu.usu_apellido) AS nombre FROM tbl_exp_usu teu INNER JOIN tbl_exp te ON teu.exp_id = te.exp_id INNER JOIN tbl_usuario tu ON teu.usu_id = tu.usu_id INNER JOIN tbl_rango tr ON tr.rango_id = te.rango_id INNER JOIN tbl_tipo_falta ttf ON ttf.tipo_falta_id = te.tipo_falta_id INNER JOIN tbl_exp_art tea ON te.exp_id = tea.exp_id INNER JOIN tbl_articulo ta ON ta.art_id = tea.art_id INNER JOIN tbl_bitacora_fechas tbf ON tbf.exp_id = te.exp_id INNER JOIN tbl_resoluciones tres ON tres.resolve_id = te.resolve_id INNER JOIN tbl_recomen trec ON trec.recomen_id = te.recomen_id WHERE te.tecnico_legal =" . $u . " GROUP BY tea.exp_id AND ta.n_art, ttf.tipo_falta_descrip;";
+$query = "SELECT te.num_exp, tbf.fec_conocimiento, te.fecha_final_exp, te.nombre_investigado, tr.rango_descripcion, ttf.tipo_falta_descrip, tbf.fec_asigna_legal, te.fecha_aud_desc, te.comparecio, te.fecha_dias_tec_legal, tres.resolve, te.num_resolve, trec.recomen, tbf.fec_devolucion, te.folio, te.remision_mp_tsc, CONCAT(tu.usu_nombre, ' " . "', tu.usu_apellido) AS nombre, tu.usu_identidad FROM tbl_exp_usu teu INNER JOIN tbl_exp te ON teu.exp_id = te.exp_id INNER JOIN tbl_usuario tu ON te.tecnico_legal = tu.usu_id INNER JOIN tbl_rango tr ON tr.rango_id = te.rango_id INNER JOIN tbl_tipo_falta ttf ON ttf.tipo_falta_id = te.tipo_falta_id INNER JOIN tbl_exp_art tea ON te.exp_id = tea.exp_id INNER JOIN tbl_articulo ta ON ta.art_id = tea.art_id INNER JOIN tbl_bitacora_fechas tbf ON tbf.exp_id = te.exp_id INNER JOIN tbl_resoluciones tres ON tres.resolve_id = te.resolve_id INNER JOIN tbl_recomen trec ON trec.recomen_id = te.recomen_id WHERE te.tecnico_legal =" . $u . " GROUP BY tea.exp_id, ta.n_art AND ttf.tipo_falta_descrip;";
 $consulta = $conexion->prepare($query);
 $consulta->execute();
 
@@ -133,6 +133,7 @@ $html .= '<table >
 
 while ($fila = $consulta->fetch()) {
     $tecnico = $fila['nombre'];
+    $tecnico_dni = $fila['usu_identidad'];
     $sCompa = "No";
     $sRMT = "No";
     if ($fila['comparecio'] == 1) {
@@ -177,10 +178,11 @@ $html .= '</table>';
 $pdf->Ln(30);
 $pdf->SetFont('helvetica', 'I', 6.6);
 $pdf->WriteHTMLCell(0, 0, '', '', $html, 0, 1);
-$pdf->MultiCell(280, 1, 'Por medio del presente, declaro que la información proporcionada es fidedigna en caso contrario, soy conciente que la Dirección de Asuntos Disciplinarios Policiales deducira la responsabilidad correspondiente', 0, 'C', false, 1);
+$pdf->MultiCell(280, 1, 'Por medio del presente, declaro que la información proporcionada es fidedigna en caso contrario, soy conciente que la Dirección de Asuntos Disciplinarios Policiales deducira la responsabilidad correspondiente.', 0, 'C', false, 1);
 $pdf->Ln(30);
 $pdf->MultiCell(280, 1, '__________________________________________________________', 0, 'C', false, 1);
-$pdf->MultiCell(280, 5, 'Abog. ' . $tecnico, 0, 'C', false, 1);
+$pdf->MultiCell(280, 3, 'Abog. ' . $tecnico, 0, 'C', false, 1);
+$pdf->MultiCell(280, 5, $tecnico_dni, 0, 'C', false, 1);
 $pdf->MultiCell(280, 4, 'Especialista Técnico Legal', 0, 'C', false, 1);
 date_default_timezone_set('America/Tegucigalpa'); 
 $pdf->MultiCell(280, 0, $DateAndTime = date('m-d-Y h:i a', time()), 0, 'C', false, 1);
