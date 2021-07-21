@@ -73,7 +73,13 @@
                                 <li class="nav-item">
                                     <a href="<?php echo SERVERURL;?>lista-exp-investigacion/" class="nav-link">
                                         <i class="nav-icon fas fa-list"></i>
-                                        <p> Exp. investigación</p>
+                                        <p> Expedientes</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?php echo SERVERURL;?>lista-monitoreo-exp/" class="nav-link">
+                                        <i class="nav-icon fas fa-list"></i>
+                                        <p> Monitoreo expediente</p>
                                     </a>
                                 </li>
                                 <?php if($_SESSION['rol_id'] == 2) {?>
