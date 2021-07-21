@@ -36,7 +36,7 @@ class monitoreoControlador extends monitoreoModelo
                 <th style="vertical-align:middle;">N° EXPEDIENTE</th>
                 <th style="vertical-align:middle;">FECHA CONOCIMIENTO DIDADPOL</th>
                 <th style="vertical-align:middle;">FECHA FINAL EXPEDIENTE</th>
-                <th style="vertical-align:middle;">NOMBRE</th>
+                <th style="vertical-align:middle;">NOMBRE RESPONSABLE</th>
                 <th style="vertical-align:middle;">SECCIÓN</th>
                 <th style="vertical-align:middle;">UNIDAD</th>
                 </tr>
