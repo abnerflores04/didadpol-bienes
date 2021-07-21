@@ -5,7 +5,7 @@ class expedienteModelo extends mainModel2
     /* Modelo agregar usuario*/
     protected static function agregar_proceso_denuncia_modelo($datos)
     {
-        $sql = mainModel2::conectar()->prepare("INSERT INTO tbl_exp(nombre_denunciante, identidad_denunciante, genero_id, depto_id, municipio_id, num_exp, nombre_investigado, rango_id, tipo_falta_id, fecha_inicio_exp, fecha_final_exp, fecha_final_i_pre, fecha_final_i) VALUES (:nombre_denunciante,:identidad_denunciante,:genero,:depto,:municipio,:n_exp,:nombre_investigado,:rango,:tipo_falta,:fecha_inicio_exp,:fecha_final_exp,:fecha_final_i_pre,:fecha_final_i)");
+        $sql = mainModel2::conectar()->prepare("INSERT INTO tbl_exp(nombre_denunciante, identidad_denunciante, genero_id, depto_id, municipio_id, num_exp, nombre_investigado, rango_id, tipo_falta_id, fecha_inicio_exp, fecha_final_exp, fecha_final_i_pre, fecha_final_i,est_proceso_id) VALUES (:nombre_denunciante,:identidad_denunciante,:genero,:depto,:municipio,:n_exp,:nombre_investigado,:rango,:tipo_falta,:fecha_inicio_exp,:fecha_final_exp,:fecha_final_i_pre,:fecha_final_i,:est_proceso_id)");
         $sql->bindParam(":nombre_denunciante", $datos['nombre_denunciante']);
         $sql->bindParam(":identidad_denunciante", $datos['identidad_denunciante']);
         $sql->bindParam(":genero", $datos['genero']);
@@ -19,6 +19,7 @@ class expedienteModelo extends mainModel2
         $sql->bindParam(":fecha_final_exp", $datos['fecha_final_exp']);
         $sql->bindParam(":fecha_final_i_pre", $datos['fecha_final_i_pre']);
         $sql->bindParam(":fecha_final_i", $datos['fecha_final_i']);
+        $sql->bindParam(":est_proceso_id", $datos['est_proceso_id']);
         $sql->execute();
         return $sql;
     }

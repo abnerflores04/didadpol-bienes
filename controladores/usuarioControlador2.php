@@ -10,7 +10,7 @@ class usuarioControlador2 extends usuarioModelo2
     {
         $contador = 1;
         $tabla = '';
-        $consulta = "SELECT * FROM tbl_usuario u INNER JOIN tbl_rol r on u.rol_id=r.rol_id where usu_id!=1 order by usu_id desc";
+        $consulta = "SELECT * FROM tbl_usuario u INNER JOIN tbl_rol r on u.rol_id=r.rol_id";
         $conexion = mainModel2::conectar();
         $datos = $conexion->query($consulta);
         $datos = $datos->fetchAll();
@@ -170,7 +170,7 @@ class usuarioControlador2 extends usuarioModelo2
             }
         }
 
-        if (mainModel2::verificar_datos("[a-z]{5,15}", $usuario)) {
+        if (mainModel2::verificar_datos("[a-z]{3,15}", $usuario)) {
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",

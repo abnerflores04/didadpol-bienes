@@ -17,7 +17,7 @@
         }
         $data1 = trim($data1, ",");
         $data2 = trim($data2, ",");
-        
+
         $sql2 = 'SELECT COUNT(e.exp_id) AS cantidad, CONCAT(u.usu_nombre , " " , u.usu_apellido) AS nombre FROM tbl_exp e INNER JOIN tbl_usuario u ON e.tecnico_legal = u.usu_id GROUP BY e.tecnico_legal';
 
         $consulta2 = $conexion->prepare($sql2);
@@ -32,7 +32,7 @@
         }
         $data3 = trim($data3, ",");
         $data4 = trim($data4, ",");
-        
+
         $sql3 = 'SELECT COUNT(e.exp_id) as cantidad, d.depto_nombre as departamento FROM tbl_exp e INNER JOIN tbl_depto d ON e.depto_id = d.depto_id GROUP BY e.depto_id';
 
         $consulta3 = $conexion->prepare($sql3);
@@ -47,7 +47,7 @@
         }
         $data5 = trim($data5, ",");
         $data6 = trim($data6, ",");
-        
+
         $sql4 = 'SELECT COUNT(e.exp_id) as cantidad, m.municipio_nombre as municipio FROM tbl_exp e INNER JOIN tbl_municipio m ON e.municipio_id = m.municipio_id GROUP BY  e.municipio_id';
 
         $consulta4 = $conexion->prepare($sql4);
@@ -130,7 +130,8 @@
                      <!-- ./col -->
                      <!-- ./col -->
                      <div class="col-lg-3 col-6">
-
+                         <!-- small box -->
+                        
                          <div class="small-box bg-info">
                              <div class="inner">
                                  <h3>*<sup style="font-size: 20px"></h3>
@@ -139,7 +140,7 @@
                              </div>
                              <div class="icon">
 
-                             <i class="far fa-folder-open"></i>
+                                 <i class="far fa-folder-open"></i>
                              </div>
                              <a href="<?php echo SERVERURL; ?>lista-giras/" class="small-box-footer">Mas información <i class="fas fa-arrow-circle-right"></i></a>
                          </div>
@@ -148,17 +149,22 @@
 
 
                      <div class="col-lg-3 col-6">
+                     <?php
+                            require_once "./controladores/feriadosControlador.php";
+                            $ins_feriados = new feriadosControlador();
+                            $total_feriados = $ins_feriados->datos_feriado_controlador("Conteo", 0);
+                            ?>
                          <!-- small box -->
                          <div class="small-box bg-danger">
                              <div class="inner">
-                                 <h3>*</h3>
+                                 <h3><?php echo $total_feriados->rowCount(); ?></h3>
 
                                  <p>Feriados</p>
                              </div>
                              <div class="icon">
-                             <i class="far fa-calendar-alt"></i>
+                                 <i class="far fa-calendar-alt"></i>
                              </div>
-                             <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                             <a href="#" class="small-box-footer">Mas información <i class="fas fa-arrow-circle-right"></i></a>
                          </div>
                      </div>
                      <!-- ./col -->
@@ -260,7 +266,7 @@
                  }
              }
          });
-         
+
          var ctx = document.getElementById('myChartLeg');
 
          var myChart = new Chart(ctx, {
@@ -299,11 +305,11 @@
                  }
              }
          });
-         
+
          var ctx = document.getElementById('myChartDepto');
 
          var myChart = new Chart(ctx, {
-             type: 'doughnut',
+             type: 'pie',
              data: {
                  labels: [<?php echo $data5; ?>],
                  datasets: [{
@@ -338,11 +344,11 @@
                  }
              }
          });
-         
+
          var ctx = document.getElementById('myChartMunci');
 
          var myChart = new Chart(ctx, {
-             type: 'doughnut',
+             type: 'pie',
              data: {
                  labels: [<?php echo $data7; ?>],
                  datasets: [{

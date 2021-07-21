@@ -88,7 +88,7 @@ class usuarioControlador extends usuarioModelo
              exit();
          }
 
-        if (mainModel::verificar_datos("[a-z]{5,15}", $usuario)) {
+        if (mainModel::verificar_datos("[a-z]{3,15}", $usuario)) {
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",

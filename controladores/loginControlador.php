@@ -24,7 +24,7 @@ class loginControlador extends loginModelo
             exit();
         }
         /* verificando integridad de los datos */
-        if (mainModel2::verificar_datos("[a-zA-Z]{5,20}", $usuario)) {
+        if (mainModel2::verificar_datos("[a-zA-Z]{3,20}", $usuario)) {
             echo '<script>
             Swal.fire({
                 title: "OCURRIÓ UN ERROR INESPERADO",

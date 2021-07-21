@@ -21,6 +21,7 @@ class expedienteControlador extends expedienteModelo
         $articulo = $_POST['articulos_reg'];
         $fecha_inicio_exp = $_POST['fecha_inicio_exp_reg'];
         $proceso_id = 1;
+        $estado = 1;
         /*comprobar campos vacios*/
         if ($n_exp == "" ||  $municipio == "" ||  $depto == "" ||  $sexo == "" ||  $investigado == "" || $rango == ""  ||   $fecha_inicio_exp == "") {
             $alerta = [
@@ -120,7 +121,8 @@ class expedienteControlador extends expedienteModelo
             "fecha_inicio_exp" => $fecha_inicio_exp,
             "fecha_final_exp" => $fecha_final_exp,
             "fecha_final_i_pre" => $fecha_final_i_pre,
-            "fecha_final_i" => $fecha_final_i
+            "fecha_final_i" => $fecha_final_i,
+            "est_proceso_id" => $estado
         ];
 
         $agregar_expediente =  expedienteModelo::agregar_proceso_denuncia_modelo($datos_expediente_reg);
@@ -1112,7 +1114,7 @@ class expedienteControlador extends expedienteModelo
         $dias_interrup = $_POST['diasInterrup'];
         $observacion = strtoupper(mainModel2::limpiar_cadena($_POST['observacion']));
         /*comprobar campos vacios*/
-        if ($dias_interrup=="") {
+        if ($dias_interrup == "") {
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
@@ -1475,14 +1477,6 @@ class expedienteControlador extends expedienteModelo
                     <a href="' . SERVERURL . 'actualizar-exp-i/' . mainModel2::encryption($rows['exp_id']) . '" class="btn btn-warning btn-sm" title="Editar" style="margin: 0 auto;">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <form class="FormulariosAjax" action="' . SERVERURL . 'ajax/expedienteAjax.php" method="POST" data-form="delete" autocomplete="off" style="margin: 0 auto;">
-                        <input type="hidden" name="exp_id_del" value="' . mainModel2::encryption($rows['exp_id']) . '">
-
-                        <button type="submit" title="Eliminar"class="btn btn-danger btn-sm">
-                            <i class="far fa-trash-alt"></i>
-                        </button>
-
-                    </form>
                 </div>
             </td> 
             </tr>';
@@ -1548,7 +1542,22 @@ class expedienteControlador extends expedienteModelo
         $comparecio = mainModel2::limpiar_cadena($_POST['comparecio_up']);
         $remi_mp_tsc_up = mainModel2::limpiar_cadena($_POST['remi_mp_tsc_up']);
 
-
+        //comprobar campos vacios
+        if (
+            $municipio == "" ||  $depto == "" ||  $sexo == "" ||  
+            $rango == ""  || $tipo_falta == "" || $investigador == "" ||
+            $estado == "" || $observacion == "" || 
+             $recomendacion == "" ||  $legal_id == ""  || $resolucion == ""   
+        ) {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "NO HAS COMPLETADO TODOS LOS CAMPOS QUE SON OBLIGATORIOS",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        }
         /*comprobar campos vacios
         if (
             $municipio == "" ||  $depto == "" ||  $sexo == "" ||  $investigado == "" ||

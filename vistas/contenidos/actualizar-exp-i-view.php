@@ -254,7 +254,7 @@ if (!isset($_SESSION['id_spm'])) {
                                             <input type="radio" name="comparecio_up" id="no" value="0" <?php if ($campos['comparecio'] == 0) {  echo 'checked'; } ?>>
                                         </div>
                                     </div>
-                                    <div class="col"></div>
+                                   
                                 </div>
 
 
@@ -347,12 +347,9 @@ if (!isset($_SESSION['id_spm'])) {
                                             <input type="radio" name="remi_mp_tsc_up" id="si" value="1" <?php if ($campos['remision_mp_tsc'] == 1) {  echo 'checked'; }?>>
                                             <label for="no">No</label>
                                             <input type="radio" name="remi_mp_tsc_up" id="no" value="0" <?php if ($campos['remision_mp_tsc'] == 0) {  echo 'checked'; } ?>>
-
-
-                                            <label for="checkbox-mp_tsc_up"></label>
                                         </div>
                                     </div>
-                                    <div class="col"></div>
+                                    
                                 </div>
 
                                 <div class="col-sm-12">

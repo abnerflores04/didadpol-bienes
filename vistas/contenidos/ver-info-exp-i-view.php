@@ -262,12 +262,14 @@ if (!isset($_SESSION['id_spm'])) {
 
                                     </div>
                                     <div class="col">
-                                        <div class="checkbox checkbox-primary pull-left p-t-0">
-                                            <input id="checkbox-comparecio" type="checkbox" class="filled-in chk-col-light-blue" value="<?php echo $campos['comparecio']; ?>" disabled>
-                                            <label for="checkbox-comparecio"></label>
+                                    <div class="checkbox checkbox-primary pull-left p-t-0">
+                                        <label for="si">Si</label>
+                                            <input type="radio" name="comparecio_up" id="si" value="1" <?php if ($campos['comparecio'] == 1) {  echo 'checked'; }?> disabled>
+                                            <label for="no">No</label>
+                                            <input type="radio" name="comparecio_up" id="no" value="0" <?php if ($campos['comparecio'] == 0) {  echo 'checked'; } ?> disabled>
                                         </div>
                                     </div>
-                                    <div class="col"></div>
+                                   
                                 </div>
 
 
@@ -347,18 +349,20 @@ if (!isset($_SESSION['id_spm'])) {
 
 
                                 <div class="col-6 text-center">
-                                    <div class="col">
+                                <div class="col">
                                         <label for="text">Ministerio Público y/o Tribunal Supremo de Cuentas</label>
                                     </div>
                                     <div class="col">
                                         <div class="checkbox checkbox-primary pull-left p-t-0">
+                                            <label for="si">Si</label>
+                                            <input type="radio" name="remi_mp_tsc_up" id="si" value="1" <?php if ($campos['remision_mp_tsc'] == 1) {  echo 'checked'; }?> disabled>
+                                            <label for="no">No</label>
+                                            <input type="radio" name="remi_mp_tsc_up" id="no" value="0" <?php if ($campos['remision_mp_tsc'] == 0) {  echo 'checked'; } ?> disabled>
 
-                                            <input id="checkbox-mp_tsc_up" type="checkbox" class="filled-in chk-col-light-blue" value="<?php echo $campos['remision_mp_tsc']; ?>" disabled>
 
                                             <label for="checkbox-mp_tsc_up"></label>
                                         </div>
                                     </div>
-                                    <div class="col"></div>
                                 </div>
 
                                 <div class="col-sm-12">
