@@ -75,7 +75,44 @@ $pdf = new MYPDF('L', 'mm', 'legal');
 // add a page
 $pdf->AddPage();
 $pdf->Ln(10);
-$html = '<table >
+
+$html = '<style>
+table{
+    border:1px solid #000000;
+}
+.header-color{
+    background-color: hsla(130, 20%, 90%, 0.5);;
+}
+th,td{
+    border:1px solid #000000;
+    text-align:center;
+}
+.wNExp {
+    width: 73px;
+}
+.wNombre {
+    width: 80px;
+}
+.wFecha {
+    width: 60px;
+}
+.w30 {
+    width: 30px;
+}
+.firma_uno p {
+    color:red;
+    position:absolute;
+    left:520px;
+    margin:200px;
+}
+.firma_dos p {
+    position: fixed;
+    top: 80px;
+    left: 10px;
+    background: blue;
+}
+</style>';
+$html .= '<table >
 <tr class="header-color">
     <th class="wNExp">N° EXPEDIENTE</th>
     <th class="wFecha">CONOCIMIENTO DIDADPOL</th>
@@ -95,6 +132,7 @@ $html = '<table >
 </tr>';
 
 while ($fila = $consulta->fetch()) {
+    $tecnico = $fila['nombre'];
     $sCompa = "No";
     $sRMT = "No";
     if ($fila['comparecio'] == 1) {
@@ -134,38 +172,18 @@ while ($fila = $consulta->fetch()) {
     <td>' . $sRMT . '</td>
 </tr>';
 }
-$html .= '</table>
-<style>
-    table{
-        border:1px solid #000000;
-    }
-    .header-color{
-        background-color: hsla(130, 20%, 90%, 0.5);;
-    }
-    th,td{
-        border:1px solid #000000;
-        text-align:center;
-    }
-    .wNExp {
-        width: 73px;
-    }
-    .wNombre {
-        width: 80px;
-    }
-    .wFecha {
-        width: 60px;
-    }
-    .w30 {
-        width: 30px;
-    }
-</style>';
-
-
+$html .= '</table>';
 
 $pdf->Ln(30);
 $pdf->SetFont('helvetica', 'I', 6.6);
-$pdf->WriteHTMLCell(0, 0, '', '', $html, 0);
-
+$pdf->WriteHTMLCell(0, 0, '', '', $html, 0, 1);
+$pdf->MultiCell(280, 1, 'Por medio del presente, declaro que la información proporcionada es fidedigna en caso contrario, soy conciente que la Dirección de Asuntos Disciplinarios Policiales deducira la responsabilidad correspondiente', 0, 'C', false, 1);
+$pdf->Ln(30);
+$pdf->MultiCell(280, 1, '__________________________________________________________', 0, 'C', false, 1);
+$pdf->MultiCell(280, 5, 'Abog. ' . $tecnico, 0, 'C', false, 1);
+$pdf->MultiCell(280, 4, 'Especialista Técnico Legal', 0, 'C', false, 1);
+date_default_timezone_set('America/Tegucigalpa'); 
+$pdf->MultiCell(280, 0, $DateAndTime = date('m-d-Y h:i a', time()), 0, 'C', false, 1);
 
 //Close and output PDF document
 $pdf->Output('example_003.pdf', 'I');
