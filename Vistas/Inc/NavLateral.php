@@ -97,7 +97,13 @@
                                     </a>
                                 </li>
                                 <?php } ?>
-                                 </ul>
+                                <li class="nav-item">
+                                    <a href="<?php echo SERVERURL;?>lista-bitacora-fechas/" class="nav-link">
+                                        <i class="nav-icon fas fa-list"></i>
+                                        <p> Bitácora fechas</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                         
                         <li class="nav-item">

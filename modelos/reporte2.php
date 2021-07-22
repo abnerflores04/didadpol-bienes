@@ -12,6 +12,10 @@ $query = "SELECT te.num_exp, tbf.fec_conocimiento, te.fecha_final_exp, te.nombre
 $consulta = $conexion->prepare($query);
 $consulta->execute();
 
+$query2 = "SELECT CONCAT(u.usu_nombre, ' ', u.usu_apellido) as nombre FROM tbl_usuario u WHERE u.rol_id = 4";
+$consulta2 = $conexion->prepare($query2);
+$consulta2->execute();
+
 $i = 1;
 
 
@@ -122,8 +126,10 @@ $pdf->Ln(30);
 $pdf->MultiCell(100, 1, '__________________________________________________________', 0, 'C', false, 0);
 $pdf->MultiCell(260, 3, '__________________________________________________________', 0, 'C', false, 1);
 $pdf->MultiCell(100, 0, 'Abog. ' . $invest, 0, 'C', false, 0);
-$pdf->MultiCell(260, 0, 'Abog. ', 0, 'C', false, 1);
-$pdf->MultiCell(100, 0, 'Investigador', 0, 'C', false, 0);
+while($fila2=$consulta2->fetch()){
+    $pdf->MultiCell(260, 0, 'Abog. ' . $fila2['nombre'], 0, 'C', false, 1);
+    $pdf->MultiCell(100, 0, 'Investigador', 0, 'C', false, 0);
+}
 $pdf->MultiCell(260, 0, 'Gerente de Investigación', 0, 'C', false, 1);
 date_default_timezone_set('America/Tegucigalpa'); 
 $pdf->Ln(5);
