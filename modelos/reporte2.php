@@ -62,17 +62,17 @@ $pdf->AddPage();
 $pdf->Ln(10);
 $html='<table >
 <tr>
-    <th width="80px" >N° Expediente</th>
-    <th width="120px">Nombre Completo</th>
-    <th width="70px">Cargo</th>
-    <th width="50px">Fecha conocimiento DIDADPOL</th>
-    <th width="45px">Finalización de 75 días</th>
-    <th width="45px">Fecha de asignación de expediente</th>
+    <th width="80px" ><br /><br /><br />N° Expediente</th>
+    <th width="120px"><br /><br /><br />Nombre Completo</th>
+    <th width="70px"><br /><br /><br />Cargo</th>
+    <th width="50px"><br /><br />Fecha conocimiento DIDADPOL</th>
+    <th width="45px"><br /><br />Finalización de 75 días</th>
+    <th width="45px"><br /><br />Fecha de asignación de expediente</th>
     <th width="45px">Fecha finalización de investigación preliminar</th>
-    <th width="80px">Diligencias investigativas practicadas</th>
-    <th width="80px">Estado actual del proceso</th>
-    <th width="45px">Fecha Remisión Secretaria</th>
-    <th width="125px">Observación</th>
+    <th width="80px"><br /><br /><br />Diligencias investigativas practicadas</th>
+    <th width="80px"><br /><br /><br />Estado actual del proceso</th>
+    <th width="45px"><br /><br />Fecha Remisión Secretaria</th>
+    <th width="125px"><br /><br /><br />Observación</th>
 </tr>';
 
 while($fila=$consulta->fetch()){
