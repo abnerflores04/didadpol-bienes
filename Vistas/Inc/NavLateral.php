@@ -73,34 +73,34 @@
                                 <li class="nav-item">
                                     <a href="<?php echo SERVERURL;?>lista-exp-investigacion/" class="nav-link">
                                         <i class="nav-icon fas fa-list"></i>
-                                        <p> Expedientes</p>
+                                        <p>Lista Expedientes</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="<?php echo SERVERURL;?>lista-monitoreo-exp/" class="nav-link">
-                                        <i class="nav-icon fas fa-list"></i>
+                                        <i class="nav-icon fas fa-chalkboard-teacher"></i>
                                         <p> Monitoreo expediente</p>
                                     </a>
                                 </li>
                                 <?php if($_SESSION['rol_id'] == 2) {?>
                                 <li class="nav-item">
                                     <a href="<?php echo SERVERURL;?>lista-reportes-exp/" class="nav-link">
-                                        <i class="nav-icon fas fa-list"></i>
+                                        <i class="nav-icon fas fa-print"></i>
                                         <p> Reportes de expediente</p>
                                     </a>
                                 </li>
                                 <?php } else if($_SESSION['rol_id'] == 3) {?>
                                 <li class="nav-item">
                                     <a href="<?php echo SERVERURL;?>lista-reportes-exp-leg/" class="nav-link">
-                                        <i class="nav-icon fas fa-list"></i>
+                                        <i class="nav-icon fas fa-print"></i>
                                         <p> Reportes de expediente</p>
                                     </a>
                                 </li>
                                 <?php } ?>
                                 <li class="nav-item">
                                     <a href="<?php echo SERVERURL;?>lista-bitacora-fechas/" class="nav-link">
-                                        <i class="nav-icon fas fa-list"></i>
-                                        <p> Bitácora fechas</p>
+                                        <i class="nav-icon fas fa-history"></i>
+                                        <p> Bitácora Expedientes</p>
                                     </a>
                                 </li>
                             </ul>

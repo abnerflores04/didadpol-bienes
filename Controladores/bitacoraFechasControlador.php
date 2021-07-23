@@ -48,9 +48,9 @@ class bitacoraControlador extends bitacoraModelo
                  <th style="vertical-align:middle;">FECHA AUTO APERTURA</th>
                  <th style="vertical-align:middle;">FECHA COMUNICACIÓN</th>
                  <th style="vertical-align:middle;">FECHA RECEPCIÓN INVESTIGACIÓN</th>
-                 <th style="vertical-align:middle;">FECHA INFORME DE INVESTIGACIÓn</th>
+                 <th style="vertical-align:middle;">FECHA INFORME DE INVESTIGACIÓN</th>
                  <th style="vertical-align:middle;">FECHA VALIDACIOÓN DIRECCIÓN</th>
-                 <th style="vertical-align:middle;">FECHA RECEPCIÓN SECRETIRÍA</th>
+                 <th style="vertical-align:middle;">FECHA RECEPCIÓN SECRETARÍA</th>
                  <th style="vertical-align:middle;">FECHA CITACIÓN</th>
                  <th style="vertical-align:middle;">FECHA REMISIÓN SECRETARÍA A LEGAL</th>
                  <th style="vertical-align:middle;">FECHA ASIGNACIÓN TÉCNICO LEGAL</th>
