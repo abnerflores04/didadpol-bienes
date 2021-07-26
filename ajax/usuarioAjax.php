@@ -8,7 +8,7 @@ if (isset($_POST['usu_usuario_reg']) || isset($_POST['clave_c']) || isset($_POST
     $ins_usuario= new usuarioControlador(); 
     $ins_usuario2= new usuarioControlador2();
     #Para agregar un usuario
-    if (isset($_POST['usu_usuario_reg']) && isset ($_POST['usu_nombres_reg']) && isset ($_POST['usu_apellidos_reg']) && isset ($_POST['usu_correo_reg'])){
+    if (isset($_POST['usu_usuario_reg']) && isset ($_POST['usu_nombres_reg']) && isset ($_POST['usu_apellidos_reg'])){
         echo $ins_usuario->agregar_usuario_controlador();
     }
     #Para cambiar la contraseña del usuario
