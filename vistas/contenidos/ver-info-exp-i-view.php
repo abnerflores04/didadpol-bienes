@@ -299,7 +299,11 @@ if (!isset($_SESSION['id_spm'])) {
                                             $resultado = $conexion->query("SELECT * FROM tbl_resoluciones");
                                             while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
                                             ?>
-                                                <option value="<?php echo $registro['resolve_id']; ?>"><?php echo $registro['resolve']; ?></option>
+
+                                                <option value="<?php echo $registro['resolve_id']; ?>" <?php if ($registro['resolve_id'] == $campos['resolve_id']) {
+                                                                                                            echo 'selected';
+                                                                                                        }
+                                                                                                        ?>><?php echo $registro['resolve']; ?></option>
                                             <?php } ?>
                                         </select>
                                     </div>

@@ -89,24 +89,10 @@ class reportesControlador extends reporteModelo
     public function listar_exp_reportes_leg()
     {
         $tabla = '';
-        $consulta = "SELECT te.num_exp, tbf.fec_conocimiento, te.fecha_final_exp, te.nombre_investigado, tr.rango_descripcion, ttf.tipo_falta_descrip, ta.n_art, tbf.fec_asigna_legal, te.fecha_aud_desc, te.comparecio, te.fecha_dias_tec_legal, tres.resolve, te.num_resolve, trec.recomen, tbf.fec_devolucion, te.folio, te.remision_mp_tsc, CONCAT(tu.usu_nombre, ' " . "', tu.usu_apellido) AS nombre FROM tbl_exp_usu teu INNER JOIN tbl_exp te ON teu.exp_id = te.exp_id INNER JOIN tbl_usuario tu ON te.tecnico_legal = tu.usu_id INNER JOIN tbl_rango tr ON tr.rango_id = te.rango_id INNER JOIN tbl_tipo_falta ttf ON ttf.tipo_falta_id = te.tipo_falta_id INNER JOIN tbl_exp_art tea ON te.exp_id = tea.exp_id INNER JOIN tbl_articulo ta ON ta.art_id = tea.art_id INNER JOIN tbl_bitacora_fechas tbf ON tbf.exp_id = te.exp_id INNER JOIN tbl_resoluciones tres ON tres.resolve_id = te.resolve_id INNER JOIN tbl_recomen trec ON trec.recomen_id = te.recomen_id WHERE te.tecnico_legal = $_SESSION[id_spm] GROUP BY tea.exp_id, ta.n_art AND ttf.tipo_falta_descrip;";
+        $consulta = "SELECT te.exp_id,te.num_exp, tbf.fec_conocimiento, te.fecha_final_exp, te.nombre_investigado, tr.rango_descripcion, ttf.tipo_falta_id,ttf.tipo_falta_descrip, ta.n_art, tbf.fec_asigna_legal, te.fecha_aud_desc, te.comparecio, te.fecha_dias_tec_legal, tres.resolve, te.num_resolve, trec.recomen, tbf.fec_devolucion, te.folio, te.remision_mp_tsc, CONCAT(tu.usu_nombre, ' " . "', tu.usu_apellido) AS nombre FROM tbl_exp_usu teu INNER JOIN tbl_exp te ON teu.exp_id = te.exp_id INNER JOIN tbl_usuario tu ON te.tecnico_legal = tu.usu_id INNER JOIN tbl_rango tr ON tr.rango_id = te.rango_id INNER JOIN tbl_tipo_falta ttf ON ttf.tipo_falta_id = te.tipo_falta_id INNER JOIN tbl_exp_art tea ON te.exp_id = tea.exp_id INNER JOIN tbl_articulo ta ON ta.art_id = tea.art_id INNER JOIN tbl_bitacora_fechas tbf ON tbf.exp_id = te.exp_id INNER JOIN tbl_resoluciones tres ON tres.resolve_id = te.resolve_id INNER JOIN tbl_recomen trec ON trec.recomen_id = te.recomen_id WHERE te.tecnico_legal = $_SESSION[id_spm] GROUP BY tea.exp_id, ta.n_art AND ttf.tipo_falta_descrip;";
         $conexion = mainModel2::conectar();
         $datos = $conexion->query($consulta);
         $datos = $datos->fetchAll();
-
-        $query2 = "SELECT te.exp_id,ttf.tipo_falta_id FROM tbl_exp_usu teu INNER JOIN tbl_exp te ON teu.exp_id = te.exp_id INNER JOIN tbl_usuario tu ON teu.usu_id = tu.usu_id INNER JOIN tbl_rango tr ON tr.rango_id = te.rango_id INNER JOIN tbl_tipo_falta ttf ON ttf.tipo_falta_id = te.tipo_falta_id INNER JOIN tbl_articulo ta ON ta.tipo_falta_id = ttf.tipo_falta_id INNER JOIN tbl_bitacora_fechas tbf ON tbf.exp_id = te.exp_id INNER JOIN tbl_est_proceso tep ON te.est_proceso_id = tep.est_proceso_id WHERE te.tecnico_legal =" . $_SESSION['id_spm'] . " GROUP BY ta.n_art AND ta.art_descrip, ttf.tipo_falta_descrip";
-        $consulta2 = $conexion->prepare($query2);
-        $consulta2->execute();
-        $campos = $consulta2->fetch();
-        $exp_id = $campos['exp_id'];
-        $tipo_falta = $campos['tipo_falta_id'];
-
-        $query3 = "SELECT ta.n_art FROM tbl_exp_art tea INNER join tbl_articulo ta on ta.art_id=tea.art_id WHERE tea.exp_id=$exp_id";
-        $consulta3 = $conexion->prepare($query3);
-        $consulta3->execute();
-        $campos = $consulta3->fetchAll();
-
-
 
         $tabla .= '<div class="table-responsive">
         <br><br>
@@ -155,11 +141,16 @@ class reportesControlador extends reporteModelo
             $tabla .= '<span class="badge badge badge-dark">' . $rows['tipo_falta_descrip']   . '</span></td>';
 
             $tabla .= '<td class=" text-center">';
-            $tabla .= '<span class="badge badge badge-dark">'  .$tipo_falta;
-            foreach ($campos as $art) {
-                $tabla.= ' # ' . $art['n_art'] . " ";
-            }   '</span></td>';
-
+            $tabla .= '<span class="badge badge badge-dark">'  . $rows['tipo_falta_id'];
+            $query3 = "SELECT te.exp_id, ta.tipo_falta_id,ta.n_art FROM tbl_exp_art tea inner join tbl_articulo ta on tea.art_id=ta.art_id INNER join tbl_exp te on tea.exp_id=te.exp_id where te.exp_id='$rows[exp_id]'";
+            $consulta3 = $conexion->prepare($query3);
+            $consulta3->execute();
+            $campos = $consulta3->fetchAll();
+            
+            foreach ($campos as $campo) {
+                $tabla .= ' # ' . $campo['n_art'] . " ";
+            } '</span></td>';
+           
             $tabla .= '<td class=" text-center">';
             $tabla .= $rows['fec_asigna_legal']   . '</td>';
 
