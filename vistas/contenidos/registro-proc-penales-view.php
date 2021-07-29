@@ -85,8 +85,8 @@ if (!isset($_SESSION['id_spm'])) {
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="">Juzgado/Tribunal <span class="text-danger">*</span></label>
-                                    <select class="form-control lista_j" name="juzg_tribu_reg" id="juzg_tribu_reg"  style="width:100%;">
-                                    <option value=""></option>
+                                    <select class="form-control lista_j" name="juzg_tribu_reg" id="juzg_tribu_reg"  style="width:100%;" required>
+                                    <option value="" selected></option>
                                         <?php
                                         $resultado = $conexion->query("SELECT * FROM tbl_juzg_tribu");
                                         while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
@@ -110,7 +110,7 @@ if (!isset($_SESSION['id_spm'])) {
                                         <?php
                                         $resultado = $conexion->query("SELECT * FROM tbl_est_lab");
                                         while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
-                                            echo '<option value="' . $registro["est_lab_id "] . '">' . $registro["descrip_est_lab"] . '</option>';
+                                            echo '<option value="' . $registro["est_lab_id"] . '">' . $registro["descrip_est_l"] . '</option>';
                                         }
                                         ?>
                                     </select>
@@ -126,6 +126,12 @@ if (!isset($_SESSION['id_spm'])) {
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Fecha de los hechos<span class="text-danger">*</span></label>
+                                    <input type="date" autocomplete="off" class="form-control nombres" placeholder=" " name="fec_hechos_reg" id="fec_hechos_reg">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Fecha ultima actualización<span class="text-danger">*</span></label>
                                     <input type="date" autocomplete="off" class="form-control nombres" placeholder=" " name="fec_ult_act_reg" id="fec_ult_act_reg">
                                 </div>
                             </div>
@@ -133,7 +139,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="form-group">
                                     <label>Descripción de la fecha actualización<span class="text-danger">*</span></label>
                                     <div class="form-group">
-                                        <textarea class="form-control" name="descrip_ult_act_reg" id="descrip_ult_act_reg" cols="30" rows="5"></textarea>
+                                        <textarea class="form-control" style="text-transform:uppercase" name="descrip_ult_act_reg" id="descrip_ult_act_reg" cols="30" rows="5"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -141,7 +147,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="form-group">
                                     <label>Estado del proceso</label>
                                     <div class="form-group">
-                                        <textarea class="form-control" name="est_proc_reg" id="est_proc_reg" cols="30" rows="5"></textarea>
+                                        <textarea class="form-control" style="text-transform:uppercase" name="est_proc_reg" id="est_proc_reg" cols="30" rows="5"></textarea>
                                     </div>
                                 </div>
                             </div>

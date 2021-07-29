@@ -10,74 +10,109 @@ class penalControlador extends penalModelo
     /* controlador agregar proceso penal*/
     public function agregar_proc_penal_controlador()
     {
-        $rol_nombre = strtoupper(mainModel2::limpiar_cadena($_POST['rol_nombre_reg']));
-        $descrip = strtoupper(mainModel2::limpiar_cadena($_POST['rol_descrip_reg']));
-       
+        $n_exp_i = strtoupper(mainModel2::limpiar_cadena($_POST['n_exp_i_reg']));
+        $nom_procesado = strtoupper(mainModel2::limpiar_cadena($_POST['nombre_c_reg']));
+        $delitos = strtoupper(mainModel2::limpiar_cadena($_POST['delitos_reg']));
+        $victimas = strtoupper(mainModel2::limpiar_cadena($_POST['victimas_reg']));
+        $fiscalia = mainModel2::limpiar_cadena($_POST['fiscalia_reg']);
+        $juzg_tribu = mainModel2::limpiar_cadena($_POST['juzg_tribu_reg']);
+        $exp_j = strtoupper(mainModel2::limpiar_cadena($_POST['exp_j_reg']));
+        $est_lab = mainModel2::limpiar_cadena($_POST['est_lab_reg']);
+        $descrip_est = strtoupper(mainModel2::limpiar_cadena($_POST['descrip_est_reg']));
+        $fec_hechos = $_POST['fec_hechos_reg'];
+        $fec_ult_a = $_POST['fec_ult_act_reg'];
+        $descrip_ult_a = strtoupper(mainModel2::limpiar_cadena($_POST['descrip_ult_act_reg']));
+        $est_proc = strtoupper(mainModel2::limpiar_cadena($_POST['est_proc_reg']));
+        $oficio = strtoupper(mainModel2::limpiar_cadena($_POST['oficio_reg']));
+
+
 
         /*comprobar campos vacios*/
-        if ($rol_nombre == "" ) {
+        if ($n_exp_i == "" || $nom_procesado == "" || $delitos == "" || $victimas == "" || $fiscalia == "" || $juzg_tribu == "" || $exp_j == "" || $fec_hechos == "" || $fec_ult_a == "" || $descrip_ult_a == "" || $est_proc == "" || $oficio == "") {
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                "Texto" => "CAMPO NOMBRE ROL VACÍO ",
+                "Texto" => "NO HAS COMPLETADO TODOS LOS CAMPOS QUE SON OBLIGATORIOS",
                 "Tipo" => "error"
             ];
             echo json_encode($alerta);
             exit();
         }
 
-        if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚáéíóúñÑ ]{3,100}", $rol_nombre)) {
+        if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚáéíóúñÑ ]{10,100}", $nom_procesado)) {
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                "Texto" => "EL CAMPO NOMBRE ROL SOLO DEBE INCLUIR LETRAS",
+                "Texto" => "EL CAMPO NOMBRE COMPLETO DEL PROCESADO SOLO DEBE INCLUIR LETRAS",
                 "Tipo" => "error"
             ];
             echo json_encode($alerta);
             exit();
         }
-        if ($descrip != "") {
-            if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚáéíóúñÑ0-9 ]{3,100}", $descrip)) {
-                $alerta = [
-                    "Alerta" => "simple",
-                    "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                    "Texto" => "EL CAMPO DESCRIPCIÓN SOLO PUEDE INCLUIR LETRAS Y NUMEROS",
-                    "Tipo" => "error"
-                ];
-                echo json_encode($alerta);
-                exit();
-            }
+        if (mainModel2::verificar_datos("[0-9-]{13}", $n_exp_i)) {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "EL NUMERO DE EXPEDIENTE INTERNO NO CUMPLE CON FORMATO SOLICITADO DEBE DE CONTENER 13 CARACTERES",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
         }
+        if (mainModel2::verificar_datos("[0-9-]{8}", $oficio)) {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "EL OFICIO DE SOLICITUD DE DIDADPOL NO CUMPLE CON FORMATO SOLICITADO DEBE DE CONTENER 8 CARACTERES",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        }
+        $oficio = "DIDADPOL D-" . $oficio;
+
         /*validar rol*/
-        $check_rol = mainModel2::ejecutar_consulta_simple("SELECT rol_nombre FROM tbl_rol WHERE rol_nombre='$rol_nombre'");
-        if ($check_rol->rowCount() > 0) {
+        $check_exp = mainModel2::ejecutar_consulta_simple("SELECT n_exp_interno FROM tbl_proc_penal WHERE n_exp_interno='$n_exp_i'");
+        if ($check_exp->rowCount() > 0) {
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                "Texto" => "EL ROL YA ESTÁ REGISTRADO",
+                "Texto" => "EL EXPEDIENTE INTERNO YA ESTÁ REGISTRADO",
                 "Tipo" => "error"
             ];
             echo json_encode($alerta);
             exit();
         }
 
-        $datos_rol_reg = [
-            "rol" => $rol_nombre,
-            "descrip" => $descrip
+        $datos_proc_penal_reg = [
+            "n_exp_interno" => $n_exp_i,
+            "nombre_procesado" => $nom_procesado,
+            "delitos" => $delitos,
+            "victimas" => $victimas,
+            "fiscalia_id" => $fiscalia,
+            "juzg_tribu_id" => $juzg_tribu,
+            "exp_judicial" => $exp_j,
+            "est_lab_id" => $est_lab,
+            "descrip_est_lab" => $descrip_est,
+            "fec_hechos" => $fec_hechos,
+            "fec_ultima_act" => $fec_ult_a,
+            "descrip_ultima_act" => $descrip_ult_a,
+            "est_proceso" => $est_proc,
+            "oficio_solicitud" => $oficio
         ];
-        $agregar_rol = rolModelo::agregar_rol_modelo($datos_rol_reg);
-        if ($agregar_rol->rowCount() == 1) {
+        $agregar_proc_penal = penalModelo::agregar_proc_penal_modelo($datos_proc_penal_reg);
+        if ($agregar_proc_penal->rowCount() == 1) {
             $alerta = [
                 "Alerta" => "limpiar",
-                "Titulo" => "ROL REGISTRADO",
-                "Texto" => "LOS DATOS DEL ROL SE HAN REGISTRADO CON ÉXITO",
+                "Titulo" => "PROCESO PENAL REGISTRADO",
+                "Texto" => "LOS DATOS DEL PROCESO PENAL SE HAN REGISTRADO CON ÉXITO",
                 "Tipo" => "success"
             ];
         } else {
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                "Texto" => "NO SE HA PODIDO REGISTRAR EL ROL",
+                "Texto" => "NO SE HA PODIDO REGISTRAR EL PROCESO PENAL",
                 "Tipo" => "error"
             ];
         }
@@ -87,7 +122,7 @@ class penalControlador extends penalModelo
     public function listar_exp_penal_controlador()
     {
         $tabla = '';
-        $consulta = "SELECT p.proc_penal_id, p.n_exp_interno, p.nombre_procesado, p.delitos, p.victimas, f.descrip_fiscalia, j.descrip_juzg_tribu, p.exp_judicial, e.descrip_est_lab, p.fec_hechos, p.fec_ultima_act, p.descrip_ultima_act, p.est_proceso, p.oficio_solicitud FROM tbl_proc_penal p INNER JOIN tbl_fiscalia f ON p.fiscalia_id = f.fiscalia_id INNER JOIN tbl_juzg_tribu j ON j.juzg_tribu_id = p.juzg_tribu_id INNER JOIN tbl_est_lab e ON e.est_lab_id = p.est_lab_id";
+        $consulta = "SELECT p.proc_penal_id, p.n_exp_interno, p.nombre_procesado, p.delitos, p.victimas, f.descrip_fiscalia, j.descrip_juzg_tribu, p.exp_judicial, e.descrip_est_l, p.descrip_est_lab, p.fec_hechos, p.fec_ultima_act, p.descrip_ultima_act, p.est_proceso, p.oficio_solicitud FROM tbl_proc_penal p INNER JOIN tbl_fiscalia f ON p.fiscalia_id = f.fiscalia_id INNER JOIN tbl_juzg_tribu j ON j.juzg_tribu_id = p.juzg_tribu_id INNER JOIN tbl_est_lab e ON e.est_lab_id = p.est_lab_id";
         $conexion = mainModel2::conectar();
 
         $datos = $conexion->query($consulta);
@@ -103,23 +138,11 @@ class penalControlador extends penalModelo
         <br><br>
         <table id="example1" class=" table table-striped table-bordered">
 
-            <thead style="vertical-align:middle;">
+            <thead>
                 <tr>
-                <th style="vertical-align:middle;">N° EXPEDIENTE
-                INTERNO</th>
-                <th style="vertical-align:middle;">NOMBRE DEL PROCESADO</th>
-                <th style="vertical-align:middle;">DELITO(S)</th>
-                <th style="vertical-align:middle;">VICTIMA(S)</th>
-                <th style="vertical-align:middle;">FISCALIA</th>
-                <th style="vertical-align:middle;">JUZGADO/TRIBUNAL</th>
-                <th style="vertical-align:middle;">EXPEDIENTE JUDICIAL</th>
-                <th style="vertical-align:middle;">ESTADO LABORAL</th>
-                <th style="vertical-align:middle;">DESCRIPCION DE ESTADO LABORAL</th>
-                <th style="vertical-align:middle;">FECHA DE LOS HECHOS</th>
-                <th style="vertical-align:middle;">FECHA DE LA ULTIMA ACTUALIZACIÓN</th>
-                <th style="vertical-align:middle;">DESCRIPCION ULTIMA ACTUALIZACIÓN/th>
-                <th style="vertical-align:middle;">ESTADO DEL PROCESO</th>
-                <th style="vertical-align:middle;">OFICIO DE SOLICITUD DE DIDADPOL</th>
+                <th style="vertical-align:middle;text-align:center;">N° EXPEDIENTE INTERNO</th>
+                <th style="vertical-align:middle;text-align:center;">NOMBRE DEL PROCESADO</th>
+                
                 <th style="vertical-align:middle;">ACCIONES</th>
                 </tr>
             </thead>
@@ -127,30 +150,13 @@ class penalControlador extends penalModelo
 
         foreach ($datos as $rows) {
             $tabla .= '<tr>
-                <td style="font-size: 18px;"><span class="badge badge badge-dark">' . $rows['n_exp_interno'] . '</span></td>';
+                <td style="font-size: 18px;text-align:center;"><span class="badge badge badge-dark">' . $rows['n_exp_interno'] . '</span></td>';
             $tabla .= '<td class="text-center">' . $rows['nombre_procesado'] . '</td>';
 
-            $tabla .= '<td class="text-center">' . $rows['delitos'] . '</td>';
-
-            $tabla .= '<td class="text-center">' . $rows['victimas'] . '</td>';
-
-            $tabla .= '<td class="text-center">' . $rows['descrip_fiscalia'] . '</td>';
-
-            $tabla .= '<td class="text-center">' . $rows['descrip_juzg_tribu'] . '</td>';
-
-            $tabla .= '<td class="text-center">' . $rows['exp_judicial'] . '</td>';
-
-            $tabla .= '<td class="text-center">' . date('d/m/Y', strtotime($rows['fec_hechos'])) . '</td>
-                <td class="text-center">' . date('d/m/Y', strtotime($rows['fec_ultima_act'])) . '</td>';
-
-            $tabla .= '<td class="text-center">' . $rows['descrip_ultima_act'] . '</td>';
-
-            $tabla .= '<td class="text-center">' . $rows['est_proceso'] . '</td>';
-
-            $tabla .= '<td class="text-center">' . $rows['oficio_solicitud'] . '</td>';
 
             $tabla .= '  <td>
                 <div class="row">
+                <a href="' . SERVERURL . 'ver-info-proc-penal/' . mainModel2::encryption($rows['proc_penal_id']) . '" class="btn btn-dark btn-sm" title="Ver información completa" style="margin: 0 auto;"><i class="fas fa-eye"></i></a>
                     <a href="' . SERVERURL . 'actualizar-proc-penal/' . mainModel2::encryption($rows['proc_penal_id']) . '" class="btn btn-warning btn-sm" title="Editar" style="margin: 0 auto;">
                         <i class="fas fa-edit"></i>
                     </a>
@@ -163,19 +169,19 @@ class penalControlador extends penalModelo
         </div>';
         return $tabla;
     }
-      /* controlador actualizar proceso penal*/
+    /* controlador actualizar proceso penal*/
     public  function actualizar_proc_penal_controlador()
     {
         //Recibiendo el id 
-        $id = mainModel2::decryption($_POST['rol_id_up']);
+        $id = mainModel2::decryption($_POST['proc_penal_id_up']);
         $id = mainModel2::limpiar_cadena($id);
         //comprobar el rol
-        $check_rol = mainModel2::ejecutar_consulta_simple("SELECT * FROM tbl_rol WHERE rol_id=$id");
+        $check_rol = mainModel2::ejecutar_consulta_simple("SELECT * FROM tbl_proc_penal WHERE proc_penal_id=$id");
         if ($check_rol->rowCount() <= 0) {
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                "Texto" => "CAMPO NOMBRE ROL VACÍO",
+                "Texto" => "PROCESO PENAL NO EXISTE",
                 "Tipo" => "error"
             ];
             echo json_encode($alerta);
@@ -184,55 +190,105 @@ class penalControlador extends penalModelo
             $campos = $check_rol->fetch();
         }
 
-        $rol_nombre = strtoupper(mainModel2::limpiar_cadena($_POST['rol_nombre_up']));
-        $descrip = strtoupper(mainModel2::limpiar_cadena($_POST['rol_descrip_up']));
-        if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚáéíóúñÑ ]{3,100}", $rol_nombre)) {
+        $n_exp_i = strtoupper(mainModel2::limpiar_cadena($_POST['n_exp_i_up']));
+        $nom_procesado = strtoupper(mainModel2::limpiar_cadena($_POST['nombre_c_up']));
+        $delitos = strtoupper(mainModel2::limpiar_cadena($_POST['delitos_up']));
+        $victimas = strtoupper(mainModel2::limpiar_cadena($_POST['victimas_up']));
+        $fiscalia = mainModel2::limpiar_cadena($_POST['fiscalia_up']);
+        $juzg_tribu = mainModel2::limpiar_cadena($_POST['juzg_tribu_up']);
+        $exp_j = strtoupper(mainModel2::limpiar_cadena($_POST['exp_j_up']));
+        $est_lab = mainModel2::limpiar_cadena($_POST['est_lab_up']);
+        $descrip_est = strtoupper(mainModel2::limpiar_cadena($_POST['descrip_est_up']));
+        $fec_hechos = $_POST['fec_hechos_up'];
+        $fec_ult_a = $_POST['fec_ult_act_up'];
+        $descrip_ult_a = strtoupper(mainModel2::limpiar_cadena($_POST['descrip_ult_act_up']));
+        $est_proc = strtoupper(mainModel2::limpiar_cadena($_POST['est_proc_up']));
+        $oficio = strtoupper(mainModel2::limpiar_cadena($_POST['oficio_up']));
+
+        /*comprobar campos vacios*/
+        if ($n_exp_i == "" || $nom_procesado == "" || $delitos == "" || $victimas == "" || $fiscalia == "" || $juzg_tribu == "" || $exp_j == "" || $fec_hechos == "" || $fec_ult_a == "" || $descrip_ult_a == "" || $est_proc == "" || $oficio == "") {
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                "Texto" => "EL CAMPO NOMBRE ROL SOLO DEBE INCLUIR LETRAS",
+                "Texto" => "NO HAS COMPLETADO TODOS LOS CAMPOS QUE SON OBLIGATORIOS",
                 "Tipo" => "error"
             ];
             echo json_encode($alerta);
             exit();
         }
-        if ($descrip != "") {
-            if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚáéíóúñÑ0-9 ]{3,100}", $descrip)) {
+
+        if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚáéíóúñÑ ]{10,100}", $nom_procesado)) {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "EL CAMPO NOMBRE COMPLETO DEL PROCESADO SOLO DEBE INCLUIR LETRAS",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        }
+        /*validar DNI*/
+
+        if (mainModel2::verificar_datos("[0-9-]{13}", $n_exp_i)) {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "EL NUMERO DE EXPEDIENTE INTERNO NO CUMPLE CON FORMATO SOLICITADO DEBE DE CONTENER 13 CARACTERES",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        }
+
+        if (mainModel2::verificar_datos("[0-9-]{8}", $oficio)) {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "EL OFICIO DE SOLICITUD DE DIDADPOL NO CUMPLE CON FORMATO SOLICITADO DEBE DE CONTENER 8 CARACTERES",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        }
+        $oficio = "DIDADPOL D-" . $oficio;
+
+        /*validar rol*/
+        if ($n_exp_i != $campos['n_exp_interno']) {
+            $check_exp = mainModel2::ejecutar_consulta_simple("SELECT n_exp_interno FROM tbl_proc_penal WHERE n_exp_interno='$n_exp_i'");
+            if ($check_exp->rowCount() > 0) {
                 $alerta = [
                     "Alerta" => "simple",
                     "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                    "Texto" => "EL CAMPO DESCRIPCIÓN SOLO PUEDE INCLUIR LETRAS Y NUMEROS",
+                    "Texto" => "EL EXPEDIENTE INTERNO YA ESTÁ REGISTRADO",
                     "Tipo" => "error"
                 ];
                 echo json_encode($alerta);
                 exit();
             }
         }
-        /*validar usuario*/
-        if ($rol_nombre != $campos['rol_nombre']) {
-            $check_user = mainModel2::ejecutar_consulta_simple("SELECT rol_nombre FROM tbl_rol WHERE rol_nombre='$rol_nombre'");
-            if ($check_user->rowCount() > 0) {
-                $alerta = [
-                    "Alerta" => "simple",
-                    "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                    "Texto" => "EL ROL YA ESTÁ REGISTRADO",
-                    "Tipo" => "error"
-                ];
-                echo json_encode($alerta);
-                exit();
-            }
-        }
-        $datos_usuario_up = [
-            "rol" => $rol_nombre,
-            "descrip" => $descrip,
-            "id" => $id
+        $datos_proc_penal_up = [
+            "n_exp_interno" => $n_exp_i,
+            "nombre_procesado" => $nom_procesado,
+            "delitos" => $delitos,
+            "victimas" => $victimas,
+            "fiscalia_id" => $fiscalia,
+            "juzg_tribu_id" => $juzg_tribu,
+            "exp_judicial" => $exp_j,
+            "est_lab_id" => $est_lab,
+            "descrip_est_lab" => $descrip_est,
+            "fec_hechos" => $fec_hechos,
+            "fec_ultima_act" => $fec_ult_a,
+            "descrip_ultima_act" => $descrip_ult_a,
+            "est_proceso" => $est_proc,
+            "oficio_solicitud" => $oficio,
+            "proc_penal_id" => $id,
         ];
 
-        if (rolModelo::actualizar_rol_modelo($datos_usuario_up)) {
+        if (penalModelo::actualizar_proc_penal_modelo($datos_proc_penal_up)) {
             $alerta = [
                 "Alerta" => "recargar",
                 "Titulo" => "ACTUALIZADO CON ÉXITO",
-                "Texto" => "LOS DATOS SE ACTUALIZARON CON ÉXITO",
+                "Texto" => "LOS DATOS DEL PROCESO PENAL SE ACTUALIZARON CON ÉXITO",
                 "Tipo" => "success"
             ];
         } else {
@@ -245,4 +301,11 @@ class penalControlador extends penalModelo
         }
         echo json_encode($alerta);
     }/* fin controlador actualizar usuario */
+    public  function datos_proc_penal_controlador($tipo, $id)
+    {
+        $tipo = mainModel2::limpiar_cadena($tipo);
+        $id = mainModel2::decryption($id);
+        $id = mainModel2::limpiar_cadena($id);
+        return penalModelo::datos_proc_penal_modelo($tipo, $id);
+    }/* fin controlador datos del usuario */
 }
