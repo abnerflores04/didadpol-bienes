@@ -10,7 +10,8 @@ class reportesControlador extends reporteModelo
     public function listar_exp_reportes_invest($filtros)
     {
         $tabla = '';
-        $consulta = "SELECT te.num_exp, tbf.fec_conocimiento, te.fecha_final_exp, te.nombre_investigado, tr.rango_descripcion, ttf.tipo_falta_descrip, tbf.fec_asignacion, te.fecha_final_i_pre, te.diligencias_invest, tep.est_proceso_descrip, te.fecha_final_i, tbf.fec_remision_secretaria, te.observacion FROM tbl_exp_usu teu INNER JOIN tbl_exp te ON teu.exp_id = te.exp_id INNER JOIN tbl_usuario tu ON te.investigador_id = tu.usu_id INNER JOIN tbl_rango tr ON tr.rango_id = te.rango_id INNER JOIN tbl_tipo_falta ttf ON ttf.tipo_falta_id = te.tipo_falta_id INNER JOIN tbl_articulo ta ON ta.tipo_falta_id = ttf.tipo_falta_id INNER JOIN tbl_bitacora_fechas tbf ON tbf.exp_id = te.exp_id INNER JOIN tbl_est_proceso tep ON te.est_proceso_id = tep.est_proceso_id WHERE te.investigador_id = $_SESSION[id_spm] " . $filtros . " GROUP BY te.exp_id, ta.n_art AND ta.art_descrip, ttf.tipo_falta_descrip";
+        /*$consulta = "SELECT te.num_exp, tbf.fec_conocimiento, te.fecha_final_exp, te.nombre_investigado, tr.rango_descripcion, ttf.tipo_falta_descrip, tbf.fec_asignacion, te.fecha_final_i_pre, te.diligencias_invest, tep.est_proceso_descrip, te.fecha_final_i, tbf.fec_remision_secretaria, te.observacion FROM tbl_exp_usu teu INNER JOIN tbl_exp te ON teu.exp_id = te.exp_id INNER JOIN tbl_usuario tu ON te.investigador_id = tu.usu_id INNER JOIN tbl_rango tr ON tr.rango_id = te.rango_id INNER JOIN tbl_tipo_falta ttf ON ttf.tipo_falta_id = te.tipo_falta_id INNER JOIN tbl_articulo ta ON ta.tipo_falta_id = ttf.tipo_falta_id INNER JOIN tbl_bitacora_fechas tbf ON tbf.exp_id = te.exp_id INNER JOIN tbl_est_proceso tep ON te.est_proceso_id = tep.est_proceso_id WHERE te.investigador_id = $_SESSION[id_spm] " . $filtros . " GROUP BY te.exp_id, ta.n_art AND ta.art_descrip, ttf.tipo_falta_descrip";*/
+        $consulta="SELECT te.num_exp, tbf.fec_conocimiento, te.fecha_final_exp, te.nombre_investigado, tr.rango_descripcion, ttf.tipo_falta_descrip, tbf.fec_asignacion, te.fecha_final_i_pre, te.diligencias_invest, tep.est_proceso_descrip, te.fecha_final_i, tbf.fec_remision_secretaria, te.observacion, CONCAT(tu.usu_nombre, ' ', tu.usu_apellido) as nombre FROM  tbl_exp te INNER JOIN tbl_usuario tu ON te.investigador_id = tu.usu_id INNER JOIN tbl_rango tr ON tr.rango_id = te.rango_id INNER JOIN tbl_tipo_falta ttf ON ttf.tipo_falta_id = te.tipo_falta_id  INNER JOIN tbl_bitacora_fechas tbf ON tbf.exp_id = te.exp_id INNER JOIN tbl_est_proceso tep ON te.est_proceso_id = tep.est_proceso_id WHERE te.investigador_id = $_SESSION[id_spm] " . $filtros ;
         $conexion = mainModel2::conectar();
 
         $datos = $conexion->query($consulta);
@@ -89,7 +90,8 @@ class reportesControlador extends reporteModelo
     public function listar_exp_reportes_leg()
     {
         $tabla = '';
-        $consulta = "SELECT te.exp_id,te.num_exp, tbf.fec_conocimiento, te.fecha_final_exp, te.nombre_investigado, tr.rango_descripcion, ttf.tipo_falta_id,ttf.tipo_falta_descrip, ta.n_art, tbf.fec_asigna_legal, te.fecha_aud_desc, te.comparecio, te.fecha_dias_tec_legal, tres.resolve, te.num_resolve, trec.recomen, tbf.fec_devolucion, te.folio, te.remision_mp_tsc, CONCAT(tu.usu_nombre, ' " . "', tu.usu_apellido) AS nombre FROM tbl_exp_usu teu INNER JOIN tbl_exp te ON teu.exp_id = te.exp_id INNER JOIN tbl_usuario tu ON te.tecnico_legal = tu.usu_id INNER JOIN tbl_rango tr ON tr.rango_id = te.rango_id INNER JOIN tbl_tipo_falta ttf ON ttf.tipo_falta_id = te.tipo_falta_id INNER JOIN tbl_exp_art tea ON te.exp_id = tea.exp_id INNER JOIN tbl_articulo ta ON ta.art_id = tea.art_id INNER JOIN tbl_bitacora_fechas tbf ON tbf.exp_id = te.exp_id INNER JOIN tbl_resoluciones tres ON tres.resolve_id = te.resolve_id INNER JOIN tbl_recomen trec ON trec.recomen_id = te.recomen_id WHERE te.tecnico_legal = $_SESSION[id_spm] GROUP BY tea.exp_id, ta.n_art AND ttf.tipo_falta_descrip;";
+        /*$consulta = "SELECT te.exp_id,te.num_exp, tbf.fec_conocimiento, te.fecha_final_exp, te.nombre_investigado, tr.rango_descripcion, ttf.tipo_falta_id,ttf.tipo_falta_descrip, ta.n_art, tbf.fec_asigna_legal, te.fecha_aud_desc, te.comparecio, te.fecha_dias_tec_legal, tres.resolve, te.num_resolve, trec.recomen, tbf.fec_devolucion, te.folio, te.remision_mp_tsc, CONCAT(tu.usu_nombre, ' " . "', tu.usu_apellido) AS nombre FROM tbl_exp_usu teu INNER JOIN tbl_exp te ON teu.exp_id = te.exp_id INNER JOIN tbl_usuario tu ON te.tecnico_legal = tu.usu_id INNER JOIN tbl_rango tr ON tr.rango_id = te.rango_id INNER JOIN tbl_tipo_falta ttf ON ttf.tipo_falta_id = te.tipo_falta_id INNER JOIN tbl_exp_art tea ON te.exp_id = tea.exp_id INNER JOIN tbl_articulo ta ON ta.art_id = tea.art_id INNER JOIN tbl_bitacora_fechas tbf ON tbf.exp_id = te.exp_id INNER JOIN tbl_resoluciones tres ON tres.resolve_id = te.resolve_id INNER JOIN tbl_recomen trec ON trec.recomen_id = te.recomen_id WHERE te.tecnico_legal = $_SESSION[id_spm] GROUP BY tea.exp_id, ta.n_art AND ttf.tipo_falta_descrip;";*/
+        $consulta="SELECT te.exp_id,te.num_exp, tbf.fec_conocimiento, te.fecha_final_exp, te.nombre_investigado, tr.rango_descripcion, ttf.tipo_falta_id,ttf.tipo_falta_descrip, tbf.fec_asigna_legal, te.fecha_aud_desc, te.comparecio, te.fecha_dias_tec_legal, tres.resolve, te.num_resolve, trec.recomen, tbf.fec_devolucion, te.folio, te.remision_mp_tsc, CONCAT(tu.usu_nombre, ' " . "', tu.usu_apellido) AS nombre FROM  tbl_exp te INNER JOIN tbl_usuario tu ON te.tecnico_legal = tu.usu_id INNER JOIN tbl_rango tr ON tr.rango_id = te.rango_id INNER JOIN tbl_tipo_falta ttf ON ttf.tipo_falta_id = te.tipo_falta_id INNER JOIN tbl_bitacora_fechas tbf ON tbf.exp_id = te.exp_id INNER JOIN tbl_resoluciones tres ON tres.resolve_id = te.resolve_id INNER JOIN tbl_recomen trec ON trec.recomen_id = te.recomen_id WHERE te.tecnico_legal = $_SESSION[id_spm]";
         $conexion = mainModel2::conectar();
         $datos = $conexion->query($consulta);
         $datos = $datos->fetchAll();
@@ -123,6 +125,11 @@ class reportesControlador extends reporteModelo
             <tbody>';
 
         foreach ($datos as $rows) {
+            $sCompa = "No";
+            
+            if ($rows['comparecio'] == 1) {
+                $sCompa = "Si";
+            }
             $tabla .= '<tr>
                 <td style="font-size: 18px;"><span class="badge badge badge-dark">' . $rows['num_exp'] . '</span></td>';
 
@@ -158,7 +165,7 @@ class reportesControlador extends reporteModelo
             $tabla .= $rows['fecha_aud_desc']   . '</td>';
 
             $tabla .= '<td class=" text-center">';
-            $tabla .= $rows['comparecio']   . '</td>';
+            $tabla .= $sCompa   . '</td>';
 
             $tabla .= '<td class=" text-center">';
             $tabla .= $rows['fecha_dias_tec_legal']   . '</td>';
