@@ -127,7 +127,7 @@ class usuarioControlador2 extends usuarioModelo2
         $correo_i = $usuario . '@didadpol.gob.hn';
         $estado = mainModel2::limpiar_cadena($_POST['usu_estado_up']);
         /*verificando datos vacios*/
-        if ($nombres == "" || $apellidos == "" || $usuario == "" || $correo_p == "" || $rol == "" || $estado == "" || $dni == "" || $puesto == "" || $seccion == "" || $unidad == "") {
+        if ($nombres == "" || $apellidos == "" || $usuario == "" || $correo_p == "" || $rol == "" || $estado == "" || $dni == "" || $puesto == "" || $seccion == "") {
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",

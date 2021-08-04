@@ -44,7 +44,7 @@ if (!isset($_SESSION['id_spm'])) {
                 ?>
                     <!-- /.card-body -->
                     <div class="card-body">
-                        
+
                         <div class="row">
                             <div class="col">
                                 <p class="text-danger ">Campos obligatorios *</p>
@@ -262,14 +262,18 @@ if (!isset($_SESSION['id_spm'])) {
 
                                     </div>
                                     <div class="col">
-                                    <div class="checkbox checkbox-primary pull-left p-t-0">
-                                        <label for="si">Si</label>
-                                            <input type="radio" name="comparecio_up" id="si" value="1" <?php if ($campos['comparecio'] == 1) {  echo 'checked'; }?> disabled>
+                                        <div class="checkbox checkbox-primary pull-left p-t-0">
+                                            <label for="si">Si</label>
+                                            <input type="radio" name="comparecio_up" id="si" value="1" <?php if ($campos['comparecio'] == 1) {
+                                                                                                            echo 'checked';
+                                                                                                        } ?> disabled>
                                             <label for="no">No</label>
-                                            <input type="radio" name="comparecio_up" id="no" value="0" <?php if ($campos['comparecio'] == 0) {  echo 'checked'; } ?> disabled>
+                                            <input type="radio" name="comparecio_up" id="no" value="0" <?php if ($campos['comparecio'] == 0) {
+                                                                                                            echo 'checked';
+                                                                                                        } ?> disabled>
                                         </div>
                                     </div>
-                                   
+
                                 </div>
 
 
@@ -353,15 +357,19 @@ if (!isset($_SESSION['id_spm'])) {
 
 
                                 <div class="col-6 text-center">
-                                <div class="col">
+                                    <div class="col">
                                         <label for="text">Ministerio Público y/o Tribunal Supremo de Cuentas</label>
                                     </div>
                                     <div class="col">
                                         <div class="checkbox checkbox-primary pull-left p-t-0">
                                             <label for="si">Si</label>
-                                            <input type="radio" name="remi_mp_tsc_up" id="si" value="1" <?php if ($campos['remision_mp_tsc'] == 1) {  echo 'checked'; }?> disabled>
+                                            <input type="radio" name="remi_mp_tsc_up" id="si" value="1" <?php if ($campos['remision_mp_tsc'] == 1) {
+                                                                                                            echo 'checked';
+                                                                                                        } ?> disabled>
                                             <label for="no">No</label>
-                                            <input type="radio" name="remi_mp_tsc_up" id="no" value="0" <?php if ($campos['remision_mp_tsc'] == 0) {  echo 'checked'; } ?> disabled>
+                                            <input type="radio" name="remi_mp_tsc_up" id="no" value="0" <?php if ($campos['remision_mp_tsc'] == 0) {
+                                                                                                            echo 'checked';
+                                                                                                        } ?> disabled>
 
 
                                             <label for="checkbox-mp_tsc_up"></label>
@@ -1056,6 +1064,21 @@ if (!isset($_SESSION['id_spm'])) {
                                 </select>
                             </div>
                         </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="">Estado  Penal</label>
+                                <select class="form-control" name="est_penal_id" id="est_penal_id">
+                                    <option value="">Seleccione un estado</option>
+                                    <?php
+                                    $resultado = $conexion->query("SELECT * FROM tbl_est_penal");
+                                    while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
+                                    ?>
+                                        <option value="<?php echo $registro['est_penal_id']; ?>"><?php echo $registro['descrip_est_penal']; ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -1171,9 +1194,9 @@ if (!isset($_SESSION['id_spm'])) {
                 <!-- Modal body -->
                 <div class="modal-body">
                     <div class="row">
-                   
+
                         <input type="hidden" autocomplete="off" class="form-control" name="fecha_final_exp_up" id="fecha_final_exp_up" value="<?php echo $campos['fecha_final_exp']; ?>" readonly>
-                                    
+
 
                         <input type="hidden" class="form-control" name="bit_id_50" id="bit_id_50" value="<?php echo $campos['bitacora_id']; ?>">
                         <input type="hidden" class="form-control" name="exp_id" id="exp_id" value="<?php echo $campos['exp_id']; ?>">

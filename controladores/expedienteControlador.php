@@ -501,6 +501,7 @@ class expedienteControlador extends expedienteModelo
         $bit_id = mainModel2::limpiar_cadena($_POST['bit_id_9']);
         $fec_estado = $_POST['fec_est_proceso'];
         $est_proceso_id = mainModel2::limpiar_cadena($_POST['est_proceso_id']);
+        $est_penal_id = mainModel2::limpiar_cadena($_POST['est_penal_id']);
         if ($est_proceso_id==6) {
             $proceso_id = 19;
         } else {
@@ -515,6 +516,17 @@ class expedienteControlador extends expedienteModelo
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
                 "Texto" => "CAMPO VACIO, POR FAVOR SELECCIONE UN ESTADO PROCESO",
+                "Tipo" => "error"
+            ];
+            echo json_encode($alerta);
+            exit();
+        }
+        /*comprobar campos vacios*/
+        if ($est_penal_id == "") {
+            $alerta = [
+                "Alerta" => "simple",
+                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                "Texto" => "CAMPO VACIO, POR FAVOR SELECCIONE UN ESTADO PENAL",
                 "Tipo" => "error"
             ];
             echo json_encode($alerta);
@@ -543,7 +555,8 @@ class expedienteControlador extends expedienteModelo
             "proceso_id" => $proceso_id,
             "est_proceso_id" => $est_proceso_id,
             "exp_id" => $exp_id,
-            "usu_id" => $usu_id
+            "usu_id" => $usu_id,
+            "est_penal_id" => $est_penal_id
         ];
 
         $agregar_proc = expedienteModelo::agregar_proceso_estado_modelo($datos_proc_up);
@@ -1479,7 +1492,7 @@ class expedienteControlador extends expedienteModelo
 
             $tabla .= '  <td>
                 <div class="row">
-                <a href="' . SERVERURL . 'ver-info-exp-i/' . mainModel2::encryption($rows['exp_id']) . '" class="btn btn-dark btn-sm" title="Ver información completa" style="margin: 0 auto;"><i class="fas fa-eye"></i></a>
+                <a href="' . SERVERURL . 'ver-info-exp/' . mainModel2::encryption($rows['exp_id']) . '" class="btn btn-dark btn-sm" title="Ver información completa" style="margin: 0 auto;"><i class="fas fa-eye"></i></a>
                     <a href="' . SERVERURL . 'actualizar-exp-i/' . mainModel2::encryption($rows['exp_id']) . '" class="btn btn-warning btn-sm" title="Editar" style="margin: 0 auto;">
                         <i class="fas fa-edit"></i>
                     </a>

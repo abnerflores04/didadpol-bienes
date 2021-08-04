@@ -41,6 +41,13 @@ if (!isset($_SESSION['id_spm'])) {
                     <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/penalAjax.php" method="POST" data-form="update" autocomplete="off">
                         <div class="row">
                         <input type="hidden" name="proc_penal_id_up" value="<?php echo $pagina[1];?>">
+                        <div class="col-sm-6">
+                                <!-- text input -->
+                                <div class="form-group">
+                                    <label>Nombres Completo del procesado</label>
+                                    <input type="text" autocomplete="off" style="text-transform:uppercase" class="form-control apellidos" placeholder="" name="nombre_c_up" id="nombre_c_up" value="<?php echo $campos['nombre_investigado']; ?>" readonly>
+                                </div>
+                            </div>
                             <div class="col-sm-6">
                                 <label>N° de expediente interno<span class="text-danger">*</span></label>
                                 <!-- /.card-body 
@@ -52,13 +59,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <input type="text" autocomplete="off" style="text-transform:uppercase" class="form-control" placeholder="0000-0000-000" name="n_exp_i_up" id="n_exp_i_up" value="<?php echo $campos['n_exp_interno']; ?>">
                             </div>
 
-                            <div class="col-sm-6">
-                                <!-- text input -->
-                                <div class="form-group">
-                                    <label>Nombres Completo del procesado <span class="text-danger">*</span></label>
-                                    <input type="text" autocomplete="off" style="text-transform:uppercase" class="form-control apellidos" placeholder="" name="nombre_c_up" id="nombre_c_up" value="<?php echo $campos['nombre_procesado']; ?>">
-                                </div>
-                            </div>
+                            
 
                             <div class="col-sm-12">
                                 <!-- text input -->

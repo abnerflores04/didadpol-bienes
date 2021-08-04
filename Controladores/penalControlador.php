@@ -122,27 +122,21 @@ class penalControlador extends penalModelo
     public function listar_exp_penal_controlador()
     {
         $tabla = '';
-        $consulta = "SELECT p.proc_penal_id, p.n_exp_interno, p.nombre_procesado, p.delitos, p.victimas, f.descrip_fiscalia, j.descrip_juzg_tribu, p.exp_judicial, e.descrip_est_l, p.descrip_est_lab, p.fec_hechos, p.fec_ultima_act, p.descrip_ultima_act, p.est_proceso, p.oficio_solicitud FROM tbl_proc_penal p INNER JOIN tbl_fiscalia f ON p.fiscalia_id = f.fiscalia_id INNER JOIN tbl_juzg_tribu j ON j.juzg_tribu_id = p.juzg_tribu_id INNER JOIN tbl_est_lab e ON e.est_lab_id = p.est_lab_id";
+        //$consulta = "SELECT p.proc_penal_id,te.num_exp, p.n_exp_interno, p.nombre_procesado, p.delitos, p.victimas, f.descrip_fiscalia, j.descrip_juzg_tribu, p.exp_judicial, e.descrip_est_l, p.descrip_est_lab, p.fec_hechos, p.fec_ultima_act, p.descrip_ultima_act, p.est_proceso, p.oficio_solicitud FROM tbl_proc_penal p INNER JOIN tbl_fiscalia f ON p.fiscalia_id = f.fiscalia_id INNER JOIN tbl_juzg_tribu j ON j.juzg_tribu_id = p.juzg_tribu_id INNER JOIN tbl_est_lab e ON e.est_lab_id = p.est_lab_id INNER JOIN tbl_exp te ON p.exp_id=te.exp_id";
+        $consulta='SELECT tpp.proc_penal_id, te.num_exp, te.nombre_investigado, tpp.n_exp_interno,te.exp_id from tbl_proc_penal tpp INNER join tbl_exp te on te.exp_id=tpp.exp_id';
         $conexion = mainModel2::conectar();
 
         $datos = $conexion->query($consulta);
         $datos = $datos->fetchAll();
 
         $tabla .= '<div class="table-responsive">
-
-        <a href="' . SERVERURL . 'registro-proc-penales/" class="btn btn-primary">
-            <i class="fas fa-plus"></i> Nuevo proc penal
-        </a>
-
-
         <br><br>
         <table id="example1" class=" table table-striped table-bordered">
 
             <thead>
                 <tr>
-                <th style="vertical-align:middle;text-align:center;">N° EXPEDIENTE INTERNO</th>
+                <th style="vertical-align:middle;text-align:center;">N° EXPEDIENTE</th>
                 <th style="vertical-align:middle;text-align:center;">NOMBRE DEL PROCESADO</th>
-                
                 <th style="vertical-align:middle;">ACCIONES</th>
                 </tr>
             </thead>
@@ -150,13 +144,11 @@ class penalControlador extends penalModelo
 
         foreach ($datos as $rows) {
             $tabla .= '<tr>
-                <td style="font-size: 18px;text-align:center;"><span class="badge badge badge-dark">' . $rows['n_exp_interno'] . '</span></td>';
-            $tabla .= '<td class="text-center">' . $rows['nombre_procesado'] . '</td>';
-
-
+            <td style="font-size: 18px;text-align:center;"><span class="badge badge badge-dark">' . $rows['num_exp'] . '</span></td><td class="text-center">' . $rows['nombre_investigado'] . '</td>';
             $tabla .= '  <td>
                 <div class="row">
-                <a href="' . SERVERURL . 'ver-info-proc-penal/' . mainModel2::encryption($rows['proc_penal_id']) . '" class="btn btn-dark btn-sm" title="Ver información completa" style="margin: 0 auto;"><i class="fas fa-eye"></i></a>
+                <a href="' . SERVERURL . 'ver-info-exp-p/' . mainModel2::encryption($rows['exp_id']) . '" class="btn btn-secondary btn-sm" title="Ver información completa del expediente" style="margin: 0 auto;"><i class="fas fa-folder-open"></i></a>
+                <a href="' . SERVERURL . 'ver-info-proc-penal/' . mainModel2::encryption($rows['proc_penal_id']) . '" class="btn btn-dark btn-sm" title="Ver información completa del proceso penal" style="margin: 0 auto;"><i class="fas fa-eye"></i></a>
                     <a href="' . SERVERURL . 'actualizar-proc-penal/' . mainModel2::encryption($rows['proc_penal_id']) . '" class="btn btn-warning btn-sm" title="Editar" style="margin: 0 auto;">
                         <i class="fas fa-edit"></i>
                     </a>
@@ -191,7 +183,6 @@ class penalControlador extends penalModelo
         }
 
         $n_exp_i = strtoupper(mainModel2::limpiar_cadena($_POST['n_exp_i_up']));
-        $nom_procesado = strtoupper(mainModel2::limpiar_cadena($_POST['nombre_c_up']));
         $delitos = strtoupper(mainModel2::limpiar_cadena($_POST['delitos_up']));
         $victimas = strtoupper(mainModel2::limpiar_cadena($_POST['victimas_up']));
         $fiscalia = mainModel2::limpiar_cadena($_POST['fiscalia_up']);
@@ -206,7 +197,7 @@ class penalControlador extends penalModelo
         $oficio = strtoupper(mainModel2::limpiar_cadena($_POST['oficio_up']));
 
         /*comprobar campos vacios*/
-        if ($n_exp_i == "" || $nom_procesado == "" || $delitos == "" || $victimas == "" || $fiscalia == "" || $juzg_tribu == "" || $exp_j == "" || $fec_hechos == "" || $fec_ult_a == "" || $descrip_ult_a == "" || $est_proc == "" || $oficio == "") {
+        if ($n_exp_i == ""  || $delitos == "" || $victimas == "" || $fiscalia == "" || $juzg_tribu == "" || $exp_j == "" || $fec_hechos == "" || $fec_ult_a == "" || $descrip_ult_a == "" || $est_proc == "" || $oficio == "") {
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
@@ -217,16 +208,7 @@ class penalControlador extends penalModelo
             exit();
         }
 
-        if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚáéíóúñÑ ]{10,100}", $nom_procesado)) {
-            $alerta = [
-                "Alerta" => "simple",
-                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                "Texto" => "EL CAMPO NOMBRE COMPLETO DEL PROCESADO SOLO DEBE INCLUIR LETRAS",
-                "Tipo" => "error"
-            ];
-            echo json_encode($alerta);
-            exit();
-        }
+        
         /*validar DNI*/
 
         if (mainModel2::verificar_datos("[0-9-]{13}", $n_exp_i)) {
@@ -268,7 +250,6 @@ class penalControlador extends penalModelo
         }
         $datos_proc_penal_up = [
             "n_exp_interno" => $n_exp_i,
-            "nombre_procesado" => $nom_procesado,
             "delitos" => $delitos,
             "victimas" => $victimas,
             "fiscalia_id" => $fiscalia,
