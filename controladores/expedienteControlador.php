@@ -130,15 +130,15 @@ class expedienteControlador extends expedienteModelo
 
 
         $datosExpedienteReg = [
-            "nombre_denunciante" => $nombre_d,
-            "identidad_denunciante" => $identidad_d,
-            "genero" => $sexo,
-            "depto" => $depto,
-            "municipio" => $municipio,
+            "nombre_denunciante" => $nombreD,
+            "identidad_denunciante" => $identidadD,
+            "genero" => $sexoD,
+            "depto" => $deptoD,
+            "municipio" => $municipioD,
             "n_exp" => $nExp,
-            "nombre_investigado" => $investigado,
-            "rango" => $rango,
-            "tipo_falta" => $tipo_falta,
+            "nombre_investigado" => $nombreD,
+            "rango" => $grado,
+            "tipo_falta" => $tipoFalta,
             "fecha_inicio_exp" => $fecInicioExp,
             "fecha_final_exp" => $fecFinalExp,
             "fecha_final_i_pre" => $fecFinalIPre,
@@ -146,10 +146,10 @@ class expedienteControlador extends expedienteModelo
             "est_proceso_id" => $estado
         ];
 
-        $agregarExpediente =  expedienteModelo::agregar_proceso_denuncia_modelo($datos_expediente_reg);
+        $agregarExpediente =  expedienteModelo::agregar_proceso_denuncia_modelo($datosExpedienteReg);
         // CAPTURAMOS EL VALOR DE EL ULTIMO REGISTRO DE LA TABLA EXPEDIENTES
-        $consultar_id = mainModel2::ejecutar_consulta_simple("SELECT exp_id FROM tbl_exp ORDER BY exp_id DESC LIMIT 1");
-        if ($consultar_id->rowCount() <= 0) {
+        $consultarId = mainModel2::ejecutar_consulta_simple("SELECT exp_id FROM tbl_exp ORDER BY exp_id DESC LIMIT 1");
+        if ($consultarId->rowCount() <= 0) {
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
@@ -159,15 +159,15 @@ class expedienteControlador extends expedienteModelo
             echo json_encode($alerta);
             exit();
         } else {
-            $campos = $consultar_id->fetch();
+            $campos = $consultarId->fetch();
         }
-        $exp_id = $campos['exp_id'];
+        $expId = $campos['exp_id'];
         //insertamos los articulos en su respectiva tabla
         session_start();
-        $agregar_articulos = expedienteModelo::agregar_exp_art_modelo($e, $articulo);
-        $agregar_exp_usu = expedienteModelo::agregar_exp_usu_modelo($exp_id, $_SESSION['id_spm']);
-        $agregar_b =  expedienteModelo::agregar_bit_fec_cono_modelo($exp_id, $fecha_inicio_exp, $proceso_id);
-        if ($agregar_expediente->rowCount() == 1 && $agregar_articulos && $agregar_b && $agregar_exp_usu) {
+        $agregarArticulos = expedienteModelo::agregar_exp_art_modelo($expId, $articulo);
+        $agregarExpUsu = expedienteModelo::agregar_exp_usu_modelo($expId, $_SESSION['id_spm']);
+        $agregarBit =  expedienteModelo::agregar_bit_fec_cono_modelo($expId, $fecInicioExp, $procesoId);
+        if ($agregarExpediente->rowCount() == 1 && $agregarArticulos && $agregarBit && $agregarExpUsu) {
             $alerta = [
                 "Alerta" => "recargar",
                 "Titulo" => "EXPEDIENTE REGISTRADO",
