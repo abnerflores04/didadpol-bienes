@@ -32,7 +32,8 @@
 <script src="<?php echo SERVERURL; ?>vistas/plugins/select2/js/select2.full.js"></script>
 <script src="<?php echo SERVERURL; ?>vistas/plugins/select2/js/select2.full.js"></script>
 <script src="<?php echo SERVERURL; ?>vistas/dist/js/selectDinamicos2.js"></script>
-<script src="<?php echo SERVERURL; ?>vistas/dist/js/selectMunicipio.js"></script>
+<script src="<?php echo SERVERURL; ?>vistas/dist/js/selectMunicipioD.js"></script>
+<script src="<?php echo SERVERURL; ?>vistas/dist/js/selectMunicipioI.js"></script>
 <script src="<?php echo SERVERURL; ?>vistas/dist/js/selectArticulos.js"></script>
 
 <script>

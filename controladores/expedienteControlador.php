@@ -9,21 +9,30 @@ class expedienteControlador extends expedienteModelo
     /* controlador agregar proceso de denuncia*/
     public function agregar_proceso_denuncia_controlador()
     {
-        $n_exp = mainModel2::limpiar_cadena($_POST['n_exp_reg']);
-        $nombre_d = strtoupper(mainModel2::limpiar_cadena($_POST['nombre_d_reg']));
-        $identidad_d = mainModel2::limpiar_cadena($_POST['identidad_d_reg']);
-        $sexo = mainModel2::limpiar_cadena($_POST['genero_reg']);
-        $depto = mainModel2::limpiar_cadena($_POST['depto_reg']);
-        $municipio = mainModel2::limpiar_cadena($_POST['municipio_reg']);
-        $investigado = mainModel2::limpiar_cadena(strtoupper($_POST['investigado']));
-        $rango = mainModel2::limpiar_cadena($_POST['rango_id_reg']);
-        $tipo_falta = mainModel2::limpiar_cadena($_POST['tipo_falta_reg']);
+        //datos del denunciante
+        $nombreD = mainModel2::limpiar_cadena($_POST['nombre_d_reg']);
+        $identidadD = mainModel2::limpiar_cadena($_POST['identidad_d_reg']);
+        $sexoD = mainModel2::limpiar_cadena($_POST['sexo_d_reg']);
+        $deptoD = mainModel2::limpiar_cadena($_POST['depto_d_reg']);
+        $municipioD = mainModel2::limpiar_cadena($_POST['municipio_d_reg']);
+        //datos del investigado y expediente
+        $nExp = mainModel2::limpiar_cadena($_POST['n_exp_reg']);
+        $fecInicioExp = $_POST['fec_i_exp_reg'];
+        $nombreI = mainModel2::limpiar_cadena($_POST['investigado']);
+        $identidadI= mainModel2::limpiar_cadena($_POST['rango_id_reg']);
+        $edad = mainModel2::limpiar_cadena($_POST['edad_i_reg']);
+        $sexoI = mainModel2::limpiar_cadena($_POST['sexo_d_reg']);
+        $grado = mainModel2::limpiar_cadena($_POST['grado_reg']);
+        $lugarAsig = mainModel2::limpiar_cadena($_POST['lugar_asig_reg']);
+        $deptoI = mainModel2::limpiar_cadena($_POST['depto_i_reg']);
+        $municipioI = mainModel2::limpiar_cadena($_POST['municipio_i_reg']);
+        $tipoFalta = mainModel2::limpiar_cadena($_POST['sexo_d_reg']);
         $articulo = $_POST['articulos_reg'];
-        $fecha_inicio_exp = $_POST['fecha_inicio_exp_reg'];
-        $proceso_id = 1;
+        $tipoIngreso = mainModel2::limpiar_cadena($_POST['tipo_ingreso_reg']);
+        $procesoId = 1;
         $estado = 1;
         /*comprobar campos vacios*/
-        if ($n_exp == "" ||  $municipio == "" ||  $depto == "" ||  $sexo == "" ||  $investigado == "" || $rango == ""  ||   $fecha_inicio_exp == "") {
+        if ($sexoD == "" ||  $deptoD == "" ||  $municipioD == "" ||  $nExp == "" ||  $fecInicioExp == "" || $nombreI == ""  ||   $identidadI == "" ||   $sexoI == "" ||   $grado == "" || $deptoI == "" ||  $municipioI == ""  ||    $tipoFalta == "" ||  $tipoIngreso == "") {
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
@@ -33,42 +42,55 @@ class expedienteControlador extends expedienteModelo
             echo json_encode($alerta);
             exit();
         }
-        if ($nombre_d != '') {
-            if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚáéíóúñÑ ]{3,255}", $nombre_d)) {
+        if ($nombreD != '') {
+            if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚáéíóúñÑ ]{3,255}", $nombreD)) {
                 $alerta = [
                     "Alerta" => "simple",
                     "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                    "Texto" => "EL CAMPO NOMBRE DEL DENUNCIANTE SOLO DEBE INCLUIR LETRAS Y NUMEROS",
+                    "Texto" => "EL CAMPO NOMBRE DEL DENUNCIANTE SOLO DEBE INCLUIR LETRAS",
                     "Tipo" => "error"
                 ];
                 echo json_encode($alerta);
                 exit();
             }
         }
-        if ($identidad_d != '') {
-            if (mainModel2::verificar_datos("[0-9]{13}", $identidad_d)) {
+        if ($nombreI != '') {
+            if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚáéíóúñÑ ]{3,255}", $nombreI)) {
                 $alerta = [
                     "Alerta" => "simple",
                     "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                    "Texto" => "EL DNI DEL DENUNCIANTE NO COINCIDE CON EL FORMATO SOLICITADO",
+                    "Texto" => "EL CAMPO NOMBRE DEL INVESTIGADO SOLO DEBE INCLUIR LETRAS",
                     "Tipo" => "error"
                 ];
                 echo json_encode($alerta);
                 exit();
             }
         }
-
-        if (mainModel2::verificar_datos("[A-ZÁÉÍÓÚáéíóúñÑ ]{3,255}", $investigado)) {
+        if ($identidadD != '') {
+            if (mainModel2::verificar_datos("[0-9]{13}", $identidadD)) {
+                $alerta = [
+                    "Alerta" => "simple",
+                    "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
+                    "Texto" => "EL NÚMERO DE IDENTIDAD DEL DENUNCIANTE NO COINCIDE CON EL FORMATO SOLICITADO",
+                    "Tipo" => "error"
+                ];
+                echo json_encode($alerta);
+                exit();
+            }
+        }
+        if (mainModel2::verificar_datos("[0-9]{13}", $identidadI)) {
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                "Texto" => "EL CAMPO NOMBRE DEL DENUNCIANTE SOLO DEBE INCLUIR LETRAS Y NUMEROS",
+                "Texto" => "EL NÚMERO DE IDENTIDAD DEL INVESTIGADO NO COINCIDE CON EL FORMATO SOLICITADO",
                 "Tipo" => "error"
             ];
             echo json_encode($alerta);
             exit();
         }
-        if (mainModel2::verificar_datos("[0-9-]{15}", $n_exp)) {
+
+       
+        if (mainModel2::verificar_datos("[0-9-]{15}", $nExp)) {
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
@@ -78,10 +100,10 @@ class expedienteControlador extends expedienteModelo
             echo json_encode($alerta);
             exit();
         }
-        $n_exp = "DPL-" . $n_exp;
+        $nExp = "DPL-" . $nExp;
         //VALIDAR QUE NO EXISTA OTRO EXPEDIENTE
         /*validar DNI*/
-        $check_exp = mainModel2::ejecutar_consulta_simple("SELECT num_exp FROM tbl_exp WHERE num_exp='$n_exp'");
+        $check_exp = mainModel2::ejecutar_consulta_simple("SELECT num_exp FROM tbl_exp WHERE num_exp='$nExp'");
         if ($check_exp->rowCount() > 0) {
             $alerta = [
                 "Alerta" => "simple",
@@ -102,30 +124,29 @@ class expedienteControlador extends expedienteModelo
         foreach ($datos as $rows) {
             array_push($feriados, $rows['feriado_fecha']);
         }
+        $fecFinalIPre = mainModel2::addWorkingDays($fecInicioExp, 9, $feriados);
+        $fecFinalI = mainModel2::addWorkingDays($fecInicioExp, 39, $feriados);
+        $fecFinalExp = mainModel2::addWorkingDays($fecInicioExp, 74, $feriados);
 
-        $fecha_final_i_pre = mainModel2::addWorkingDays($fecha_inicio_exp, 9, $feriados);
-        $fecha_final_i = mainModel2::addWorkingDays($fecha_inicio_exp, 39, $feriados);
-        $fecha_final_exp = mainModel2::addWorkingDays($fecha_inicio_exp, 74, $feriados);
 
-
-        $datos_expediente_reg = [
+        $datosExpedienteReg = [
             "nombre_denunciante" => $nombre_d,
             "identidad_denunciante" => $identidad_d,
             "genero" => $sexo,
             "depto" => $depto,
             "municipio" => $municipio,
-            "n_exp" => $n_exp,
+            "n_exp" => $nExp,
             "nombre_investigado" => $investigado,
             "rango" => $rango,
             "tipo_falta" => $tipo_falta,
-            "fecha_inicio_exp" => $fecha_inicio_exp,
-            "fecha_final_exp" => $fecha_final_exp,
-            "fecha_final_i_pre" => $fecha_final_i_pre,
-            "fecha_final_i" => $fecha_final_i,
+            "fecha_inicio_exp" => $fecInicioExp,
+            "fecha_final_exp" => $fecFinalExp,
+            "fecha_final_i_pre" => $fecFinalIPre,
+            "fecha_final_i" => $fecFinalI,
             "est_proceso_id" => $estado
         ];
 
-        $agregar_expediente =  expedienteModelo::agregar_proceso_denuncia_modelo($datos_expediente_reg);
+        $agregarExpediente =  expedienteModelo::agregar_proceso_denuncia_modelo($datos_expediente_reg);
         // CAPTURAMOS EL VALOR DE EL ULTIMO REGISTRO DE LA TABLA EXPEDIENTES
         $consultar_id = mainModel2::ejecutar_consulta_simple("SELECT exp_id FROM tbl_exp ORDER BY exp_id DESC LIMIT 1");
         if ($consultar_id->rowCount() <= 0) {
@@ -143,7 +164,7 @@ class expedienteControlador extends expedienteModelo
         $exp_id = $campos['exp_id'];
         //insertamos los articulos en su respectiva tabla
         session_start();
-        $agregar_articulos = expedienteModelo::agregar_exp_art_modelo($exp_id, $articulo);
+        $agregar_articulos = expedienteModelo::agregar_exp_art_modelo($e, $articulo);
         $agregar_exp_usu = expedienteModelo::agregar_exp_usu_modelo($exp_id, $_SESSION['id_spm']);
         $agregar_b =  expedienteModelo::agregar_bit_fec_cono_modelo($exp_id, $fecha_inicio_exp, $proceso_id);
         if ($agregar_expediente->rowCount() == 1 && $agregar_articulos && $agregar_b && $agregar_exp_usu) {

@@ -1,10 +1,10 @@
 <?php
-    const SERVER="remotemysql.com";
+ const SERVER="remotemysql.com";
     const DB="Ixdno5Cvko";
     const USER="Ixdno5Cvko";
     const PASS="m2bmzoLdMt";
 
-    /*const SERVER="localhost";
+   /* const SERVER="localhost";
     const DB="didadpol";
     const USER="root";
     const PASS=""; */

@@ -204,13 +204,13 @@ if (!isset($_SESSION['id_spm'])) {
                                
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>Fecha inicial de interposición<span class="text-danger">*</span></label>
+                                        <label>Fecha interposición RR<span class="text-danger">*</span></label>
                                         <input type="date" autocomplete="off" class="form-control" placeholder="" name="fec_int_i_up" id="fec_int_i_up" value="<?php echo $campos['fec_int_i']; ?>" readonly>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>Fecha final de interposición<span class="text-danger">*</span></label>
+                                        <label>Fecha resolución RR<span class="text-danger">*</span></label>
                                         <input type="date" autocomplete="off" class="form-control" placeholder="" name="fec_int_f_up" id="fec_int_f_up" value="<?php echo $campos['fec_int_f']; ?>" readonly>
                                     </div>
                                 </div>
@@ -235,13 +235,13 @@ if (!isset($_SESSION['id_spm'])) {
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>Fecha inicial acuerdo de cancelación<span class="text-danger">*</span></label>
+                                        <label>Fecha acuerdo de cancelación<span class="text-danger">*</span></label>
                                         <input type="date" autocomplete="off" class="form-control" placeholder="" name="fec_acuerdo_i_up" id="fec_acuerdo_i_up" value="<?php echo $campos['fec_acuerdo_i']; ?>" readonly>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>Fecha final acuerdo de cancelación<span class="text-danger">*</span></label>
+                                        <label>Fecha notificación<span class="text-danger">*</span></label>
                                         <input type="date" autocomplete="off" class="form-control" placeholder="" name="fec_acuerdo_f_up" id="fec_acuerdo_f_up" value="<?php echo $campos['fec_acuerdo_f']; ?>" readonly>
                                     </div>
                                 </div>
