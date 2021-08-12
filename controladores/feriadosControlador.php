@@ -25,7 +25,7 @@ class feriadosControlador extends feriadosModelo
             exit();
         }
         /*validar fecha*/
-        $check_fecha = mainModel2::ejecutar_consulta_simple("SELECT feriado_fecha FROM tbl_feriado WHERE feriado_fecha='$fecha_feriado'");
+        $check_fecha = mainModel2::ejecutar_consulta_simple("SELECT fecha FROM tbl_feriados WHERE fecha='$fecha_feriado'");
         if ($check_fecha->rowCount() > 0) {
             $alerta = [
                 "Alerta" => "simple",
@@ -74,7 +74,7 @@ class feriadosControlador extends feriadosModelo
     public function listar_feriados_controlador()
     {
         $tabla = '';
-        $consulta = "SELECT * FROM tbl_feriado";
+        $consulta = "SELECT * FROM tbl_feriados";
         $conexion = mainModel2::conectar();
 
         $datos = $conexion->query($consulta);
@@ -104,16 +104,16 @@ class feriadosControlador extends feriadosModelo
 
             $tabla .= '<tr>
                 <td class="text-center">' . $c . '</td>
-                <td>' . $rows['feriado_descrip'] . '</td>
-                <td class="text-center">' . date('d/m/Y', strtotime($rows['feriado_fecha'])) . '</td>
+                <td>' . $rows['descripcion'] . '</td>
+                <td class="text-center">' . date('d/m/Y', strtotime($rows['fecha'])) . '</td>
     
               <td>
                 <div class="row">
-                    <a href="' . SERVERURL . 'actualizar-feriados/' . mainModel2::encryption($rows['id_feriado']) . '" class="btn btn-warning btn-sm" title="Editar" style="margin: 0 auto;">
+                    <a href="' . SERVERURL . 'actualizar-feriados/' . mainModel2::encryption($rows['feriado_id']) . '" class="btn btn-warning btn-sm" title="Editar" style="margin: 0 auto;">
                         <i class="fas fa-edit"></i>
                     </a>
                     <form class="FormulariosAjax" action="' . SERVERURL . 'ajax/feriadosAjax.php" method="POST" data-form="delete" autocomplete="off" style="margin: 0 auto;">
-                        <input type="hidden" name="id_feriado_del" value="' . mainModel2::encryption($rows['id_feriado']) . '">
+                        <input type="hidden" name="id_feriado_del" value="' . mainModel2::encryption($rows['feriado_id']) . '">
 
                         <button type="submit" title="Eliminar" class="btn btn-danger btn-sm">
                             <i class="far fa-trash-alt"></i>
@@ -143,7 +143,7 @@ class feriadosControlador extends feriadosModelo
         $id = mainModel2::decryption($_POST['id_feriado_up']);
         $id = mainModel2::limpiar_cadena($id);
         //comprobar el rol
-        $check_feriado = mainModel2::ejecutar_consulta_simple("SELECT * FROM tbl_feriado WHERE id_feriado=$id");
+        $check_feriado = mainModel2::ejecutar_consulta_simple("SELECT * FROM tbl_feriados WHERE feriado_id=$id");
         if ($check_feriado->rowCount() <= 0) {
             $alerta = [
                 "Alerta" => "simple",
@@ -185,8 +185,8 @@ class feriadosControlador extends feriadosModelo
         }
 
         /*validar usuario*/
-        if ($fecha_feriado != $campos['feriado_fecha']) {
-            $check_fecha_f = mainModel2::ejecutar_consulta_simple("SELECT feriado_fecha FROM tbl_feriado WHERE feriado_fecha='$fecha_feriado'");
+        if ($fecha_feriado != $campos['fecha']) {
+            $check_fecha_f = mainModel2::ejecutar_consulta_simple("SELECT fecha FROM tbl_feriados WHERE fecha='$fecha_feriado'");
             if ($check_fecha_f->rowCount() > 0) {
                 $alerta = [
                     "Alerta" => "simple",
@@ -199,7 +199,7 @@ class feriadosControlador extends feriadosModelo
             }
         }
         $datos_feriado_up = [
-            "id_feriado" => $id,
+            "feriado_id" => $id,
             "fecha_feriado" => $fecha_feriado,
             "descrip_feriado" => $descrip_feriado
         ];
@@ -228,7 +228,7 @@ class feriadosControlador extends feriadosModelo
       $id = mainModel2::decryption($_POST['id_feriado_del']);
       $id = mainModel2::limpiar_cadena($id);
       /* comprobando el feriado en bd */
-      $check_feriado = mainModel2::ejecutar_consulta_simple("SELECT id_feriado FROM tbl_feriado WHERE id_feriado='$id'");
+      $check_feriado = mainModel2::ejecutar_consulta_simple("SELECT feriado_id FROM tbl_feriados WHERE feriado_id='$id'");
       if ($check_feriado->rowCount() <= 0) {
           $alerta = [
               "Alerta" => "simple",

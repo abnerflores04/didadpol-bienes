@@ -45,13 +45,13 @@ if (!isset($_SESSION['id_spm'])) {
                                 <!-- text input -->
                                 <div class="form-group">
                                     <label>Nombre del rol <span class="text-danger">*</span></label>
-                                    <input type="text" autocomplete="off" style="text-transform:uppercase" class="form-control apellidos" placeholder="" name="rol_nombre_up" id="rol_nombre_up" value="<?php echo $campos['rol_nombre']; ?>">
+                                    <input type="text" autocomplete="off" style="text-transform:uppercase" class="form-control apellidos" placeholder="" name="rol_nombre_up" id="rol_nombre_up" value="<?php echo $campos['nombre']; ?>">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Descripción</label>
-                                    <input type="text" autocomplete="off" style="text-transform:uppercase" class="form-control nombres" placeholder=" " name="rol_descrip_up" id="rol_descrip_up" value="<?php echo $campos['rol_descripcion']; ?>">
+                                    <input type="text" autocomplete="off" style="text-transform:uppercase" class="form-control nombres" placeholder=" " name="rol_descrip_up" id="rol_descrip_up" value="<?php echo $campos['descripcion']; ?>">
                                 </div>
                             </div>
                             <div class="col-sm-12">

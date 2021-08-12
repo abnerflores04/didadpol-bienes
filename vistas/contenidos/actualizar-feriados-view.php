@@ -1,8 +1,8 @@
 <?php
-if (!isset($_SESSION['id_spm'])) {
+/* if (!isset($_SESSION['id_spm'])) {
 		echo $lc->forzar_cierre_sesion_controlador();
 		exit();
-}	
+} */	
 ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -44,14 +44,14 @@ if (!isset($_SESSION['id_spm'])) {
                         <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Fecha del feriado<span class="text-danger">*</span></label>
-                                    <input type="date" autocomplete="off"  class="form-control"  name="fecha_feriado_up" id="fecha_feriado_up" value="<?php echo $campos['feriado_fecha']; ?>">
+                                    <input type="date" autocomplete="off"  class="form-control"  name="fecha_feriado_up" id="fecha_feriado_up" value="<?php echo $campos['fecha']; ?>">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <!-- text input -->
                                 <div class="form-group">
                                     <label>Descripción del feriado <span class="text-danger">*</span></label>
-                                    <input type="text" autocomplete="off" style="text-transform:uppercase" class="form-control" placeholder="" name="descrip_feriado_up" id="descrip_feriado_up" value="<?php echo $campos['feriado_descrip']; ?>">
+                                    <input type="text" autocomplete="off" style="text-transform:uppercase" class="form-control" placeholder="" name="descrip_feriado_up" id="descrip_feriado_up" value="<?php echo $campos['descripcion']; ?>">
                                 </div>
                             </div>
                             

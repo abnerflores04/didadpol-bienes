@@ -1,8 +1,8 @@
 <?php
-if (!isset($_SESSION['id_spm'])) {
+/* if (!isset($_SESSION['id_spm'])) {
     echo $lc->forzar_cierre_sesion_controlador();
     exit();
-}
+} */
 ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">

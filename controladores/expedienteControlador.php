@@ -117,12 +117,12 @@ class expedienteControlador extends expedienteModelo
 
         //guardar los fecha de feriados o vacaciones en el array feriados
         $feriados = [];
-        $consulta = "SELECT * FROM tbl_feriado ORDER BY feriado_fecha ASC";
+        $consulta = "SELECT * FROM tbl_feriados ORDER BY fecha ASC";
         $conexion = mainModel2::conectar();
         $datos = $conexion->query($consulta);
         $datos = $datos->fetchAll();
         foreach ($datos as $rows) {
-            array_push($feriados, $rows['feriado_fecha']);
+            array_push($feriados, $rows['fecha']);
         }
         $fecFinalIPre = mainModel2::addWorkingDays($fecInicioExp, 9, $feriados);
         $fecFinalI = mainModel2::addWorkingDays($fecInicioExp, 39, $feriados);
@@ -193,7 +193,7 @@ class expedienteControlador extends expedienteModelo
         $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
         $proceso_id = 2;
         // CAPTURAMOS EL VALOR USUARIO JEFE DE INVESTIGACION
-        $consultar_id = mainModel2::ejecutar_consulta_simple("SELECT usu_id FROM tbl_usuario WHERE rol_id=4");
+        $consultar_id = mainModel2::ejecutar_consulta_simple("SELECT usu_id FROM tbl_usuarios WHERE rol_id=4");
         if ($consultar_id->rowCount() <= 0) {
             $alerta = [
                 "Alerta" => "simple",
@@ -331,7 +331,7 @@ class expedienteControlador extends expedienteModelo
         $proceso_id = 5;
         $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
         // CAPTURAMOS EL VALOR USUARIO JEFE DE INVESTIGACION
-        $consultar_id = mainModel2::ejecutar_consulta_simple("SELECT usu_id FROM tbl_usuario WHERE rol_id=7");
+        $consultar_id = mainModel2::ejecutar_consulta_simple("SELECT usu_id FROM tbl_usuarios WHERE rol_id=7");
         if ($consultar_id->rowCount() <= 0) {
             $alerta = [
                 "Alerta" => "simple",
@@ -383,7 +383,7 @@ class expedienteControlador extends expedienteModelo
         $proceso_id = 6;
         $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
         // CAPTURAMOS EL VALOR USUARIO JEFE DE INVESTIGACION
-        $consultar_id = mainModel2::ejecutar_consulta_simple("SELECT usu_id FROM tbl_usuario WHERE rol_id=8");
+        $consultar_id = mainModel2::ejecutar_consulta_simple("SELECT usu_id FROM tbl_usuarios WHERE rol_id=8");
         if ($consultar_id->rowCount() <= 0) {
             $alerta = [
                 "Alerta" => "simple",
@@ -554,7 +554,7 @@ class expedienteControlador extends expedienteModelo
             exit();
         }
         // CAPTURAMOS EL VALOR USUARIO 
-        $consultar_id = mainModel2::ejecutar_consulta_simple("SELECT usu_id FROM tbl_usuario WHERE rol_id=7");
+        $consultar_id = mainModel2::ejecutar_consulta_simple("SELECT usu_id FROM tbl_usuarios WHERE rol_id=7");
         if ($consultar_id->rowCount() <= 0) {
             $alerta = [
                 "Alerta" => "simple",
@@ -608,7 +608,7 @@ class expedienteControlador extends expedienteModelo
         $proceso_id = 10;
         $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
         // CAPTURAMOS EL VALOR USUARIO SECRETARIA
-        $consultar_id = mainModel2::ejecutar_consulta_simple("SELECT usu_id FROM tbl_usuario WHERE rol_id=8");
+        $consultar_id = mainModel2::ejecutar_consulta_simple("SELECT usu_id FROM tbl_usuarios WHERE rol_id=8");
         if ($consultar_id->rowCount() <= 0) {
             $alerta = [
                 "Alerta" => "simple",
@@ -710,12 +710,12 @@ class expedienteControlador extends expedienteModelo
         }
         //guardar los fecha de feriados o vacaciones en el array feriados
         $feriados = [];
-        $consulta = "SELECT * FROM tbl_feriado ORDER BY feriado_fecha ASC";
+        $consulta = "SELECT * FROM tbl_feriados ORDER BY fecha ASC";
         $conexion = mainModel2::conectar();
         $datos = $conexion->query($consulta);
         $datos = $datos->fetchAll();
         foreach ($datos as $rows) {
-            array_push($feriados, $rows['feriado_fecha']);
+            array_push($feriados, $rows['fecha']);
         }
 
         $fecha_dias_tec_legal = mainModel2::addWorkingDays($fecha_aud_desc, 2, $feriados);
@@ -759,7 +759,7 @@ class expedienteControlador extends expedienteModelo
         $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
         $proceso_id = 13;
         // CAPTURAMOS EL VALOR USUARIO JEFE DE LEGAL
-        $consultar_id = mainModel2::ejecutar_consulta_simple("SELECT usu_id FROM tbl_usuario WHERE rol_id=5");
+        $consultar_id = mainModel2::ejecutar_consulta_simple("SELECT usu_id FROM tbl_usuarios WHERE rol_id=5");
         if ($consultar_id->rowCount() <= 0) {
             $alerta = [
                 "Alerta" => "simple",
@@ -859,7 +859,7 @@ class expedienteControlador extends expedienteModelo
         $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
         $proceso_id = 15;
         // CAPTURAMOS EL VALOR USUARIO JEFE DE LEGAL
-        $consultar_id = mainModel2::ejecutar_consulta_simple("SELECT usu_id FROM tbl_usuario WHERE rol_id=5");
+        $consultar_id = mainModel2::ejecutar_consulta_simple("SELECT usu_id FROM tbl_usuarios WHERE rol_id=5");
         if ($consultar_id->rowCount() <= 0) {
             $alerta = [
                 "Alerta" => "simple",
@@ -962,7 +962,7 @@ class expedienteControlador extends expedienteModelo
         $proceso_id = 17;
         $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
         // CAPTURAMOS EL VALOR USUARIO JEFE DE INVESTIGACION
-        $consultar_id = mainModel2::ejecutar_consulta_simple("SELECT usu_id FROM tbl_usuario WHERE rol_id=5");
+        $consultar_id = mainModel2::ejecutar_consulta_simple("SELECT usu_id FROM tbl_usuarios WHERE rol_id=5");
         if ($consultar_id->rowCount() <= 0) {
             $alerta = [
                 "Alerta" => "simple",
@@ -1014,7 +1014,7 @@ class expedienteControlador extends expedienteModelo
         $proceso_id = 18;
         $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
         // CAPTURAMOS EL VALOR USUARIO JEFE DE LEGAL
-        $consultar_id = mainModel2::ejecutar_consulta_simple("SELECT usu_id FROM tbl_usuario WHERE rol_id=7");
+        $consultar_id = mainModel2::ejecutar_consulta_simple("SELECT usu_id FROM tbl_usuarios WHERE rol_id=7");
         if ($consultar_id->rowCount() <= 0) {
             $alerta = [
                 "Alerta" => "simple",
@@ -1102,7 +1102,7 @@ class expedienteControlador extends expedienteModelo
         $proceso_id = 18;
         $exp_id = mainModel2::limpiar_cadena($_POST['exp_id']);
         // CAPTURAMOS EL VALOR USUARIO JEFE DE LEGAL
-        $consultar_id = mainModel2::ejecutar_consulta_simple("SELECT usu_id FROM tbl_usuario WHERE rol_id=7");
+        $consultar_id = mainModel2::ejecutar_consulta_simple("SELECT usu_id FROM tbl_usuarios WHERE rol_id=7");
         if ($consultar_id->rowCount() <= 0) {
             $alerta = [
                 "Alerta" => "simple",
@@ -1166,12 +1166,12 @@ class expedienteControlador extends expedienteModelo
         }
         //guardar los fecha de feriados o vacaciones en el array feriados
         $feriados = [];
-        $consulta = "SELECT * FROM tbl_feriado ORDER BY feriado_fecha ASC";
+        $consulta = "SELECT * FROM tbl_feriados ORDER BY fecha ASC";
         $conexion = mainModel2::conectar();
         $datos = $conexion->query($consulta);
         $datos = $datos->fetchAll();
         foreach ($datos as $rows) {
-            array_push($feriados, $rows['feriado_fecha']);
+            array_push($feriados, $rows['fecha']);
         }
 
         // INSERTAMOS LOS DATOS EN SUS RESPECTIVAS TABLAS
@@ -1423,19 +1423,19 @@ class expedienteControlador extends expedienteModelo
     public function listar_exp_controlador()
     {
         $tabla = '';
-        $consulta = "SELECT * FROM tbl_exp_usu teu INNER JOIN tbl_exp te ON teu.exp_id=te.exp_id INNER JOIN tbl_usuario tu  ON teu.usu_id=tu.usu_id WHERE teu.usu_id= $_SESSION[id_spm]";
+        $consulta = "SELECT * FROM tbl_exp_usuario teu INNER JOIN tbl_exp te ON teu.exp_id=te.exp_id INNER JOIN tbl_usuarios tu  ON teu.usuario_id=tu.usuario_id WHERE teu.usuario_id= $_SESSION[id_spm]";
         $conexion = mainModel2::conectar();
 
         $datos = $conexion->query($consulta);
         $datos = $datos->fetchAll();
         //guardar los fecha de feriados o vacaciones en el array feriados
         $feriados = [];
-        $consulta2 = "SELECT * FROM tbl_feriado ORDER BY feriado_fecha ASC";
+        $consulta2 = "SELECT * FROM tbl_feriados ORDER BY fecha ASC";
         $conexion = mainModel2::conectar();
         $datos2 = $conexion->query($consulta2);
         $datos2 = $datos2->fetchAll();
         foreach ($datos2 as $rows2) {
-            array_push($feriados, $rows2['feriado_fecha']);
+            array_push($feriados, $rows2['fecha']);
         }
 
 

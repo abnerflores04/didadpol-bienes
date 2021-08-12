@@ -48,7 +48,7 @@ class rolControlador extends rolModelo
             }
         }
         /*validar rol*/
-        $check_rol = mainModel2::ejecutar_consulta_simple("SELECT rol_nombre FROM tbl_rol WHERE rol_nombre='$rol_nombre'");
+        $check_rol = mainModel2::ejecutar_consulta_simple("SELECT nombre FROM tbl_roles WHERE nombre='$rol_nombre'");
         if ($check_rol->rowCount() > 0) {
             $alerta = [
                 "Alerta" => "simple",
@@ -86,7 +86,7 @@ class rolControlador extends rolModelo
     {
         $contador = 1;
         $tabla = '';
-        $consulta = "SELECT * FROM tbl_rol order by rol_id desc";
+        $consulta = "SELECT * FROM tbl_roles order by rol_id desc";
         $conexion = mainModel2::conectar();
         $datos = $conexion->query($consulta);
         $datos = $datos->fetchAll();
@@ -116,8 +116,8 @@ class rolControlador extends rolModelo
         foreach ($datos as $rows) {
             $tabla .= '<tr>
                 <td>' . $contador . '</td>
-                <td>' . $rows['rol_nombre'] . '</td>
-                <td>' . $rows['rol_descripcion'] . '</td>
+                <td>' . $rows['nombre'] . '</td>
+                <td>' . $rows['descripcion'] . '</td>
                 <td>
                 <div class="row">
                     <a href="' . SERVERURL . 'actualizar-rol/' . mainModel2::encryption($rows['rol_id']) . '" class="btn btn-warning btn-sm" title="Editar" style="margin: 0 auto;">
@@ -158,7 +158,7 @@ class rolControlador extends rolModelo
         $id = mainModel2::decryption($_POST['rol_id_up']);
         $id = mainModel2::limpiar_cadena($id);
         //comprobar el rol
-        $check_rol = mainModel2::ejecutar_consulta_simple("SELECT * FROM tbl_rol WHERE rol_id=$id");
+        $check_rol = mainModel2::ejecutar_consulta_simple("SELECT * FROM tbl_roles WHERE rol_id=$id");
         if ($check_rol->rowCount() <= 0) {
             $alerta = [
                 "Alerta" => "simple",
@@ -197,8 +197,8 @@ class rolControlador extends rolModelo
             }
         }
         /*validar usuario*/
-        if ($rol_nombre != $campos['rol_nombre']) {
-            $check_user = mainModel2::ejecutar_consulta_simple("SELECT rol_nombre FROM tbl_rol WHERE rol_nombre='$rol_nombre'");
+        if ($rol_nombre != $campos['nombre']) {
+            $check_user = mainModel2::ejecutar_consulta_simple("SELECT nombre FROM tbl_roles WHERE nombre='$rol_nombre'");
             if ($check_user->rowCount() > 0) {
                 $alerta = [
                     "Alerta" => "simple",
@@ -240,7 +240,7 @@ class rolControlador extends rolModelo
       $id = mainModel2::decryption($_POST['rol_id_del']);
       $id = mainModel2::limpiar_cadena($id);
       /* comprobando el cliente en bd */
-      $check_rol = mainModel2::ejecutar_consulta_simple("SELECT rol_id FROM tbl_rol WHERE rol_id='$id'");
+      $check_rol = mainModel2::ejecutar_consulta_simple("SELECT rol_id FROM tbl_roles WHERE rol_id='$id'");
       if ($check_rol->rowCount() <= 0) {
           $alerta = [
               "Alerta" => "simple",
@@ -252,7 +252,7 @@ class rolControlador extends rolModelo
           exit();
       }
       /* comprobando los prestamos*/
-      $check_usuario = mainModel2::ejecutar_consulta_simple("SELECT rol_id FROM tbl_usuario WHERE rol_id='$id' LIMIT 1");
+      $check_usuario = mainModel2::ejecutar_consulta_simple("SELECT rol_id FROM tbl_usuarios WHERE rol_id='$id' LIMIT 1");
       if ($check_usuario->rowCount() > 0) {
           $alerta = [
               "Alerta" => "simple",
