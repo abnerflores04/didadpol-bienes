@@ -1,5 +1,5 @@
 <?php
-    require_once"./modelos/vistasModelo.php";
+    require_once "./modelos/vistasModelo.php";
     class vistasControlador extends vistasModelo{
          /* Controlador para obtener plantilla*/
          public function obtener_plantilla_controlador(){

@@ -17,7 +17,7 @@ function enviar_formulario_ajax(e) {
     }
     let texto_alerta;
     if (tipo === "save") {
-        texto_alerta = "LOS DATOS QUEDARAN GUARDADOS EN EL SISTEMA"
+        texto_alerta = "LOS DATOS QUEDARAN GUARDADOS EN EL SISTEMA";
     } else if (tipo === "delete") {
         texto_alerta = "LOS DATOS SERÁN ELIMINADOS COMPLETAMENTE DEL SISTEMA";
     } else if (tipo === "update") {

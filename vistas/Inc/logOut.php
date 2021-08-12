@@ -1,5 +1,5 @@
 <script>
-    let btnSalir = document.querySelector(".btn-exit-system");
+   /* let btnSalir = document.querySelector(".btn-exit-system");
     btnSalir.addEventListener('click', function(e) {
         e.preventDefault();
         Swal.fire({
@@ -32,5 +32,5 @@
                     });
             }
         });
-    });
+    });*/
 </script>

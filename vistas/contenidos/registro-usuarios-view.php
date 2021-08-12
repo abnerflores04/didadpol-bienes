@@ -1,8 +1,8 @@
 <?php
-if (!isset($_SESSION['id_spm'])) {
+/*if (!isset($_SESSION['id_spm'])) {
 		echo $lc->forzar_cierre_sesion_controlador();
 		exit();
-}	
+}	*/
 ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -28,10 +28,10 @@ if (!isset($_SESSION['id_spm'])) {
     <section class="content">
         <div class="container-fluid">
             <div class="card card-primary card-outline">
-           
+
                 <!-- /.card-body -->
                 <div class="card-body">
-                <p class="text-danger ">Campos obligatorios *</p>
+                    <p class="text-danger ">Campos obligatorios *</p>
                     <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/usuarioAjax.php" method="POST" data-form="save" autocomplete="off">
                         <div class="row">
                             <div class="col-sm-6">
@@ -49,7 +49,7 @@ if (!isset($_SESSION['id_spm'])) {
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>DNI<span class="text-danger">*</label>
+                                    <label>N° Identidad <span class="text-danger">*</label>
                                     <input type="text" autocomplete="off" class="form-control" placeholder="INGRESE DNI SIN GUIONES O ESPACIOS" name="usu_identidad_reg" id="usu_identidad_reg">
                                 </div>
                             </div>
@@ -61,17 +61,17 @@ if (!isset($_SESSION['id_spm'])) {
                                     <input type="text" autocomplete="off" style="text-transform:lowercase" class="form-control nombres" placeholder=" " name="usu_usuario_reg" id="usu_usuario_reg">
                                 </div>
                             </div>
-                          
+
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Rol <span class="text-danger">*</span></label>
                                     <select class="form-control" name="usu_rol_reg" id="usu_rol_reg">
-                                        <option value="" selected="" >Seleccione rol:</option>
+                                        <option value="" selected="">Seleccione rol:</option>
                                         <?php
                                         require_once './modelos/conectar.php';
-                                        $resultado = $conexion->query("SELECT * FROM tbl_rol");
+                                        $resultado = $conexion->query("SELECT * FROM tbl_roles");
                                         while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
-                                            echo '<option value="' . $registro["rol_id"] . '">' . $registro["rol_nombre"] . '</option>';
+                                            echo '<option value="' . $registro["rol_id"] . '">' . $registro["nombre"] . '</option>';
                                         }
                                         ?>
                                     </select>
@@ -81,12 +81,11 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="form-group">
                                     <label>Puesto <span class="text-danger">*</span></label>
                                     <select class="form-control" name="usu_puesto_reg" id="usu_puesto_reg">
-                                        <option value="" selected="" >Seleccione puesto:</option>
+                                        <option value="" selected="">Seleccione puesto:</option>
                                         <?php
-                                        
-                                        $resultado = $conexion->query("SELECT * FROM tbl_puesto");
+                                        $resultado = $conexion->query("SELECT * FROM tbl_puestos");
                                         while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
-                                            echo '<option value="' . $registro["puesto_id"] . '">' . $registro["puesto_nombre"] . '</option>';
+                                            echo '<option value="' . $registro["puesto_id"] . '">' . $registro["nom_puesto"] . '</option>';
                                         }
                                         ?>
                                     </select>
@@ -95,24 +94,22 @@ if (!isset($_SESSION['id_spm'])) {
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>SECCIÓN <span class="text-danger">*</span></label>
-                                    <select class="form-control" name="usu_seccion_reg" id="lista1">
-                                        <option value="0" selected="" >Seleccione sección:</option>
+                                    <select class="form-control" name="usu_seccion_reg" id="listas">
+                                        <option value="0" selected="">Seleccione sección</option>
                                         <?php
-                                       
-                                        $resultado = $conexion->query("SELECT * FROM tbl_seccion");
+                                        $resultado = $conexion->query("SELECT * FROM tbl_secciones");
                                         while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
-                                            echo '<option value="' . $registro["seccion_id"] . '">' . $registro["seccion_nombre"] . '</option>';
+                                            echo '<option value="' . $registro["seccion_id"] . '">' . $registro["nombre"] . '</option>';
                                         }
                                         ?>
                                     </select>
                                 </div>
                             </div>
-                          
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                <label>UNIDAD <span class="text-danger">*</span></label>
-                                <select class="form-control" name="usu_unidad_reg" id="lista2">
-                                </select>
+                                    <label>UNIDAD <span class="text-danger">*</span></label>
+                                    <select class="form-control" name="usu_unidad_reg" id="listau">
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -126,7 +123,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col text-center">
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-primary"><i class="fas fa-check-circle"></i> CREAR</button>
-                                        <a href="<?php echo SERVERURL.'lista-usuarios/'?>" class="btn btn bg-red" ><i class="fas fa-arrow-circle-left"></i> VOLVER ATRÁS</a>
+                                        <a href="<?php echo SERVERURL . 'lista-usuarios/' ?>" class="btn btn bg-red"><i class="fas fa-arrow-circle-left"></i> VOLVER ATRÁS</a>
                                     </div>
                                 </div>
                             </div>
@@ -144,3 +141,19 @@ if (!isset($_SESSION['id_spm'])) {
         <b>Version</b> 3.1.0
     </div>
 </footer>
+<script>
+    $(function() {
+        $("#listas").change(function() {
+            $("#listas option:selected").each(function() {
+                seccion_id = $(this).val();
+                $.post("../modelos/getUnidad.php", {
+                    seccion_id: seccion_id
+                }, function(data) {
+                    $("#listau").html(data);
+                });
+            });
+        });
+
+
+    });
+</script>

@@ -1,13 +1,13 @@
 <?php
- const SERVER="remotemysql.com";
+ /*const SERVER="remotemysql.com";
     const DB="Ixdno5Cvko";
     const USER="Ixdno5Cvko";
-    const PASS="m2bmzoLdMt";
+    const PASS="m2bmzoLdMt";*/
 
-   /* const SERVER="localhost";
-    const DB="didadpol";
-    const USER="root";
-    const PASS=""; */
+    const SERVER="remotemysql.com";
+    const DB="IGaV2duud7";
+    const USER="IGaV2duud7";
+    const PASS="LPgHd0QWVY"; 
 
     const SGBD="mysql:host=".SERVER.";dbname=".DB;
 

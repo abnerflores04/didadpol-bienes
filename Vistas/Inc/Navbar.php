@@ -17,11 +17,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#" role="button">
                         <?php
-                        echo $_SESSION['usuario_spm'];?>
+                        //echo $_SESSION['usuario_spm'];?>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo SERVERURL.'actualizar-usuario/'.$lc->encryption($_SESSION['id_spm']);?>" >
+                    <a class="nav-link" href="<?php echo SERVERURL.'actualizar-usuario/'?>" >
                     <i class="fas fa-user-cog"></i>
                     </a>
                 </li>

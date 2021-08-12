@@ -77,7 +77,7 @@ class mainModel2
         $cadena = str_ireplace("|", "", $cadena);
         /*elimina barras invertidas*/
         $cadena = stripslashes($cadena);
-        $cadena = strtoupper(trim($cadena));
+        $cadena = trim($cadena);
         return $cadena;
     }
     /*Funcion para verificar datos*/
