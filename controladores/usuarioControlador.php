@@ -255,7 +255,7 @@ class usuarioControlador extends usuarioModelo
         }
 
         if (filter_var($correo_res, FILTER_VALIDATE_EMAIL)) {
-            $check_correo = mainModel::ejecutar_consulta_simple("SELECT * FROM tbl_usuario WHERE usu_correo_p='$correo_res'");
+            $check_correo = mainModel::ejecutar_consulta_simple("SELECT * FROM tbl_usuarios WHERE email='$correo_res'");
             if ($check_correo->rowCount() <= 0) {
                 $alerta = [
                     "Alerta" => "simple",
@@ -279,11 +279,11 @@ class usuarioControlador extends usuarioModelo
             exit();
         }
         session_start();
-        $_SESSION['id_spm'] = $campos['usu_id'];
+        $_SESSION['id_spm'] = $campos['usuario_id'];
 
-        $message  = "<html><body><p aling='center'>Restablecimiento contraseña de DIDADPOL | BIENES</p><p>HOLA, " . $campos['usu_nombre'] . " " . $campos['usu_apellido'] . " escuchamos que perdió su contraseña ¡Lo siento por eso!</p><p>¡Pero no te preocupes! Puede utilizar el siguiente enlace para restablecer contraseña:</p><p><a href='" . SERVERURL . "restablecer-contraseña/'>Restablecer contraseña</a></p></body></html>";
+        $message  = "<html><body><p aling='center'>Restablecimiento contraseña de DIDADPOL | BIENES</p><p>HOLA, " . $campos['nombre'] . " " . $campos['apellido'] . " escuchamos que perdió su contraseña ¡Lo siento por eso!</p><p>¡Pero no te preocupes! Puede utilizar el siguiente enlace para restablecer contraseña:</p><p><a href='" . SERVERURL . "restablecer-contraseña/'>Restablecer contraseña</a></p></body></html>";
 
-        $res = mainModel::enviar_correo($message, $campos['usu_nombre'], $campos['usu_apellido'], $correo_res);
+        $res = mainModel::enviar_correo($message, $campos['nombre'], $campos['apellido'], $correo_res);
         if (!$res) {
             $alerta = [
                 "Alerta" => "simple",
