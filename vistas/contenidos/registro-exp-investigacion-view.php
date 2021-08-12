@@ -1,8 +1,8 @@
 <?php
-/* if (!isset($_SESSION['id_spm'])) {
+if (!isset($_SESSION['id_spm'])) {
     echo $lc->forzar_cierre_sesion_controlador();
     exit();
-} */
+}
 ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -15,7 +15,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                        <li class="breadcrumb-item"><a href="/didadpol-bienes/home">Inicio</a></li>
                         <li class="breadcrumb-item active">Registro del expediente </li>
                     </ol>
                 </div>
@@ -70,10 +70,10 @@
                                         <option value="">Seleccione sexo</option>
                                         <?php
                                         require_once './modelos/conectar.php';
-                                        $resultado = $conexion->query("SELECT * FROM tbl_genero");
+                                        $resultado = $conexion->query("SELECT * FROM tbl_sexos");
 
                                         while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
-                                            echo '<option value="' . $registro["genero_id"] . '">' . $registro["genero_descrip"] . '</option>';
+                                            echo '<option value="' . $registro["sexo_id"] . '">' . $registro["descripcion"] . '</option>';
                                         }
                                         ?>
                                     </select>
@@ -85,10 +85,10 @@
                                     <select class="form-control" name="depto_d_reg" id="lista_dd" required>
                                         <option value="">Seleccione departamento</option>
                                         <?php
-                                        $resultado = $conexion->query("SELECT * FROM tbl_depto");
+                                        $resultado = $conexion->query("SELECT * FROM tbl_deptos");
 
                                         while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
-                                            echo '<option value="' . $registro["depto_id"] . '">' . $registro["depto_nombre"] . '</option>';
+                                            echo '<option value="' . $registro["depto_id"] . '">' . $registro["nombre"] . '</option>';
                                         }
                                         ?>
                                     </select>
