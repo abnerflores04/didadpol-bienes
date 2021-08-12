@@ -11,18 +11,17 @@ class usuarioControlador extends usuarioModelo
     {
         $nombres = strtoupper(mainModel::limpiar_cadena($_POST['usu_nombres_reg']));
         $apellidos = strtoupper(mainModel::limpiar_cadena($_POST['usu_apellidos_reg']));
-        $dni=mainModel::limpiar_cadena($_POST['usu_identidad_reg']);
+        $identidad=mainModel::limpiar_cadena($_POST['usu_identidad_reg']);
         $puesto=mainModel::limpiar_cadena($_POST['usu_puesto_reg']);
-        $seccion=mainModel::limpiar_cadena($_POST['usu_seccion_reg']);
         $unidad=mainModel::limpiar_cadena($_POST['usu_unidad_reg']);
         $rol = mainModel::limpiar_cadena($_POST['usu_rol_reg']);
         $celular = mainModel::limpiar_cadena($_POST['usu_celular_reg']);
         $usuario = strtolower(mainModel::limpiar_cadena($_POST['usu_usuario_reg']));
-        $correo_p =$usuario . '@didadpol.gob.hn' ;
-        $correo_i = $usuario . '@didadpol.gob.hn';
+        $email=$usuario . '@didadpol.gob.hn' ;
+
 
         /*comprobar campos vacios*/
-        if ($nombres == "" || $apellidos == "" || $usuario == ""  || $correo_p == "" || $rol == "" || $dni == "" || $puesto == "" || $seccion == "" || $unidad == "") {
+        if ($nombres == "" || $apellidos == "" || $usuario == ""  || $email == "" || $rol == "" || $identidad == "" || $puesto == "" || $unidad == "") {
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
@@ -47,7 +46,7 @@ class usuarioControlador extends usuarioModelo
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                "Texto" => "EL CAMPO APELLIDOs SOLO DEBE INCLUIR LETRAS Y DEBE TENER UN MÍNIMO DE 3 LETRAS",
+                "Texto" => "EL CAMPO APELLIDOS SOLO DEBE INCLUIR LETRAS Y DEBE TENER UN MÍNIMO DE 3 LETRAS",
                 "Tipo" => "error"
             ];
             echo json_encode($alerta);
@@ -58,30 +57,30 @@ class usuarioControlador extends usuarioModelo
                 $alerta = [
                     "Alerta" => "simple",
                     "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                    "Texto" => "EL TELÉFONO NO COINCIDE CON EL FORMATO SOLICITADO",
+                    "Texto" => "EL NÚMERO DE CELULAR NO COINCIDE CON EL FORMATO SOLICITADO",
                     "Tipo" => "error"
                 ];
                 echo json_encode($alerta);
                 exit();
             }
         }
-        if (mainModel::verificar_datos("[0-9]{13}", $dni)) {
+        if (mainModel::verificar_datos("[0-9]{13}", $identidad)) {
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                "Texto" => "EL DNI NO COINCIDE CON EL FORMATO SOLICITADO",
+                "Texto" => "EL NÚMERO DE IDENTIDAD NO COINCIDE CON EL FORMATO SOLICITADO",
                 "Tipo" => "error"
             ];
             echo json_encode($alerta);
             exit();
         }
          /*validar DNI*/
-         $check_dni = mainModel::ejecutar_consulta_simple("SELECT usu_identidad FROM tbl_usuario WHERE usu_identidad='$dni'");
+         $check_dni = mainModel::ejecutar_consulta_simple("SELECT identidad FROM tbl_usuarios WHERE identidad='$identidad'");
          if ($check_dni->rowCount() > 0) {
              $alerta = [
                  "Alerta" => "simple",
                  "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                 "Texto" => "EL DNI YA ESTÁ REGISTRADO",
+                 "Texto" => "EL NÚMERO DE IDENTIDAD YA ESTÁ REGISTRADO",
                  "Tipo" => "error"
              ];
              echo json_encode($alerta);
@@ -100,7 +99,7 @@ class usuarioControlador extends usuarioModelo
         }
 
         /*validar usuario*/
-        $check_user = mainModel::ejecutar_consulta_simple("SELECT usu_usuario FROM tbl_usuario WHERE usu_usuario='$usuario'");
+        $check_user = mainModel::ejecutar_consulta_simple("SELECT nom_usuario FROM tbl_usuarios WHERE nom_usuario='$usuario'");
         if ($check_user->rowCount() > 0) {
             $alerta = [
                 "Alerta" => "simple",
@@ -113,29 +112,7 @@ class usuarioControlador extends usuarioModelo
         }
         /*validar email*/
 
-        if (filter_var($correo_p, FILTER_VALIDATE_EMAIL)) {
-            /*vaidar email repetido*/
-            $check_email = mainModel::ejecutar_consulta_simple("SELECT usu_correo_p FROM tbl_usuario WHERE usu_correo_p='$correo_p'");
-            if ($check_email->rowCount() > 0) {
-                $alerta = [
-                    "Alerta" => "simple",
-                    "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                    "Texto" => "EL CORREO YA ESTÁ REGISTRADO",
-                    "Tipo" => "error"
-                ];
-                echo json_encode($alerta);
-                exit();
-            }
-        } else {
-            $alerta = [
-                "Alerta" => "simple",
-                "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                "Texto" => "EL CORREO NO COINCIDE CON EL FORMATO SOLICITADO",
-                "Tipo" => "error"
-            ];
-            echo json_encode($alerta);
-            exit();
-        }
+       
         $caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         $pass = "";
         for ($i = 0; $i < 8; $i++) {
@@ -144,12 +121,12 @@ class usuarioControlador extends usuarioModelo
         $message  = "<html><body><p>Hola, " . $nombres . " " . $apellidos;
         $message .= " Estas son tus credenciales para ingresar al sistema de DIDADPOL";
         $message .= "</p><p>Usuario: " . $usuario;
-        $message .= "</p><p>Correo: " . $correo_i;
+        $message .= "</p><p>Correo: " . $email;
         $message .= "</p><p>Contraseña: " . $pass;
         $message .= "</p><p>Inicie sesión aquí para cambiar la contraseña por defecto " . SERVERURL . "login";
         $message .= "<p></body></html>";
 
-        $res = mainModel::enviar_correo($message, $nombres, $apellidos, $correo_i);
+        $res = mainModel::enviar_correo($message, $nombres, $apellidos, $email);
         if (!$res) {
             $alerta = [
                 "Alerta" => "simple",
@@ -166,17 +143,15 @@ class usuarioControlador extends usuarioModelo
         $datos_usuario_reg = [
             "rol" => $rol,
             "puesto"=>$puesto,
-            "seccion"=>$seccion,
             "unidad"=>$unidad,
             "usuario" => $usuario,
             "nombres" => $nombres,
             "apellidos" => $apellidos,
-            "dni"=>$dni,
+            "dni"=>$identidad,
             "clave" => $passcifrado,
             "estado" => "NUEVO",
-            "correo_i" => $correo_i,
-            "correo_p" => $correo_p,
-            "celular" => $celular,
+            "email" => $email,
+            "celular" => $celular
         ];
         $agregar_usuario = usuarioModelo::agregar_usuario_modelo($datos_usuario_reg);
         if ($agregar_usuario->rowCount() == 1) {

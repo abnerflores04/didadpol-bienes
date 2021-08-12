@@ -17,7 +17,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#" role="button">
                         <?php
-                        //echo $_SESSION['usuario_spm'];?>
+                        echo $_SESSION['usuario_spm'];?>
                     </a>
                 </li>
                 <li class="nav-item">

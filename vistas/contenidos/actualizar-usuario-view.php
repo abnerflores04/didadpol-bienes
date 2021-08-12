@@ -1,8 +1,8 @@
 <?php
-if (!isset($_SESSION['id_spm'])) {
+/* if (!isset($_SESSION['id_spm'])) {
 		echo $lc->forzar_cierre_sesion_controlador();
 		exit();
-}	
+}	 */
 ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -46,26 +46,26 @@ if (!isset($_SESSION['id_spm'])) {
                                 <!-- text input -->
                                 <div class="form-group">
                                     <label>Nombres <span class="text-danger">*</span></label>
-                                    <input type="text" autocomplete="off" style="text-transform:uppercase" class="form-control apellidos" placeholder="" name="usu_nombres_up" id="usu_nombres_up" value="<?php echo $campos['usu_nombre']; ?>">
+                                    <input type="text" autocomplete="off" style="text-transform:uppercase" class="form-control apellidos" placeholder="" name="usu_nombres_up" id="usu_nombres_up" value="<?php echo $campos['nombreu']; ?>">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Apellidos <span class="text-danger">*</span></label>
-                                    <input type="text" autocomplete="off" style="text-transform:uppercase" class="form-control nombres" placeholder=" " name="usu_apellidos_up" id="usu_apellidos_up" value="<?php echo $campos['usu_apellido']; ?>">
+                                    <input type="text" autocomplete="off" style="text-transform:uppercase" class="form-control nombres" placeholder=" " name="usu_apellidos_up" id="usu_apellidos_up" value="<?php echo $campos['apellido']; ?>">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>DNI<span class="text-danger">*</label>
-                                    <input type="text" autocomplete="off" class="form-control" placeholder="INGRESE DNI SIN GUIONES O ESPACIONES" name="usu_identidad_up" id="usu_identidad_up" value="<?php echo $campos['usu_identidad']; ?>">
+                                    <label>Identidad<span class="text-danger">*</label>
+                                    <input type="text" autocomplete="off" class="form-control" placeholder="INGRESE DNI SIN GUIONES O ESPACIONES" name="usu_identidad_up" id="usu_identidad_up" value="<?php echo $campos['identidad']; ?>">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <!-- text input -->
                                 <div class="form-group">
                                     <label>Nombre de usuario <span class="text-danger">*</span></label>
-                                    <input type="text" autocomplete="off" style="text-transform:lowercase" class="form-control nombres" placeholder=" " name="usu_usuario_up" id="usu_usuario_up" value="<?php echo $campos['usu_usuario']; ?>">
+                                    <input type="text" autocomplete="off" style="text-transform:lowercase" class="form-control nombres" placeholder=" " name="usu_usuario_up" id="usu_usuario_up" value="<?php echo $campos['nom_usuario']; ?>">
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -75,14 +75,14 @@ if (!isset($_SESSION['id_spm'])) {
                                         <option value="" selected="" >Seleccione rol:</option>
                                         <?php
                                          require_once './modelos/conectar.php';
-                                         $resultado = $conexion->query("SELECT * FROM tbl_rol");
+                                         $resultado = $conexion->query("SELECT * FROM tbl_roles");
                                          while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
                                          ?>
                                          <option value="<?php echo $registro['rol_id']; ?>" 
                                          <?php if($registro['rol_id']==$campos['rol_id']) {
                                          echo 'selected'; } 
                                          ?>
-                                         ><?php echo $registro['rol_nombre']; ?></option>
+                                         ><?php echo $registro['nombre']; ?></option>
                                          <?php } ?>
                                        
                                     </select>
@@ -94,14 +94,14 @@ if (!isset($_SESSION['id_spm'])) {
                                     <select class="form-control" name="usu_puesto_up" id="usu_puesto_up">
                                         <option value="" selected="" >Seleccione puesto:</option>
                                         <?php
-                                         $resultado= $conexion->query("SELECT * FROM tbl_puesto");
+                                         $resultado= $conexion->query("SELECT * FROM tbl_puestos");
                                          while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
                                          ?>
                                          <option value="<?php echo $registro['puesto_id']; ?>" 
                                          <?php if($registro['puesto_id']==$campos['puesto_id']) {
                                          echo 'selected'; } 
                                          ?>
-                                         ><?php echo $registro['puesto_nombre']; ?></option>
+                                         ><?php echo $registro['nom_puesto']; ?></option>
                                          <?php } ?>
                                     </select>
                                 </div>
@@ -112,14 +112,14 @@ if (!isset($_SESSION['id_spm'])) {
                                     <select class="form-control" name="usu_seccion_up" id="lista1">
                                         <option value="0" selected="" >Seleccione sección:</option>
                                         <?php
-                                        $resultado = $conexion->query("SELECT * FROM tbl_seccion");
+                                        $resultado = $conexion->query("SELECT * FROM tbl_secciones");
                                         while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
                                         ?>
                                         <option value="<?php echo $registro['seccion_id']; ?>" 
                                         <?php if($registro['seccion_id']==$campos['seccion_id']) {
                                         echo 'selected'; } 
                                         ?>
-                                        ><?php echo $registro['seccion_nombre']; ?></option>
+                                        ><?php echo $registro['nombre']; ?></option>
                                         <?php } ?>
                                     </select>
                                 </div>
@@ -129,14 +129,14 @@ if (!isset($_SESSION['id_spm'])) {
                                 <label>UNIDAD <span class="text-danger">*</span></label>
                                     <select class="form-control" name="usu_unidad_up" id="lista2">
                                     <?php
-                                        $resultado = $conexion->query("SELECT * FROM tbl_unidad");
+                                        $resultado = $conexion->query("SELECT * FROM tbl_unidades");
                                         while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
                                         ?>
                                            <option value="<?php echo $registro['unidad_id']; ?>" 
                                            <?php if($registro['unidad_id']==$campos['unidad_id']) {
                                                 echo 'selected'; } 
                                             ?>
-                                            ><?php echo $registro['unidad_nombre']; ?></option>
+                                            ><?php echo $registro['nombre']; ?></option>
                                            <?php } ?> 
                                     </select>
                                 </div>
@@ -145,7 +145,7 @@ if (!isset($_SESSION['id_spm'])) {
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Celular</label>
-                                    <input type="text" autocomplete="off" class="form-control" placeholder=" " name="usu_celular_up" id="usu_celular_up" value="<?php echo $campos['usu_celular']; ?>">
+                                    <input type="text" autocomplete="off" class="form-control" placeholder=" " name="usu_celular_up" id="usu_celular_up" value="<?php echo $campos['celular']; ?>">
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -155,35 +155,35 @@ if (!isset($_SESSION['id_spm'])) {
                                         <option value="" selected="" >Seleccione estado:</option>
                                         <option value="1" 
 										
-										<?php if ($campos['usu_estado']=='ACTIVO') {
+										<?php if ($campos['estado']=='ACTIVO') {
 												echo 'selected=""';
 										}?>
 										
-										>ACTIVO <?php if ($campos['usu_estado']=='ACTIVO') {
+										>ACTIVO <?php if ($campos['estado']=='ACTIVO') {
 										}?></option>
 										<option value="2"
-										<?php if ($campos['usu_estado']=='INACTIVO') {
+										<?php if ($campos['estado']=='INACTIVO') {
 												echo 'selected=""';
 										}?>
-										>INACTIVO <?php if ($campos['usu_estado']=='INACTIVO') {
+										>INACTIVO <?php if ($campos['estado']=='INACTIVO') {
 										}?></option>
 										<option value="3"
-										<?php if ($campos['usu_estado']=='BLOQUEADO') {
+										<?php if ($campos['estado']=='BLOQUEADO') {
 												echo 'selected=""';
 										}?>
-										>BLOQUEADO <?php if ($campos['usu_estado']=='BLOQUEADO') {
+										>BLOQUEADO <?php if ($campos['estado']=='BLOQUEADO') {
 										}?></option>
                                         <option value="4"
-										<?php if ($campos['usu_estado']=='VACACIONES') {
+										<?php if ($campos['estado']=='VACACIONES') {
 												echo 'selected=""';
 										}?>
-										>VACACIONES <?php if ($campos['usu_estado']=='VACACIONES') {
+										>VACACIONES <?php if ($campos['estado']=='VACACIONES') {
 										}?></option>
                                         <option value="5"
-										<?php if ($campos['usu_estado']=='NUEVO') {
+										<?php if ($campos['estado']=='NUEVO') {
 												echo 'selected=""';
 										}?>
-										>NUEVO <?php if ($campos['usu_estado']=='NUEVO') {
+										>NUEVO <?php if ($campos['estado']=='NUEVO') {
 										}?></option>
                                        
                                         

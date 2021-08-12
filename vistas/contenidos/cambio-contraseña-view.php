@@ -11,7 +11,7 @@ if (!isset( $_SESSION['token_spm']) || !isset( $_SESSION['usuario_spm']) || !iss
 <div class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="#"><b>DIDADPOL </b>BIENES</a>
+            <a href="#"><b>DIDADPOL </b></a>
         </div>
         <!-- /.login-logo -->
         <div class="card">

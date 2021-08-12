@@ -23,10 +23,10 @@
 		$pagina = explode("/", $_GET['views']);
 		require_once "./controladores/loginControlador.php";
 		$lc = new loginControlador();
-		/*if (!isset( $_SESSION['token_spm']) || !isset( $_SESSION['usuario_spm']) || !isset( $_SESSION['id_spm'])) {
+		if (!isset( $_SESSION['token_spm']) || !isset( $_SESSION['usuario_spm']) || !isset( $_SESSION['id_spm'])) {
 			echo $lc->forzar_cierre_sesion_controlador();
 			exit();
-		}*/
+		}
 	?>
 		<div class="wrapper">
 		<?php

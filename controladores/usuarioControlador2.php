@@ -10,7 +10,7 @@ class usuarioControlador2 extends usuarioModelo2
     {
         $contador = 1;
         $tabla = '';
-        $consulta = "SELECT * FROM tbl_usuario u INNER JOIN tbl_rol r on u.rol_id=r.rol_id";
+        $consulta = "SELECT r.nombre rol, u.nombre usuario,u.nombre,u.apellido,u.nom_usuario, u.estado, u.usuario_id FROM tbl_usuarios u INNER JOIN tbl_roles r on u.rol_id=r.rol_id";
         $conexion = mainModel2::conectar();
         $datos = $conexion->query($consulta);
         $datos = $datos->fetchAll();
@@ -40,33 +40,33 @@ class usuarioControlador2 extends usuarioModelo2
         foreach ($datos as $rows) {
             $tabla .= '<tr>
                 <td>' . $contador . '</td>
-                <td>' . $rows['rol_nombre'] . '</td>
-                <td>' . $rows['usu_nombre'] . '</td>
-                <td>' . $rows['usu_apellido'] . '</td>
-                <td>' . $rows['usu_usuario'] . '</td>
+                <td>' . $rows['rol'] . '</td>
+                <td>' . $rows['usuario'] . '</td>
+                <td>' . $rows['apellido'] . '</td>
+                <td>' . $rows['nom_usuario'] . '</td>
                 
                 <td>';
-            if ($rows['usu_estado'] == "NUEVO") {
+            if ($rows['estado'] == "NUEVO") {
                 $tabla .= '  <span class="badge badge badge-info">';
-            } elseif ($rows['usu_estado'] == "ACTIVO") {
+            } elseif ($rows['estado'] == "ACTIVO") {
                 $tabla .= '<span class="badge badge badge-success">';
-            } elseif ($rows['usu_estado'] == "VACACIONES") {
+            } elseif ($rows['estado'] == "VACACIONES") {
                 $tabla .= '  <span class="badge badge badge-warning">';
             } else {
                 $tabla .= '  <span class="badge badge badge-danger">';
             }
 
-            $tabla .= '' . $rows["usu_estado"] . '</span></td>
+            $tabla .= '' . $rows["estado"] . '</span></td>
                 <td>
                 <div class="row">
-                <a href="' . SERVERURL . 'ver-informacion-usuario/' . mainModel2::encryption($rows['usu_id']) . '" class="btn btn-dark btn-sm" title="Ver información completa" style="margin: 0 auto;"><i class="fas fa-eye"></i></a>
+                <a href="' . SERVERURL . 'ver-informacion-usuario/' . mainModel2::encryption($rows['usuario_id']) . '" class="btn btn-dark btn-sm" title="Ver información completa" style="margin: 0 auto;"><i class="fas fa-eye"></i></a>
 
-                    <a href="' . SERVERURL . 'actualizar-usuario/' . mainModel2::encryption($rows['usu_id']) . '" class="btn btn-warning btn-sm" title="Editar" style="margin: 0 auto;">
+                    <a href="' . SERVERURL . 'actualizar-usuario/' . mainModel2::encryption($rows['usuario_id']) . '" class="btn btn-warning btn-sm" title="Editar" style="margin: 0 auto;">
                         <i class="fas fa-edit"></i>
                     </a>
 
                     <form class="FormulariosAjax" action="' . SERVERURL . 'ajax/usuarioAjax.php" method="POST" data-form="delete" autocomplete="off" style="margin: 0 auto;">
-                        <input type="hidden" name="usuario_id_del" value="' . mainModel2::encryption($rows['usu_id']) . '">
+                        <input type="hidden" name="usuario_id_del" value="' . mainModel2::encryption($rows['usuario_id']) . '">
 
                         <button type="submit" title="Eliminar"class="btn btn-danger btn-sm">
                             <i class="far fa-trash-alt"></i>
@@ -100,7 +100,7 @@ class usuarioControlador2 extends usuarioModelo2
         $id = mainModel2::limpiar_cadena($id);
 
         //comprobar el usuarioen la bd
-        $check_user = mainModel2::ejecutar_consulta_simple("SELECT * FROM tbl_usuario WHERE usu_id=$id");
+        $check_user = mainModel2::ejecutar_consulta_simple("SELECT * FROM tbl_usuarios WHERE usuario_id=$id");
         if ($check_user->rowCount() <= 0) {
             $alerta = [
                 "Alerta" => "simple",
@@ -119,15 +119,15 @@ class usuarioControlador2 extends usuarioModelo2
         $apellidos = strtoupper(mainModel2::limpiar_cadena($_POST['usu_apellidos_up']));
         $dni = mainModel2::limpiar_cadena($_POST['usu_identidad_up']);
         $puesto = mainModel2::limpiar_cadena($_POST['usu_puesto_up']);
-        $seccion = mainModel2::limpiar_cadena($_POST['usu_seccion_up']);
+    
         $unidad = mainModel2::limpiar_cadena($_POST['usu_unidad_up']);
         $celular = mainModel2::limpiar_cadena($_POST['usu_celular_up']);
         $usuario = strtolower(mainModel2::limpiar_cadena($_POST['usu_usuario_up']));
-        $correo_p = $usuario . '@didadpol.gob.hn';
-        $correo_i = $usuario . '@didadpol.gob.hn';
+        $email = $usuario . '@didadpol.gob.hn';
+
         $estado = mainModel2::limpiar_cadena($_POST['usu_estado_up']);
         /*verificando datos vacios*/
-        if ($nombres == "" || $apellidos == "" || $usuario == "" || $correo_p == "" || $rol == "" || $estado == "" || $dni == "" || $puesto == "" || $seccion == "") {
+        if ($nombres == "" || $apellidos == "" || $usuario == "" || $email == "" || $rol == "" || $estado == "" || $dni == "" || $puesto == "") {
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
@@ -191,8 +191,8 @@ class usuarioControlador2 extends usuarioModelo2
             exit();
         }
         /*validar DNI*/
-        if ($dni != $campos['usu_identidad']) {
-            $check_dni = mainModel2::ejecutar_consulta_simple("SELECT usu_identidad FROM tbl_usuario WHERE usu_identidad='$dni'");
+        if ($dni != $campos['identidad']) {
+            $check_dni = mainModel2::ejecutar_consulta_simple("SELECT identidad FROM tbl_usuarios WHERE identidad='$dni'");
             if ($check_dni->rowCount() > 0) {
                 $alerta = [
                     "Alerta" => "simple",
@@ -205,8 +205,8 @@ class usuarioControlador2 extends usuarioModelo2
             }
         }
         /*validar usuario*/
-        if ($usuario != $campos['usu_usuario']) {
-            $check_user = mainModel2::ejecutar_consulta_simple("SELECT usu_usuario FROM tbl_usuario WHERE usu_usuario='$usuario'");
+        if ($usuario != $campos['nom_usuario']) {
+            $check_user = mainModel2::ejecutar_consulta_simple("SELECT nom_usuario FROM tbl_usuarios WHERE nom_usuario='$usuario'");
             if ($check_user->rowCount() > 0) {
                 $alerta = [
                     "Alerta" => "simple",
@@ -218,47 +218,20 @@ class usuarioControlador2 extends usuarioModelo2
                 exit();
             }
         }
-        /*validar email*/
-        if ($correo_p != $campos['usu_correo_p']) {
-            if (filter_var($correo_p, FILTER_VALIDATE_EMAIL)) {
-                /*vaidar email repetido*/
-                $check_email = mainModel2::ejecutar_consulta_simple("SELECT usu_correo_p FROM tbl_usuario WHERE usu_correo_p='$correo_p'");
-                if ($check_email->rowCount() > 0) {
-                    $alerta = [
-                        "Alerta" => "simple",
-                        "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                        "Texto" => "EL CORREO YA ESTÁ REGISTRADO",
-                        "Tipo" => "error"
-                    ];
-                    echo json_encode($alerta);
-                    exit();
-                }
-            } else {
-                $alerta = [
-                    "Alerta" => "simple",
-                    "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
-                    "Texto" => "EL CORREO NO COINCIDE CON EL FORMATO SOLICITADO",
-                    "Tipo" => "error"
-                ];
-                echo json_encode($alerta);
-                exit();
-            }
-        }
+        
 
         $datos_usuario_up = [
             "rol" => $rol,
-            "puesto"=>$puesto,
-            "seccion"=>$seccion,
-            "unidad"=>$unidad,
+            "puesto" => $puesto,
+            "unidad" => $unidad,
             "usuario" => $usuario,
             "nombres" => $nombres,
             "apellidos" => $apellidos,
-            "dni"=>$dni,
+            "dni" => $dni,
             "estado" => $estado,
-            "correo_i" => $correo_i,
-            "correo_p" => $correo_p,
+            "email" => $email,
             "celular" => $celular,
-            "id"=>$id
+            "id" => $id
         ];
 
         if (usuarioModelo2::actualizar_usuario_modelo($datos_usuario_up)) {

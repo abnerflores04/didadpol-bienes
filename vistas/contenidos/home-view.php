@@ -2,8 +2,8 @@
      <?php
         require_once './modelos/conectar.php';
 
-        $sql = 'SELECT COUNT(e.exp_id) cantidad , CONCAT(u.usu_nombre , " " , u.usu_apellido) nombre FROM tbl_exp e
-     INNER JOIN tbl_usuario u on e.investigador_id=u.usu_id GROUP BY investigador_id';
+        $sql = 'SELECT COUNT(e.exp_id) cantidad , CONCAT(u.nombre , " " , u.apellido) nombre FROM tbl_exp e
+     INNER JOIN tbl_usuarios u on e.investigador_id=u.usuario_id GROUP BY investigador_id';
 
         $consulta = $conexion->prepare($sql);
         $consulta->execute();
@@ -18,7 +18,7 @@
         $data1 = trim($data1, ",");
         $data2 = trim($data2, ",");
 
-        $sql2 = 'SELECT COUNT(e.exp_id) AS cantidad, CONCAT(u.usu_nombre , " " , u.usu_apellido) AS nombre FROM tbl_exp e INNER JOIN tbl_usuario u ON e.tecnico_legal = u.usu_id GROUP BY e.tecnico_legal';
+        $sql2 = 'SELECT COUNT(e.exp_id) AS cantidad, CONCAT(u.nombre , " " , u.apellido) AS nombre FROM tbl_exp e INNER JOIN tbl_usuarios u ON e.tecnico_legal_id = u.usuario_id GROUP BY e.tecnico_legal_id';
 
         $consulta2 = $conexion->prepare($sql2);
         $consulta2->execute();
@@ -33,7 +33,7 @@
         $data3 = trim($data3, ",");
         $data4 = trim($data4, ",");
 
-        $sql3 = 'SELECT COUNT(e.exp_id) as cantidad, d.depto_nombre as departamento FROM tbl_exp e INNER JOIN tbl_depto d ON e.depto_id = d.depto_id GROUP BY e.depto_id';
+        $sql3 = 'SELECT COUNT(e.exp_id) as cantidad, d.nombre as departamento FROM tbl_exp e  inner join tbl_municipios m on e.municipio_id=m.municipio_id INNER JOIN tbl_deptos d ON m.depto_id = d.depto_id GROUP BY d.depto_id';
 
         $consulta3 = $conexion->prepare($sql3);
         $consulta3->execute();
@@ -48,7 +48,7 @@
         $data5 = trim($data5, ",");
         $data6 = trim($data6, ",");
 
-        $sql4 = 'SELECT COUNT(e.exp_id) as cantidad, m.municipio_nombre as municipio FROM tbl_exp e INNER JOIN tbl_municipio m ON e.municipio_id = m.municipio_id GROUP BY  e.municipio_id';
+        $sql4 = 'SELECT COUNT(e.exp_id) as cantidad, m.nombre as municipio FROM tbl_exp e INNER JOIN tbl_municipios m ON e.municipio_id = m.municipio_id GROUP BY  e.municipio_id';
 
         $consulta4 = $conexion->prepare($sql4);
         $consulta4->execute();
@@ -61,8 +61,8 @@
             $data8 = $data8 . '"' . $rows['cantidad'] . '",';
         }
         $data7 = trim($data7, ",");
-        $data8 = trim($data8, ",");
-
+        $data8 = trim($data8, ","); 
+        
 
         ?>
      <div class="content-wrapper">

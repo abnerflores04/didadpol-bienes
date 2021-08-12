@@ -56,11 +56,11 @@ class loginControlador extends loginModelo
         if ($datos_cuenta->rowCount() == 1) {
             $row = $datos_cuenta->fetch();
             session_start();
-            $_SESSION['id_spm'] = $row['usu_id'];
-            $_SESSION['nombre_spm'] = $row['usu_nombre'];
-            $_SESSION['apellido_spm'] = $row['usu_apellido'];
-            $_SESSION['usuario_spm'] = $row['usu_usuario'];
-            $_SESSION['estado_spm'] = $row['usu_estado'];
+            $_SESSION['id_spm'] = $row['usuario_id'];
+            $_SESSION['nombre_spm'] = $row['nombre'];
+            $_SESSION['apellido_spm'] = $row['apellido'];
+            $_SESSION['usuario_spm'] = $row['nom_usuario'];
+            $_SESSION['estado_spm'] = $row['estado'];
             $_SESSION['rol_id'] = $row['rol_id'];
             $_SESSION['token_spm'] = md5(uniqid(mt_rand(), true));
             if ( $_SESSION['estado_spm']=='ACTIVO') {

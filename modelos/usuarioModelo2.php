@@ -6,28 +6,26 @@ class usuarioModelo2 extends mainModel2
     protected static function datos_usuario_modelo($tipo, $id)
     {
         if ($tipo == "Unico") {
-            $sql = mainModel2::conectar()->prepare("SELECT * FROM tbl_usuario WHERE usu_id=:id");
+            $sql = mainModel2::conectar()->prepare("SELECT u.nombre nombreu, u.apellido, u.identidad, u.nom_usuario,u.rol_id,u.puesto_id, s.seccion_id,s.nombre nombres, u.unidad_id, u.celular,u.estado,u.usuario_id FROM tbl_usuarios u inner join tbl_unidades ud on ud.unidad_id=u.unidad_id inner join tbl_secciones s on ud.seccion_id=s.seccion_id WHERE usuario_id=:id");
             $sql->bindParam(":id", $id);
         } elseif ($tipo == "Conteo") {
-            $sql = mainModel2::conectar()->prepare("SELECT usu_id FROM tbl_usuario WHERE usu_id!='1'");
+            $sql = mainModel2::conectar()->prepare("SELECT usuario_id FROM tbl_usuarios WHERE usuario_id!='1'");
         }
         $sql->execute();
         return $sql;
     }
      /* Modelo actualizarusuario*/
      protected static function actualizar_usuario_modelo($datos){
-        $sql = mainModel2::conectar()->prepare("UPDATE tbl_usuario SET rol_id=:rol, puesto_id=:puesto,seccion_id=:seccion, unidad_id=:unidad, usu_usuario=:usuario, usu_nombre=:nombres, usu_apellido=:apellidos,usu_identidad=:dni, usu_correo_i=:correo_i, usu_correo_p=:correo_p ,usu_celular=:celular, usu_estado=:estado WHERE usu_id=:id");
+        $sql = mainModel2::conectar()->prepare("UPDATE tbl_usuarios SET rol_id=:rol,puesto_id=:puesto,unidad_id=:unidad,nom_usuario=:usuario,nombre=:nombres,apellido=:apellidos,identidad=:dni,email=:email,estado=:estado,celular=:celular WHERE usuario_id=:id");
         $sql->bindParam(":rol", $datos['rol']);
         $sql->bindParam(":puesto", $datos['puesto']);
-        $sql->bindParam(":seccion", $datos['seccion']);
         $sql->bindParam(":unidad", $datos['unidad']);
         $sql->bindParam(":usuario", $datos['usuario']);
         $sql->bindParam(":nombres", $datos['nombres']);
         $sql->bindParam(":apellidos", $datos['apellidos']);
         $sql->bindParam(":dni", $datos['dni']);
         $sql->bindParam(":estado", $datos['estado']);
-        $sql->bindParam(":correo_i", $datos['correo_i']);
-        $sql->bindParam(":correo_p", $datos['correo_p']);
+        $sql->bindParam(":email", $datos['email']);
         $sql->bindParam(":celular", $datos['celular']);
         $sql->bindParam(":id", $datos['id']);
         $sql->execute();
