@@ -63,7 +63,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col-sm-6" id="contenedor">
                                     <div class="form-group">
                                         <label>Nombre completo</label>
-                                        <input type="text" class="form-control" style="text-transform:uppercase" name="nombre_d_up" id="nombre_d_up" value="<?php echo $campos['nombre_denunciante']; ?>" readonly>
+                                        <input type="text" class="form-control" style="text-transform:uppercase" name="nombre_d_up" id="nombre_d_up" value="<?php echo $campos['nombre']; ?>" readonly>
                                     </div>
 
                                 </div>

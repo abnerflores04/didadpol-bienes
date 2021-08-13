@@ -1474,8 +1474,8 @@ class expedienteControlador extends expedienteModelo
             <tbody>';
 
         foreach ($datos as $rows) {
-            $dias = mainModel2::getWorkingDays(date('Y-m-d'), $rows['fecha_final_exp'], $feriados);
-            $dias2 = mainModel2::getWorkingDays(date('Y-m-d'), $rows['fecha_final_i'], $feriados);
+            $dias = mainModel2::getWorkingDays(date('Y-m-d'), $rows['fec_final_exp'], $feriados);
+            $dias2 = mainModel2::getWorkingDays(date('Y-m-d'), $rows['fec_final_invest'], $feriados);
 
             $tabla .= '<tr>
                 <td style="font-size: 18px;"><span class="badge badge badge-dark">' . $rows['num_exp'] . '</span></td>';
@@ -1484,8 +1484,8 @@ class expedienteControlador extends expedienteModelo
 
             $tabla .= ' 
                 
-                <td class="text-center">' . date('d/m/Y', strtotime($rows['fecha_inicio_exp'])) . '</td>
-                <td class="text-center">' . date('d/m/Y', strtotime($rows['fecha_final_exp'])) . '</td>';
+                <td class="text-center">' . date('d/m/Y', strtotime($rows['fec_inicio_exp'])) . '</td>
+                <td class="text-center">' . date('d/m/Y', strtotime($rows['fec_final_exp'])) . '</td>';
 
             if ($dias >= 60) {
                 $tabla .= '<td  style="font-size: 20px;"class=" text-center bg-success">';
