@@ -25,6 +25,7 @@ class expedienteControlador extends expedienteModelo
         $grado = mainModel2::limpiar_cadena($_POST['grado_reg']);
         $lugarAsig =  strtoupper(mainModel2::limpiar_cadena($_POST['lugar_asig_reg']));
         $municipioI = mainModel2::limpiar_cadena($_POST['municipio_i_reg']);
+        $municipioDen = mainModel2::limpiar_cadena($_POST['municipio_den_reg']);
         $tipoFalta = mainModel2::limpiar_cadena($_POST['tipo_falta_reg']);
         $articulo = $_POST['articulos_reg'];
         $tipoIngreso = mainModel2::limpiar_cadena($_POST['tipo_ingreso_reg']);
@@ -152,6 +153,7 @@ class expedienteControlador extends expedienteModelo
             'fecha_final_i_pre' => $fecFinalIPre,
             'fecha_final_i' => $fecFinalI,
             'est_proceso_id' => $estado,
+            'municipioDen' => $municipioDen,
             'hechos'=>$hechos
         ];
 

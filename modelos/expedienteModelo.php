@@ -12,7 +12,7 @@ class expedienteModelo extends mainModel2
         $sql->bindParam(':nombre_denunciante', $datos['nombre_denunciante']);
         $sql->bindParam(':identidad_denunciante', $datos['identidad_denunciante']);
         $sql->execute();
-        /*Por hacer: Consulta para traer el ultimo denunciante*/ 
+        /*Consulta para traer el ultimo denunciante*/ 
 
          $sql =mainModel2::ejecutar_consulta_simple('SELECT denunciante_id FROM tbl_denunciantes ORDER BY denunciante_id DESC LIMIT 1');
          $campos = $sql->fetch();
@@ -29,18 +29,18 @@ class expedienteModelo extends mainModel2
         $sql->bindParam(':EdadI', $datos['EdadI']);
         $sql->bindParam(':lugarAsignacion', $datos['lugarAsignacion']);
         $sql->execute();
-        /*Por hacer: Consulta para traer el ultimo investidado*/
+        /*Consulta para traer el ultimo investidado*/
 
         $sql =mainModel2::ejecutar_consulta_simple('SELECT investigado_id FROM tbl_investigados ORDER BY investigado_id DESC LIMIT 1');
         $campos = $sql->fetch();
         $investigado_id = $campos['investigado_id'];
 
         //Insert Expediente
-        $sql = mainModel2::conectar()->prepare('INSERT INTO tbl_exp(tipo_ingreso_id, denunciante_id, investigado_id, municipio_id,tipo_falta_id,est_proceso_id,num_exp,fec_inicio_exp,fec_final_exp,fec_final_invest_pre,fec_final_invest,hechos) VALUES (:tipoIngreso,:denunciante,:investigado,:municipioI,:tipo_falta,:est_proceso_id,:n_exp,:fecha_inicio_exp,:fecha_final_exp,:fecha_final_i_pre,:fecha_final_i,:hechos)');
+        $sql = mainModel2::conectar()->prepare('INSERT INTO tbl_exp(tipo_ingreso_id, denunciante_id, investigado_id, municipio_id,tipo_falta_id,est_proceso_id,num_exp,fec_inicio_exp,fec_final_exp,fec_final_invest_pre,fec_final_invest,hechos) VALUES (:tipoIngreso,:denunciante,:investigado,:municipioDen,:tipo_falta,:est_proceso_id,:n_exp,:fecha_inicio_exp,:fecha_final_exp,:fecha_final_i_pre,:fecha_final_i,:hechos)');
         $sql->bindParam(':tipoIngreso', $datos['tipoIngreso']);
         $sql->bindParam(':denunciante', $denunciante_id);
         $sql->bindParam(':investigado', $investigado_id);
-        $sql->bindParam(':municipioI', $datos['municipioI']);
+        $sql->bindParam(':municipioDen', $datos['municipioDen']);
         $sql->bindParam(':tipo_falta', $datos['tipo_falta']);
         $sql->bindParam(':est_proceso_id', $datos['est_proceso_id']);
         $sql->bindParam(':n_exp', $datos['n_exp']);

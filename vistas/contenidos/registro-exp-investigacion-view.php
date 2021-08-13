@@ -181,7 +181,7 @@ if (!isset($_SESSION['id_spm'])) {
                            
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="">Departamento <span class="text-danger">*</span></label>
+                                    <label for="">Departamento del investigado<span class="text-danger">*</span></label>
                                     <select class="form-control" name="depto_i_reg" id="lista_di" required>
                                         <option value="">Seleccione departamento</option>
                                         <?php
@@ -197,7 +197,7 @@ if (!isset($_SESSION['id_spm'])) {
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="">Municipio <span class="text-danger">*</span></label>
+                                    <label for="">Municipio del investigado<span class="text-danger">*</span></label>
                                     <select class="form-control" name="municipio_i_reg" id="lista_mi" required>
                                         <option value="">Seleccione municipio</option>
 
@@ -243,6 +243,33 @@ if (!isset($_SESSION['id_spm'])) {
                                     </select>
                                 </div>
                             </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="">Departamento <span class="text-danger">*</span></label>
+                                    <select class="form-control" name="depto_den_reg" id="lista_den" required>
+                                        <option value="">Seleccione departamento</option>
+                                        <?php
+                                        $resultado = $conexion->query("SELECT * FROM tbl_deptos");
+
+                                        while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
+                                            echo '<option value="' . $registro["depto_id"] . '">' . $registro["nombre"] . '</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="">Municipio <span class="text-danger">*</span></label>
+                                    <select class="form-control" name="municipio_den_reg" id="lista_mden" required>
+                                        <option value="">Seleccione municipio</option>
+
+                                    </select>
+                                </div>
+                            </div>
+
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="">Hechos <span class="text-danger">*</span></label>
