@@ -36,9 +36,6 @@ if (!isset($_SESSION['id_spm'])) {
                     <p class="text-danger ">Campos obligatorios *</p>
                     <form class="FormulariosAjax" action="<?php echo SERVERURL; ?>ajax/expedienteAjax.php" method="POST" data-form="save" autocomplete="off">
                         <div class="row">
-                           
-                       
-                      
                         <div class="col-sm-12">
                           <h5 class="font-weight-bold text-uppercase" >Datos del denunciante</h5>
                             <hr>

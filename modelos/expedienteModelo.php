@@ -6,50 +6,80 @@ class expedienteModelo extends mainModel2
     protected static function agregar_proceso_denuncia_modelo($datos)
     {
         //Insert Denunciante
-        $sqlD = mainModel2::conectar()->prepare("INSERT INTO tbl_denuncuantes(municipio_id,sexo_id,nombre,identidad) VALUES (:municipioD,:generoD,:nombre_denunciante,:identidad_denunciante)");
-        $sqlD->bindParam(":nombre_denunciante", $datos['nombre_denunciante']);
-        $sqlD->bindParam(":identidad_denunciante", $datos['identidad_denunciante']);
-        $sqlD->bindParam(":generoD", $datos['generoD']);
-        $sqlD->bindParam(":deptoD", $datos['deptoD']);
-        $sqlD->bindParam(":municipioD", $datos['municipioD']);
-        $sqlD->execute();
-        /*Por hacer: Consulta para traer el ultimo denunciante*/
+         $sql = mainModel2::conectar()->prepare('INSERT INTO tbl_denunciantes(municipio_id,sexo_id,nombre,identidad) VALUES (:municipioD,:generoD,:nombre_denunciante,:identidad_denunciante)');
+        $sql->bindParam(':municipioD', $datos['municipioD']);
+        $sql->bindParam(':generoD', $datos['generoD']);
+        $sql->bindParam(':nombre_denunciante', $datos['nombre_denunciante']);
+        $sql->bindParam(':identidad_denunciante', $datos['identidad_denunciante']);
+        $sql->execute();
+        /*Por hacer: Consulta para traer el ultimo denunciante*/ 
 
-        $sqlUD = mainModel2::conectar()->prepare("SELECT MAX(denunciante_id) FROM tbl_denunciantes");
-        $sqlUD->execute();
+         $sql =mainModel2::ejecutar_consulta_simple('SELECT denunciante_id FROM tbl_denunciantes ORDER BY denunciante_id DESC LIMIT 1');
+         $campos = $sql->fetch();
+         $denunciante_id = $campos['denunciante_id'];
+       
 
         //Insert Investigado
-        $sqlI = mainModel2::conectar()->prepare("INSERT INTO tbl_investigados(municipio_id,sexo_id,grado_id,nombre,identidad,edad,lug_asignacion) VALUES (:municipioD,:generoD,:grado,:nombre_investigado,:identidad_investigado,:EdadI,:lugarAsignacion)");
-        $sqlI->bindParam(":nombre_investigado", $datos['nombre_investigado']);
-        $sqlI->bindParam(":identidad_investigado", $datos['identidad_investigado']);
-        $sqlI->bindParam(":generoI", $datos['generoI']);
-        $sqlI->bindParam(":deptoD", $datos['deptoI']);
-        $sqlI->bindParam(":municipioI", $datos['municipioI']);
-        $sqlI->bindParam(":EdadI", $datos['EdadI']);
-        $sqlI->bindParam(":grado", $datos['grado']);
-        $sqlI->bindParam(":lugarAsignacion", $datos['lugarAsignacion']);
-        $sqlI->execute();
+        $sql = mainModel2::conectar()->prepare('INSERT INTO tbl_investigados(municipio_id,sexo_id,grado_id,nombre,identidad,edad,lug_asignacion) VALUES (:municipioI,:generoI,:grado,:nombre_investigado,:identidad_investigado,:EdadI,:lugarAsignacion)');
+        $sql->bindParam(':municipioI', $datos['municipioI']);
+        $sql->bindParam(':generoI', $datos['generoI']);
+        $sql->bindParam(':grado', $datos['grado']);
+        $sql->bindParam(':nombre_investigado', $datos['nombre_investigado']);
+        $sql->bindParam(':identidad_investigado', $datos['identidad_investigado']);
+        $sql->bindParam(':EdadI', $datos['EdadI']);
+        $sql->bindParam(':lugarAsignacion', $datos['lugarAsignacion']);
+        $sql->execute();
         /*Por hacer: Consulta para traer el ultimo investidado*/
 
-        $sqlUI = mainModel2::conectar()->prepare("SELECT MAX(investigado_id) FROM tbl_investigados");
-        $sqlUI->execute();
+        $sql =mainModel2::ejecutar_consulta_simple('SELECT investigado_id FROM tbl_investigados ORDER BY investigado_id DESC LIMIT 1');
+        $campos = $sql->fetch();
+        $investigado_id = $campos['investigado_id'];
 
         //Insert Expediente
-        $sqlExp = mainModel2::conectar()->prepare("INSERT INTO tbl_exp(tipo_ingreso_id, denunciante_id, investigado_id, municipio_id,tipo_falta_id,est_proceso_id,num_exp,fec_inicio_exp,fec_final_exp,fec_final_invest_pre,fec_final_invest) VALUES (:tipoIngreso,:denunciante,:investigado,:municipioI,:tipo_falta,:est_proceso_id,:n_exp,:fecha_inicio_exp,:fecha_final_exp,:fecha_final_i_pre,:fecha_final_i)");
-        $sqlExp->bindParam(":n_exp", $datos['n_exp']);
-        $sqlExp->bindParam(":denunciante", $sqlUD);
-        $sqlExp->bindParam(":investigado", $sqlUI);
-        $sqlExp->bindParam(":tipoIngreso", $datos['tipoIngreso']);
-        $sqlExp->bindParam(":tipo_falta", $datos['tipo_falta']);
-        $sqlExp->bindParam(":fecha_inicio_exp", $datos['fecha_inicio_exp']);
-        $sqlExp->bindParam(":fecha_final_exp", $datos['fecha_final_exp']);
-        $sqlExp->bindParam(":fecha_final_i_pre", $datos['fecha_final_i_pre']);
-        $sqlExp->bindParam(":fecha_final_i", $datos['fecha_final_i']);
-        $sqlExp->bindParam(":est_proceso_id", $datos['est_proceso_id']);
-        $sqlExp->bindParam(":municipioI", $datos['municipioI']);
-        $sqlExp->execute();
-        return $sqlExp;
+        $sql = mainModel2::conectar()->prepare('INSERT INTO tbl_exp(tipo_ingreso_id, denunciante_id, investigado_id, municipio_id,tipo_falta_id,est_proceso_id,num_exp,fec_inicio_exp,fec_final_exp,fec_final_invest_pre,fec_final_invest,hechos) VALUES (:tipoIngreso,:denunciante,:investigado,:municipioI,:tipo_falta,:est_proceso_id,:n_exp,:fecha_inicio_exp,:fecha_final_exp,:fecha_final_i_pre,:fecha_final_i,:hechos)');
+        $sql->bindParam(':tipoIngreso', $datos['tipoIngreso']);
+        $sql->bindParam(':denunciante', $denunciante_id);
+        $sql->bindParam(':investigado', $investigado_id);
+        $sql->bindParam(':municipioI', $datos['municipioI']);
+        $sql->bindParam(':tipo_falta', $datos['tipo_falta']);
+        $sql->bindParam(':est_proceso_id', $datos['est_proceso_id']);
+        $sql->bindParam(':n_exp', $datos['n_exp']);
+        $sql->bindParam(':fecha_inicio_exp', $datos['fecha_inicio_exp']);
+        $sql->bindParam(':fecha_final_exp', $datos['fecha_final_exp']);
+        $sql->bindParam(':fecha_final_i_pre', $datos['fecha_final_i_pre']);
+        $sql->bindParam(':fecha_final_i', $datos['fecha_final_i']);
+        $sql->bindParam(':hechos', $datos['hechos']);
+        $sql->execute();
+        return $sql;
     }
+    protected static function agregar_exp_art_modelo($exp_id, $articulo)
+    {
+        foreach ($articulo as $a) {
+            $sql = mainModel2::conectar()->prepare('INSERT INTO tbl_exp_art (exp_id, articulo_id) VALUES (:exp_id,:art_id)');
+            $sql->bindParam(':exp_id', $exp_id);
+            $sql->bindParam(':art_id', $a);
+            $sql->execute();
+        }
+        return $sql;
+    }
+    protected static function agregar_exp_usu_modelo($exp_id, $usu_id)
+    {
+        $sql = mainModel2::conectar()->prepare("INSERT INTO tbl_exp_usuario(exp_id, usuario_id) VALUES (:exp_id,:usu_id)");
+        $sql->bindParam(":exp_id", $exp_id);
+        $sql->bindParam(":usu_id", $usu_id);
+        $sql->execute();
+        return $sql;
+    }
+    protected static function agregar_bit_fec_cono_modelo($exp_id, $fecha_inicio_exp, $proceso_id)
+    {
+        $sql = mainModel2::conectar()->prepare("INSERT INTO tbl_bitacora_fechas(exp_id,fec_conocimiento, proceso_id) VALUES (:exp_id,:fec_conocimiento,:proceso_id)");
+        $sql->bindParam(":exp_id", $exp_id);
+        $sql->bindParam(":fec_conocimiento", $fecha_inicio_exp);
+        $sql->bindParam(":proceso_id", $proceso_id);
+        $sql->execute();
+        return $sql;
+    }
+  
     /* Modelo agregar usuario*/
     protected static function agregar_proceso_emision_modelo($datos)
     {
@@ -433,33 +463,8 @@ class expedienteModelo extends mainModel2
 
         return $sql2;
     }
-    protected static function agregar_bit_fec_cono_modelo($exp_id, $fecha_inicio_exp, $proceso_id)
-    {
-        $sql = mainModel2::conectar()->prepare("INSERT INTO tbl_bitacora_fechas(exp_id,fec_conocimiento, proceso_id) VALUES (:exp_id,:fec_conocimiento,:proceso_id)");
-        $sql->bindParam(":exp_id", $exp_id);
-        $sql->bindParam(":fec_conocimiento", $fecha_inicio_exp);
-        $sql->bindParam(":proceso_id", $proceso_id);
-        $sql->execute();
-        return $sql;
-    }
-    protected static function agregar_exp_usu_modelo($exp_id, $usu_id)
-    {
-        $sql = mainModel2::conectar()->prepare("INSERT INTO tbl_exp_usu(exp_id, usu_id) VALUES (:exp_id,:usu_id)");
-        $sql->bindParam(":exp_id", $exp_id);
-        $sql->bindParam(":usu_id", $usu_id);
-        $sql->execute();
-        return $sql;
-    }
-    protected static function agregar_exp_art_modelo($exp_id, $articulo)
-    {
-        foreach ($articulo as $a) {
-            $sql = mainModel2::conectar()->prepare("INSERT INTO tbl_exp_art (exp_id, art_id) VALUES (:exp_id,:art_id)");
-            $sql->bindParam(":exp_id", $exp_id);
-            $sql->bindParam(":art_id", $a);
-            $sql->execute();
-        }
-        return $sql;
-    }
+   
+
     /* Modelo datos del exp*/
     protected static function datos_expediente_modelo($tipo, $id)
     {

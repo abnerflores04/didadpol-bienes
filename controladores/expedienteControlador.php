@@ -10,30 +10,29 @@ class expedienteControlador extends expedienteModelo
     public function agregar_proceso_denuncia_controlador()
     {
         //datos del denunciante
-        $nombreD = mainModel2::limpiar_cadena($_POST['nombre_d_reg']);
+        $nombreD =  strtoupper(mainModel2::limpiar_cadena($_POST['nom_d_reg']));
         $identidadD = mainModel2::limpiar_cadena($_POST['identidad_d_reg']);
         $sexoD = mainModel2::limpiar_cadena($_POST['sexo_d_reg']);
-        $deptoD = mainModel2::limpiar_cadena($_POST['depto_d_reg']);
+
         $municipioD = mainModel2::limpiar_cadena($_POST['municipio_d_reg']);
         //datos del investigado y expediente
-        $nExp = mainModel2::limpiar_cadena($_POST['n_exp_reg']);
+        $nExp =  strtoupper(mainModel2::limpiar_cadena($_POST['n_exp_reg']));
         $fecInicioExp = $_POST['fec_i_exp_reg'];
-        $nombreI = mainModel2::limpiar_cadena($_POST['investigado']);
-        $identidadI= mainModel2::limpiar_cadena($_POST['rango_id_reg']);
+        $nombreI =  strtoupper(mainModel2::limpiar_cadena($_POST['nom_i_reg']));
+        $identidadI= mainModel2::limpiar_cadena($_POST['identidad_i_reg']);
         $edad = mainModel2::limpiar_cadena($_POST['edad_i_reg']);
         $sexoI = mainModel2::limpiar_cadena($_POST['sexo_i_reg']);
         $grado = mainModel2::limpiar_cadena($_POST['grado_reg']);
-        $lugarAsig = mainModel2::limpiar_cadena($_POST['lugar_asig_reg']);
-        $deptoI = mainModel2::limpiar_cadena($_POST['depto_i_reg']);
+        $lugarAsig =  strtoupper(mainModel2::limpiar_cadena($_POST['lugar_asig_reg']));
         $municipioI = mainModel2::limpiar_cadena($_POST['municipio_i_reg']);
         $tipoFalta = mainModel2::limpiar_cadena($_POST['tipo_falta_reg']);
         $articulo = $_POST['articulos_reg'];
         $tipoIngreso = mainModel2::limpiar_cadena($_POST['tipo_ingreso_reg']);
-        $hechos = mainModel2::limpiar_cadena($_POST['hechos_reg']);
+        $hechos =  strtoupper(mainModel2::limpiar_cadena($_POST['hechos_reg']));
         $procesoId = 1;
         $estado = 1;
         /*comprobar campos vacios*/
-        if ($sexoD == "" ||  $deptoD == "" ||  $municipioD == "" ||  $nExp == "" ||  $fecInicioExp == "" || $nombreI == ""  ||   $identidadI == "" ||   $sexoI == "" ||   $grado == "" || $deptoI == "" ||  $municipioI == ""  ||    $tipoFalta == "" ||  $tipoIngreso == "") {
+        if ($sexoD == "" ||  $municipioD == "" ||  $nExp == "" ||  $fecInicioExp == "" || $nombreI == ""  ||   $identidadI == "" ||   $sexoI == "" ||   $grado == ""  ||  $municipioI == ""  ||    $tipoFalta == "" ||  $tipoIngreso == "") {
             $alerta = [
                 "Alerta" => "simple",
                 "Titulo" => "OCURRIÓ UN ERROR INESPERADO",
@@ -132,30 +131,28 @@ class expedienteControlador extends expedienteModelo
 
         $datosExpedienteReg = [
             //Datos denunciante
-            "nombre_denunciante" => $nombreD,
-            "identidad_denunciante" => $identidadD,
-            "generoD" => $sexoD,
-            "deptoD" => $deptoD,
-            "municipioD" => $municipioD,
+            'municipioD' => $municipioD,
+            'generoD' => $sexoD,
+            'nombre_denunciante' => $nombreD,
+            'identidad_denunciante' => $identidadD,
             //Datos Investigado
-            "nombre_investigado" => $nombreI,
-            "identidad_investigado" => $identidadI,
-            "EdadI" => $edad,
-            "generoI" => $sexoI,
-            "grado" => $grado,
-            "lugarAsignacion" => $lugarAsig,
-            "deptoI" => $deptoI,
-            "municipioI" => $municipioI,
+            'municipioI' => $municipioI,
+            'generoI' => $sexoI,
+            'grado' => $grado,
+            'nombre_investigado' => $nombreI,
+            'identidad_investigado' => $identidadI,
+            'EdadI' => $edad,
+            'lugarAsignacion' => $lugarAsig,
             //Datos Expediente
-            "n_exp" => $nExp,
-            "tipo_falta" => $tipoFalta,
-            "tipoIngreso" => $tipoIngreso,
-            "fecha_inicio_exp" => $fecInicioExp,
-            "fecha_final_exp" => $fecFinalExp,
-            "fecha_final_i_pre" => $fecFinalIPre,
-            "fecha_final_i" => $fecFinalI,
-            "est_proceso_id" => $estado,
-            "hechos" => $hechos
+            'n_exp' => $nExp,
+            'tipo_falta' => $tipoFalta,
+            'tipoIngreso' => $tipoIngreso,
+            'fecha_inicio_exp' => $fecInicioExp,
+            'fecha_final_exp' => $fecFinalExp,
+            'fecha_final_i_pre' => $fecFinalIPre,
+            'fecha_final_i' => $fecFinalI,
+            'est_proceso_id' => $estado,
+            'hechos'=>$hechos
         ];
 
         $agregarExpediente =  expedienteModelo::agregar_proceso_denuncia_modelo($datosExpedienteReg);
