@@ -5,23 +5,50 @@ class expedienteModelo extends mainModel2
     /* Modelo agregar usuario*/
     protected static function agregar_proceso_denuncia_modelo($datos)
     {
-        $sql = mainModel2::conectar()->prepare("INSERT INTO tbl_exp(nombre_denunciante, identidad_denunciante, genero_id, depto_id, municipio_id, num_exp, nombre_investigado, rango_id, tipo_falta_id, fecha_inicio_exp, fecha_final_exp, fecha_final_i_pre, fecha_final_i,est_proceso_id) VALUES (:nombre_denunciante,:identidad_denunciante,:genero,:depto,:municipio,:n_exp,:nombre_investigado,:rango,:tipo_falta,:fecha_inicio_exp,:fecha_final_exp,:fecha_final_i_pre,:fecha_final_i,:est_proceso_id)");
-        $sql->bindParam(":nombre_denunciante", $datos['nombre_denunciante']);
-        $sql->bindParam(":identidad_denunciante", $datos['identidad_denunciante']);
-        $sql->bindParam(":genero", $datos['genero']);
-        $sql->bindParam(":depto", $datos['depto']);
-        $sql->bindParam(":municipio", $datos['municipio']);
-        $sql->bindParam(":n_exp", $datos['n_exp']);
-        $sql->bindParam(":nombre_investigado", $datos['nombre_investigado']);
-        $sql->bindParam(":rango", $datos['rango']);
-        $sql->bindParam(":tipo_falta", $datos['tipo_falta']);
-        $sql->bindParam(":fecha_inicio_exp", $datos['fecha_inicio_exp']);
-        $sql->bindParam(":fecha_final_exp", $datos['fecha_final_exp']);
-        $sql->bindParam(":fecha_final_i_pre", $datos['fecha_final_i_pre']);
-        $sql->bindParam(":fecha_final_i", $datos['fecha_final_i']);
-        $sql->bindParam(":est_proceso_id", $datos['est_proceso_id']);
-        $sql->execute();
-        return $sql;
+        //Insert Denunciante
+        $sqlD = mainModel2::conectar()->prepare("INSERT INTO tbl_denuncuantes(municipio_id,sexo_id,nombre,identidad) VALUES (:municipioD,:generoD,:nombre_denunciante,:identidad_denunciante)");
+        $sqlD->bindParam(":nombre_denunciante", $datos['nombre_denunciante']);
+        $sqlD->bindParam(":identidad_denunciante", $datos['identidad_denunciante']);
+        $sqlD->bindParam(":generoD", $datos['generoD']);
+        $sqlD->bindParam(":deptoD", $datos['deptoD']);
+        $sqlD->bindParam(":municipioD", $datos['municipioD']);
+        $sqlD->execute();
+        /*Por hacer: Consulta para traer el ultimo denunciante*/
+
+        $sqlUD = mainModel2::conectar()->prepare("SELECT MAX(denunciante_id) FROM tbl_denunciantes");
+        $sqlUD->execute();
+
+        //Insert Investigado
+        $sqlI = mainModel2::conectar()->prepare("INSERT INTO tbl_investigados(municipio_id,sexo_id,grado_id,nombre,identidad,edad,lug_asignacion) VALUES (:municipioD,:generoD,:grado,:nombre_investigado,:identidad_investigado,:EdadI,:lugarAsignacion)");
+        $sqlI->bindParam(":nombre_investigado", $datos['nombre_investigado']);
+        $sqlI->bindParam(":identidad_investigado", $datos['identidad_investigado']);
+        $sqlI->bindParam(":generoI", $datos['generoI']);
+        $sqlI->bindParam(":deptoD", $datos['deptoI']);
+        $sqlI->bindParam(":municipioI", $datos['municipioI']);
+        $sqlI->bindParam(":EdadI", $datos['EdadI']);
+        $sqlI->bindParam(":grado", $datos['grado']);
+        $sqlI->bindParam(":lugarAsignacion", $datos['lugarAsignacion']);
+        $sqlI->execute();
+        /*Por hacer: Consulta para traer el ultimo investidado*/
+
+        $sqlUI = mainModel2::conectar()->prepare("SELECT MAX(investigado_id) FROM tbl_investigados");
+        $sqlUI->execute();
+
+        //Insert Expediente
+        $sqlExp = mainModel2::conectar()->prepare("INSERT INTO tbl_exp(tipo_ingreso_id, denunciante_id, investigado_id, municipio_id,tipo_falta_id,est_proceso_id,num_exp,fec_inicio_exp,fec_final_exp,fec_final_invest_pre,fec_final_invest) VALUES (:tipoIngreso,:denunciante,:investigado,:municipioI,:tipo_falta,:est_proceso_id,:n_exp,:fecha_inicio_exp,:fecha_final_exp,:fecha_final_i_pre,:fecha_final_i)");
+        $sqlExp->bindParam(":n_exp", $datos['n_exp']);
+        $sqlExp->bindParam(":denunciante", $sqlUD);
+        $sqlExp->bindParam(":investigado", $sqlUI);
+        $sqlExp->bindParam(":tipoIngreso", $datos['tipoIngreso']);
+        $sqlExp->bindParam(":tipo_falta", $datos['tipo_falta']);
+        $sqlExp->bindParam(":fecha_inicio_exp", $datos['fecha_inicio_exp']);
+        $sqlExp->bindParam(":fecha_final_exp", $datos['fecha_final_exp']);
+        $sqlExp->bindParam(":fecha_final_i_pre", $datos['fecha_final_i_pre']);
+        $sqlExp->bindParam(":fecha_final_i", $datos['fecha_final_i']);
+        $sqlExp->bindParam(":est_proceso_id", $datos['est_proceso_id']);
+        $sqlExp->bindParam(":municipioI", $datos['municipioI']);
+        $sqlExp->execute();
+        return $sqlExp;
     }
     /* Modelo agregar usuario*/
     protected static function agregar_proceso_emision_modelo($datos)

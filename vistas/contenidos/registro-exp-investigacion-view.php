@@ -151,10 +151,10 @@ if (!isset($_SESSION['id_spm'])) {
                                         <option value="">Seleccione sexo:</option>
                                         <?php
                                         require_once './modelos/conectar.php';
-                                        $resultado = $conexion->query("SELECT * FROM tbl_genero");
+                                        $resultado = $conexion->query("SELECT * FROM tbl_sexos");
 
                                         while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
-                                            echo '<option value="' . $registro["genero_id"] . '">' . $registro["genero_descrip"] . '</option>';
+                                            echo '<option value="' . $registro["sexo_id"] . '">' . $registro["descripcion"] . '</option>';
                                         }
                                         ?>
                                     </select>
@@ -166,10 +166,10 @@ if (!isset($_SESSION['id_spm'])) {
                                     <select class="form-control" name="grado_reg" id="grado_reg" required>
                                         <option value="">Seleccione grado</option>
                                         <?php
-                                        $resultado = $conexion->query("SELECT * FROM tbl_rango");
+                                        $resultado = $conexion->query("SELECT * FROM tbl_grados");
 
                                         while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
-                                            echo '<option value="' . $registro["rango_id"] . '">' . $registro["rango_descripcion"] . '</option>';
+                                            echo '<option value="' . $registro["grado_id"] . '">' . $registro["nom_grado"] . '</option>';
                                         }
                                         ?>
                                     </select>
@@ -188,10 +188,10 @@ if (!isset($_SESSION['id_spm'])) {
                                     <select class="form-control" name="depto_i_reg" id="lista_di" required>
                                         <option value="">Seleccione departamento</option>
                                         <?php
-                                        $resultado = $conexion->query("SELECT * FROM tbl_depto");
+                                        $resultado = $conexion->query("SELECT * FROM tbl_deptos");
 
                                         while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
-                                            echo '<option value="' . $registro["depto_id"] . '">' . $registro["depto_nombre"] . '</option>';
+                                            echo '<option value="' . $registro["depto_id"] . '">' . $registro["nombre"] . '</option>';
                                         }
                                         ?>
                                     </select>
@@ -216,10 +216,10 @@ if (!isset($_SESSION['id_spm'])) {
                                         <?php
 
                                         require_once './modelos/conectar.php';
-                                        $resultado = $conexion->query("SELECT * FROM tbl_tipo_falta");
+                                        $resultado = $conexion->query("SELECT * FROM tbl_tipofaltas");
 
                                         while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
-                                            echo '<option value="' . $registro["tipo_falta_id"] . '">' . $registro["tipo_falta_descrip"] . '</option>';
+                                            echo '<option value="' . $registro["tipo_falta_id"] . '">' . $registro["tipo_falta"] . '</option>';
                                         }
                                         ?>
                                     </select>
@@ -238,9 +238,9 @@ if (!isset($_SESSION['id_spm'])) {
                                     <select class="form-control" name="tipo_ingreso_reg" id="tipo_ingreso_reg">
                                         <option value="">Seleccione tipo ingreso de la denuncia</option>
                                         <?php
-                                        $resultado = $conexion->query("SELECT * FROM tbl_tipo_falta");
+                                        $resultado = $conexion->query("SELECT * FROM tbl_tipoingresos");
                                         while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
-                                            echo '<option value="' . $registro["tipo_falta_id"] . '">' . $registro["tipo_falta_descrip"] . '</option>';
+                                            echo '<option value="' . $registro["tipo_ingreso_id"] . '">' . $registro["tipo_ingreso"] . '</option>';
                                         }
                                         ?>
                                     </select>
