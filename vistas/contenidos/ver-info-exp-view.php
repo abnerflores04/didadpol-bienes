@@ -15,7 +15,7 @@ if (!isset($_SESSION['id_spm'])) {
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                        <li class="breadcrumb-item"><a href="/didadpol-bienes/home/">Inicio</a></li>
                         <li class="breadcrumb-item active">Ver información del expediente</li>
                     </ol>
                 </div>
@@ -71,7 +71,7 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col-sm-6" id="contenedor2">
                                     <div class="form-group">
                                         <label>Identidad</label>
-                                        <input type="text" class="form-control" name="identidad_d_up" id="identidad_d_up" value="<?php echo $campos['identidad_denunciante']; ?>" readonly>
+                                        <input type="text" class="form-control" name="identidad_d_up" id="identidad_d_up" value="<?php echo $campos['id_d']; ?>" readonly>
 
                                     </div>
                                 </div>
@@ -82,13 +82,13 @@ if (!isset($_SESSION['id_spm'])) {
                                             <option value="">Seleccione sexo:</option>
                                             <?php
                                             require_once './modelos/conectar.php';
-                                            $resultado = $conexion->query("SELECT * FROM tbl_genero");
+                                            $resultado = $conexion->query("SELECT * FROM tbl_sexos");
                                             while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
                                             ?>
-                                                <option value="<?php echo $registro['genero_id']; ?>" <?php if ($registro['genero_id'] == $campos['genero_id']) {
+                                                <option value="<?php echo $registro['sexo_id']; ?>" <?php if ($registro['sexo_id'] == $campos['sex_d']) {
                                                                                                             echo 'selected';
                                                                                                         }
-                                                                                                        ?>><?php echo $registro['genero_descrip']; ?></option>
+                                                                                                        ?>><?php echo $registro['descripcion']; ?></option>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -101,13 +101,13 @@ if (!isset($_SESSION['id_spm'])) {
 
                                             <option value="">Seleccione departamento</option>
                                             <?php
-                                            $resultado = $conexion->query("SELECT * FROM tbl_depto");
+                                            $resultado = $conexion->query("SELECT * FROM tbl_deptos d LEFT JOIN tbl_municipios m ON d.depto_id = m.depto_id");
                                             while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
                                             ?>
-                                                <option value="<?php echo $registro['depto_id']; ?>" <?php if ($registro['depto_id'] == $campos['depto_id']) {
+                                                <option value="<?php echo $registro['tbl_deptos.depto_id']; ?>" <?php if ($registro['municipio_id'] == $campos['mun_d']) {
                                                                                                             echo 'selected';
                                                                                                         }
-                                                                                                        ?>><?php echo $registro['depto_nombre']; ?></option>
+                                                                                                        ?>><?php echo $registro['tbl_deptos.nombre']; ?></option>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -119,13 +119,13 @@ if (!isset($_SESSION['id_spm'])) {
                                         <select class="form-control" name="municipio_up" id="municipio" disabled>
                                             <option value="">Seleccione municipio</option>
                                             <?php
-                                            $resultado = $conexion->query("SELECT * FROM tbl_municipio");
+                                            $resultado = $conexion->query("SELECT * FROM tbl_municipios");
                                             while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
                                             ?>
-                                                <option value="<?php echo $registro['municipio_id']; ?>" <?php if ($registro['municipio_id'] == $campos['municipio_id']) {
+                                                <option value="<?php echo $registro['municipio_id']; ?>" <?php if ($registro['municipio_id'] == $campos['mun_d']) {
                                                                                                                 echo 'selected';
                                                                                                             }
-                                                                                                            ?>><?php echo $registro['municipio_nombre']; ?></option>
+                                                                                                            ?>><?php echo $registro['nombre']; ?></option>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -146,16 +146,23 @@ if (!isset($_SESSION['id_spm'])) {
                                 </div>
 
                                 <div class="col-sm-6">
+                                    <label>Tipo de caso<span class="text-danger">*</span></label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" autocomplete="off" style="text-transform:uppercase" class="form-control" placeholder="Tipo de caso" name="tipo_caso_up" id="tipo_casoreg" value="<?php echo $campos['tipo_exp']; ?>" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Fecha conocimiento DIDADPOL<span class="text-danger">*</label>
-                                        <input type="date" autocomplete="off" class="form-control" value="<?php echo $campos['fecha_inicio_exp']; ?>" name="fecha_inicio_exp_up" readonly>
+                                        <input type="date" autocomplete="off" class="form-control" value="<?php echo $campos['fec_inicio_exp']; ?>" name="fecha_inicio_exp_up" readonly>
                                     </div>
                                 </div>
 
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Fecha final expediente<span class="text-danger">*</label>
-                                        <input type="date" autocomplete="off" class="form-control" name="fecha_final_exp_up" id="fecha_final_exp_up" value="<?php echo $campos['fecha_final_exp']; ?>" readonly>
+                                        <input type="date" autocomplete="off" class="form-control" name="fecha_final_exp_up" id="fecha_final_exp_up" value="<?php echo $campos['fec_final_exp']; ?>" readonly>
                                     </div>
                                 </div>
 
@@ -174,13 +181,13 @@ if (!isset($_SESSION['id_spm'])) {
                                         <select class="form-control" name="investigador_up" id="investigador_up" disabled>
                                             <option value="">Seleccione investigador</option>
                                             <?php
-                                            $resultado = $conexion->query("SELECT * FROM tbl_usuario WHERE rol_id=2");
+                                            $resultado = $conexion->query("SELECT * FROM tbl_usuarios WHERE rol_id=2");
                                             while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
                                             ?>
-                                                <option value="<?php echo $registro['usu_id']; ?>" <?php if ($registro['usu_id'] == $campos['investigador_id']) {
+                                                <option value="<?php echo $registro['usuario_id']; ?>" <?php if ($registro['usuario_id'] == $campos['investigador_id']) {
                                                                                                         echo 'selected';
                                                                                                     }
-                                                                                                    ?>><?php echo $registro['usu_nombre'] . " " . $registro['usu_apellido']; ?></option>
+                                                                                                    ?>><?php echo $registro['nombre'] . " " . $registro['apellido']; ?></option>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -189,19 +196,19 @@ if (!isset($_SESSION['id_spm'])) {
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Fecha inicial de investigación<span class="text-danger">*</label>
-                                        <input type="date" autocomplete="off" class="form-control" name="fecha_inicio_i_up" id="fecha_inicio_i_up" value="<?php echo $campos['fecha_inicio_i']; ?>" readonly>
+                                        <input type="date" autocomplete="off" class="form-control" name="fecha_inicio_i_up" id="fecha_inicio_i_up" value="<?php echo $campos['fec_inicio_invest']; ?>" readonly>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Fecha finalizacion de expediente preliminar<span class="text-danger">*</label>
-                                        <input type="date" autocomplete="off" class="form-control" name="fecha_final_i_pre_up" id="fecha_final_i_pre_up" value="<?php echo $campos['fecha_final_i_pre']; ?>" readonly>
+                                        <input type="date" autocomplete="off" class="form-control" name="fecha_final_i_pre_up" id="fecha_final_i_pre_up" value="<?php echo $campos['fec_final_invest_pre']; ?>" readonly>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Fecha finalizacion investigación<span class="text-danger">*</label>
-                                        <input type="date" autocomplete="off" class="form-control" name="fecha_final_i_up" id="fecha_final_i_up" value="<?php echo $campos['fecha_final_i']; ?>" readonly>
+                                        <input type="date" autocomplete="off" class="form-control" name="fecha_final_i_up" id="fecha_final_i_up" value="<?php echo $campos['fec_final_invest']; ?>" readonly>
                                     </div>
                                 </div>
 

@@ -83,7 +83,7 @@ class expedienteModelo extends mainModel2
    protected static function datos_expediente_modelo($tipo, $id)
    {
        if ($tipo == "Unico") {
-           $sql = mainModel2::conectar()->prepare("SELECT td.denunciante_id,td.municipio_id mun_d, td.sexo_id sex_d, td.nombre nom_d, td.identidad id_d, ti.investigado_id,ti.municipio_id mun_i, ti.sexo_id sex_i, ti.nombre nom_i, ti.identidad id_i FROM tbl_exp te inner join tbl_denunciantes td on te.denunciante_id=td.denunciante_id inner join tbl_investigados ti on te.investigado_id=ti.investigado_id WHERE te.exp_id=:id");
+           $sql = mainModel2::conectar()->prepare("SELECT td.denunciante_id,td.municipio_id mun_d, td.sexo_id sex_d, td.nombre nom_d, td.identidad id_d, ti.investigado_id,ti.municipio_id mun_i, ti.sexo_id sex_i, ti.nombre nom_i, ti.identidad id_i, te.num_exp, te.fec_inicio_exp, te.fec_final_exp, te.fec_inicio_invest, te.fec_final_invest_pre, te.fec_final_invest, te.investigador_id, te.tecnico_legal_id, tte.tipo_exp FROM tbl_exp te INNER JOIN tbl_denunciantes td on te.denunciante_id=td.denunciante_id INNER JOIN tbl_investigados ti on te.investigado_id=ti.investigado_id LEFT JOIN tbl_usuarios u on u.usuario_id = te.investigador_id LEFT JOIN tbl_usuarios un on un.usuario_id = te.tecnico_legal_id LEFT JOIN tbl_tipoexps tte on tte.tipo_exp_id = te.tipo_exp_id  WHERE te.exp_id=:id");
            $sql->bindParam(":id", $id);
        } elseif ($tipo == "Conteo") {
            $sql = mainModel2::conectar()->prepare("SELECT exp_id FROM tbl_exp");
